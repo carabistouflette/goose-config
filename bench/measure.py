@@ -38,6 +38,7 @@ def main():
     if args.cpu is not None and args.cpu not in os.sched_getaffinity(0):
         parser.error("requested CPU is outside this process's affinity")
     compiler = str(args.goose.resolve())
+    compiler_version = run([compiler, "--version"]).strip()
     harness = (ROOT / "bench/bench.goose").read_bytes()
     directory = ROOT / ".build/paired"
     directory.mkdir(parents=True, exist_ok=True)
@@ -60,6 +61,8 @@ def main():
         binaries[label] = str(binary)
     if pins["before"] != pins["after"]:
         parser.error("paired revisions use different compiler pins")
+    if not compiler_version.startswith(f"goose {pins['after'][:7]} "):
+        parser.error("the provided compiler does not match the pinned source revision")
     measurements = []
     pattern = re.compile(r"^(.+) samples_ns=(\[.*\]) checksum=(-?\d+)$")
     for pair in range(args.pairs):
@@ -81,6 +84,7 @@ def main():
             if len(fixtures) != 16:
                 raise SystemExit(f"expected 16 benchmark fixtures, got {len(fixtures)}")
             measurements.append({"pair": pair, "revision": label, "fixtures": fixtures})
+            print(f"Measured pair {pair + 1}/{args.pairs}: {label}", flush=True)
     # Identical checksums guard behavior across both revisions and every pair.
     first = measurements[0]["fixtures"]
     for measurement in measurements:
@@ -94,7 +98,7 @@ def main():
                 cpu_name = line.split(":", 1)[1].strip()
                 break
     result = {"recorded_utc": datetime.now(timezone.utc).isoformat(), "revisions": revisions,
-              "compiler_revision": pins["after"], "gcc": run(["gcc", "--version"]).splitlines()[0],
+              "compiler_revision": pins["after"], "compiler_version": compiler_version, "gcc": run(["gcc", "--version"]).splitlines()[0],
               "platform": platform.platform(), "cpu": cpu_name, "cpu_affinity": args.cpu,
               "flags": "gcc -O2; -lm -pthread -ldl", "iterations_per_batch": args.iterations,
               "batches": 7, "pairs": args.pairs, "harness_sha256": hashlib.sha256(harness).hexdigest(),
