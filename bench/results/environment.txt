@@ -1,0 +1,15 @@
+measurement_date_local: 2026-11-04 (Europe/Paris)
+measurement_date_utc: 2026-11-03
+source_revision: 0d90a88451d9c7ded0fe4043ae379112367e2e7c
+compiler_revision: eadca409f68210893f366e60d0c2f0dc29a339be
+vendored_toml_revision: 2179e47098a3b8553ad223676d603746cf1fe00c (local hardening documented in vendor/README.md)
+cpu: Intel Core Ultra 7 258V, 8 logical CPUs
+os: Linux 7.2.11-arch1-1, x86_64 GNU/Linux
+native_compiler: gcc (GCC) 16.2.1 20260810
+flags: -O2; linked with -lm -pthread -ldl
+iterations_per_batch: 1000
+batches: 7
+independent_runs: 2
+cpu_affinity: not controlled
+frequency_governor: not controlled
+warmup: schema + initial values before timing; no dedicated warmup loop
