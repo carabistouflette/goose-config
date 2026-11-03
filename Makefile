@@ -1,15 +1,15 @@
 GOOSE ?= .toolchain/goose/build/goose
 BENCH_ITERATIONS ?= 1000
-TESTS = config behavior toml overloads
+TESTS = config behavior toml overloads index ownership
 
-.PHONY: setup format check test property sanitize bench
+.PHONY: setup format check test property security sanitize bench
 setup:
 	./scripts/setup-goose.sh
 format:
 	$(GOOSE) format config.goose toml.goose vendor.goose examples tests bench
 check:
 	$(GOOSE) format --check config.goose toml.goose vendor.goose examples tests bench
-	@set -e; for name in $(TESTS) property; do $(GOOSE) check tests/$$name.goose; done
+	@set -e; for name in $(TESTS) property security; do $(GOOSE) check tests/$$name.goose; done
 	$(GOOSE) check examples/settings.goose
 	$(GOOSE) check bench/bench.goose
 test:
@@ -26,6 +26,11 @@ property:
 	$(GOOSE) build tests/property.goose -o .build/property
 	$(GOOSE) build tests/property.goose --debug --no-bce -o .build/property-debug
 	python3 tests/property.py .build/property .build/property-debug
+security:
+	mkdir -p .build
+	$(GOOSE) build tests/security.goose -o .build/security
+	$(GOOSE) build tests/security.goose --debug --no-bce -o .build/security-debug
+	python3 tests/security.py .build/security .build/security-debug
 sanitize:
 	mkdir -p .build
 	@set -e; for name in $(TESTS); do \
@@ -34,6 +39,8 @@ sanitize:
 	done
 	$(GOOSE) build tests/property.goose --standalone --debug --no-bce --cc ./scripts/sanitizer-cc.sh -o .build/property-sanitized
 	python3 tests/property.py .build/property-sanitized
+	$(GOOSE) build tests/security.goose --standalone --debug --no-bce --cc ./scripts/sanitizer-cc.sh -o .build/security-sanitized
+	python3 tests/security.py .build/security-sanitized
 bench:
 	mkdir -p .build
 	$(GOOSE) build bench/bench.goose --cc gcc -O2 -o .build/bench

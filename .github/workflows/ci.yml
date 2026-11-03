@@ -14,6 +14,6 @@ jobs:
           path: .toolchain
           key: goose-${{ runner.os }}-${{ hashFiles('GOOSE_REVISION', 'scripts/setup-goose.sh') }}
       - run: make setup
-      - run: make check test property sanitize
+      - run: make check test property security sanitize
       - run: make bench BENCH_ITERATIONS=10
       - run: git diff --exit-code
