@@ -10,7 +10,7 @@ with imperative subjects: `feat: add ...`, `fix: reject ...`, `test: cover ...`,
 working milestones regularly. No stability guarantee exists before 1.0.
 
 Add public API regressions for behavior changes. Run `make format`,
-`make check test property sanitize`, `make bench BENCH_ITERATIONS=100`, and
+`make check test property security sanitize`, `make bench BENCH_ITERATIONS=100`, and
 `git diff --check`. Request independent correctness, security, and performance
 reviews at milestones; fix actionable findings and keep CI passing. Never commit
 credentials, generated compilers/build output, or private workspace notes.

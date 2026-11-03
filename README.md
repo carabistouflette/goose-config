@@ -120,7 +120,9 @@ destroyed after the call. Scalar getters return independent values. `get_text`
 and `source` return read-only borrowed views: keep the store alive and do not
 mutate it while using them. Goose checks these lifetimes. Borrowed views can be
 used solely as the next override's inputs: the transaction stages all data
-before replacing the previous arena. Reinitialization invalidates old views.
+before replacing the previous arena. Schema keys, TOML text, and TOML source
+labels may likewise borrow old store storage solely as inputs to their next initialization/update: they are staged
+before replacement. Reinitialization invalidates old views.
 
 Failed `init`, `apply` and `apply_toml` preserve all values and source labels.
 Successful layers replace only mentioned settings and retain no history.
@@ -133,7 +135,8 @@ Errors escape non-ASCII, control, quote and backslash bytes in key/source labels
 truncate long labels, and never include raw values or TOML text. Diagnostics
 contain printable ASCII and no newline. This is not general secret redaction:
 keys and source labels should not themselves contain secrets. Consumer overload
-regressions protect error construction from global formatting overloads.
+regressions protect error construction and numeric validation from application
+formatting, copy, sizing and growable-buffer parser overloads.
 
 ## Costs and limits
 
@@ -147,10 +150,15 @@ regressions protect error construction from global formatting overloads.
 These deliberately reject some otherwise valid inputs. Limits are immutable
 constants; modifying internal data or the vendored parser is outside the API.
 
-Initialization validates schema conflicts quadratically in field count. Lookup
-is linear, comparing bounded keys. Layer validation performs one lookup per
-entry. Commit uses a fixed field-indexed replacement map, then rebuilds the live
-value arena once to ensure atomic ownership. Even a one-key update copies all
+Initialization validates schema conflicts in quadratic time in field count;
+the sorted index uses bounded merge sort in O(fields × log(fields)) comparisons. Up to eight fields use linear lookup. Wider
+schemas keep a sorted array of field IDs and use deterministic binary search,
+with a fast path for the first declared field. Metadata and validation errors
+retain declaration order. Comparisons skip equal eight-byte prefixes using
+bounds-checked slices; no unaligned casts or hash-table collision assumptions
+are involved. Layer validation performs one bounded lookup per entry; TOML
+table-prefix validation remains linear in schema size. Commit uses a fixed
+field-indexed replacement map, then rebuilds the live value arena once to ensure atomic ownership. Even a one-key update copies all
 current text and source bytes. Persistent logical payload is bounded by
 256 × (4096 + 256) bytes plus at most 256 × 256 key bytes and fixed-size metadata.
 Temporary transaction data adds another live payload; parsing TOML adds its own
@@ -162,7 +170,7 @@ storage can retain high-water capacity. See [benchmarks](bench/README.md).
 
 ```sh
 make setup
-make format check test property sanitize
+make format check test property security sanitize
 make bench BENCH_ITERATIONS=1000
 ```
 
@@ -175,7 +183,10 @@ with other revisions is not guaranteed.
 
 Tests exercise in-process, native, and native debug execution; compile-time
 ownership and consumer overloads; deterministic independent-model checking;
-and AddressSanitizer/UndefinedBehaviorSanitizer. CI smoke-runs benchmarks without
+and 325 hostile-input/resource cases per build, including genuine hash-collision budget rejection with a
+five-second per-document timeout. Rejected layers are checked for preservation
+of every seeded value and source. AddressSanitizer/UndefinedBehaviorSanitizer
+cover behavior, ownership, independent-model and hostile-input suites. CI smoke-runs benchmarks without
 timing thresholds. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 [Apache-2.0](LICENSE). Copyright 2026 goose-config contributors.
