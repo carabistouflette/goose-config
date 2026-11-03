@@ -31,7 +31,7 @@ struct Candidate {
 }
 root struct Store {
     initialized: bool = false, fields: OwnedField[>..], values: Value[>..],
-    keys:        u8[>..], bytes: u8[>..],
+    ordered:     i64[>..], keys: u8[>..], bytes: u8[>..],
 }
 fn view(bytes: const u8[:], span: Span) -> const u8[:] { bytes[span.start..span.start + span.len] }
 fn save(bytes: u8[>..]&, text: const u8[:]) -> Span {
@@ -79,9 +79,40 @@ fn problem(message: const u8[:], key: const u8[:] = "", source: const u8[:] = ""
     out.append(escaped(key)); out.append("', source='"); out.append(escaped(source)); out.append("']");
     out
 }
+// Private byte ordering avoids overloadable comparison helpers. Fixed-size
+// slice comparisons safely skip common prefixes without alignment assumptions.
+fn compare_key(a: const u8[:], b: const u8[:]) -> i64 {
+    let length = if a.len < b.len { a.len } else { b.len };
+    var i = 0;
+    while length - i >= 8 && a[i..i + 8] == b[i..i + 8] { i += 8; }
+    while i < length {
+        if a[i] < b[i] { return -1; }
+        if a[i] > b[i] { return 1; }
+        i++;
+    }
+    if a.len < b.len { return -1; }
+    if a.len > b.len { return 1; }
+    0
+}
 fn locate(store: Store&, key: const u8[:]) -> i64 {
     if key.len > MAX_KEY_BYTES { return -1; }
-    for i in store.fields.len { if view(store.keys, store.fields[i].key) == key { return i; } }
+    // Keep tiny schemas and the first declared key cheap. Wide schemas use
+    // deterministic binary search, including for keys chosen by an attacker.
+    if store.fields.len <= 8 {
+        for i in store.fields.len { if view(store.keys, store.fields[i].key) == key { return i; } }
+        return -1;
+    }
+    if view(store.keys, store.fields[0].key) == key { return 0; }
+    var low = 0;
+    var high = store.ordered.len;
+    while low < high {
+        let middle = low + (high - low) / 2;
+        let id = store.ordered[middle];
+        let order = compare_key(view(store.keys, store.fields[id].key), key);
+        if order == 0 { return id; }
+        if order < 0 { low = middle + 1; }
+        else { high = middle; }
+    }
     -1
 }
 
@@ -107,9 +138,24 @@ fn init(schema: Field[:], store: Store&) -> u8[>..] {
     for f in schema {
         fields.push(OwnedField { f.kind, f.required, f.int_min, f.int_max, f.float_min, f.float_max, save(keys, f.key) });
     }
-    store.values.clear(); store.fields.clear(); store.keys.clear(); store.bytes.clear();
-    store.fields.append(fields); store.keys.append(keys);
-    for f in schema { store.values.push(Value { .. }); }
+    // Stage the index before invalidating old views. Keep metadata and values
+    // in declaration order, so validation diagnostics retain their order.
+    var ordered: i64[>..] = [];
+    let count = fields.len;
+    if count > 8 {
+        for i in count {
+            ordered.push(i);
+            var position = i;
+            while position > 0 && compare_key(view(keys, fields[ordered[position - 1]].key), view(keys, fields[i].key)) > 0 {
+                ordered[position] = ordered[position - 1];
+                position--;
+            }
+            ordered[position] = i;
+        }
+    }
+    store.values.clear(); store.fields.clear(); store.keys.clear(); store.bytes.clear(); store.ordered.clear();
+    store.fields.append(fields); store.keys.append(keys); store.ordered.append(ordered);
+    for i in count { store.values.push(Value { .. }); }
     store.initialized = true;
     []
 }
