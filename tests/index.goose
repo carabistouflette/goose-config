@@ -19,7 +19,7 @@ fn exercise(store: config::Store&, count: i64, prefix_bytes: i64, varied: bool) 
     for i in count { tokens[i][0] = digits[i / 100]; tokens[i][1] = digits[(i / 10) % 10]; tokens[i][2] = digits[i % 10]; }
     var layer: config::Override[>..] = [];
     for j in count {
-        let i = (j * 17) % count;
+        let i = (j + count / 2) % count;
         layer.push(config::Override { keys[i], tokens[i], tokens[i] });
     }
     assert(config::apply(store, layer).len == 0);
@@ -46,5 +46,6 @@ fn main() {
         exercise(store, count, 253, false);
         exercise(store, count, 0, true);
     }
-    print("lookup order and key-boundary tests passed");
+    for count in 257 { exercise(store, count, 0, true); }
+    print("lookup order and key-boundary tests passed for all 257 schema sizes");
 }

@@ -116,6 +116,34 @@ fn locate(store: Store&, key: const u8[:]) -> i64 {
     -1
 }
 
+// Bounded, stable bottom-up merge sort. Sorting only IDs keeps key ownership
+// and declaration order unchanged; scratch is at most 256 machine integers.
+fn order_fields(fields: OwnedField[:], keys: const u8[:], ordered: i64[>..]&) {
+    for i in fields.len { ordered.push(i); }
+    var scratch: i64[MAX_FIELDS] = [0; MAX_FIELDS];
+    var width = 1;
+    while width < fields.len {
+        var start = 0;
+        while start < fields.len {
+            let middle = if start + width < fields.len { start + width } else { fields.len };
+            let end = if start + width * 2 < fields.len { start + width * 2 } else { fields.len };
+            var left = start; var right = middle; var target = start;
+            while left < middle && right < end {
+                let a = ordered[left]; let b = ordered[right];
+                if compare_key(view(keys, fields[a].key), view(keys, fields[b].key)) <= 0 {
+                    scratch[target] = a; left++;
+                } else { scratch[target] = b; right++; }
+                target++;
+            }
+            while left < middle { scratch[target] = ordered[left]; left++; target++; }
+            while right < end { scratch[target] = ordered[right]; right++; target++; }
+            start = end;
+        }
+        for i in fields.len { ordered[i] = scratch[i]; }
+        width *= 2;
+    }
+}
+
 // Atomic initialization: failure preserves the previous store.
 fn init(schema: Field[:], store: Store&) -> u8[>..] {
     if schema.len > MAX_FIELDS { return problem("too many schema fields"); }
@@ -142,17 +170,7 @@ fn init(schema: Field[:], store: Store&) -> u8[>..] {
     // in declaration order, so validation diagnostics retain their order.
     var ordered: i64[>..] = [];
     let count = fields.len;
-    if count > 8 {
-        for i in count {
-            ordered.push(i);
-            var position = i;
-            while position > 0 && compare_key(view(keys, fields[ordered[position - 1]].key), view(keys, fields[i].key)) > 0 {
-                ordered[position] = ordered[position - 1];
-                position--;
-            }
-            ordered[position] = i;
-        }
-    }
+    if count > 8 { order_fields(fields, keys, ordered); }
     store.values.clear(); store.fields.clear(); store.keys.clear(); store.bytes.clear(); store.ordered.clear();
     store.fields.append(fields); store.keys.append(keys); store.ordered.append(ordered);
     for i in count { store.values.push(Value { .. }); }
