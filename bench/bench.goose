@@ -9,9 +9,13 @@ fn report(name: const u8[:], samples: f64[:], checksum: i64) {
     sort(samples);
     print("median=", samples[SAMPLES / 2], " min=", samples[0], " max=", samples[SAMPLES - 1]);
 }
-fn scenario(name: const u8[:], count: i64, fields: i64, width: i64, mode: i64) {
-    var keys: u8[][>..] = [];
-    for i in fields { keys.push(str("field", i)); }
+fn scenario(name: const u8[:], count: i64, fields: i64, width: i64, mode: i64, prefix: i64 = 0) {
+    var keys:    u8[][>..] = [];
+    var leading: u8[>..]   = [];
+    for i in prefix { leading.push('a'); }
+    for i in fields { keys.push(str(leading, "field", i)); }
+    let first_key = str(leading, "field0");
+    let last_key = str(leading, "field255");
     var schema: config::Field[>..] = [];
     for key in keys { schema.push(config::Field { key, config::Kind.Text }); }
     var store = config::Store { .. };
@@ -26,33 +30,51 @@ fn scenario(name: const u8[:], count: i64, fields: i64, width: i64, mode: i64) {
     for sample in SAMPLES {
         let start = clock_ns();
         for i in count {
-            if mode == 0 {
-                let text, error = config::get_text(store, "field0");
+            if mode == 7 {
+                assert(config::init(schema, store).len == 0);
+                let text, error = config::get_text(store, first_key);
+                assert(error.len > 0 && find(error, "value is missing") >= 0); checksum += error.len;
+            } else if mode == 0 {
+                let text, error = config::get_text(store, first_key);
                 assert(error.len == 0); checksum += text.len;
             } else if mode == 1 {
                 let text, error = config::get_text(store, "missing");
                 assert(error.len > 0); checksum += error.len;
             } else if mode == 4 {
-                let text, error = config::get_text(store, "field255");
+                let text, error = config::get_text(store, last_key);
+                assert(error.len == 0); checksum += text.len;
+            } else if mode == 6 {
+                let key = schema[(i * 73) % fields].key;
+                let text, error = config::get_text(store, key);
                 assert(error.len == 0); checksum += text.len;
             } else if mode == 5 {
-                let input = [config::Override { "field0", "changed", "cli" }, config::Override { "unknown", "bad", "cli" }];
+                let input = [config::Override { first_key, "changed", "cli" }, config::Override { "unknown", "bad", "cli" }];
                 let error = config::apply(store, input);
                 assert(error.len > 0);
-                let previous, pe = config::get_text(store, "field0");
+                let previous, pe = config::get_text(store, first_key);
                 assert(pe.len == 0 && previous == payload); checksum += error.len + previous.len;
             } else if mode == 2 {
-                let input = [config::Override { "field0", if i % 2 == 0 { "a" } else { "b" }, "cli" }];
+                let input = [config::Override { first_key, if i % 2 == 0 { "a" } else { "b" }, "cli" }];
                 assert(config::apply(store, input).len == 0);
-                let text, error = config::get_text(store, "field0");
+                let text, error = config::get_text(store, first_key);
                 assert(error.len == 0 && text.len == 1); checksum += text[0];
             } else {
                 assert(config::apply(store, initial).len == 0);
-                let text, error = config::get_text(store, "field0");
+                let text, error = config::get_text(store, first_key);
                 assert(error.len == 0); checksum += text.len;
             }
         }
         samples[sample] = (clock_ns() - start) / (count as f64);
+    }
+    if mode == 7 { assert(config::apply(store, initial).len == 0); }
+    // Untimed checks verify every value and source, not only the timed checksum.
+    for field, i in schema {
+        let value, error = config::get_text(store, field.key);
+        let source, se = config::source(store, field.key);
+        assert(error.len == 0 && se.len == 0);
+        if mode == 2 && i == 0 {
+            assert(value == (if count % 2 == 0 { "b" } else { "a" }) && source == "cli");
+        } else { assert(value == payload && source == "defaults"); }
     }
     report(name, samples, checksum);
 }
@@ -82,11 +104,19 @@ fn main() {
         assert(ok && parsed > 0 && parsed <= 100000); count = parsed;
     }
     scenario("lookup-small", count, 8, 32, 0);
+    scenario("lookup-first-wide", count, 256, 32, 0);
+    scenario("lookup-mixed-wide", count, 256, 32, 6);
     scenario("lookup-missing-wide", count, 256, 32, 1);
     scenario("lookup-last-wide", count, 256, 32, 4);
     scenario("reject-layer-wide", count, 256, 32, 5);
     scenario("apply-small", count, 8, 32, 3);
     scenario("apply-wide", count, 256, 32, 3);
     scenario("update-one-large", count, 256, 4096, 2);
+    scenario("lookup-last-long-prefix", count, 256, 32, 4, 240);
+    scenario("lookup-mixed-long-prefix", count, 256, 32, 6, 240);
+    scenario("apply-wide-long-prefix", count, 256, 32, 3, 240);
+    scenario("init-small", count, 8, 32, 7);
+    scenario("init-wide", count, 256, 32, 7);
+    scenario("init-wide-long-prefix", count, 256, 32, 7, 240);
     toml_scenario(count);
 }
