@@ -49,6 +49,9 @@ recursive fn gather_toml(store: Store&, doc: config_toml::Document&, parent: i64
 fn apply_toml(store: Store&, text: const u8[:], origin: const u8[:]) -> u8[>..] {
     if !store.initialized { return problem("store is not initialized"); }
     if origin.len > MAX_SOURCE_BYTES { return problem("source exceeds byte limit", "", origin); }
+    // Own the bounded label before recursive collection: a caller may pass a
+    // source view borrowed from this store as an input to its next update.
+    var label: u8[..MAX_SOURCE_BYTES] = []; label.append(origin);
     var doc = config_toml::Document { .. };
     let error = config_toml::parse_into(text, doc);
     // Do not forward parser diagnostics, which are not part of this API's
@@ -57,7 +60,7 @@ fn apply_toml(store: Store&, text: const u8[:], origin: const u8[:]) -> u8[>..] 
     var ids:          i64[>..]       = [];
     var candidates:   Candidate[>..] = [];
     var gather_error: u8[>..]        = [];
-    gather_toml(store, doc, 0, "", origin, ids, candidates, gather_error);
+    gather_toml(store, doc, 0, "", label, ids, candidates, gather_error);
     if gather_error.len > 0 { return gather_error; }
     if ids.len > 0 { commit_layer(store, ids, candidates); }
     []
