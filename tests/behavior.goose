@@ -259,5 +259,42 @@ fn count_limits() {
 }
 fn main() {
     numbers(); constraints_and_access(); schema_and_ownership(); transactional_layers(); limits_and_diagnostics(); count_limits();
+    permuted_layers();
     print("behavior: OK");
+}
+
+fn permuted_layers() {
+    var keys:  u8[4][256] = [['k', '0', '0', '0']; 256];
+    var texts: u8[3][256] = [['0', '0', '0']; 256];
+    let digits = "0123456789";
+    for i in 256 {
+        keys[i][1] = digits[i / 100]; keys[i][2] = digits[(i / 10) % 10]; keys[i][3] = digits[i % 10];
+        texts[i][0] = keys[i][1]; texts[i][1] = keys[i][2]; texts[i][2] = keys[i][3];
+    }
+    var schema: config::Field[>..] = [];
+    for i in 256 { schema.push(config::Field { keys[i], config::Kind.Integer }); }
+    var store = config::Store { .. };
+    assert(config::init(schema, store).len == 0);
+    var layer: config::Override[>..] = [];
+    for j in 256 {
+        let i = (j * 17 + 79) % 256;
+        layer.push(config::Override { keys[i], texts[i], texts[i] });
+    }
+    assert(config::apply(store, layer).len == 0);
+    for i in 256 {
+        let value, err = config::get_integer(store, keys[i]);
+        let source, se = config::source(store, keys[i]);
+        assert(err.len == 0 && se.len == 0 && value == i && source == texts[i]);
+    }
+    var other: config::Override[>..] = [];
+    for i in 256 { if i % 2 == 1 { other.push(config::Override { keys[i], "-42", "changed" }); } }
+    assert(config::apply(store, other).len == 0);
+    for i in 256 {
+        let value, err = config::get_integer(store, keys[i]);
+        let source, se = config::source(store, keys[i]);
+        assert(err.len == 0 && se.len == 0);
+        assert(value == (if i % 2 == 1 { -42 } else { i }));
+        assert(source == (if i % 2 == 1 { "changed" } else { texts[i] }));
+    }
+    print("permuted 256-field map and sparse updates passed");
 }
