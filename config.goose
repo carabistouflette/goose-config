@@ -165,11 +165,12 @@ fn parse_value(field: OwnedField&, input: Override&) -> Candidate, u8[>..] {
 }
 // Shared transaction commit; candidates and mapping have already been validated.
 fn commit_layer(store: Store&, ids: i64[:], candidates: Candidate[:]) {
-    var next:  Value[>..] = [];
-    var bytes: u8[>..]    = [];
+    var next:         Value[>..]      = [];
+    var bytes:        u8[>..]         = [];
+    var replacements: i64[MAX_FIELDS] = [-1; MAX_FIELDS];
+    for j in ids.len { replacements[ids[j]] = j; }
     for i in store.fields.len {
-        var replacement = -1;
-        for j in ids.len { if ids[j] == i { replacement = j; break; } }
+        let replacement = replacements[i];
         if replacement >= 0 {
             let c = candidates[replacement];
             next.push(Value { present: true, integer: c.integer, number: c.number, boolean: c.boolean,
@@ -187,8 +188,9 @@ fn commit_layer(store: Store&, ids: i64[:], candidates: Candidate[:]) {
 fn apply(store: Store&, inputs: Override[:]) -> u8[>..] {
     if !store.initialized { return problem("store is not initialized"); }
     if inputs.len > MAX_FIELDS { return problem("too many overrides"); }
-    var ids:        i64[>..]       = [];
-    var candidates: Candidate[>..] = [];
+    var ids:        i64[>..]         = [];
+    var candidates: Candidate[>..]   = [];
+    var seen:       bool[MAX_FIELDS] = [false; MAX_FIELDS];
     for input_index in inputs.len {
         let input .= inputs[input_index];
         if input.key.len > MAX_KEY_BYTES || input.source.len > MAX_SOURCE_BYTES || input.value.len > MAX_VALUE_BYTES {
@@ -196,7 +198,8 @@ fn apply(store: Store&, inputs: Override[:]) -> u8[>..] {
         }
         let id = locate(store, input.key);
         if id < 0 { return problem("unknown key", input.key, input.source); }
-        for previous in ids { if previous == id { return problem("duplicate key in layer", input.key, input.source); } }
+        if seen[id] { return problem("duplicate key in layer", input.key, input.source); }
+        seen[id] = true;
         let value, error = parse_value(store.fields[id], input);
         if error.len > 0 { return error; }
         ids.push(id); candidates.push(value);
