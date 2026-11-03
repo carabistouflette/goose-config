@@ -7,7 +7,9 @@ That repository had no public remote at vendoring time. Apache-2.0; see LICENSE.
 Local patches rename its namespace to `config_toml`, make resource limits
 `const`, construct errors with byte appends rather than overloadable `str`,
 copy arenas with appends rather than generic `copy`, size indexes with a direct
-conditional rather than generic `max`, and specify decimal `parse_int` base 10.
+conditional rather than generic `max`, specify decimal `parse_int` base 10,
+and pass explicit slices to numeric parsers so consumer growable-buffer
+overloads cannot intercept validation.
 Parser errors omit positions because the adapter deliberately returns only a
 generic, source-aware parse failure. No other parsing behavior is changed.
 Only the optional `config.toml` module imports this parser.

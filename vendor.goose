@@ -444,11 +444,11 @@ fn number(r: Reader&, doc: Document&, id: i64, token: u8[:]) {
     }
     if i != clean.len { fail(r, "invalid scalar"); return; }
     if floating {
-        let n, ok = parse_flt(clean);
+        let n, ok = parse_flt(clean[..]);
         if !ok || n != n || n > 1.7976931348623157e308 || n < -1.7976931348623157e308 { fail(r, "float outside finite f64 range"); return; }
         doc.nodes[id].kind = Kind.Float; doc.nodes[id].number = n;
     } else {
-        let n, ok = parse_int(clean, 10);
+        let n, ok = parse_int(clean[..], 10);
         if !ok { fail(r, "integer outside i64 range"); return; }
         doc.nodes[id].kind = Kind.Integer; doc.nodes[id].integer = n;
     }

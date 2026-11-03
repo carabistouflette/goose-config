@@ -13,6 +13,9 @@ fn str(a: const u8[:], b: const u8[:], c: const u8[:], d: i64,
 
 // The library must specify the standard integer parser's base explicitly.
 fn parse_int(text: const u8[:]) -> i64, bool { return 123, true; }
+// Builder overloads must not intercept the vendor's standard slice parsers.
+fn parse_int(text: u8[>..]&, base: i64) -> i64, bool { return 2, true; }
+fn parse_flt(text: u8[>..]&) -> f64, bool { return 2.0, true; }
 // These global names must not replace the library's namespaced validators.
 fn finite(value: f64) -> bool { true }
 fn decimal(text: const u8[:], floating: bool) -> bool { true }
@@ -71,5 +74,31 @@ fn main() {
     assert(config::apply_toml(store, document, "duplicate.toml").len > 0);
     let first, first_error = config::get_integer(store, "k0");
     assert(first_error.len == 0 && first == 1);
+    owned_numeric_overloads();
     print("consumer overload regression tests passed");
+}
+
+fn owned_numeric_overloads() {
+    var store = config::Store { .. };
+    let schema = [config::Field { "i", config::Kind.Integer },
+                  config::Field { "f", config::Kind.Float }];
+    assert(config::init(schema, store).len == 0);
+    assert(config::apply_toml(store, "i=41\nf=1.25", "numeric.toml").len == 0);
+    let integer, ie = config::get_integer(store, "i");
+    let number, fe = config::get_float(store, "f");
+    assert(ie.len == 0 && integer == 41);
+    assert(fe.len == 0 && number == 1.25);
+    let invalid = ["f=9.5\ni=9223372036854775808", "i=7\nf=1e99999",
+                   "f=9.5\ni=", "i=7\nf=", "f=9.5\ni=0x8000000000000000"];
+    for document in invalid {
+        assert(config::apply_toml(store, document, "rejected.toml").len > 0);
+        let previous_integer, pie = config::get_integer(store, "i");
+        let previous_number, pfe = config::get_float(store, "f");
+        let integer_source, ise = config::source(store, "i");
+        let number_source, fse = config::source(store, "f");
+        assert(pie.len == 0 && previous_integer == 41);
+        assert(pfe.len == 0 && previous_number == 1.25);
+        assert(ise.len == 0 && integer_source == "numeric.toml");
+        assert(fse.len == 0 && number_source == "numeric.toml");
+    }
 }
