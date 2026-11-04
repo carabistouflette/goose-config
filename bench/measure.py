@@ -8,6 +8,7 @@ never modifies a Git checkout or weakens validation in the measured library.
 import argparse
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import platform
@@ -21,6 +22,36 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def run(command, **kwargs):
     return subprocess.run(command, check=True, capture_output=True, text=True, timeout=120, **kwargs).stdout
+
+
+def parse_fixtures(output):
+    """Reject corrupt timing records before computing or publishing statistics."""
+    pattern = re.compile(r"^(.+) samples_ns=(\[.*\]) checksum=(-?\d+)$")
+    fixtures = {}
+    for line in output.splitlines():
+        match = pattern.fullmatch(line)
+        if not match:
+            continue
+        name = match[1]
+        if name in fixtures:
+            raise ValueError(f"duplicate benchmark fixture: {name}")
+        samples = json.loads(match[2])
+        if type(samples) is not list or len(samples) != 7:
+            raise ValueError(f"expected seven timing samples: {name}")
+        for value in samples:
+            if type(value) not in (int, float):
+                raise ValueError(f"timing must be a number, excluding booleans: {name}")
+            try:
+                valid = math.isfinite(value) and value >= 0
+            except OverflowError:
+                valid = False
+            if not valid:
+                raise ValueError(f"timing must be finite and nonnegative: {name}")
+        fixtures[name] = {"samples_ns": samples, "median_ns": statistics.median(samples),
+                          "checksum": int(match[3])}
+    if len(fixtures) != 16:
+        raise ValueError(f"expected 16 benchmark fixtures, got {len(fixtures)}")
+    return fixtures
 
 
 def main():
@@ -64,7 +95,6 @@ def main():
     if not compiler_version.startswith(f"goose {pins['after'][:7]} "):
         parser.error("the provided compiler does not match the pinned source revision")
     measurements = []
-    pattern = re.compile(r"^(.+) samples_ns=(\[.*\]) checksum=(-?\d+)$")
     for pair in range(args.pairs):
         order = ("before", "after") if pair % 2 == 0 else ("after", "before")
         for label in order:
@@ -72,17 +102,10 @@ def main():
             if args.cpu is not None:
                 command = ["taskset", "-c", str(args.cpu), *command]
             output = run(command, cwd=ROOT)
-            fixtures = {}
-            for line in output.splitlines():
-                match = pattern.fullmatch(line)
-                if match:
-                    samples = json.loads(match[2])
-                    if len(samples) != 7 or any(value < 0 for value in samples):
-                        raise SystemExit(f"invalid samples: {line}")
-                    fixtures[match[1]] = {"samples_ns": samples, "median_ns": statistics.median(samples),
-                                          "checksum": int(match[3])}
-            if len(fixtures) != 16:
-                raise SystemExit(f"expected 16 benchmark fixtures, got {len(fixtures)}")
+            try:
+                fixtures = parse_fixtures(output)
+            except ValueError as error:
+                raise SystemExit(f"invalid benchmark output ({label}, pair {pair + 1}): {error}") from error
             measurements.append({"pair": pair, "revision": label, "fixtures": fixtures})
             print(f"Measured pair {pair + 1}/{args.pairs}: {label}", flush=True)
     # Identical checksums guard behavior across both revisions and every pair.
@@ -105,7 +128,7 @@ def main():
               "frequency_governor": "uncontrolled", "warmup": "fixture setup only",
               "measurements": measurements}
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(result, indent=2) + "\n")
+    args.output.write_text(json.dumps(result, indent=2, allow_nan=False) + "\n")
     print(f"Saved {len(measurements)} runs, 16 fixtures each, to {args.output}")
 
 
