@@ -5,17 +5,18 @@ SANITIZER_OPT ?= -O2
 export SANITIZER_OPT
 TESTS = config behavior toml overloads index ownership schema
 
-.PHONY: setup format check test integration property security sanitize sanitizer-config release bench
+.PHONY: setup format check test integration property security sanitize sanitizer-config release conformance bench
 setup:
 	./scripts/setup-goose.sh
 format:
 	$(GOOSE) format config.goose toml.goose vendor.goose examples tests bench
 check:
 	$(GOOSE) format --check config.goose toml.goose vendor.goose examples tests bench
-	@set -e; for name in $(TESTS) property nested security; do $(GOOSE) check tests/$$name.goose; done
+	@set -e; for name in $(TESTS) property nested security toml-decoder; do $(GOOSE) check tests/$$name.goose; done
 	$(GOOSE) check examples/settings.goose
 	$(GOOSE) check bench/bench.goose
 test: integration
+	python3 tests/benchmark_measure.py
 	mkdir -p .build
 	@set -e; for name in $(TESTS); do \
 		$(GOOSE) run tests/$$name.goose; \
@@ -65,6 +66,10 @@ release:
 	python3 tests/security.py .build/release/security
 	$(GOOSE) build tests/nested.goose --cc $(RELEASE_CC) -O2 -o .build/release/nested
 	python3 tests/nested.py .build/release/nested
+conformance:
+	./scripts/setup-toml-test.sh
+	$(GOOSE) build tests/toml-decoder.goose --cc gcc -O2 -o .build/toml-decoder
+	.build/toml-test test -decoder="$(abspath .build/toml-decoder)" -toml=1.0 -color=never
 bench:
 	mkdir -p .build
 	$(GOOSE) build bench/bench.goose --cc gcc -O2 -o .build/bench
