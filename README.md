@@ -150,16 +150,21 @@ formatting, copy, sizing and growable-buffer parser overloads.
 These deliberately reject some otherwise valid inputs. Limits are immutable
 constants; modifying internal data or the vendored parser is outside the API.
 
-Initialization validates schema conflicts in quadratic time in field count;
-the sorted index uses bounded merge sort in O(fields × log(fields)) comparisons. Up to eight fields use linear lookup. Wider
-schemas keep a sorted array of field IDs and use deterministic binary search,
+For valid schemas wider than eight fields, initialization checks field rules,
+builds the index with bounded merge sort in O(fields × log(fields)) key
+comparisons, then detects duplicate and dotted-prefix conflicts using an
+ancestor stack with O(fields) bounded comparisons. Raw-prefix ancestors are
+retained across lexical neighbors such as `a-` between `a` and `a.b`. Small or
+rejected schemas use the original quadratic validator, preserving exact
+first-error precedence and failed-initialization atomicity. Up to eight fields
+use linear lookup. Wider schemas keep a sorted array of field IDs and use deterministic binary search,
 with a fast path for the first declared field. Metadata and validation errors
 retain declaration order. Comparisons skip equal eight-byte prefixes using
 bounds-checked slices; no unaligned casts or hash-table collision assumptions
 are involved. Layer validation performs one bounded lookup per entry; TOML
 table-prefix validation remains linear in schema size. Commit uses a fixed
-field-indexed replacement map, then rebuilds the live value arena once to ensure atomic ownership. Even a one-key update copies all
-current text and source bytes. Persistent logical payload is bounded by
+field-indexed replacement map, then rebuilds the live value arena once to
+ensure atomic ownership. Even a one-key update copies all current text and source bytes. Persistent logical payload is bounded by
 256 × (4096 + 256) bytes plus at most 256 × 256 key bytes and fixed-size metadata.
 Temporary transaction data adds another live payload; parsing TOML adds its own
 bounded arenas. These are logical size bounds, not exact allocator budgets.
@@ -171,6 +176,8 @@ storage can retain high-water capacity. See [benchmarks](bench/README.md).
 ```sh
 make setup
 make format check test property security sanitize
+make release RELEASE_CC=gcc
+make release RELEASE_CC=clang
 make bench BENCH_ITERATIONS=1000
 ```
 
@@ -178,15 +185,21 @@ Setup needs Git, CMake 3.27+, C/C++20 compilers, and Make; Linux's in-process
 runner needs libc development headers. Tests need Python 3.11+. Sanitizers and
 benchmarks target Linux with GCC; `SANITIZER_CC=clang` can select Clang's compatible
 sanitizer flags. Use `make GOOSE=/absolute/path/to/goose ...` with an existing
-compiler. `GOOSE_REVISION` pins the same compiler as goose-json; compatibility
+compiler. Optimized release checks require the selected GCC or Clang compiler.
+`GOOSE_REVISION` pins the same compiler as goose-json; compatibility
 with other revisions is not guaranteed.
 
-Tests exercise in-process, native, and native debug execution; compile-time
-ownership and consumer overloads; deterministic independent-model checking;
-and 325 hostile-input/resource cases per build, including genuine hash-collision budget rejection with a
-five-second per-document timeout. Rejected layers are checked for preservation
-of every seeded value and source. AddressSanitizer/UndefinedBehaviorSanitizer
-cover behavior, ownership, independent-model and hostile-input suites. CI smoke-runs benchmarks without
-timing thresholds. See [CONTRIBUTING.md](CONTRIBUTING.md).
+Tests exercise in-process, native, native debug, and optimized GCC/Clang
+execution, plus compile-time ownership and consumer-overload checks. Two
+independent models check 2,206 flat-schema transactions and 2,109 nested
+transactions with 100,577 responses across 45 reinitialization cycles.
+
+The hostile-input suite checks 325 resource/malformed cases per build,
+including genuine hash-collision budget rejection with a five-second
+per-document timeout. Rejected layers are checked for preservation of every
+seeded value and source. AddressSanitizer/UndefinedBehaviorSanitizer cover
+behavior, ownership, independent-model and hostile-input suites. CI runs both
+optimized compilers and smoke-runs benchmarks without timing thresholds.
+See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 [Apache-2.0](LICENSE). Copyright 2026 goose-config contributors.

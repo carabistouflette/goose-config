@@ -92,3 +92,29 @@ claimed.
 When changing the implementation, preserve the contract tests, keep all
 fixtures, record the source SHA, compiler, flags and hardware, and retain all
 raw runs. Profile before changing lookup or trading atomicity for less copying.
+
+## Schema-validation follow-up
+
+The next paired run compares the preceding reviewed implementation with the
+sorted-ancestor schema validator, using the same 16-fixture harness:
+
+```sh
+python3 bench/measure.py --goose /absolute/path/to/goose \
+  --before-ref b098ce8 --after-ref 925c53e --iterations 1000 \
+  --pairs 4 --cpu 4 --output bench/results/schema-paired.json
+```
+
+[All raw samples and provenance](results/schema-paired.json) are retained.
+Wide initialization improves in every pair, including long shared-prefix keys.
+Other paths show substantial cross-round variation and some regressions; no
+improvement is claimed for those paths. Getters and update logic were unchanged.
+CPU affinity controls placement, while frequency, thermal state and unrelated
+system load remain uncontrolled.
+
+The change removes quadratic conflict scanning from valid wide schemas, using
+the already-sorted key IDs and a bounded ancestor stack. Rejected schemas still
+run the original declaration-order validator to preserve error precedence.
+Small schemas retain that validator too. Permanent regression tests cover
+lexical distractors, 256 simultaneous raw-prefix ancestors, and mixed invalid
+field/prefix cases. The independent nested-schema model exercises every active
+value and source after reinitialization and successful or rejected layers.
