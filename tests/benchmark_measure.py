@@ -108,7 +108,7 @@ class BenchmarkMeasurementTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 MEASURE.parse_fixtures(invalid, names)
 
-    def test_updates_suite_requires_its_exact_five_rows(self):
+    def test_updates_suite_requires_its_exact_six_rows(self):
         names = MEASURE.UPDATE_FIXTURE_NAMES
         text = updates_output()
         self.assertEqual(tuple(MEASURE.parse_fixtures(text, names)), names)

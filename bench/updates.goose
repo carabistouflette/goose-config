@@ -11,7 +11,7 @@ fn report(name: const u8[:], samples: f64[:], checksum: i64) {
 // All cases retain 254 or 255 large Text neighbors. The target starts in state
 // B; global operation parity alternates A/B even across one-operation batches.
 // Modes: equal combined scalar span with moving source/text boundary, changing
-// scalar span, Integer, TextList, and two-field Text layer.
+// scalar span, Integer, TextList, two-field Text layer, and maximum-size Text.
 fn scenario(name: const u8[:], count: i64, mode: i64) {
     var keys: u8[][>..] = [];
     for i in 256 { keys.push(str("field", i)); }
@@ -24,8 +24,11 @@ fn scenario(name: const u8[:], count: i64, mode: i64) {
     }
     var payload: u8[>..] = [];
     for i in 4096 { payload.push('x'); }
-    let text_a = if mode == 0 { "aaaaa" } else if mode == 2 { "17" } else { "a" };
-    let text_b = if mode == 0 { "bbb" } else if mode == 1 { "bb" } else if mode == 2 { "29" } else { "b" };
+    var full_a: u8[>..] = [];
+    var full_b: u8[>..] = [];
+    if mode == 5 { for i in 4096 { full_a.push('y'); full_b.push('z'); } }
+    let text_a = if mode == 5 { full_a } else if mode == 0 { "aaaaa" } else if mode == 2 { "17" } else { "a" };
+    let text_b = if mode == 5 { full_b } else if mode == 0 { "bbb" } else if mode == 1 { "bb" } else if mode == 2 { "29" } else { "b" };
     let source_a = "cli";
     let source_b = if mode == 0 { "layer" } else { "cli" };
     let input_a = [config::Override { "field128", text_a, source_a }];
@@ -127,4 +130,5 @@ fn main() {
     scenario("update-integer-large", count, 2);
     scenario("update-text-list-large", count, 3);
     scenario("update-two-text-large", count, 4);
+    scenario("update-text-full-large", count, 5);
 }

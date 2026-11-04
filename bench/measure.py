@@ -28,7 +28,7 @@ FIXTURE_NAMES = (
 )
 UPDATE_FIXTURE_NAMES = (
     "update-text-boundary-large", "update-text-resize-large", "update-integer-large",
-    "update-text-list-large", "update-two-text-large",
+    "update-text-list-large", "update-two-text-large", "update-text-full-large",
 )
 SUITES = {
     "core": ("bench/bench.goose", FIXTURE_NAMES),
