@@ -3,10 +3,11 @@
 Pure, schema-driven configuration for the [Goose language](https://github.com/aardappel/goose).
 Apache-2.0. Experimental API; no tagged release yet.
 
-Explicit layers of defaults, TOML, environment values and CLI overrides; strict
-Text/Integer/Float/Boolean types, numeric ranges, required settings, owned
-values and source labels. No runtime dependencies beyond Goose's standard
-library. Applications own file/process I/O and the order of layers.
+Strict scalar and homogeneous-list schemas, JSON/TOML layers, environment/CLI
+bindings, numeric ranges, required settings, owned values and source labels.
+Explicit reload rebuilds and validates current layers before publication.
+No runtime dependencies beyond Goose's standard library. Applications choose
+layer order and own file I/O, reload triggers and synchronization.
 
 ## Quick start
 
@@ -23,7 +24,7 @@ compiler locally; see the development requirements below.
 For another project, declare a full-commit dependency in its root Goose file:
 
 ```goose
-import config from "carabistouflette/goose-config@efb6e5a71573c7ce5dc848b43df402d80c59f3f5";
+import config from "carabistouflette/goose-config@9e34239d17a3b6fe91968cc9ae29fff9f3e653de";
 import config.toml; // optional; omit for key/value-only applications
 import std;
 
@@ -68,6 +69,11 @@ currently target a Linux development environment.
 | `Override { key, value, source }` | One textual override with an explicit source label |
 | `init(schema, store)` | Validate and copy a schema; success clears old settings; failure preserves the old store |
 | `apply(store, overrides)` | Atomically apply one textual layer; last successful layer wins |
+| `apply_lists(store, overrides)` | Atomically apply homogeneous lists using scalar element grammars |
+| `apply_json(store, text, source)` | Strict JSON layer; import `config.json_layer` |
+| `apply_env`, `apply_env_values`, `apply_cli` | Explicit bindings, including lists; import `config.bindings` |
+| `reload(schema, layers, store)` | Rebuild, validate required fields and atomically replace current sources; import `config.reload` |
+| `get_text_list`, `get_integer_list`, `get_float_list`, `get_boolean_list` | Return an owned array and error; list replacement is whole-value |
 | `apply_toml(store, text, source)` | Atomically apply a TOML document; requires `import config.toml` |
 | `validate(store)` | Check required settings after layering |
 | `get_integer`, `get_float`, `get_boolean`, `get_text` | Return `(value, error)`; no implicit fallback or coercion |
@@ -83,7 +89,8 @@ further explicit layers are allowed. Successful initialization resets all values
 `Field` has `int_min`/`int_max` (`i64`) and `float_min`/`float_max` (`f64`), defaulting
 to the full finite range. Bounds are inclusive, must be ordered, and float bounds
 must be finite. Both pairs are validated for every field; only its matching kind
-uses them. Integer bounds remain integers, including above 2^53. Types and ranges
+uses them, including each element of its matching list kind. Integer bounds
+remain integers, including above 2^53. Types and ranges
 are checked on every apply; required presence is checked only by `validate`.
 Application-specific rules, including allowed text choices, remain application
 validation.
@@ -133,8 +140,9 @@ tables are errors. Empty known tables and empty documents apply no values.
 Scalar types must match exactly: `port = "42"` cannot satisfy Integer, `ratio = 1`
 cannot satisfy Float, and `name = 42` cannot satisfy Text. Numeric TOML values are
 transferred directly, without a text formatting round trip. TOML integer bases
-and float syntax follow TOML 1.0. Strings are decoded UTF-8. Arrays, arrays of
-tables, date/time values and nonfinite numbers are rejected. No parser partial
+and float syntax follow TOML 1.0. Strings are decoded UTF-8. Homogeneous
+primitive arrays match declared list kinds. Nested arrays, arrays of tables,
+date/time values and nonfinite numbers are rejected. No parser partial
 result reaches the store. Parse errors return a generic source-aware error;
 line/column details are deliberately not exposed in this version.
 
@@ -149,15 +157,22 @@ before replacing the previous arena. Schema keys, TOML text, and TOML source
 labels may likewise borrow old store storage solely as inputs to their next
 initialization/update: they are staged before replacement. Reinitialization invalidates old views.
 
-Failed `init`, `apply` and `apply_toml` preserve all values and source labels.
-Successful layers replace only mentioned settings and retain no history.
+List getters return owned arrays that survive updates and store destruction.
+Text elements are independent owners and must be iterated in Goose.
+
+Failed initialization, scalar/list/document/binding updates and reload preserve
+all values and source labels.
+Successful apply calls replace only mentioned settings and retain no history.
+Reload instead replays current layers into a fresh store: removed keys expose
+only current lower layers or become absent. Missing required fields reject
+the reload, preserving the old snapshot.
 This guarantee covers reported validation/parse failures; allocator failure
 follows Goose's runtime behavior, with no recovery promise. Store fields and
 helper functions are implementation details; direct mutation is unsupported.
 Applications coordinate any concurrent use.
 
 Errors escape non-ASCII, control, quote and backslash bytes in key/source labels,
-truncate long labels, and never include raw values or TOML text. Diagnostics
+truncate long labels, and never include raw values or JSON/TOML documents. Diagnostics
 contain printable ASCII and no newline. This is not general secret redaction:
 keys and source labels should not themselves contain secrets. Consumer overload
 regressions protect error construction and numeric validation from application
@@ -167,7 +182,11 @@ formatting, copy, sizing and growable-buffer parser overloads.
 
 - Schema and one override batch: at most **256** settings.
 - Key and source label: at most **256 bytes** each.
-- Text override or decoded TOML string: at most **4096 bytes**.
+- Scalar Text or combined Text-list payload: at most **4096 bytes per value**.
+- Homogeneous lists: at most **256 elements per list**.
+- Reload: at most **32 layers**. CLI: at most **512 argument tokens**.
+- JSON: **1 MiB** input, depth **64 including root**, **65,536 nodes**,
+  **256 siblings per object**, and **16,777,216 compared-key bytes**.
 - Textual numeric token: at most **128 bytes** before conversion.
 - TOML parser: **1 MiB** input, **65,536 nodes**, logical depth **64**, bare scalar
   token **128 bytes**, cumulative index work **16,777,216 units**.
@@ -201,6 +220,7 @@ source bytes. Persistent logical payload is bounded by
 256 × (4096 + 256) bytes plus at most 256 × 256 key bytes and fixed-size metadata.
 The wide-schema accelerator adds 512 machine integers (4 KiB logical payload);
 initialization stages another such index before replacing the current one.
+Lists add at most 65,536 fixed-size item records across the store.
 Temporary transaction data adds another live payload; parsing TOML adds its own
 bounded arenas. These are logical size bounds, not exact allocator budgets.
 Repeated layers retain no history and have no total layer-count limit. Runtime
@@ -237,12 +257,15 @@ HEAD are preserved. Conformance executes the private binary, so concurrent
 setup cannot replace the runner mid-check.
 
 Tests exercise in-process, native, native debug, and optimized GCC/Clang
-execution, plus compile-time ownership and consumer-overload checks. Eight
+execution, plus compile-time ownership and consumer-overload checks. Eleven
 isolated consumer cases exercise import ordering, module-name collisions,
 transitive imports, paths containing spaces, and a core-only package without
 the TOML files; each runs in-process and as a GCC `-O2` executable. Two
 independent models check 2,206 flat-schema transactions and 2,109 nested
-transactions with 100,577 responses across 45 reinitialization cycles.
+transactions with 100,577 responses across 45 reinitialization cycles. A third
+independent JSON/TOML/list/reload model checks 1,702 persistent transactions,
+including removals, provenance, required fields and rollback. Native environment
+fixtures cover missing, empty, invalid and oversized values under both adapters.
 
 The hostile-input suite checks 331 resource/malformed cases per build,
 including genuine bucket and full-hash collision budget rejection with a
@@ -261,11 +284,13 @@ and renamed fixtures.
 invalid TOML 1.0 cases at the pinned official `toml-test` revision. It compares
 decoded values and types, not only acceptance. This tests the full private
 parser; the public config adapter deliberately supports only its documented
-scalar subset. No encoder is provided or tested. The suite is not exhaustive.
+scalar and homogeneous primitive-list subset. No encoder is provided or tested. The suite is not exhaustive.
 See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 See [the feature-gap matrix and reproducible cross-library comparison](docs/comparison.md)
-for Viper/Koanf coverage and measurement limits. Feature parity is not yet implemented.
+for Viper/Koanf coverage and measurement limits. The selected common-application
+scope is implemented; the full provider ecosystems are not. See the detailed
+[common-feature contracts and layered example](docs/common-features.md).
 
 [Apache-2.0](LICENSE). Copyright 2026 goose-config contributors.
 See [third-party notices](THIRD_PARTY_NOTICES.md), [security reporting](SECURITY.md),

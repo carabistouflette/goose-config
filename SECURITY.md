@@ -16,10 +16,17 @@ on the latest default-branch commit; use a full commit pin and review updates.
 No response-time or long-term support guarantee is made.
 
 Untrusted configuration is supported within the documented input, work and
-storage limits. Applications own file/process I/O, source-label contents,
+storage limits. Applications own file I/O, reload triggers, source-label contents,
 application-specific validation and concurrent use. Resource limits are not an
 exact allocator budget or a wall-clock deadline. Allocation failure follows
 Goose's runtime behavior. Direct mutation of Store internals is unsupported.
+
+Optional bindings read explicitly registered process environment names or
+supplied argument/value snapshots. The native environment getter copies a value
+before its size can be checked; the documented logical payload limit is not a
+preallocation limit on that runtime I/O. Supplied snapshots can be bounded by
+the application before use. Reload validates an independent store before
+publication; it provides no concurrent/lock-free access or file watching.
 
 The compiler revision and vendored TOML source are pinned. Reports that depend
 on compiler behavior should identify the tested revision and native/debug mode.

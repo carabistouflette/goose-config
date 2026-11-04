@@ -38,9 +38,9 @@ property:
 	$(GOOSE) build tests/nested.goose -o .build/nested
 	$(GOOSE) build tests/nested.goose --debug --no-bce -o .build/nested-debug
 	python3 tests/nested.py .build/nested .build/nested-debug
-	$(GOOSE) build tests/common-model.goose --cc gcc -O2 -o .build/common-model
-	$(GOOSE) build tests/common-model.goose --debug --no-bce -o .build/common-model-debug
-	python3 tests/common-model.py .build/common-model .build/common-model-debug
+	$(GOOSE) build tests/common-model.goose --cc gcc -O2 -o .build/common-model-driver
+	$(GOOSE) build tests/common-model.goose --debug --no-bce -o .build/common-model-driver-debug
+	python3 tests/common-model.py .build/common-model-driver .build/common-model-driver-debug
 security:
 	mkdir -p .build
 	$(GOOSE) build tests/security.goose -o .build/security

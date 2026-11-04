@@ -13,43 +13,39 @@ The executable comparison pins Viper 1.21.0 and Koanf 2.4.1; see
 
 | Capability | goose-config | Viper | Koanf |
 | --- | --- | --- | --- |
-| Defaults and layers | Explicit, ordered atomic scalar batches | Fixed source priorities | Caller load order |
-| TOML | Strict scalar adapter | Supported | Optional parser |
-| JSON / YAML | Missing | Supported | Optional parsers |
+| Defaults and layers | Explicit atomic scalar/list layers | Fixed source priorities | Caller load order |
+| TOML | Strict scalar/list adapter | Supported | Optional parser |
+| JSON | Strict scalar/list adapter | Supported | Optional parser |
+| YAML | Missing | Supported | Optional parser |
 | INI | Missing | Supported | No bundled parser documented |
-| Environment / flags | Caller constructs overrides | Native bindings | Providers |
+| Environment / flags | Explicit native/supplied bindings | Native bindings | Providers |
 | Nested paths | Declared dotted scalar leaves | Supported | Configurable paths |
-| Lists and map values | Missing | Supported | Supported |
+| Primitive lists | Strict homogeneous lists | Supported | Supported |
+| Map values / object lists | Nested scalar paths only | Supported | Supported |
 | Duration interpretation | Missing | Getter | Getter |
 | Key aliases | Missing | Native API | No native API documented |
 | File discovery / reading | Caller-owned | Native | Provider |
-| Watch / source reload | Missing | File watching | Provider callbacks |
+| Source reload | Fresh-store replay and required validation | Supported | Provider callbacks |
+| File watching | Missing | File watching | Provider callbacks |
 | Remote configuration | Missing | Remote integration | Optional providers |
 | Struct decoding | Missing | Unmarshal | Unmarshal |
 | Serialization / writeback | Missing | Write APIs | Marshal; caller writes |
 | Extension interfaces | Callers can produce overrides | Codec registry/hooks | Provider/parser interfaces |
 
 Absence of a documented/bundled API is not a claim that no third-party
-implementation exists. Default/env/CLI examples in goose-config do not count
-as shipped source bindings. Storing a duration as Text does not implement a
-duration parser. Reading dotted leaves does not implement map/list values.
+implementation exists. The selected common-application scope now ships:
+JSON/TOML, homogeneous primitive lists, registered env/CLI bindings, validation,
+and explicit replacement reload. See [the exact contracts](common-features.md).
+Duration parsing, YAML/INI, aliases, remote providers, watching, struct decoding
+and writeback remain outside that selected scope.
 
-## Implementation priorities and contract decisions
+## Contract choices
 
-The common-application expansion is: optional environment/CLI binding adapters,
-JSON parsing, list values with explicit ownership and merge rules, duration
-helpers, and source-replacement orchestration. File watching and remote
-providers depend on that orchestration. Additional formats, aliases, struct
-mapping and export/writeback follow the chosen parity target.
-
-This is a gap list, not an implemented-feature claim. Full Viper parity also
-requires deciding whether to adopt its case-insensitive keys, coercions, fixed
-source precedence and live bindings. Those choices differ from the current
-strict API. Koanf's arbitrary key delimiters also exceed our key grammar.
-
-Reload must rebuild and validate a fresh effective store from current sources.
-Calling `apply_toml` on an edited file alone retains values removed from that
-file. Such a call must not be advertised as complete reload support.
+Strict keys, numeric kinds, required fields, ranges, bounded input/work, atomic
+reported failures and source labels are preserved. Viper-compatible coercion,
+case folding, fixed priorities and live lookup bindings are not implied.
+Reload uses fresh-store replay rather than reapplying a modified document;
+removed keys cannot survive from stale source snapshots.
 
 ## Reproducible shared-workload measurements
 
