@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: Apache-2.0
 """Validate benchmark records without building or timing a Goose program."""
+import contextlib
 import importlib.util
+import io
+import json
 from pathlib import Path
+import tempfile
 import unittest
+from unittest import mock
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -20,6 +25,11 @@ def fixture(index, samples="[7, 0, 3.5, 1.0, 4, 2, 6]"):
 def output(first_samples="[7, 0, 3.5, 1.0, 4, 2, 6]", count=16):
     return "\n".join(fixture(index, first_samples) if index == 0 else fixture(index)
                      for index in range(count))
+
+
+def updates_output(samples="[7, 0, 3.5, 1.0, 4, 2, 6]"):
+    return "\n".join(f"{name} samples_ns={samples} checksum={index}"
+                     for index, name in enumerate(MEASURE.UPDATE_FIXTURE_NAMES))
 
 
 class BenchmarkMeasurementTests(unittest.TestCase):
@@ -97,6 +107,81 @@ class BenchmarkMeasurementTests(unittest.TestCase):
         for invalid in (fixture(0), text + "\n" + fixture(2)):
             with self.assertRaises(ValueError):
                 MEASURE.parse_fixtures(invalid, names)
+
+    def test_updates_suite_requires_its_exact_five_rows(self):
+        names = MEASURE.UPDATE_FIXTURE_NAMES
+        text = updates_output()
+        self.assertEqual(tuple(MEASURE.parse_fixtures(text, names)), names)
+        for invalid in (output(), "\n".join(text.splitlines()[:-1]),
+                        text + "\n" + fixture(0), text + "\n" + text.splitlines()[0],
+                        text.replace(names[0], "renamed-update")):
+            with self.subTest(invalid=invalid), self.assertRaises(ValueError):
+                MEASURE.parse_fixtures(invalid, names)
+        with self.assertRaises(ValueError):
+            MEASURE.parse_fixtures(text)
+
+    def test_updates_suite_uses_strict_seven_sample_validation(self):
+        for samples in ("[0, 1, 2, true, 4, 5, 6]", "[0, 1, 2, NaN, 4, 5, 6]",
+                        "[0, 1, 2, -1, 4, 5, 6]", "[0, 1, 2, 3, 4, 5]",
+                        "[0, 1, 2,, 3, 4, 5, 6]"):
+            with self.subTest(samples=samples), self.assertRaises(ValueError):
+                MEASURE.parse_fixtures(updates_output(samples), MEASURE.UPDATE_FIXTURE_NAMES)
+
+    def test_suite_option_defaults_to_original_core_harness(self):
+        required = ["--goose", "/compiler", "--before-ref", "before", "--output", "/record"]
+        parser = MEASURE.argument_parser()
+        args = parser.parse_args(required)
+        self.assertEqual(args.suite, "core")
+        self.assertEqual(MEASURE.SUITES[args.suite], ("bench/bench.goose", MEASURE.FIXTURE_NAMES))
+        args = parser.parse_args(required + ["--suite", "updates"])
+        self.assertEqual(MEASURE.SUITES[args.suite], ("bench/updates.goose", MEASURE.UPDATE_FIXTURE_NAMES))
+
+    def test_updates_harness_is_copied_exactly_into_both_private_exports(self):
+        with tempfile.TemporaryDirectory(prefix="benchmark-suite-") as temporary:
+            root = Path(temporary)
+            (root / "bench").mkdir()
+            harness = b"// selected updates harness\r\n"
+            (root / "bench/updates.goose").write_bytes(harness)
+            (root / "bench/bench.goose").write_bytes(b"// unselected core harness\n")
+            destination = root / "result.json"
+            builds = []
+            executions = []
+
+            def fake_run(command, **kwargs):
+                if command[1:] == ["--version"]:
+                    return "goose aaaaaaa fixture\n"
+                if command[:2] == ["git", "rev-parse"]:
+                    return "b" * 40 + "\n"
+                if command[:2] == ["git", "show"]:
+                    return "a" * 40 + "\n" if command[2].endswith(":GOOSE_REVISION") else "// exported library source\n"
+                if len(command) > 1 and command[1] == "build":
+                    source = Path(command[2])
+                    self.assertEqual(source.name, "bench.goose")
+                    self.assertEqual(source.read_bytes(), harness)
+                    self.assertEqual(set(path.name for path in source.parents[1].iterdir()),
+                                     {"config.goose", "toml.goose", "vendor.goose", "bench"})
+                    builds.append(source)
+                    return ""
+                if command == ["gcc", "--version"]:
+                    return "gcc fixture\n"
+                executions.append(Path(command[0]).parent.name)
+                return updates_output()
+
+            arguments = ["measure.py", "--goose", str(root / "compiler"), "--before-ref", "before",
+                         "--suite", "updates", "--iterations", "1", "--pairs", "2", "--output", str(destination)]
+            with mock.patch.object(MEASURE, "ROOT", root), mock.patch.object(MEASURE, "run", side_effect=fake_run), \
+                    mock.patch("sys.argv", arguments), contextlib.redirect_stdout(io.StringIO()):
+                MEASURE.main()
+            record = json.loads(destination.read_text())
+            self.assertEqual(record["suite"], "updates")
+            self.assertEqual(record["harness_path"], "bench/updates.goose")
+            self.assertEqual(record["harness_sha256"], MEASURE.hashlib.sha256(harness).hexdigest())
+            self.assertEqual(executions, ["before", "after", "after", "before"])
+            self.assertEqual(len(builds), 2)
+            self.assertTrue(all(not source.exists() for source in builds))
+            self.assertEqual(list((root / ".build/paired").iterdir()), [])
+            for measurement in record["measurements"]:
+                self.assertEqual(tuple(measurement["fixtures"]), MEASURE.UPDATE_FIXTURE_NAMES)
 
 
 if __name__ == "__main__":

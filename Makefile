@@ -19,6 +19,7 @@ check:
 	$(GOOSE) check bench/bench.goose
 	$(GOOSE) check bench/common.goose
 	$(GOOSE) check bench/bindings.goose
+	$(GOOSE) check bench/updates.goose
 test: integration
 	python3 tests/benchmark_measure.py
 	python3 tests/provenance.py

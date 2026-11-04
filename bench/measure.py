@@ -26,6 +26,14 @@ FIXTURE_NAMES = (
     "apply-wide-long-prefix", "init-small", "init-wide", "init-wide-long-prefix",
     "toml-small",
 )
+UPDATE_FIXTURE_NAMES = (
+    "update-text-boundary-large", "update-text-resize-large", "update-integer-large",
+    "update-text-list-large", "update-two-text-large",
+)
+SUITES = {
+    "core": ("bench/bench.goose", FIXTURE_NAMES),
+    "updates": ("bench/updates.goose", UPDATE_FIXTURE_NAMES),
+}
 
 
 def run(command, **kwargs):
@@ -82,7 +90,7 @@ def write_record(path, result):
             temporary.unlink(missing_ok=True)
 
 
-def main():
+def argument_parser():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--goose", type=Path, required=True)
     parser.add_argument("--before-ref", required=True)
@@ -91,6 +99,13 @@ def main():
     parser.add_argument("--pairs", type=int, default=4)
     parser.add_argument("--cpu", type=int)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--suite", choices=SUITES, default="core",
+                        help="benchmark workload suite (default: core)")
+    return parser
+
+
+def main():
+    parser = argument_parser()
     args = parser.parse_args()
     if not 1 <= args.iterations <= 100000 or not 1 <= args.pairs <= 20:
         parser.error("iterations must be 1..100000 and pairs 1..20")
@@ -98,7 +113,8 @@ def main():
         parser.error("requested CPU is outside this process's affinity")
     compiler = str(args.goose.resolve())
     compiler_version = run([compiler, "--version"]).strip()
-    harness = (ROOT / "bench/bench.goose").read_bytes()
+    harness_path, fixture_names = SUITES[args.suite]
+    harness = (ROOT / harness_path).read_bytes()
     directory = ROOT / ".build/paired"
     directory.mkdir(parents=True, exist_ok=True)
     # Every invocation owns its sources and binaries until all samples finish.
@@ -136,7 +152,7 @@ def main():
                     command = ["taskset", "-c", str(args.cpu), *command]
                 output = run(command, cwd=ROOT)
                 try:
-                    fixtures = parse_fixtures(output)
+                    fixtures = parse_fixtures(output, fixture_names)
                 except ValueError as error:
                     raise SystemExit(f"invalid benchmark output ({label}, pair {pair + 1}): {error}") from error
                 measurements.append({"pair": pair, "revision": label, "fixtures": fixtures})
@@ -157,11 +173,12 @@ def main():
                   "compiler_revision": pins["after"], "compiler_version": compiler_version, "gcc": run(["gcc", "--version"]).splitlines()[0],
                   "platform": platform.platform(), "cpu": cpu_name, "cpu_affinity": args.cpu,
                   "flags": "gcc -O2; -lm -pthread -ldl", "iterations_per_batch": args.iterations,
-                  "batches": 7, "pairs": args.pairs, "harness_sha256": hashlib.sha256(harness).hexdigest(),
+                  "batches": 7, "pairs": args.pairs, "suite": args.suite, "harness_path": harness_path,
+                  "harness_sha256": hashlib.sha256(harness).hexdigest(),
                   "frequency_governor": "uncontrolled", "warmup": "fixture setup only",
                   "measurements": measurements}
         write_record(args.output, result)
-        print(f"Saved {len(measurements)} runs, 16 fixtures each, to {args.output}")
+        print(f"Saved {len(measurements)} runs, {len(fixture_names)} fixtures each, to {args.output}")
 
 
 if __name__ == "__main__":
