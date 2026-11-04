@@ -69,15 +69,14 @@ fn component(s: const u8[:]) -> bool {
 }
 fn valid_key(s: const u8[:]) -> bool {
     if s.len == 0 || s.len > MAX_KEY_BYTES { return false; }
-    // Validate bytes and dotted component boundaries in one pass.
+    // Keep ordinary key bytes on the fast path; only dots update boundaries.
     var start = 0;
     for i in s.len {
         let c = s[i];
-        if c == '.' {
-            if i == start { return false; }
-            start = i + 1;
-        } else if !((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
-                    (c >= '0' && c <= '9') || c == '_' || c == '-') { return false; }
+        if (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
+           (c >= '0' && c <= '9') || c == '_' || c == '-' { continue; }
+        if c != '.' || i == start { return false; }
+        start = i + 1;
     }
     start < s.len
 }
@@ -107,6 +106,7 @@ fn problem(message: const u8[:], key: const u8[:] = "", source: const u8[:] = ""
 fn compare_key(a: const u8[:], b: const u8[:]) -> i64 {
     let length = if a.len < b.len { a.len } else { b.len };
     var i = 0;
+    while length - i >= 16 && a[i..i + 16] == b[i..i + 16] { i += 16; }
     while length - i >= 8 && a[i..i + 8] == b[i..i + 8] { i += 8; }
     while i < length {
         if a[i] < b[i] { return -1; }
