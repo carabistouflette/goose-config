@@ -13,7 +13,9 @@ and pass explicit slices to numeric parsers so consumer growable-buffer
 overloads cannot intercept validation.
 Parser errors omit positions because the adapter deliberately returns only a
 generic, source-aware parse failure. No other parsing behavior is changed.
-Only the optional `config.toml` module imports this parser.
+The optional `config.toml` adapter imports this parser. The `config.json_layer`
+adapter also imports its UTF-8 and numeric helpers; `config.reload` imports
+both adapters. The key/value core does not import the parser.
 
 Updates must select one immutable source commit, preserve its license, review
 the diff, update this provenance, and rerun the full config validation suite.

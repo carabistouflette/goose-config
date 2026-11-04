@@ -199,7 +199,9 @@ Median run medians, ns/operation (lower is faster):
 | `reload-removal` | 1,132.5 | 4,533.2 | 10,571.4 |
 
 Goose has the lowest median in all seven measured successful shared workloads
-in this run. Env/CLI binding speed is not measured. Full provider ecosystems,
+in this run. Env/CLI binding speed was not measured in that run; the later
+[native-binding and layered-reload audit](v010-results.md) adds those workloads
+and a 256-item list. Full provider ecosystems,
 error-path equivalence and universal performance rankings are not established.
 
 The list cases parse/replace two lists, then call a public integer-list getter.
