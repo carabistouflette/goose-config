@@ -1,0 +1,696 @@
+{
+  "recorded_utc": "2026-11-04T18:46:17.366755+00:00",
+  "revisions": {
+    "before": "53a68329332d20f61f5f4e9accedd651de8094f5",
+    "after": "7f72dc34d7c154014ca2dc4a0c087dfac0097331"
+  },
+  "compiler_revision": "eadca409f68210893f366e60d0c2f0dc29a339be",
+  "compiler_version": "goose eadca40 (runtime 3025e5810379)",
+  "gcc": "gcc (GCC) 16.2.1 20260810",
+  "platform": "Linux-7.2.11-arch1-1-x86_64-with-glibc2.44",
+  "cpu": "Intel(R) Core(TM) Ultra 7 258V",
+  "cpu_affinity": 7,
+  "flags": "gcc -O2; -lm -pthread -ldl",
+  "iterations_per_batch": 1000,
+  "batches": 7,
+  "pairs": 4,
+  "suite": "updates",
+  "harness_path": "bench/updates.goose",
+  "harness_sha256": "48ef26cb17dc24295a407d7edbf983ca8bff2e4987e48ed08d4fee0678d456cd",
+  "frequency_governor": "uncontrolled",
+  "warmup": "fixture setup only",
+  "measurements": [
+    {
+      "pair": 0,
+      "revision": "before",
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            96248.098,
+            121123.359,
+            101244.354,
+            84236.692,
+            80413.802,
+            101712.727,
+            81576.051
+          ],
+          "median_ns": 96248.098,
+          "checksum": 710500
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            81057.932,
+            79085.941,
+            75321.587,
+            79087.445,
+            78846.349,
+            117153.378,
+            154371.061
+          ],
+          "median_ns": 79087.445,
+          "checksum": 693000
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            108313.302,
+            109941.089,
+            93987.998,
+            80885.421,
+            97894.017,
+            98477.308,
+            97735.228
+          ],
+          "median_ns": 97894.017,
+          "checksum": 161000
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            150946.971,
+            106258.59,
+            84878.687,
+            86911.193,
+            86026.562,
+            83877.146,
+            85987.469
+          ],
+          "median_ns": 86026.562,
+          "checksum": 1911000
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            97269.68,
+            106796.668,
+            82794.688,
+            85055.255,
+            99129.579,
+            93589.855,
+            92887.181
+          ],
+          "median_ns": 93589.855,
+          "checksum": 1400000
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            82359.444,
+            85646.524,
+            85093.932,
+            81166.458,
+            82428.832,
+            80672.379,
+            84991.495
+          ],
+          "median_ns": 82428.832,
+          "checksum": 29522500
+        }
+      }
+    },
+    {
+      "pair": 0,
+      "revision": "after",
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            99.227,
+            96.399,
+            96.964,
+            96.367,
+            96.977,
+            96.372,
+            96.992
+          ],
+          "median_ns": 96.964,
+          "checksum": 710500
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            80866.127,
+            82406.076,
+            118383.335,
+            124482.056,
+            92150.746,
+            130928.454,
+            110278.698
+          ],
+          "median_ns": 110278.698,
+          "checksum": 693000
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            108.001,
+            106.918,
+            106.647,
+            106.372,
+            111.07,
+            111.948,
+            112.433
+          ],
+          "median_ns": 108.001,
+          "checksum": 161000
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            100463.281,
+            98993.801,
+            84242.157,
+            105616.151,
+            90934.063,
+            92547.299,
+            80916.375
+          ],
+          "median_ns": 92547.299,
+          "checksum": 1911000
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            99838.657,
+            125164.182,
+            145554.338,
+            149251.204,
+            132179.536,
+            177874.616,
+            170369.005
+          ],
+          "median_ns": 145554.338,
+          "checksum": 1400000
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            3173.881,
+            3134.259,
+            2941.831,
+            2968.021,
+            2981.591,
+            2993.138,
+            3019.243
+          ],
+          "median_ns": 2993.138,
+          "checksum": 29522500
+        }
+      }
+    },
+    {
+      "pair": 1,
+      "revision": "after",
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            137.803,
+            131.714,
+            133.9,
+            131.593,
+            131.25,
+            132.42,
+            141.0
+          ],
+          "median_ns": 132.42,
+          "checksum": 710500
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            153047.269,
+            143287.214,
+            141608.791,
+            130039.787,
+            82944.362,
+            70757.933,
+            79732.894
+          ],
+          "median_ns": 130039.787,
+          "checksum": 693000
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            89.936,
+            88.692,
+            88.815,
+            88.678,
+            93.892,
+            89.572,
+            89.222
+          ],
+          "median_ns": 89.222,
+          "checksum": 161000
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            81509.684,
+            83453.435,
+            83207.151,
+            83740.295,
+            88736.994,
+            88769.851,
+            87521.249
+          ],
+          "median_ns": 83740.295,
+          "checksum": 1911000
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            84305.691,
+            72113.384,
+            68908.955,
+            72603.141,
+            127370.375,
+            173408.585,
+            143778.285
+          ],
+          "median_ns": 84305.691,
+          "checksum": 1400000
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            2968.51,
+            3002.783,
+            2987.513,
+            2945.861,
+            2809.614,
+            2797.174,
+            2788.975
+          ],
+          "median_ns": 2945.861,
+          "checksum": 29522500
+        }
+      }
+    },
+    {
+      "pair": 1,
+      "revision": "before",
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            133347.2,
+            114183.32,
+            105245.04,
+            95028.304,
+            125287.276,
+            101022.636,
+            90879.99
+          ],
+          "median_ns": 105245.04,
+          "checksum": 710500
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            77338.741,
+            81985.11,
+            94378.089,
+            129992.215,
+            115231.768,
+            117706.841,
+            100406.69
+          ],
+          "median_ns": 100406.69,
+          "checksum": 693000
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            131803.655,
+            136738.658,
+            163879.105,
+            162440.637,
+            162467.839,
+            166106.898,
+            169813.902
+          ],
+          "median_ns": 162467.839,
+          "checksum": 161000
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            166498.705,
+            154766.4,
+            160811.549,
+            161528.114,
+            159579.18,
+            172069.054,
+            175095.647
+          ],
+          "median_ns": 161528.114,
+          "checksum": 1911000
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            164075.669,
+            164627.492,
+            159116.565,
+            170728.188,
+            165781.201,
+            164935.339,
+            162636.31
+          ],
+          "median_ns": 164627.492,
+          "checksum": 1400000
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            158217.166,
+            161463.767,
+            172028.78,
+            162543.906,
+            159329.299,
+            158577.864,
+            162196.843
+          ],
+          "median_ns": 161463.767,
+          "checksum": 29522500
+        }
+      }
+    },
+    {
+      "pair": 2,
+      "revision": "before",
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            161248.831,
+            177456.019,
+            165642.357,
+            165279.725,
+            168580.338,
+            161093.672,
+            160220.629
+          ],
+          "median_ns": 165279.725,
+          "checksum": 710500
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            171533.169,
+            169844.361,
+            171247.907,
+            176839.915,
+            175399.496,
+            166875.78,
+            166290.939
+          ],
+          "median_ns": 171247.907,
+          "checksum": 693000
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            151166.564,
+            159550.617,
+            195721.01,
+            146922.143,
+            151678.54,
+            151158.268,
+            157672.09
+          ],
+          "median_ns": 151678.54,
+          "checksum": 161000
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            151988.106,
+            154608.183,
+            160603.729,
+            150013.829,
+            153501.519,
+            136488.111,
+            161974.793
+          ],
+          "median_ns": 153501.519,
+          "checksum": 1911000
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            157607.954,
+            153199.138,
+            142568.203,
+            157684.432,
+            176837.745,
+            167939.249,
+            147545.971
+          ],
+          "median_ns": 157607.954,
+          "checksum": 1400000
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            156266.355,
+            151378.744,
+            166220.509,
+            173325.42,
+            168411.283,
+            174486.231,
+            181349.684
+          ],
+          "median_ns": 168411.283,
+          "checksum": 29522500
+        }
+      }
+    },
+    {
+      "pair": 2,
+      "revision": "after",
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            137.294,
+            170.153,
+            132.359,
+            133.247,
+            133.081,
+            133.275,
+            133.094
+          ],
+          "median_ns": 133.247,
+          "checksum": 710500
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            164836.797,
+            175694.992,
+            156271.642,
+            163956.914,
+            126454.759,
+            119841.779,
+            73673.009
+          ],
+          "median_ns": 156271.642,
+          "checksum": 693000
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            97.723,
+            96.802,
+            96.775,
+            96.732,
+            96.765,
+            182.319,
+            96.739
+          ],
+          "median_ns": 96.775,
+          "checksum": 161000
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            87782.696,
+            81543.763,
+            88698.197,
+            107473.843,
+            85139.109,
+            82459.406,
+            123758.518
+          ],
+          "median_ns": 87782.696,
+          "checksum": 1911000
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            78496.347,
+            116679.62,
+            123310.048,
+            121512.897,
+            80442.762,
+            96521.412,
+            88185.725
+          ],
+          "median_ns": 96521.412,
+          "checksum": 1400000
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            2084.107,
+            2076.143,
+            2046.652,
+            2043.444,
+            2042.348,
+            1999.633,
+            1996.972
+          ],
+          "median_ns": 2043.444,
+          "checksum": 29522500
+        }
+      }
+    },
+    {
+      "pair": 3,
+      "revision": "after",
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            105.06,
+            135.929,
+            103.021,
+            102.661,
+            103.115,
+            102.83,
+            103.149
+          ],
+          "median_ns": 103.115,
+          "checksum": 710500
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            69892.624,
+            64397.504,
+            63497.497,
+            63067.082,
+            79757.801,
+            97403.363,
+            110521.473
+          ],
+          "median_ns": 69892.624,
+          "checksum": 693000
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            107.898,
+            119.884,
+            106.534,
+            106.507,
+            106.522,
+            106.401,
+            106.449
+          ],
+          "median_ns": 106.522,
+          "checksum": 161000
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            85469.135,
+            67256.093,
+            101620.942,
+            73919.456,
+            70191.681,
+            66994.53,
+            65132.82
+          ],
+          "median_ns": 70191.681,
+          "checksum": 1911000
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            62894.464,
+            70033.125,
+            62564.969,
+            61811.772,
+            78308.059,
+            157369.809,
+            133754.761
+          ],
+          "median_ns": 70033.125,
+          "checksum": 1400000
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            2840.984,
+            2837.019,
+            2827.617,
+            2823.105,
+            2840.058,
+            2817.914,
+            2805.443
+          ],
+          "median_ns": 2827.617,
+          "checksum": 29522500
+        }
+      }
+    },
+    {
+      "pair": 3,
+      "revision": "before",
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            125458.379,
+            142873.363,
+            122504.383,
+            111401.27,
+            80184.547,
+            73624.221,
+            69553.685
+          ],
+          "median_ns": 111401.27,
+          "checksum": 710500
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            78499.978,
+            97748.06,
+            68332.67,
+            67033.866,
+            64798.222,
+            64900.375,
+            74736.386
+          ],
+          "median_ns": 68332.67,
+          "checksum": 693000
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            73170.24,
+            65023.631,
+            70166.271,
+            68076.629,
+            74939.101,
+            68733.649,
+            72140.391
+          ],
+          "median_ns": 70166.271,
+          "checksum": 161000
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            90211.349,
+            109277.681,
+            88743.234,
+            125316.165,
+            115860.746,
+            114715.132,
+            94945.72
+          ],
+          "median_ns": 109277.681,
+          "checksum": 1911000
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            64437.836,
+            63063.689,
+            68107.074,
+            67879.832,
+            70713.904,
+            68125.829,
+            69054.41
+          ],
+          "median_ns": 68107.074,
+          "checksum": 1400000
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            176840.734,
+            87732.178,
+            72613.768,
+            69420.3,
+            64428.902,
+            68731.398,
+            90917.015
+          ],
+          "median_ns": 72613.768,
+          "checksum": 29522500
+        }
+      }
+    }
+  ]
+}

@@ -3,6 +3,9 @@
 This follow-up retains the [earlier mixed loading results](v010-results.md)
 and targets schema initialization. It does not claim a general loading speedup.
 
+The later [scalar update audit](scalar-update-performance.md) measures a separate
+exact-size replacement fast path. The records below remain historical.
+
 ## Change and diagnosis
 
 An ordinary key byte previously passed a dot test before its ASCII alphabet

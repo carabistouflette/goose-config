@@ -2,6 +2,15 @@
 
 ## Unreleased — v0.1.0 preparation
 
+- Stage only replacement bytes for one present scalar with unchanged combined
+  source/text length; overwrite its checked span while preserving the existing
+  general rebuild for every other case.
+- Cover borrowed-input overlap, consumer copy overloads, empty and numeric
+  values, retained lists and fallback transitions with ownership regressions.
+- Add six update workloads, including full-size replacement and size/list/batch
+  controls; keep the original sixteen-fixture harness unchanged.
+- Retain four paired/repeat records and all observed regressions in the
+  [scalar update audit](docs/scalar-update-performance.md).
 - Define the supported 19-function API and patch-compatibility boundary;
   storage fields and helpers remain internal.
 - Compact internal value metadata using the immutable schema kind and combine

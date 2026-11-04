@@ -26,7 +26,7 @@ compiler locally; see the development requirements below.
 For another project, declare a full-commit dependency in its root Goose file:
 
 ```goose
-import config from "carabistouflette/goose-config@6ad00fb3b80a7c94a797d272292af4f5f962ecb6";
+import config from "carabistouflette/goose-config@7f72dc34d7c154014ca2dc4a0c087dfac0097331";
 import config.toml; // optional; omit for key/value-only applications
 import std;
 
@@ -155,7 +155,7 @@ destroyed after the call. Scalar getters return independent values. `get_text`
 and `source` return read-only borrowed views: keep the store alive and do not
 mutate it while using them. Goose checks these lifetimes. Borrowed views can be
 used solely as the next override's inputs: the transaction stages all data
-before replacing the previous arena. Schema keys, TOML text, and TOML source
+before mutating the previous values. Schema keys, TOML text, and TOML source
 labels may likewise borrow old store storage solely as inputs to their next
 initialization/update: they are staged before replacement. Reinitialization invalidates old views.
 
@@ -216,14 +216,19 @@ bounds-checked slices; no unaligned casts are involved. Full equality establishe
 key identity, and adversarial collisions retain a fixed probe bound plus the
 sorted fallback. Layer validation performs one bounded lookup per entry; TOML
 table-prefix validation remains linear in schema size. Commit uses a fixed
-field-indexed replacement map, then rebuilds the live value arena once to
-ensure atomic ownership. Even a one-key update copies all current text and
-source bytes. Persistent logical payload is bounded by
+field-indexed replacement map and a staged live arena for the general case.
+A single present scalar with unchanged combined source/text byte length instead
+stages its replacement bytes and overwrites exactly its existing block, preserving
+all unrelated spans. It uses checked indexed writes, independent of consumer copy
+overloads. Length changes, missing values, lists and multi-key layers still use
+the general rebuild, copying all current text and source bytes.
+Persistent logical payload is bounded by
 256 × (4096 + 256) bytes plus at most 256 × 256 key bytes and fixed-size metadata.
 The wide-schema accelerator adds 512 machine integers (4 KiB logical payload);
 initialization stages another such index before replacing the current one.
 Lists add at most 65,536 fixed-size item records across the store.
-Temporary transaction data adds another live payload; parsing TOML adds its own
+General transaction staging adds another live payload; the scalar fast path
+stages at most 4,352 replacement bytes. Parsing TOML adds its own
 bounded arenas. These are logical size bounds, not exact allocator budgets.
 Repeated layers retain no history and have no total layer-count limit. Runtime
 storage can retain high-water capacity. See [benchmarks](bench/README.md).
@@ -278,7 +283,7 @@ report the parser's work limit. Rejected layers are checked for preservation of
 every seeded value and source. AddressSanitizer/UndefinedBehaviorSanitizer cover
 behavior, ownership, independent-model and hostile-input suites. CI runs both
 optimized compilers and optimized GCC/Clang sanitizer builds, and smoke-runs
-benchmarks without timing thresholds. Thirteen Python regressions reject corrupt
+benchmarks without timing thresholds. Seventeen Python regressions reject corrupt
 benchmark records, including nonfinite or boolean samples, duplicate rows,
 and renamed fixtures.
 

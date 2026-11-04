@@ -1,5 +1,9 @@
 # Configuration benchmarks
 
+The latest [scalar update audit](../docs/scalar-update-performance.md) retains
+all original fixtures, six update/control workloads, raw paired/repeat samples
+and regressions for the exact-size scalar fast path.
+
 The [initialization follow-up](../docs/initialization-performance.md) measures
 the validator/comparator change, including all sixteen fixtures and regressions.
 The earlier [storage and native-binding audit](../docs/v010-results.md) retains
@@ -13,8 +17,9 @@ A second independent invocation checks repeatability. The paired-revision
 workflow below provides stronger before/after control for optimization work.
 Fixture/schema setup is outside the timer; validation, output checking, checksum consumption, loop
 work, getters used to verify results, and error creation are inside it.
-Successful layers reuse a Store, replacing the current arena without retaining
-history. There is no external I/O in the timed loop.
+Successful layers reuse a Store without retaining history. General transactions
+rebuild the arena; one present scalar with an equal combined source/text length
+can overwrite its existing span after staging. There is no external I/O in the timed loop.
 
 ## Fixtures
 
@@ -31,9 +36,11 @@ history. There is no external I/O in the timed loop.
 - `apply-small`: replace all eight 32-byte Text values and read the first one.
 - `apply-wide`: replace all 256 32-byte Text values and read the first one.
 - `update-one-large`: initialize 256 × 4096-byte Text values, then alternate
-  one key between `a` and `b`; every update copies the other 255 large values.
-  This deliberately exposes the full-arena atomicity cost, approximately 1 MiB
-  per call. The initial first-key value shrinks on the first timed call.
+  one key between `a` and `b`. The initial first-key value shrinks on the first
+  timed call, requiring a full rebuild. Before the equal-size scalar fast path,
+  every call copied the other 255 large values; current steady updates qualify
+  for the fast path. The full-rebuild controls in `bench/updates.goose` retain
+  the approximately 1 MiB live arena while changing sizes, lists or multiple keys.
 - `lookup-last-long-prefix`, `lookup-mixed-long-prefix`, `apply-wide-long-prefix`:
   the corresponding wide cases with 240 identical prefix bytes in every key.
   They expose byte-comparison costs that short keys can hide.
@@ -130,9 +137,10 @@ value and source after reinitialization and successful or rejected layers.
 
 The measurement tool rejects nonnumeric, boolean, nonfinite and negative timing
 samples, wrong sample counts, missing/extra or renamed fixtures and duplicate
-fixture rows. The sixteen expected fixture names are checked explicitly.
+fixture rows. The selected suite's expected fixture names are checked explicitly:
+sixteen for `core`, six for `updates`; `core` remains the default.
 It preserves valid raw numbers, calculates medians only after validation, and
-serializes strict JSON with nonfinite values disabled. Thirteen stdlib Python
+serializes strict JSON with nonfinite values disabled. Seventeen stdlib Python
 regressions run under `make test`; `python3 tests/benchmark_measure.py` runs them
 alone without building a Goose program. Existing committed raw records were
 checked during review and contain valid finite samples.

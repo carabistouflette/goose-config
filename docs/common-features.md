@@ -103,8 +103,9 @@ apply. Errors never echo raw argument/environment values. Sources are the
 registered environment name or `--name`, respectively.
 
 Mixed binding layers stage an independent owned store, then publish it only
-after every bound value validates. The current implementation rebuilds live
-payloads per bound key and copies the staged store at publication; this is an
+after every bound value validates. Each bound update uses the core transaction
+path, including the equal-size scalar fast path when eligible. Bindings still
+copy the independent staged store at publication; this is an
 explicit loading cost, not a constant-time-update claim.
 
 ## Replacement reload
