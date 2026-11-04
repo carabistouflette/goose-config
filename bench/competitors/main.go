@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 	"os"
 	"runtime"
 	"runtime/debug"
@@ -14,8 +15,11 @@ import (
 
 	jsonparser "github.com/knadh/koanf/parsers/json"
 	"github.com/knadh/koanf/parsers/toml/v2"
+	envprovider "github.com/knadh/koanf/providers/env/v2"
+	"github.com/knadh/koanf/providers/posflag"
 	"github.com/knadh/koanf/providers/rawbytes"
 	"github.com/knadh/koanf/v2"
+	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 )
 
@@ -44,8 +48,8 @@ func run(args []string) error {
 	if len(args) == 1 && args[0] == "metadata" {
 		return metadata()
 	}
-	if len(args) < 1 || len(args) > 3 || (args[0] != "viper" && args[0] != "koanf") || (len(args) == 3 && args[2] != "common") {
-		return fmt.Errorf("usage: competitors {viper|koanf} [count:1..100000] [common] | metadata")
+	if len(args) < 1 || len(args) > 3 || (args[0] != "viper" && args[0] != "koanf") || (len(args) == 3 && args[2] != "common" && args[2] != "bindings") {
+		return fmt.Errorf("usage: competitors {viper|koanf} [count:1..100000] [common|bindings] | metadata")
 	}
 	count := 1000
 	if len(args) >= 2 {
@@ -54,6 +58,24 @@ func run(args []string) error {
 		if err != nil || count < 1 || count > 100000 {
 			return fmt.Errorf("count must be an integer from 1 through 100000")
 		}
+	}
+	if len(args) == 3 && args[2] == "bindings" {
+		if args[0] == "viper" {
+			if err := bindingsViper(count, false); err != nil {
+				return err
+			}
+			if err := bindingsViper(count, true); err != nil {
+				return err
+			}
+			return reloadLayersViper(count)
+		}
+		if err := bindingsKoanf(count, false); err != nil {
+			return err
+		}
+		if err := bindingsKoanf(count, true); err != nil {
+			return err
+		}
+		return reloadLayersKoanf(count)
 	}
 	if len(args) == 3 {
 		if args[0] == "viper" {
@@ -424,9 +446,230 @@ func metadata() error {
 			"No Goose schema declaration, strict kind errors, or atomic rejected-layer behavior is supplied by these adapter paths.",
 			"Typed getters have different conversion and missing-value behavior; fixtures use present values of matching types.",
 			"Final values are checked outside timing; source labels cannot be verified and are not reconstructed.",
+			"Bindings mode times fresh env/CLI snapshots, including Viper BindEnv/BindPFlags or Koanf env/v2/posflag loads, typed pflag registration/parse, and getters. Viper env getters resolve lazily; Koanf materializes a provider map.",
+			"Bindings reload-layers replays defaults plus three current JSON documents, replacing a 256-item list and exposing a lower document after middle port removal. Source labels remain unsupported.",
 			"Common list getters are Viper GetIntSlice and Koanf Int64s; their conversion and ownership contracts differ from Goose's strict independently owned i64 arrays.",
 			"Common reload-removal creates fresh Viper/Koanf instances and replays defaults plus current JSON per operation; it does not supply Goose's atomic validated reload or retain old snapshots.",
 			"Goose enforces integer range 1..65535 in common fixtures; adapters do not implement schema/range validation. All fixture numbers are small exact integers.",
 		},
 	})
+}
+
+// Descriptors are prepared before timing; all registration/parse/load/get work is timed.
+var envBindings = [][2]string{{"port", "GOOSE_BENCH_PORT"}, {"name", "GOOSE_BENCH_NAME"}, {"tag", "GOOSE_BENCH_TAG"}}
+
+func bindingFlags(arguments []string) (*pflag.FlagSet, error) {
+	flags := pflag.NewFlagSet("fixture", pflag.ContinueOnError)
+	flags.SetOutput(io.Discard)
+	flags.Int64("port", 0, "")
+	flags.String("name", "", "")
+	flags.StringArray("tag", nil, "") // Repeat without comma splitting.
+	if err := flags.Parse(arguments); err != nil {
+		return nil, err
+	}
+	return flags, nil
+}
+func checkBindings(cli bool, port int64, name string, tags []string) error {
+	expected := []string{"a", "b", "c"}
+	if cli {
+		expected = []string{"first", "second"}
+	}
+	if port != 9000 || name != "worker" || len(tags) != len(expected) {
+		return fmt.Errorf("binding final port/name/list length mismatch: %d/%q/%v", port, name, tags)
+	}
+	for i, tag := range tags {
+		if tag != expected[i] {
+			return fmt.Errorf("binding tag %d = %q, expected %q", i, tag, expected[i])
+		}
+	}
+	return nil
+}
+func bindingName(cli bool) string {
+	if cli {
+		return "cli-lists"
+	}
+	return "env-bindings"
+}
+func bindingChecksum(count int, cli bool) int64 {
+	width := 3
+	if cli {
+		width = 2
+	}
+	return int64(samples) * int64(count) * int64(9000+width+len("worker"))
+}
+func bindingsViper(count int, cli bool) error {
+	arguments := []string{"--port", "9000", "--name", "worker", "--tag", "first", "--tag", "second"}
+	var v *viper.Viper
+	var times [samples]float64
+	var checksum int64
+	for sample := range times {
+		start := time.Now()
+		for i := 0; i < count; i++ {
+			v = viper.New()
+			if cli {
+				flags, err := bindingFlags(arguments)
+				if err != nil {
+					return err
+				}
+				if err := v.BindPFlags(flags); err != nil {
+					return err
+				}
+			} else {
+				for _, binding := range envBindings {
+					if err := v.BindEnv(binding[0], binding[1]); err != nil {
+						return err
+					}
+				}
+			}
+			checksum += v.GetInt64("port") + int64(len(v.GetStringSlice("tag"))+len(v.GetString("name")))
+		}
+		times[sample] = float64(time.Since(start).Nanoseconds()) / float64(count)
+	}
+	if err := checkBindings(cli, v.GetInt64("port"), v.GetString("name"), v.GetStringSlice("tag")); err != nil {
+		return err
+	}
+	return report(bindingName(cli), times, checksum, bindingChecksum(count, cli))
+}
+func bindingsKoanf(count int, cli bool) error {
+	arguments := []string{"--port", "9000", "--name", "worker", "--tag", "first", "--tag", "second"}
+	options := envprovider.Opt{Prefix: "GOOSE_BENCH_", TransformFunc: func(key, value string) (string, any) {
+		key = strings.ToLower(strings.TrimPrefix(key, "GOOSE_BENCH_"))
+		if key == "tag" {
+			return key, strings.Split(value, " ")
+		}
+		return key, value
+	}}
+	var k *koanf.Koanf
+	var times [samples]float64
+	var checksum int64
+	for sample := range times {
+		start := time.Now()
+		for i := 0; i < count; i++ {
+			k = koanf.New(".")
+			if cli {
+				flags, err := bindingFlags(arguments)
+				if err != nil {
+					return err
+				}
+				if err := k.Load(posflag.Provider(flags, ".", k), nil); err != nil {
+					return err
+				}
+			} else {
+				if err := k.Load(envprovider.Provider(".", options), nil); err != nil {
+					return err
+				}
+			}
+			checksum += k.Int64("port") + int64(len(k.Strings("tag"))+len(k.String("name")))
+		}
+		times[sample] = float64(time.Since(start).Nanoseconds()) / float64(count)
+	}
+	if err := checkBindings(cli, k.Int64("port"), k.String("name"), k.Strings("tag")); err != nil {
+		return err
+	}
+	return report(bindingName(cli), times, checksum, bindingChecksum(count, cli))
+}
+func reloadLayerDocuments() ([2][3][]byte, error) {
+	lower, upper := make([]int, 256), make([]int, 256)
+	for i := range lower {
+		lower[i], upper[i] = i+1, i+1001
+	}
+	low, err := json.Marshal(struct {
+		Port  int    `json:"port"`
+		Name  string `json:"name"`
+		Ports []int  `json:"ports"`
+	}{8100, "lower", lower})
+	if err != nil {
+		return [2][3][]byte{}, err
+	}
+	high, err := json.Marshal(map[string]any{"name": "upper", "ports": upper})
+	if err != nil {
+		return [2][3][]byte{}, err
+	}
+	return [2][3][]byte{{low, []byte(`{"port":9000,"name":"middle"}`), high},
+		{low, []byte(`{"name":"edited"}`), high}}, nil
+}
+func reloadLayerChecksum(count int) int64 {
+	return int64(samples) * (int64((count+1)/2)*(9000+256+5) + int64(count/2)*(8100+256+5))
+}
+func checkReloadLayers(count int, port int64, name string, ports []int64) error {
+	expectedPort := int64(9000)
+	if count%2 == 0 {
+		expectedPort = 8100
+	}
+	if port != expectedPort || name != "upper" || len(ports) != 256 {
+		return fmt.Errorf("reload-layers final port/name/list length mismatch")
+	}
+	for i, value := range ports {
+		if value != int64(i+1001) {
+			return fmt.Errorf("reload-layers item %d = %d", i, value)
+		}
+	}
+	return nil
+}
+func reloadLayersViper(count int) error {
+	docs, err := reloadLayerDocuments()
+	if err != nil {
+		return err
+	}
+	var v *viper.Viper
+	var times [samples]float64
+	var checksum int64
+	for sample := range times {
+		start := time.Now()
+		for i := 0; i < count; i++ {
+			v = viper.New()
+			v.SetConfigType("json")
+			v.SetDefault("port", int64(8080))
+			v.SetDefault("name", "default")
+			for _, doc := range docs[i%2] {
+				if err := v.MergeConfig(bytes.NewReader(doc)); err != nil {
+					return err
+				}
+			}
+			checksum += v.GetInt64("port") + int64(len(v.GetIntSlice("ports"))+len(v.GetString("name")))
+		}
+		times[sample] = float64(time.Since(start).Nanoseconds()) / float64(count)
+	}
+	actual := v.GetIntSlice("ports")
+	ports := make([]int64, len(actual))
+	for i, value := range actual {
+		ports[i] = int64(value)
+	}
+	if err := checkReloadLayers(count, v.GetInt64("port"), v.GetString("name"), ports); err != nil {
+		return err
+	}
+	return report("reload-layers", times, checksum, reloadLayerChecksum(count))
+}
+func reloadLayersKoanf(count int) error {
+	docs, err := reloadLayerDocuments()
+	if err != nil {
+		return err
+	}
+	parser := jsonparser.Parser()
+	var k *koanf.Koanf
+	var times [samples]float64
+	var checksum int64
+	for sample := range times {
+		start := time.Now()
+		for i := 0; i < count; i++ {
+			k = koanf.New(".")
+			if err := k.Set("port", int64(8080)); err != nil {
+				return err
+			}
+			if err := k.Set("name", "default"); err != nil {
+				return err
+			}
+			for _, doc := range docs[i%2] {
+				if err := k.Load(rawbytes.Provider(doc), parser); err != nil {
+					return err
+				}
+			}
+			checksum += k.Int64("port") + int64(len(k.Int64s("ports"))+len(k.String("name")))
+		}
+		times[sample] = float64(time.Since(start).Nanoseconds()) / float64(count)
+	}
+	if err := checkReloadLayers(count, k.Int64("port"), k.String("name"), k.Int64s("ports")); err != nil {
+		return err
+	}
+	return report("reload-layers", times, checksum, reloadLayerChecksum(count))
 }

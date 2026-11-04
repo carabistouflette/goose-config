@@ -5,8 +5,11 @@ configuration comparison. It benchmarks three successful text lookups and one
 successful TOML parse/merge fixture. It does not establish feature equivalence
 or a universal performance ranking. The separate `common` mode benchmarks JSON
 and TOML list replacement plus fresh current-source replay after removing a key.
+The separate `bindings` mode covers native environment binding, repeated CLI
+list flags, and replay of four layers with a 256-item integer list.
 
-Versions selected with `go list -m -json MODULE@latest` on 2026-11-04:
+Library/provider versions selected with `go list -m -json MODULE@latest` on
+2026-11-04; pflag retains the existing v1.0.10 pin:
 
 | Module | Explicit version |
 | --- | --- |
@@ -14,6 +17,9 @@ Versions selected with `go list -m -json MODULE@latest` on 2026-11-04:
 | [Koanf v2](https://github.com/knadh/koanf/releases) | v2.4.1 |
 | [Koanf TOML v2 parser](https://pkg.go.dev/github.com/knadh/koanf/parsers/toml/v2) | v2.2.2 |
 | [Koanf JSON parser](https://pkg.go.dev/github.com/knadh/koanf/parsers/json) | v1.0.0 |
+| [Koanf environment v2 provider](https://pkg.go.dev/github.com/knadh/koanf/providers/env/v2) | v2.0.2 |
+| [Koanf posflag provider](https://pkg.go.dev/github.com/knadh/koanf/providers/posflag) | v1.0.2 |
+| [pflag](https://pkg.go.dev/github.com/spf13/pflag) | v1.0.10 |
 | [Koanf rawbytes provider](https://pkg.go.dev/github.com/knadh/koanf/providers/rawbytes) | v1.0.1 |
 
 `go.mod` and `go.sum` pin the complete resolved graph. Both TOML adapters use the
@@ -35,7 +41,7 @@ go build -o ../../.build/comparison/competitors .
 ```
 
 The optional iteration count defaults to 1000 and must be between 1 and 100000.
-Each invocation emits exactly four lines on standard output:
+The original mode emits exactly four lines on standard output:
 
 ```text
 NAME samples_ns=[seven JSON numbers] checksum=INTEGER
@@ -135,3 +141,83 @@ All library checksums must agree before the atomic result write. Defaults are
 1000 operations, three rounds; count bounds remain 1..100000. Counts 1 and 2
 are correctness smoke checks only. The original scalar benchmark stays separate
 so historical core comparisons remain available.
+
+
+The `bindings` mode emits exactly three fixture lines: `env-bindings`,
+`cli-lists`, and `reload-layers`. Its count is required before `bindings`.
+The Goose counterpart is `../bindings.goose [count]`. Examples, from this
+repository root:
+
+```sh
+python3 bench/compare_bindings.py --goose .build/common-goose --cpu 2 \
+  --iterations 1000 --rounds 3 --output bench/results/bindings.json
+```
+
+The original adapter CLI and `common` mode remain available. The new fixtures
+measure these successful shared observable values:
+
+- `env-bindings`: each operation creates a fresh configuration with `port=9000`,
+  `name="worker"`, and text list `tag=["a","b","c"]` from the process variables
+  `GOOSE_BENCH_PORT=9000`, `GOOSE_BENCH_NAME=worker`, `GOOSE_BENCH_TAG=a b c`.
+  Goose runs `init` then `apply_env` with a single-space list separator. Viper
+  constructs an instance, explicitly calls `BindEnv` for all three variables,
+  then calls `GetInt64`, `GetString`, and `GetStringSlice`. Viper's standard
+  space splitting produces the list. Koanf constructs an instance and loads
+  its official `env/v2` provider with the fixture prefix; its documented
+  transformation callback strips/lowercases keys and splits only `tag` on a
+  single space. The provider reads the real process environment.
+- `cli-lists`: each operation creates a fresh configuration from
+  `--port 9000 --name worker --tag first --tag second`. Goose runs `init` then
+  `apply_cli`. Both Go paths construct a new typed pflag set, register integer,
+  string and `StringArray` flags, and parse the prepared argument vector.
+  Viper constructs an instance and calls `BindPFlags`; Koanf constructs an
+  instance and loads the official `posflag` provider. `StringArray` preserves
+  each repeated item without comma splitting, matching Goose's list flags.
+- `reload-layers`: each operation replays defaults `port=8080,name="default"`
+  plus three current JSON documents, in order. The lower document sets
+  `port=8100,name="lower",ports=[1,...,256]`; the middle alternates
+  `{"port":9000,"name":"middle"}` and `{"name":"edited"}`; the upper sets
+  `name="upper",ports=[1001,...,1256]`. The final list has exactly 256 items;
+  the upper list replaces the lower list. Removing the middle port exposes
+  8100 from the lower document, rather than retaining the old 9000. Goose uses
+  `reload`; Viper/Koanf construct new instances, register defaults, and load
+  all three current documents with their JSON parsers on every operation.
+
+All schema, binding, argument, document and layer descriptors are prepared
+before timing. Fresh snapshot construction, schema/default/flag registration,
+argument parsing, binding/provider setup and loads, error checks, and the three
+public typed getters are timed. Every operation checksums integer port plus
+list length plus name length. Final checks outside timing compare every text
+or integer list element, name and port; Goose additionally checks all actual
+source labels. The Go adapters explicitly do not reconstruct source labels.
+The strict runner requires exactly three fixture lines with seven finite,
+nonnegative samples each, rejects duplicate/unexpected/missing names, and
+compares checksums to independent formulas as well as across libraries.
+
+These are native API costs, whose contracts differ. Viper environment bindings
+resolve values lazily in typed getters; Koanf scans `os.Environ` and materializes
+a map during provider loading; Goose eagerly validates its declared bindings.
+Goose additionally supplies schema/kind/range validation, independently owned
+integer lists, atomic validated reload and per-setting source tracking. The
+adapter paths do not supply these stronger guarantees. Matching successful
+values does not establish matching error behavior or ownership contracts.
+Koanf uses its official providers directly, rather than a hand-built map or
+custom flag adapter. The pinned provider APIs and `StringArray` support were
+checked against the official package documentation linked above and their
+resolved source on 2026-11-04.
+
+The bindings runner inherits the normal environment for builds, but executes
+**all three libraries with the same exact seven-variable environment**: the
+three fixture variables above and `GOMAXPROCS=1`, `GOGC=100`, `GOMEMLIMIT=off`,
+`GODEBUG=""`. No ambient environment is forwarded to benchmark executions;
+this bounds Koanf's native environment scan instead of making it scan an
+unrelated developer environment. The exact environment is recorded. Both
+builds and runs use the requested CPU affinity. The runner snapshots all six
+Goose modules from one resolved Git commit, copies/hashes current harness and
+adapter sources to its private `.build/bindings-bench` workspace, and uses a
+private `GOOSE_HOME` for compilation. It records source/binary hashes, compiler
+pin/version, Go dependency versions/build settings and platform/runtime
+provenance, rotates the three-library order over three default rounds, and
+atomically publishes the complete record after all checks succeed.
+Counts 1 and 2 are marked `smoke_only` and verify both port-definition and
+removal branches; they are correctness checks, not performance evidence.
