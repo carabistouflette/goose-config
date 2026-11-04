@@ -15,6 +15,7 @@ check:
 	$(GOOSE) format --check $(SOURCES) examples tests bench
 	@set -e; for name in $(TESTS) property nested common-model security toml-decoder; do $(GOOSE) check tests/$$name.goose; done
 	$(GOOSE) check examples/settings.goose
+	$(GOOSE) check examples/layered.goose
 	$(GOOSE) check bench/bench.goose
 test: integration
 	python3 tests/benchmark_measure.py
@@ -27,6 +28,7 @@ test: integration
 	done
 	python3 tests/bindings.py .build/bindings .build/bindings-debug .build/reload .build/reload-debug
 	$(GOOSE) run examples/settings.goose
+	python3 tests/examples.py $(GOOSE)
 	python3 tests/ownership.py $(GOOSE)
 integration:
 	python3 tests/integration.py $(GOOSE)
