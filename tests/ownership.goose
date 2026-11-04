@@ -163,6 +163,45 @@ fn scalar_updates_among_lists() {
     for text, i in owned { assert(text == (if i == 0 { "" } else { "alpha" })); }
     for text in replacement { assert(text == "replacement"); }
 }
+fn scalar_maximum_span() {
+    var store = config::Store { .. };
+    let schema = [config::Field { "target", config::Kind.Text }, config::Field { "neighbor", config::Kind.Text }, config::Field { "items", config::Kind.TextList }];
+    assert(config::init(schema, store).len == 0);
+    assert(config::apply_lists(store, [config::ListOverride { "items", ["first", "", "last"], "list-source" }]).len == 0);
+    var initial:      u8[>..] = []; var replacement: u8[>..] = [];
+    var first_source: u8[>..] = []; var next_source: u8[>..] = [];
+    for i in config::MAX_VALUE_BYTES { initial.push('a'); replacement.push((i % 256) as u8); }
+    for i in config::MAX_SOURCE_BYTES { first_source.push('s'); next_source.push('t'); }
+    assert(config::apply(store, [config::Override { "target", initial, first_source }, config::Override { "neighbor", "retained", "neighbor-source" }]).len == 0);
+    let owned, oe = config::get_text_list(store, "items"); assert(oe.len == 0);
+    let size = store.bytes.len;
+    assert(config::apply(store, [config::Override { "target", replacement, next_source }]).len == 0);
+    text_is(store, "target", replacement, next_source);
+    assert(store.bytes.len == size);
+    // Both incoming views borrow the full-size old payload and overlap.
+    var expected_source: u8[>..] = []; expected_source.append(replacement[..config::MAX_SOURCE_BYTES]);
+    let borrowed, be = config::get_text(store, "target"); assert(be.len == 0);
+    assert(config::apply(store, [config::Override { "target", borrowed, borrowed[..config::MAX_SOURCE_BYTES] }]).len == 0);
+    text_is(store, "target", replacement, expected_source);
+    assert(store.bytes.len == size);
+    // Keep the combined size equal while exceeding each individual byte bound.
+    var long_source: u8[>..] = []; long_source.append(expected_source); long_source.push('x');
+    assert(config::apply(store, [config::Override { "target", replacement[..config::MAX_VALUE_BYTES - 1], long_source }]).len > 0);
+    text_is(store, "target", replacement, expected_source);
+    assert(store.bytes.len == size);
+    var long_text: u8[>..] = []; long_text.append(replacement); long_text.push('x');
+    assert(config::apply(store, [config::Override { "target", long_text, expected_source[..config::MAX_SOURCE_BYTES - 1] }]).len > 0);
+    text_is(store, "target", replacement, expected_source);
+    assert(store.bytes.len == size);
+    text_is(store, "neighbor", "retained", "neighbor-source");
+    let items, ie = config::get_text_list(store, "items"); assert(ie.len == 0 && items.len == 3);
+    for text, i in items { assert(text == (if i == 0 { "first" } else { if i == 1 { "" } else { "last" } })); }
+    let source, se = config::source(store, "items"); assert(se.len == 0 && source == "list-source");
+    assert(config::init([], store).len == 0);
+    assert(owned.len == 3);
+    for text, i in owned { assert(text == (if i == 0 { "first" } else { if i == 1 { "" } else { "last" } })); }
+}
+
 fn main() {
     var store = config::Store { .. };
     let schema = [config::Field { "a", config::Kind.Text }, config::Field { "b", config::Kind.Text }];
@@ -185,6 +224,6 @@ fn main() {
     assert(config::apply(store, [config::Override { "changed", "ok", "new" }]).len == 0);
     let check, err = config::get_text(store, "changed"); assert(err.len == 0 && check == "ok");
     scalar_alias_boundaries(); scalar_binary_overlap(); scalar_empty_boundaries();
-    scalar_numeric_replacements(); scalar_updates_among_lists();
+    scalar_numeric_replacements(); scalar_updates_among_lists(); scalar_maximum_span();
     print("aliasing: OK");
 }
