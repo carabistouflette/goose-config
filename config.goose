@@ -348,6 +348,24 @@ fn parse_value(field: OwnedField&, input: Override&) -> Candidate, u8[>..] {
 // Item text spans refer to list_bytes for staged items, or store.bytes for old
 // items. Own every value and source before invalidating any previous storage.
 fn commit_layer(store: Store&, ids: i64[:], candidates: Candidate[:], items: Item[:] = [], list_bytes: const u8[:] = "") {
+    if ids.len == 1 {
+        let id = ids[0];
+        let c = candidates[0];
+        let previous = store.values[id];
+        if previous.present && !list_kind(store.fields[id].kind) &&
+           previous.source.len + previous.payload.len == c.source.len + c.text.len {
+            // Stage both borrowed inputs before overwriting their old storage.
+            // Exact size preserves compact storage and all unrelated spans.
+            var staged: u8[>..] = [];
+            staged.append(c.source); staged.append(c.text);
+            let destination = store.bytes[previous.source.start..previous.source.start + staged.len];
+            for byte, i in staged { destination[i] = byte; }
+            store.values[id] = Value { present: true, integer: c.integer, number: c.number, boolean: c.boolean,
+                                      source: Span { previous.source.start, c.source.len },
+                                      payload: Span { previous.source.start + c.source.len, c.text.len } };
+            return;
+        }
+    }
     var next:         Value[>..]      = [];
     var bytes:        u8[>..]         = [];
     var next_items:   Item[>..]       = [];
