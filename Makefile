@@ -1,15 +1,16 @@
 GOOSE ?= .toolchain/goose/build/goose
 BENCH_ITERATIONS ?= 1000
-TESTS = config behavior toml overloads index ownership
+RELEASE_CC ?= gcc
+TESTS = config behavior toml overloads index ownership schema
 
-.PHONY: setup format check test property security sanitize bench
+.PHONY: setup format check test property security sanitize release bench
 setup:
 	./scripts/setup-goose.sh
 format:
 	$(GOOSE) format config.goose toml.goose vendor.goose examples tests bench
 check:
 	$(GOOSE) format --check config.goose toml.goose vendor.goose examples tests bench
-	@set -e; for name in $(TESTS) property security; do $(GOOSE) check tests/$$name.goose; done
+	@set -e; for name in $(TESTS) property nested security; do $(GOOSE) check tests/$$name.goose; done
 	$(GOOSE) check examples/settings.goose
 	$(GOOSE) check bench/bench.goose
 test:
@@ -26,6 +27,9 @@ property:
 	$(GOOSE) build tests/property.goose -o .build/property
 	$(GOOSE) build tests/property.goose --debug --no-bce -o .build/property-debug
 	python3 tests/property.py .build/property .build/property-debug
+	$(GOOSE) build tests/nested.goose -o .build/nested
+	$(GOOSE) build tests/nested.goose --debug --no-bce -o .build/nested-debug
+	python3 tests/nested.py .build/nested .build/nested-debug
 security:
 	mkdir -p .build
 	$(GOOSE) build tests/security.goose -o .build/security
@@ -41,6 +45,20 @@ sanitize:
 	python3 tests/property.py .build/property-sanitized
 	$(GOOSE) build tests/security.goose --standalone --debug --no-bce --cc ./scripts/sanitizer-cc.sh -o .build/security-sanitized
 	python3 tests/security.py .build/security-sanitized
+	$(GOOSE) build tests/nested.goose --standalone --debug --no-bce --cc ./scripts/sanitizer-cc.sh -o .build/nested-sanitized
+	python3 tests/nested.py .build/nested-sanitized
+release:
+	mkdir -p .build/release
+	@set -e; for name in $(TESTS); do \
+		$(GOOSE) build tests/$$name.goose --cc $(RELEASE_CC) -O2 -o .build/release/$$name; \
+		./.build/release/$$name; \
+	done
+	$(GOOSE) build tests/property.goose --cc $(RELEASE_CC) -O2 -o .build/release/property
+	python3 tests/property.py .build/release/property
+	$(GOOSE) build tests/security.goose --cc $(RELEASE_CC) -O2 -o .build/release/security
+	python3 tests/security.py .build/release/security
+	$(GOOSE) build tests/nested.goose --cc $(RELEASE_CC) -O2 -o .build/release/nested
+	python3 tests/nested.py .build/release/nested
 bench:
 	mkdir -p .build
 	$(GOOSE) build bench/bench.goose --cc gcc -O2 -o .build/bench

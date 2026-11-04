@@ -11,7 +11,8 @@ working milestones regularly. No stability guarantee exists before 1.0.
 
 Add public API regressions for behavior changes. Run `make format`,
 `make check test property security sanitize`, `make bench BENCH_ITERATIONS=100`, and
-`git diff --check`. Request independent correctness, security, and performance
+`git diff --check`. Also run `make release RELEASE_CC=gcc` and
+`make release RELEASE_CC=clang` to verify optimized C builds. Request independent correctness, security, and performance
 reviews at milestones; fix actionable findings and keep CI passing. Never commit
 credentials, generated compilers/build output, or private workspace notes.
 
