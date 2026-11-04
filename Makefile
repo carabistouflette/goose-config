@@ -25,6 +25,7 @@ test: integration
 	python3 tests/benchmark_measure.py
 	python3 tests/benchmark_memory.py
 	python3 tests/benchmark_fallback.py
+	python3 tests/benchmark_startup.py
 	python3 tests/provenance.py
 	python3 tests/worker_harness.py
 	mkdir -p .build
