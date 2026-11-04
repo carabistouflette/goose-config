@@ -12,6 +12,7 @@ import (
 	"strings"
 	"time"
 
+	jsonparser "github.com/knadh/koanf/parsers/json"
 	"github.com/knadh/koanf/parsers/toml/v2"
 	"github.com/knadh/koanf/providers/rawbytes"
 	"github.com/knadh/koanf/v2"
@@ -43,16 +44,34 @@ func run(args []string) error {
 	if len(args) == 1 && args[0] == "metadata" {
 		return metadata()
 	}
-	if len(args) < 1 || len(args) > 2 || (args[0] != "viper" && args[0] != "koanf") {
-		return fmt.Errorf("usage: competitors {viper|koanf} [count:1..100000] | metadata")
+	if len(args) < 1 || len(args) > 3 || (args[0] != "viper" && args[0] != "koanf") || (len(args) == 3 && args[2] != "common") {
+		return fmt.Errorf("usage: competitors {viper|koanf} [count:1..100000] [common] | metadata")
 	}
 	count := 1000
-	if len(args) == 2 {
+	if len(args) >= 2 {
 		var err error
 		count, err = strconv.Atoi(args[1])
 		if err != nil || count < 1 || count > 100000 {
 			return fmt.Errorf("count must be an integer from 1 through 100000")
 		}
+	}
+	if len(args) == 3 {
+		if args[0] == "viper" {
+			if err := listsViper("json", count); err != nil {
+				return err
+			}
+			if err := listsViper("toml", count); err != nil {
+				return err
+			}
+			return reloadViper(count)
+		}
+		if err := listsKoanf("json", count); err != nil {
+			return err
+		}
+		if err := listsKoanf("toml", count); err != nil {
+			return err
+		}
+		return reloadKoanf(count)
 	}
 	for _, fixture := range lookups {
 		var err error
@@ -211,6 +230,162 @@ func tomlKoanf(count int) error {
 	return report("toml-small", times, checksum, expected)
 }
 
+func listDocuments(format string) [2][]byte {
+	if format == "json" {
+		return [2][]byte{[]byte(`{"ports":[8080,9000],"tags":["goose","duck"]}`), []byte(`{"ports":[9001],"tags":["duck"]}`)}
+	}
+	return [2][]byte{[]byte("ports=[8080,9000]\ntags=['goose','duck']"), []byte("ports=[9001]\ntags=['duck']")}
+}
+
+func checkLists(count int, ports []int64, tags []string) error {
+	if count%2 == 0 {
+		if len(ports) != 1 || ports[0] != 9001 || len(tags) != 1 || tags[0] != "duck" {
+			return fmt.Errorf("final replacement lists mismatch")
+		}
+	} else if len(ports) != 2 || ports[0] != 8080 || ports[1] != 9000 || len(tags) != 2 || tags[0] != "goose" || tags[1] != "duck" {
+		return fmt.Errorf("final initial lists mismatch")
+	}
+	return nil
+}
+
+func listChecksum(count int) int64 {
+	return int64(samples) * (int64((count+1)/2)*8082 + int64(count/2)*9002)
+}
+
+func listsViper(format string, count int) error {
+	docs := listDocuments(format)
+	v := viper.New()
+	v.SetConfigType(format)
+	var times [samples]float64
+	var checksum int64
+	for sample := range times {
+		start := time.Now()
+		for i := 0; i < count; i++ {
+			if err := v.MergeConfig(bytes.NewReader(docs[i%2])); err != nil {
+				return fmt.Errorf("viper %s-lists load: %w", format, err)
+			}
+			ports := v.GetIntSlice("ports")
+			if len(ports) == 0 {
+				return fmt.Errorf("viper %s-lists: empty integer list", format)
+			}
+			checksum += int64(ports[0] + len(ports))
+		}
+		times[sample] = float64(time.Since(start).Nanoseconds()) / float64(count)
+	}
+	actual := v.GetIntSlice("ports")
+	ports := make([]int64, len(actual))
+	for i, port := range actual {
+		ports[i] = int64(port)
+	}
+	if err := checkLists(count, ports, v.GetStringSlice("tags")); err != nil {
+		return fmt.Errorf("viper %s-lists: %w", format, err)
+	}
+	return report(format+"-lists", times, checksum, listChecksum(count))
+}
+
+func listsKoanf(format string, count int) error {
+	docs := listDocuments(format)
+	k := koanf.New(".")
+	var parser koanf.Parser = toml.Parser()
+	if format == "json" {
+		parser = jsonparser.Parser()
+	}
+	var times [samples]float64
+	var checksum int64
+	for sample := range times {
+		start := time.Now()
+		for i := 0; i < count; i++ {
+			if err := k.Load(rawbytes.Provider(docs[i%2]), parser); err != nil {
+				return fmt.Errorf("koanf %s-lists load: %w", format, err)
+			}
+			ports := k.Int64s("ports")
+			if len(ports) == 0 {
+				return fmt.Errorf("koanf %s-lists: empty integer list", format)
+			}
+			checksum += ports[0] + int64(len(ports))
+		}
+		times[sample] = float64(time.Since(start).Nanoseconds()) / float64(count)
+	}
+	if err := checkLists(count, k.Int64s("ports"), k.Strings("tags")); err != nil {
+		return fmt.Errorf("koanf %s-lists: %w", format, err)
+	}
+	return report(format+"-lists", times, checksum, listChecksum(count))
+}
+
+func reloadDocuments() [2][]byte {
+	return [2][]byte{[]byte(`{"port":9000,"name":"file"}`), []byte(`{"name":"edited"}`)}
+}
+
+func checkReload(count int, port int64, name string) error {
+	wantPort, wantName := int64(9000), "file"
+	if count%2 == 0 {
+		wantPort, wantName = 8080, "edited"
+	}
+	if port != wantPort || name != wantName {
+		return fmt.Errorf("final replay values: port=%d name=%q, expected %d/%q", port, name, wantPort, wantName)
+	}
+	return nil
+}
+
+func reloadChecksum(count int) int64 {
+	return int64(samples) * (int64((count+1)/2)*9000 + int64(count/2)*8080)
+}
+
+func reloadViper(count int) error {
+	docs := reloadDocuments()
+	var v *viper.Viper
+	var times [samples]float64
+	var checksum int64
+	for sample := range times {
+		start := time.Now()
+		for i := 0; i < count; i++ {
+			// Replay current sources from scratch so removed file keys expose defaults.
+			v = viper.New()
+			v.SetConfigType("json")
+			v.SetDefault("port", int64(8080))
+			v.SetDefault("name", "default")
+			if err := v.ReadConfig(bytes.NewReader(docs[i%2])); err != nil {
+				return fmt.Errorf("viper reload-removal: %w", err)
+			}
+			checksum += v.GetInt64("port")
+		}
+		times[sample] = float64(time.Since(start).Nanoseconds()) / float64(count)
+	}
+	if err := checkReload(count, v.GetInt64("port"), v.GetString("name")); err != nil {
+		return fmt.Errorf("viper reload-removal: %w", err)
+	}
+	return report("reload-removal", times, checksum, reloadChecksum(count))
+}
+
+func reloadKoanf(count int) error {
+	docs := reloadDocuments()
+	parser := jsonparser.Parser()
+	var k *koanf.Koanf
+	var times [samples]float64
+	var checksum int64
+	for sample := range times {
+		start := time.Now()
+		for i := 0; i < count; i++ {
+			k = koanf.New(".")
+			if err := k.Set("port", int64(8080)); err != nil {
+				return err
+			}
+			if err := k.Set("name", "default"); err != nil {
+				return err
+			}
+			if err := k.Load(rawbytes.Provider(docs[i%2]), parser); err != nil {
+				return fmt.Errorf("koanf reload-removal: %w", err)
+			}
+			checksum += k.Int64("port")
+		}
+		times[sample] = float64(time.Since(start).Nanoseconds()) / float64(count)
+	}
+	if err := checkReload(count, k.Int64("port"), k.String("name")); err != nil {
+		return fmt.Errorf("koanf reload-removal: %w", err)
+	}
+	return report("reload-removal", times, checksum, reloadChecksum(count))
+}
+
 func report(name string, times [samples]float64, checksum, expected int64) error {
 	if checksum != expected {
 		return fmt.Errorf("%s checksum = %d, expected %d", name, checksum, expected)
@@ -245,10 +420,13 @@ func metadata() error {
 		"samples":        samples,
 		"source_labels":  "unsupported: neither adapter tracks Goose per-setting source labels",
 		"semantic_limitations": []string{
-			"Shared successful lookup and TOML subset only; not feature equivalence.",
+			"Shared successful lookup, TOML, JSON/list replacement, and current-source replay subsets only; not feature equivalence.",
 			"No Goose schema declaration, strict kind errors, or atomic rejected-layer behavior is supplied by these adapter paths.",
 			"Typed getters have different conversion and missing-value behavior; fixtures use present values of matching types.",
 			"Final values are checked outside timing; source labels cannot be verified and are not reconstructed.",
+			"Common list getters are Viper GetIntSlice and Koanf Int64s; their conversion and ownership contracts differ from Goose's strict independently owned i64 arrays.",
+			"Common reload-removal creates fresh Viper/Koanf instances and replays defaults plus current JSON per operation; it does not supply Goose's atomic validated reload or retain old snapshots.",
+			"Goose enforces integer range 1..65535 in common fixtures; adapters do not implement schema/range validation. All fixture numbers are small exact integers.",
 		},
 	})
 }
