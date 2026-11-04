@@ -6,7 +6,7 @@ export SANITIZER_OPT
 TESTS = config behavior toml overloads index ownership schema lists toml-lists json-layer bindings reload
 SOURCES = config.goose toml.goose vendor.goose json_layer.goose bindings.goose reload.goose
 
-.PHONY: setup format check test integration property security sanitize sanitizer-config release conformance bench
+.PHONY: setup format check test integration property security sanitize sanitizer-config release conformance bench worker
 setup:
 	./scripts/setup-goose.sh
 format:
@@ -26,6 +26,7 @@ test: integration
 	python3 tests/benchmark_memory.py
 	python3 tests/benchmark_fallback.py
 	python3 tests/provenance.py
+	python3 tests/worker_harness.py
 	mkdir -p .build
 	@set -e; for name in $(TESTS); do \
 		$(GOOSE) run tests/$$name.goose; \
@@ -94,3 +95,10 @@ bench:
 	mkdir -p .build
 	$(GOOSE) build bench/bench.goose --cc gcc -O2 -o .build/bench
 	./.build/bench $(BENCH_ITERATIONS)
+
+# Optional Linux application; fetches its own pinned goose-fs dependency.
+worker:
+	python3 tests/worker.py $(GOOSE) --cc gcc
+	python3 tests/worker.py $(GOOSE) --cc clang
+	python3 tests/worker.py $(GOOSE) --cc gcc --sanitize
+	python3 tests/worker.py $(GOOSE) --cc clang --sanitize

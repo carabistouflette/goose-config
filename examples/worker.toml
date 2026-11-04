@@ -1,0 +1,5 @@
+[worker]
+name = "demo"
+prefix = "T:"
+max_bytes = 32
+queues = ["default", "priority"]

@@ -19,6 +19,8 @@ jobs:
       - run: SANITIZER_CC=clang make sanitize
       - run: make release RELEASE_CC=gcc
       - run: make release RELEASE_CC=clang
+      - name: Verify optional worker application
+        run: make worker
       - run: make conformance
       - run: make bench BENCH_ITERATIONS=10
       - name: Smoke-test cross-library comparison
