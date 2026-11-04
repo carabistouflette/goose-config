@@ -11,6 +11,17 @@ fn main() {
     read_stdin(document);
     let argv = args();
     if argv.len > 1 {
+        if argv.len == 2 && argv[1] == "full-hash-control" {
+            // Fixed-length framing permits NUL/newline bytes in decoded keys.
+            assert(document.len == 500 * 1040);
+            for i in 500 {
+                let key = document[i * 1040..(i + 1) * 1040];
+                for j in 1024 { assert(key[j] == 'A'); }
+                assert(hash(key) == 0x123456789abcdef0);
+                assert(config_toml::key_hash(0, key) == 0xb06bd0321a075b05);
+            }
+            return;
+        }
         assert(argv.len == 2 && argv[1] == "parser");
         var parsed = config_toml::Document { .. };
         let error = config_toml::parse_into(document, parsed);

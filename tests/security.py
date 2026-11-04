@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 """Bounded hostile-input checks, including public rollback and real hash collisions.
 
-Pass one or more builds of tests/security.goose. Each document gets a fresh
+Pass one or more builds of tests/security.goose. Each case gets a fresh
 process and a five-second deadline. Checks remain active with Python -O.
 The inverted hash workload must be revalidated when the compiler pin changes.
 """
@@ -53,6 +53,52 @@ def collision_keys(count):
             if len(keys) == count:
                 return keys
     raise RuntimeError("bounded collision search did not produce enough ASCII keys")
+
+
+def full_collision_keys(count):
+    """Invert the pinned long-string hash: 1,040-byte keys, one full hash.
+
+    Adapted from goose-toml cd5977cd2a7e4f4b3b918dded98a55c9159a24b6.
+    The fixed 1,024-byte prefix fills two hash lanes. A variable word follows;
+    inverting the final rounds gives a corrective word for the fixed hash.
+    Keep only ASCII words; JSON quoting supplies legal TOML basic-key escapes.
+    The Goose control driver independently verifies all completed keys' hashes.
+    """
+    def rotate(value, bits):
+        return ((value << bits) | (value >> (64 - bits))) & MASK
+
+    inverse_first = pow(MULTIPLIER, -1, 1 << 64)
+    inverse_final = pow(FINAL_MULTIPLIER, -1, 1 << 64)
+    target_hash = 0x123456789ABCDEF0
+    inverse = ((target_hash ^ (target_hash >> 32)) * inverse_final) & MASK
+    inverse ^= inverse >> 32
+    inverse = (inverse * inverse_first) & MASK
+
+    prefix = b"A" * 1024
+    first = ((len(prefix) + 16) * MULTIPLIER) & MASK
+    second = first ^ MULTIPLIER
+    for offset in range(0, len(prefix), 16):
+        first_word = int.from_bytes(prefix[offset:offset + 8], "little")
+        second_word = int.from_bytes(prefix[offset + 8:offset + 16], "little")
+        first = rotate(((first ^ first_word) * MULTIPLIER) & MASK, 29)
+        second = rotate(((second ^ second_word) * MULTIPLIER) & MASK, 29)
+    combined = first ^ rotate(second, 31)
+
+    keys = []
+    rng = random.Random(0x700164)
+    for _ in range(1 << 20):
+        variable = (rng.getrandbits(64) & 0x7F7F7F7F7F7F7F7F).to_bytes(8, "little")
+        state = rotate(((combined ^ int.from_bytes(variable, "little")) * MULTIPLIER) & MASK, 29)
+        correction = (state ^ inverse).to_bytes(8, "little")
+        if not all(byte < 128 for byte in correction):
+            continue
+        final = ((state ^ int.from_bytes(correction, "little")) * MULTIPLIER) & MASK
+        final = ((final ^ (final >> 32)) * FINAL_MULTIPLIER) & MASK
+        require(final ^ (final >> 32) == target_hash, "full-hash inversion failed")
+        keys.append((prefix + variable + correction).decode("ascii"))
+        if len(keys) == count:
+            return keys
+    raise RuntimeError("bounded full-hash collision search did not produce enough ASCII keys")
 
 
 def config_oracle(source):
@@ -142,6 +188,26 @@ def documents():
         b"work limit exceeded", "parser")
     add("real collision budget preserves public state", b"s='changed'\n" + attack, False)
 
+    full_keys = full_collision_keys(500)
+    require(len(set(full_keys)) == len(full_keys) and all(len(key) == 1040 for key in full_keys),
+            "full-hash collision fixture keys are not unique fixed-length keys")
+    add("verify every full hash with the pinned Goose implementation",
+        b"".join(key.encode("ascii") for key in full_keys), True, mode="full-hash-control")
+    full_lines = [(json.dumps(key) + f"={index}\n").encode("ascii") for index, key in enumerate(full_keys)]
+    add("small full-hash/common-prefix control", b"".join(full_lines[:100]), True, mode="parser")
+    add("full-hash control below compared-byte limit", b"".join(full_lines[:179]), True, mode="parser")
+    add("full-hash control above compared-byte limit", b"".join(full_lines[:180]), False,
+        b"key lookup work limit exceeded", "parser")
+    full_attack = b"".join(full_lines)
+    require(len(full_attack) < MAX_INPUT_BYTES and len(full_keys) + 1 < MAX_NODES,
+            "full-hash collision fixture exceeds an unrelated resource budget")
+    # Bucket probes alone stay below the cap. Removing only compared-byte
+    # charging in a private mutation check makes this complete document pass.
+    add("full-hash compared-byte budget (revalidate pinned hash on failure)", full_attack, False,
+        b"key lookup work limit exceeded", "parser")
+    add("full-hash byte budget preserves public state", b"s='changed'\n" + full_attack, False,
+        b"invalid TOML document or parser resource limit")
+
     rng = random.Random(0x5EC017)
     seeds = [b"s='hello'\ni=42", b"s=\"\\u0061\"", b"i=0xff", b"s=''", b"# comment\n"]
     for index in range(256):
@@ -173,7 +239,7 @@ def main():
     for driver in args.drivers:
         binary = str(driver.resolve())
         for mode, label, source, accepted, diagnostic in cases:
-            command = [binary] + (["parser"] if mode == "parser" else [])
+            command = [binary] + ([mode] if mode != "config" else [])
             try:
                 result = subprocess.run(command, input=source, capture_output=True, timeout=5)
             except subprocess.TimeoutExpired as error:
@@ -192,7 +258,7 @@ def main():
                     require(b"SECRET-NEW-VALUE" not in result.stderr, f"value exposed in diagnostic: {context}")
             if diagnostic is not None:
                 require(diagnostic in result.stderr, f"expected diagnostic {diagnostic!r} absent: {context}")
-        print(f"{driver.name}: {len(cases)} hostile-input/resource documents passed, including real collision budget rejection")
+        print(f"{driver.name}: {len(cases)} hostile-input/resource cases passed, including real collision budget rejection")
 
 
 if __name__ == "__main__":

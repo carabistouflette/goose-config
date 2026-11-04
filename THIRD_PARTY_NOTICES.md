@@ -12,6 +12,10 @@ lists the local changes. No upstream NOTICE file existed at that source revision
 
 The TOML conformance adapter, initial runner setup, and collision-generation
 regressions also adapt Apache-2.0 development utilities from goose-toml.
+The full-hash collision fixture derives from
+[goose-toml commit cd5977cd2a7e4f4b3b918dded98a55c9159a24b6](https://github.com/carabistouflette/goose-toml/commit/cd5977cd2a7e4f4b3b918dded98a55c9159a24b6);
+local checks remain active under Python optimization and verify every generated
+key with the pinned Goose hash implementation.
 
 ## Development tools
 

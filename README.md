@@ -236,10 +236,13 @@ the TOML files; each runs in-process and as a GCC `-O2` executable. Two
 independent models check 2,206 flat-schema transactions and 2,109 nested
 transactions with 100,577 responses across 45 reinitialization cycles.
 
-The hostile-input suite checks 325 resource/malformed cases per build,
-including genuine hash-collision budget rejection with a five-second
-per-document timeout. Rejected layers are checked for preservation of every
-seeded value and source. AddressSanitizer/UndefinedBehaviorSanitizer cover
+The hostile-input suite checks 331 resource/malformed cases per build,
+including genuine bucket and full-hash collision budget rejection with a
+five-second per-case timeout. A fixed-length control verifies all 500
+long-key hashes against the pinned Goose implementation. Accepted small and
+near-limit controls guard against blanket rejection; larger clusters must
+report the parser's work limit. Rejected layers are checked for preservation of
+every seeded value and source. AddressSanitizer/UndefinedBehaviorSanitizer cover
 behavior, ownership, independent-model and hostile-input suites. CI runs both
 optimized compilers and optimized GCC/Clang sanitizer builds, and smoke-runs
 benchmarks without timing thresholds. Twelve Python regressions reject corrupt
