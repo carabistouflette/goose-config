@@ -20,8 +20,11 @@ check:
 	$(GOOSE) check bench/common.goose
 	$(GOOSE) check bench/bindings.goose
 	$(GOOSE) check bench/updates.goose
+	$(GOOSE) check bench/memory.goose
 test: integration
 	python3 tests/benchmark_measure.py
+	python3 tests/benchmark_memory.py
+	python3 tests/benchmark_fallback.py
 	python3 tests/provenance.py
 	mkdir -p .build
 	@set -e; for name in $(TESTS); do \
