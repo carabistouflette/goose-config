@@ -97,3 +97,84 @@ Values are medians of run medians in ns/operation; lower is faster.
 This baseline favors goose-config on the small lookup and TOML fixture;
 Koanf wins both wide lookups. No across-the-board performance claim is made.
 The complete raw samples, including variation, are retained.
+
+## Bounded-accelerator measurement
+
+[Raw shared-workload results](../bench/results/competitors.json) measure runtime
+source `efb6e5a71573c7ce5dc848b43df402d80c59f3f5` using the same count, affinity and
+rotating-round protocol as the baseline. Median run medians, ns/operation:
+
+| Fixture | goose-config | Viper | Koanf |
+| --- | ---: | ---: | ---: |
+| `lookup-small` | 16.2 | 127.1 | 63.2 |
+| `lookup-mixed-wide` | 39.0 | 126.3 | 98.5 |
+| `lookup-last-wide` | 28.5 | 111.1 | 92.1 |
+| `toml-small` | 585.0 | 4,376.8 | 3,442.2 |
+
+Goose has the lowest median in these four measured workloads. This does not
+establish full feature parity or a universal speed ranking. Competitor timings
+also varied between runs; retain the raw samples when interpreting ratios.
+
+### Full before/after tradeoffs
+
+[All sixteen fixtures](../bench/results/lookup-accelerator-paired.json) compare
+`6ae9cac` with the accelerator using three alternating pairs and 1,000
+operations per batch. Numbers are median run medians, ns/operation.
+
+| Fixture | Before | After | After / before |
+| --- | ---: | ---: | ---: |
+| `lookup-small` | 13.4 | 11.7 | 0.87 |
+| `lookup-first-wide` | 13.0 | 11.7 | 0.91 |
+| `lookup-mixed-wide` | 88.1 | 29.5 | 0.33 |
+| `lookup-missing-wide` | 63.2 | 60.8 | 0.96 |
+| `lookup-last-wide` | 77.3 | 21.3 | 0.28 |
+| `reject-layer-wide` | 113.0 | 82.7 | 0.73 |
+| `apply-small` | 407.1 | 362.8 | 0.89 |
+| `apply-wide` | 24,873.8 | 9,062.4 | 0.36 |
+| `update-one-large` | 109,097.3 | 80,156.0 | 0.73 |
+| `lookup-last-long-prefix` | 222.9 | 106.9 | 0.48 |
+| `lookup-mixed-long-prefix` | 296.6 | 107.7 | 0.36 |
+| `apply-wide-long-prefix` | 76,216.8 | 29,239.2 | 0.38 |
+| `init-small` | 230.4 | 345.7 | 1.50 |
+| `init-wide` | 20,297.0 | 31,528.9 | 1.55 |
+| `init-wide-long-prefix` | 164,592.1 | 138,178.2 | 0.84 |
+| `toml-small` | 424.7 | 407.0 | 0.96 |
+
+The accelerator improves wide lookups and wide applications in this run,
+including long-prefix keys. Small and wide initialization are slower: index
+construction and the larger implementation have costs. Wide stores also retain
+4 KiB more index payload. The tiny-schema lookup path remains linear, and
+colliding keys retain bounded probing followed by sorted lookup. No regression
+is removed from the record. Timings include code-generation/layout and host
+variation, not only algorithmic work.
+
+### Independent repeat
+
+[All repeat samples](../bench/results/lookup-accelerator-repeat.json) use the
+same revisions, counts and affinity, in a separate invocation.
+
+| Fixture | Before | After | After / before |
+| --- | ---: | ---: | ---: |
+| `lookup-small` | 15.7 | 16.2 | 1.04 |
+| `lookup-first-wide` | 15.1 | 15.7 | 1.04 |
+| `lookup-mixed-wide` | 100.0 | 37.4 | 0.37 |
+| `lookup-missing-wide` | 73.1 | 81.7 | 1.12 |
+| `lookup-last-wide` | 89.5 | 28.3 | 0.32 |
+| `reject-layer-wide` | 132.0 | 106.0 | 0.80 |
+| `apply-small` | 466.4 | 453.2 | 0.97 |
+| `apply-wide` | 29,243.3 | 11,681.6 | 0.40 |
+| `update-one-large` | 93,499.6 | 104,436.5 | 1.12 |
+| `lookup-last-long-prefix` | 284.4 | 137.2 | 0.48 |
+| `lookup-mixed-long-prefix` | 386.6 | 146.6 | 0.38 |
+| `apply-wide-long-prefix` | 88,871.1 | 33,729.5 | 0.38 |
+| `init-small` | 317.2 | 308.4 | 0.97 |
+| `init-wide` | 32,467.9 | 33,562.1 | 1.03 |
+| `init-wide-long-prefix` | 172,265.1 | 159,546.3 | 0.93 |
+| `toml-small` | 575.1 | 426.5 | 0.74 |
+
+Wide lookup improvements repeat. The large initialization regressions in the
+first invocation do not repeat at the same scale: small initialization is
+near baseline and wide initialization is approximately 3% slower here. This
+variation prevents attributing all timing changes to index construction or
+claiming a fixed initialization penalty. The extra storage and bounded index
+construction are real costs. Both invocations are retained without selection.
