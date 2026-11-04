@@ -61,6 +61,27 @@ TOML_BODY = SETUP + '''
     assert(config::validate(store).len == 0);
 '''
 
+JSON_BODY = SETUP + '''
+    assert(config::apply_json(store, "{\\"port\\":9003,\\"name\\":\\"json\\"}", "settings.json").len == 0);
+    assert(config::apply_json(store, "{\\"port\\":0,\\"name\\":\\"rejected\\"}", "bad.json").len > 0);
+    let port, pe = config::get_integer(store, "port");
+    let name, ne = config::get_text(store, "name");
+    assert(pe.len == 0 && port == 9003 && ne.len == 0 && name == "json");
+    var number: u8[>..] = []; json::format_number(number, 1.5);
+    assert(number == "1.5");
+'''
+
+RELOAD_BODY = SETUP + '''
+    let layers = [config::Layer { kind: config::LayerKind.Json,
+        text: "{\\"port\\":9004,\\"name\\":\\"reloaded\\"}", source: "reload.json", .. }];
+    assert(config::reload(fields, layers, store).len == 0);
+    let port, pe = config::get_integer(store, "port");
+    let source, se = config::source(store, "port");
+    assert(pe.len == 0 && port == 9004 && se.len == 0 && source == "reload.json");
+    var number: u8[>..] = []; json::format_number(number, 2.5);
+    assert(number == "2.5");
+'''
+
 
 def write(path, source):
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -112,7 +133,7 @@ def main():
         app.mkdir()
         package.mkdir()
         core.mkdir()
-        for name in ("config.goose", "toml.goose", "vendor.goose"):
+        for name in ("config.goose", "toml.goose", "vendor.goose", "json_layer.goose", "bindings.goose", "reload.goose"):
             shutil.copyfile(ROOT / name, package / name)
         # No adapter/parser files exist here: core really works on its own.
         shutil.copyfile(ROOT / "config.goose", core / "config.goose")
@@ -149,6 +170,9 @@ def main():
             ("other-packages-last", adapter_imports + package_imports, package_checks + TOML_BODY),
             ("dependency-first", dependency_import + config_import, dependency_body),
             ("dependency-last", config_import + dependency_import, dependency_body),
+            ("stdlib-json-first", "import json;\n" + config_import + "import config.json_layer;\n", JSON_BODY),
+            ("stdlib-json-last", config_import + "import config.json_layer;\nimport json;\n", JSON_BODY),
+            ("reload-transitive", config_import + "import config.reload;\nimport json;\n", RELOAD_BODY),
         ]
         for name, imports, body in cases:
             check_consumer(compiler, app, name, imports, body)

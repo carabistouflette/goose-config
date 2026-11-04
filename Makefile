@@ -13,7 +13,7 @@ format:
 	$(GOOSE) format $(SOURCES) examples tests bench
 check:
 	$(GOOSE) format --check $(SOURCES) examples tests bench
-	@set -e; for name in $(TESTS) property nested security toml-decoder; do $(GOOSE) check tests/$$name.goose; done
+	@set -e; for name in $(TESTS) property nested common-model security toml-decoder; do $(GOOSE) check tests/$$name.goose; done
 	$(GOOSE) check examples/settings.goose
 	$(GOOSE) check bench/bench.goose
 test: integration
@@ -38,6 +38,9 @@ property:
 	$(GOOSE) build tests/nested.goose -o .build/nested
 	$(GOOSE) build tests/nested.goose --debug --no-bce -o .build/nested-debug
 	python3 tests/nested.py .build/nested .build/nested-debug
+	$(GOOSE) build tests/common-model.goose --cc gcc -O2 -o .build/common-model
+	$(GOOSE) build tests/common-model.goose --debug --no-bce -o .build/common-model-debug
+	python3 tests/common-model.py .build/common-model .build/common-model-debug
 security:
 	mkdir -p .build
 	$(GOOSE) build tests/security.goose -o .build/security
@@ -58,6 +61,8 @@ sanitize: sanitizer-config
 	python3 tests/security.py .build/security-sanitized
 	$(GOOSE) build tests/nested.goose --standalone --debug --no-bce --cc ./scripts/sanitizer-cc.sh -o .build/nested-sanitized
 	python3 tests/nested.py .build/nested-sanitized
+	$(GOOSE) build tests/common-model.goose --standalone --debug --no-bce --cc ./scripts/sanitizer-cc.sh -o .build/common-model-sanitized
+	python3 tests/common-model.py .build/common-model-sanitized
 release:
 	mkdir -p .build/release
 	@set -e; for name in $(TESTS); do \
@@ -71,6 +76,8 @@ release:
 	python3 tests/security.py .build/release/security
 	$(GOOSE) build tests/nested.goose --cc $(RELEASE_CC) -O2 -o .build/release/nested
 	python3 tests/nested.py .build/release/nested
+	$(GOOSE) build tests/common-model.goose --cc $(RELEASE_CC) -O2 -o .build/release/common-model
+	python3 tests/common-model.py .build/release/common-model
 conformance:
 	mkdir -p .build
 	$(GOOSE) build tests/toml-decoder.goose --cc gcc -O2 -o .build/toml-decoder
