@@ -13,7 +13,8 @@ SPEC.loader.exec_module(MEASURE)
 
 
 def fixture(index, samples="[7, 0, 3.5, 1.0, 4, 2, 6]"):
-    return f"fixture-{index} samples_ns={samples} checksum={index - 8}"
+    name = MEASURE.FIXTURE_NAMES[index] if index < len(MEASURE.FIXTURE_NAMES) else f"extra-{index}"
+    return f"{name} samples_ns={samples} checksum={index - 8}"
 
 
 def output(first_samples="[7, 0, 3.5, 1.0, 4, 2, 6]", count=16):
@@ -24,16 +25,16 @@ def output(first_samples="[7, 0, 3.5, 1.0, 4, 2, 6]", count=16):
 class BenchmarkMeasurementTests(unittest.TestCase):
     def test_valid_numbers_preserve_raw_samples_medians_and_checksums(self):
         records = MEASURE.parse_fixtures(output())
-        self.assertEqual(set(records), {f"fixture-{index}" for index in range(16)})
-        for index in range(16):
-            self.assertEqual(records[f"fixture-{index}"], {
+        self.assertEqual(set(records), set(MEASURE.FIXTURE_NAMES))
+        for index, name in enumerate(MEASURE.FIXTURE_NAMES):
+            self.assertEqual(records[name], {
                 "samples_ns": [7, 0, 3.5, 1.0, 4, 2, 6],
                 "median_ns": 3.5,
                 "checksum": index - 8,
             })
 
     def test_zero_samples_are_valid(self):
-        record = MEASURE.parse_fixtures(output("[0, 0.0, 0, 0.0, 0, 0.0, 0]"))["fixture-0"]
+        record = MEASURE.parse_fixtures(output("[0, 0.0, 0, 0.0, 0, 0.0, 0]"))["lookup-small"]
         self.assertEqual(record["median_ns"], 0)
         self.assertEqual(record["samples_ns"], [0, 0.0, 0, 0.0, 0, 0.0, 0])
 
@@ -79,6 +80,14 @@ class BenchmarkMeasurementTests(unittest.TestCase):
     def test_exactly_sixteen_fixtures_are_required(self):
         for text in ("", output(count=15), output(count=17)):
             with self.subTest(count=len(text.splitlines())), self.assertRaises(ValueError):
+                MEASURE.parse_fixtures(text)
+
+    def test_unknown_names_cannot_replace_expected_fixtures(self):
+        for names in (("lookup-small",), MEASURE.FIXTURE_NAMES):
+            text = output()
+            for index, name in enumerate(names):
+                text = text.replace(name + " samples_ns=", f"renamed-{index} samples_ns=")
+            with self.subTest(renamed=len(names)), self.assertRaisesRegex(ValueError, "fixture mismatch"):
                 MEASURE.parse_fixtures(text)
 
 

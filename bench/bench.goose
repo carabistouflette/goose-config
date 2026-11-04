@@ -94,6 +94,15 @@ fn toml_scenario(count: i64) {
         }
         samples[sample] = (clock_ns() - start) / (count as f64);
     }
+    // Check the final document outside the timed loop, including both sources.
+    let port, pe = config::get_integer(store, "server.port");
+    let name, ne = config::get_text(store, "name");
+    let port_source, pse = config::source(store, "server.port");
+    let name_source, nse = config::source(store, "name");
+    assert(pe.len == 0 && ne.len == 0 && pse.len == 0 && nse.len == 0);
+    assert(port == (if count % 2 == 0 { 9000 } else { 8080 }));
+    assert(name == (if count % 2 == 0 { "duck" } else { "goose" }));
+    assert(port_source == "app.toml" && name_source == "app.toml");
     report("toml-small", samples, checksum);
 }
 fn main() {

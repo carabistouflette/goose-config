@@ -19,6 +19,13 @@ import tempfile
 from datetime import datetime, timezone
 
 ROOT = Path(__file__).resolve().parents[1]
+FIXTURE_NAMES = (
+    "lookup-small", "lookup-first-wide", "lookup-mixed-wide", "lookup-missing-wide",
+    "lookup-last-wide", "reject-layer-wide", "apply-small", "apply-wide",
+    "update-one-large", "lookup-last-long-prefix", "lookup-mixed-long-prefix",
+    "apply-wide-long-prefix", "init-small", "init-wide", "init-wide-long-prefix",
+    "toml-small",
+)
 
 
 def run(command, **kwargs):
@@ -50,8 +57,11 @@ def parse_fixtures(output):
                 raise ValueError(f"timing must be finite and nonnegative: {name}")
         fixtures[name] = {"samples_ns": samples, "median_ns": statistics.median(samples),
                           "checksum": int(match[3])}
-    if len(fixtures) != 16:
-        raise ValueError(f"expected 16 benchmark fixtures, got {len(fixtures)}")
+    expected = set(FIXTURE_NAMES)
+    if set(fixtures) != expected:
+        missing = sorted(expected - fixtures.keys())
+        unexpected = sorted(fixtures.keys() - expected)
+        raise ValueError(f"benchmark fixture mismatch: missing={missing}, unexpected={unexpected}")
     return fixtures
 
 

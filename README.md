@@ -242,8 +242,9 @@ per-document timeout. Rejected layers are checked for preservation of every
 seeded value and source. AddressSanitizer/UndefinedBehaviorSanitizer cover
 behavior, ownership, independent-model and hostile-input suites. CI runs both
 optimized compilers and optimized GCC/Clang sanitizer builds, and smoke-runs
-benchmarks without timing thresholds. Eleven Python regressions reject corrupt
-benchmark records, including nonfinite or boolean samples and duplicate rows.
+benchmarks without timing thresholds. Twelve Python regressions reject corrupt
+benchmark records, including nonfinite or boolean samples, duplicate rows,
+and renamed fixtures.
 
 `make conformance` checks the vendored parser against all 208 valid and 509
 invalid TOML 1.0 cases at the pinned official `toml-test` revision. It compares

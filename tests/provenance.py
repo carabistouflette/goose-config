@@ -65,6 +65,12 @@ class ProvenanceTests(unittest.TestCase):
         shutil.copyfile(ROOT / relative, destination)
         return destination
 
+    def measurement_module(self):
+        spec = importlib.util.spec_from_file_location("provenance_measure", ROOT / "bench/measure.py")
+        measure = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(measure)
+        return measure
+
     def stop_process(self, process):
         if process.poll() is None:
             os.killpg(process.pid, signal.SIGTERM)
@@ -106,8 +112,8 @@ source = Path(sys.argv[2])
 value = int((source.parents[1] / "config.goose").read_text())
 output = Path(sys.argv[sys.argv.index("-o") + 1])
 program = "#!" + sys.executable + "\\n"
-for index in range(16):
-    row = f"fixture-{index} samples_ns={[value] * 7} checksum={index}"
+for index, name in enumerate(__FIXTURE_NAMES__):
+    row = f"{name} samples_ns={[value] * 7} checksum={index}"
     program += "print(" + repr(row) + ")\\n"
 output.write_text(program)
 output.chmod(0o755)
@@ -119,7 +125,7 @@ if os.environ.get("PROVENANCE_FIRST") and output.parent.name == "after":
         if time.monotonic() >= deadline:
             raise SystemExit("benchmark fixture barrier timed out")
         time.sleep(0.01)
-''')
+'''.replace("__FIXTURE_NAMES__", repr(self.measurement_module().FIXTURE_NAMES)))
         self.executable("gcc", 'print("gcc fixture")\n')
         command = [sys.executable, str(script), "--goose", str(compiler),
                    "--iterations", "1", "--pairs", "1"]
@@ -152,9 +158,7 @@ if os.environ.get("PROVENANCE_FIRST") and output.parent.name == "after":
         self.assertEqual(list((self.root / ".build/paired").iterdir()), [])
 
     def test_invalid_benchmark_record_preserves_previous_publication(self):
-        spec = importlib.util.spec_from_file_location("provenance_measure", ROOT / "bench/measure.py")
-        measure = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(measure)
+        measure = self.measurement_module()
         destination = self.directory / "record.json"
         destination.write_text('{"previous": true}\n')
         with self.assertRaises(ValueError):
