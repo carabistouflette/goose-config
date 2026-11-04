@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // Optional adapter. Import config.toml after declaring the config package.
 import config;
-import vendor;
+import .vendor;
 namespace config;
 
 fn table_known(store: Store&, path: const u8[:]) -> bool {
