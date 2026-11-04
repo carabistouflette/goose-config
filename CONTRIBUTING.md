@@ -17,6 +17,9 @@ Add public API regressions for behavior changes. Run `make format`,
 Request independent correctness, security, and performance reviews at milestones; fix actionable findings and keep CI passing. Never commit
 credentials, generated compilers/build output, or private workspace notes.
 
+Run `make conformance` for vendored-parser or TOML test-runner changes. Keep
+`TOML_TEST_REVISION` pinned to a reviewed full commit; do not skip failing cases.
+
 GOOSE_REVISION pins the exact compiler. Review compiler and vendored parser
 updates and rerun full validation. Report vulnerabilities privately using
 GitHub advisory reporting when available.

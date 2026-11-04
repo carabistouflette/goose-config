@@ -118,3 +118,13 @@ Small schemas retain that validator too. Permanent regression tests cover
 lexical distractors, 256 simultaneous raw-prefix ancestors, and mixed invalid
 field/prefix cases. The independent nested-schema model exercises every active
 value and source after reinitialization and successful or rejected layers.
+
+## Record validation
+
+The measurement tool rejects nonnumeric, boolean, nonfinite and negative timing
+samples, wrong sample counts, missing/extra fixtures and duplicate fixture rows.
+It preserves valid raw numbers, calculates medians only after validation, and
+serializes strict JSON with nonfinite values disabled. Eleven stdlib Python
+regressions run under `make test`; `python3 tests/benchmark_measure.py` runs them
+alone without building a Goose program. Existing committed raw records were
+checked during review and contain valid finite samples.

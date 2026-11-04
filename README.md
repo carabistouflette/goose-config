@@ -181,6 +181,7 @@ make format check test property security sanitize
 SANITIZER_CC=clang make sanitize
 make release RELEASE_CC=gcc
 make release RELEASE_CC=clang
+make conformance
 make bench BENCH_ITERATIONS=1000
 ```
 
@@ -189,11 +190,13 @@ runner needs libc development headers. Tests need Python 3.11+. Sanitizers and
 benchmarks target Linux with GCC; `SANITIZER_CC=clang` can select Clang's compatible
 sanitizer flags. Sanitizers use C `-O2` with `--debug --no-bce`. Goose's debug
 mode emits `-O0`; the wrapper appends `SANITIZER_OPT` last so its setting wins.
-A compiler-state prerequisite checks actual ASan/optimization markers before
-running the suite. `SANITIZER_OPT=-O0` selects unoptimized debugging. Use
+A compiler-state prerequisite checks actual ASan/optimization markers and
+requires a UBSan runtime overflow diagnostic before running the suite. `SANITIZER_OPT=-O0` selects unoptimized debugging. Use
 `make GOOSE=/absolute/path/to/goose ...` with an existing compiler. Optimized release checks require the selected GCC or Clang compiler.
 `GOOSE_REVISION` pins the same compiler as goose-json; compatibility
-with other revisions is not guaranteed.
+with other revisions is not guaranteed. The optional `conformance` target needs
+Go 1.27+ (or automatic Go toolchain downloads); it builds the official runner
+at `TOML_TEST_REVISION` using read-only module dependencies.
 
 Tests exercise in-process, native, native debug, and optimized GCC/Clang
 execution, plus compile-time ownership and consumer-overload checks. Eight
@@ -209,7 +212,14 @@ per-document timeout. Rejected layers are checked for preservation of every
 seeded value and source. AddressSanitizer/UndefinedBehaviorSanitizer cover
 behavior, ownership, independent-model and hostile-input suites. CI runs both
 optimized compilers and optimized GCC/Clang sanitizer builds, and smoke-runs
-benchmarks without timing thresholds.
+benchmarks without timing thresholds. Eleven Python regressions reject corrupt
+benchmark records, including nonfinite or boolean samples and duplicate rows.
+
+`make conformance` checks the vendored parser against all 208 valid and 509
+invalid TOML 1.0 cases at the pinned official `toml-test` revision. It compares
+decoded values and types, not only acceptance. This tests the full private
+parser; the public config adapter deliberately supports only its documented
+scalar subset. No encoder is provided or tested. The suite is not exhaustive.
 See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 [Apache-2.0](LICENSE). Copyright 2026 goose-config contributors.
