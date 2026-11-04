@@ -64,7 +64,7 @@ def main():
         run([compiler, "build", str(source / "bench/bench.goose"), "--cc", "gcc",
              "-O2", "-o", str(goose_binary)], cwd=ROOT)
         competitor = workspace / "competitors"
-        run(["go", "build", "-mod=readonly", "-trimpath", "-o", str(competitor), "."],
+        run(["go", "build", "-mod=readonly", "-trimpath", "-buildvcs=false", "-o", str(competitor), "."],
             cwd=adapter_source, env=go_env)
         metadata = json.loads(run(["taskset", "-c", str(args.cpu), str(competitor), "metadata"], env=go_env))
         runs = []
@@ -93,7 +93,7 @@ def main():
                   "gcc": run(["gcc", "--version"]).splitlines()[0], "platform": platform.platform(),
                   "cpu": cpu_name, "cpu_affinity": args.cpu, "iterations": args.iterations,
                   "rounds": args.rounds, "samples_per_run": 7, "source_sha256": hashes,
-                  "flags": {"goose": "gcc -O2", "go": "go build -mod=readonly -trimpath"},
+                  "flags": {"goose": "gcc -O2", "go": "go build -mod=readonly -trimpath -buildvcs=false"},
                   "runtime_environment": {key: go_env.get(key) for key in
                                           ("GOGC", "GOMEMLIMIT", "GODEBUG", "GOEXPERIMENT")},
                   "limitations": ["Cross-language/runtime measurements; scalar shared subset only.",
