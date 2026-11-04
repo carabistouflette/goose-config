@@ -1,6 +1,8 @@
 # Configuration benchmarks
 
-The latest [storage and native-binding audit](../docs/v010-results.md) retains
+The [initialization follow-up](../docs/initialization-performance.md) measures
+the validator/comparator change, including all sixteen fixtures and regressions.
+The earlier [storage and native-binding audit](../docs/v010-results.md) retains
 all loading fixtures, mixed results, the observed CPU7 overlap and a separate
 handoff repeat. Earlier records below remain historical measurements.
 

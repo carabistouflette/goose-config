@@ -7,6 +7,13 @@
 - Compact internal value metadata using the immutable schema kind and combine
   retained scalar source/text arena copies; preserve the supported API.
 - Validate the ASCII key grammar in one bounded pass.
+- Keep ordinary ASCII bytes on the validator's fast path and skip equal
+  16-byte prefixes before the existing comparison remainder.
+- Check key ordering against an independent bytewise reference in 132,612
+  cases covering lengths, prefixes, binary bytes and every mismatch position.
+- Retain all sixteen fixtures and both invocations in the
+  [initialization follow-up](docs/initialization-performance.md), including
+  higher large-text update medians and the limits on apply-performance claims.
 - Add matched binding/list/multi-layer reload workloads.
 - Retain all raw results, the observed CPU7 overlap and a separate handoff
   repeat in the [measurement audit](docs/v010-results.md). Loading timings are

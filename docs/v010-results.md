@@ -33,6 +33,9 @@ active. The handoff results supplement the originals; they do not replace them.
 
 ## Loading and metadata
 
+The later [initialization follow-up](initialization-performance.md) measures a
+validator/comparator change. The source revisions and results below remain historical.
+
 The change replaces two internal payload spans with one selected by the
 immutable schema kind, saving one 16-byte span per value record (4,096 bytes
 across 256 logical records). This is not an exact allocator or peak-RSS saving.
