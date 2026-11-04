@@ -1,0 +1,2552 @@
+{
+  "control": "ba-labels",
+  "mapping": {
+    "left": "candidate",
+    "right": "baseline"
+  },
+  "reverse_initial_order": false,
+  "count": 1000,
+  "batches": 7,
+  "pairs": 12,
+  "start_unix": 1793821328.3113897,
+  "elapsed_s": 114.76332092285156,
+  "instrumented": false,
+  "manifest_sha256": "7690c3bc04171c5a05d1ae83af92d58dd5db44535d568f385f2e80b847f352ab",
+  "records": [
+    {
+      "pair": 0,
+      "label": "left",
+      "snapshot": "candidate",
+      "start_unix": 1793821328.311456,
+      "elapsed_s": 2.4892027378082275,
+      "argv": [
+        "taskset",
+        "-c",
+        "7",
+        "perf",
+        "stat",
+        "-x",
+        ";",
+        "-e",
+        "cpu_atom/cycles/u,cpu_atom/instructions/u,task-clock,context-switches,cpu-migrations,page-faults",
+        "--",
+        "<ARTIFACTS>/candidate/benchmark",
+        "1000"
+      ],
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            172.549,
+            160.345,
+            161.272,
+            160.376,
+            161.253,
+            160.43,
+            170.871
+          ],
+          "median_ns": 161.253,
+          "checksum": 710500
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            157097.363,
+            125183.227,
+            142211.63,
+            132544.675,
+            107748.073,
+            127148.029,
+            139053.001
+          ],
+          "median_ns": 132544.675,
+          "checksum": 693000
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            130.428,
+            135.8,
+            128.321,
+            127.535,
+            128.837,
+            127.397,
+            127.017
+          ],
+          "median_ns": 128.321,
+          "checksum": 161000
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            129940.218,
+            127387.888,
+            127164.719,
+            97782.76,
+            102926.914,
+            83635.03,
+            80029.892
+          ],
+          "median_ns": 102926.914,
+          "checksum": 1911000
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            135483.032,
+            135201.691,
+            106828.098,
+            121339.649,
+            81362.906,
+            79904.362,
+            85406.295
+          ],
+          "median_ns": 106828.098,
+          "checksum": 1400000
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            2279.963,
+            2277.049,
+            2260.347,
+            2166.107,
+            2163.797,
+            2165.308,
+            2156.218
+          ],
+          "median_ns": 2166.107,
+          "checksum": 29522500
+        }
+      },
+      "stdout": "update-text-boundary-large samples_ns=[172.549, 160.345, 161.272, 160.376, 161.253, 160.43, 170.871] checksum=710500\nmedian=161.253 min=160.345 max=172.549\nupdate-text-resize-large samples_ns=[157097.363, 125183.227, 142211.63, 132544.675, 107748.073, 127148.029, 139053.001] checksum=693000\nmedian=132544.675 min=107748.073 max=157097.363\nupdate-integer-large samples_ns=[130.428, 135.8, 128.321, 127.535, 128.837, 127.397, 127.017] checksum=161000\nmedian=128.321 min=127.017 max=135.8\nupdate-text-list-large samples_ns=[129940.218, 127387.888, 127164.719, 97782.76, 102926.914, 83635.03, 80029.892] checksum=1911000\nmedian=102926.914 min=80029.892 max=129940.218\nupdate-two-text-large samples_ns=[135483.032, 135201.691, 106828.098, 121339.649, 81362.906, 79904.362, 85406.295] checksum=1400000\nmedian=106828.098 min=79904.362 max=135483.032\nupdate-text-full-large samples_ns=[2279.963, 2277.049, 2260.347, 2166.107, 2163.797, 2165.308, 2156.218] checksum=29522500\nmedian=2166.107 min=2156.218 max=2279.963\n",
+      "perf_stderr": "4576263256;;cpu_atom/cycles/u;2449930351;100.00;;\n818802506;;cpu_atom/instructions/u;2449930351;100.00;;\n2449.93;msec;task-clock:u;2449930351;100.00;;\n0;;context-switches:u;2449930351;100.00;;\n0;;cpu-migrations:u;2449930351;100.00;;\n887;;page-faults:u;2449930351;100.00;;\n"
+    },
+    {
+      "pair": 0,
+      "label": "right",
+      "snapshot": "baseline",
+      "start_unix": 1793821330.8008265,
+      "elapsed_s": 4.716400623321533,
+      "argv": [
+        "taskset",
+        "-c",
+        "7",
+        "perf",
+        "stat",
+        "-x",
+        ";",
+        "-e",
+        "cpu_atom/cycles/u,cpu_atom/instructions/u,task-clock,context-switches,cpu-migrations,page-faults",
+        "--",
+        "<ARTIFACTS>/baseline/benchmark",
+        "1000"
+      ],
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            94310.654,
+            72811.677,
+            118036.472,
+            91934.563,
+            138435.163,
+            121715.087,
+            83542.725
+          ],
+          "median_ns": 94310.654,
+          "checksum": 710500
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            77353.733,
+            83087.02,
+            76446.079,
+            90030.234,
+            94321.373,
+            84721.302,
+            79249.393
+          ],
+          "median_ns": 83087.02,
+          "checksum": 693000
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            74802.022,
+            78342.136,
+            77255.749,
+            76247.912,
+            124136.016,
+            85510.058,
+            95733.928
+          ],
+          "median_ns": 78342.136,
+          "checksum": 161000
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            87790.528,
+            79802.63,
+            80366.517,
+            82165.114,
+            156124.329,
+            178953.326,
+            198617.844
+          ],
+          "median_ns": 87790.528,
+          "checksum": 1911000
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            175863.318,
+            121458.349,
+            154143.965,
+            130019.335,
+            109894.793,
+            114168.033,
+            128702.418
+          ],
+          "median_ns": 128702.418,
+          "checksum": 1400000
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            125178.593,
+            127180.138,
+            140819.61,
+            147397.885,
+            134844.505,
+            134203.79,
+            156381.298
+          ],
+          "median_ns": 134844.505,
+          "checksum": 29522500
+        }
+      },
+      "stdout": "update-text-boundary-large samples_ns=[94310.654, 72811.677, 118036.472, 91934.563, 138435.163, 121715.087, 83542.725] checksum=710500\nmedian=94310.654 min=72811.677 max=138435.163\nupdate-text-resize-large samples_ns=[77353.733, 83087.02, 76446.079, 90030.234, 94321.373, 84721.302, 79249.393] checksum=693000\nmedian=83087.02 min=76446.079 max=94321.373\nupdate-integer-large samples_ns=[74802.022, 78342.136, 77255.749, 76247.912, 124136.016, 85510.058, 95733.928] checksum=161000\nmedian=78342.136 min=74802.022 max=124136.016\nupdate-text-list-large samples_ns=[87790.528, 79802.63, 80366.517, 82165.114, 156124.329, 178953.326, 198617.844] checksum=1911000\nmedian=87790.528 min=79802.63 max=198617.844\nupdate-two-text-large samples_ns=[175863.318, 121458.349, 154143.965, 130019.335, 109894.793, 114168.033, 128702.418] checksum=1400000\nmedian=128702.418 min=109894.793 max=175863.318\nupdate-text-full-large samples_ns=[125178.593, 127180.138, 140819.61, 147397.885, 134844.505, 134203.79, 156381.298] checksum=29522500\nmedian=134844.505 min=125178.593 max=156381.298\n",
+      "perf_stderr": "8914192829;;cpu_atom/cycles/u;4684906567;100.00;;\n1295640932;;cpu_atom/instructions/u;4684906567;100.00;;\n4684.91;msec;task-clock:u;4684906567;100.00;;\n0;;context-switches:u;4684906567;100.00;;\n0;;cpu-migrations:u;4684906567;100.00;;\n889;;page-faults:u;4684906567;100.00;;\n"
+    },
+    {
+      "pair": 1,
+      "label": "right",
+      "snapshot": "baseline",
+      "start_unix": 1793821335.517525,
+      "elapsed_s": 5.763432741165161,
+      "argv": [
+        "taskset",
+        "-c",
+        "7",
+        "perf",
+        "stat",
+        "-x",
+        ";",
+        "-e",
+        "cpu_atom/cycles/u,cpu_atom/instructions/u,task-clock,context-switches,cpu-migrations,page-faults",
+        "--",
+        "<ARTIFACTS>/baseline/benchmark",
+        "1000"
+      ],
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            133456.035,
+            136141.002,
+            116976.543,
+            127920.615,
+            113377.971,
+            119826.995,
+            163802.897
+          ],
+          "median_ns": 127920.615,
+          "checksum": 710500
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            185981.709,
+            180568.418,
+            156879.205,
+            128814.062,
+            112877.426,
+            141404.769,
+            147587.088
+          ],
+          "median_ns": 147587.088,
+          "checksum": 693000
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            124855.377,
+            133232.992,
+            124317.237,
+            111049.38,
+            130189.687,
+            164137.238,
+            201106.641
+          ],
+          "median_ns": 130189.687,
+          "checksum": 161000
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            172973.213,
+            157967.618,
+            154403.257,
+            144367.696,
+            139088.846,
+            130726.442,
+            113017.686
+          ],
+          "median_ns": 144367.696,
+          "checksum": 1911000
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            112868.616,
+            111072.501,
+            97055.42,
+            139463.638,
+            120886.861,
+            150055.921,
+            141052.909
+          ],
+          "median_ns": 120886.861,
+          "checksum": 1400000
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            148416.577,
+            149015.591,
+            132337.449,
+            104266.349,
+            93210.653,
+            133671.019,
+            122558.071
+          ],
+          "median_ns": 132337.449,
+          "checksum": 29522500
+        }
+      },
+      "stdout": "update-text-boundary-large samples_ns=[133456.035, 136141.002, 116976.543, 127920.615, 113377.971, 119826.995, 163802.897] checksum=710500\nmedian=127920.615 min=113377.971 max=163802.897\nupdate-text-resize-large samples_ns=[185981.709, 180568.418, 156879.205, 128814.062, 112877.426, 141404.769, 147587.088] checksum=693000\nmedian=147587.088 min=112877.426 max=185981.709\nupdate-integer-large samples_ns=[124855.377, 133232.992, 124317.237, 111049.38, 130189.687, 164137.238, 201106.641] checksum=161000\nmedian=130189.687 min=111049.38 max=201106.641\nupdate-text-list-large samples_ns=[172973.213, 157967.618, 154403.257, 144367.696, 139088.846, 130726.442, 113017.686] checksum=1911000\nmedian=144367.696 min=113017.686 max=172973.213\nupdate-two-text-large samples_ns=[112868.616, 111072.501, 97055.42, 139463.638, 120886.861, 150055.921, 141052.909] checksum=1400000\nmedian=120886.861 min=97055.42 max=150055.921\nupdate-text-full-large samples_ns=[148416.577, 149015.591, 132337.449, 104266.349, 93210.653, 133671.019, 122558.071] checksum=29522500\nmedian=132337.449 min=93210.653 max=149015.591\n",
+      "perf_stderr": "9751807093;;cpu_atom/cycles/u;5723820969;100.00;;\n1295943635;;cpu_atom/instructions/u;5723820969;100.00;;\n5723.82;msec;task-clock:u;5723820969;100.00;;\n0;;context-switches:u;5723820969;100.00;;\n0;;cpu-migrations:u;5723820969;100.00;;\n888;;page-faults:u;5723820969;100.00;;\n"
+    },
+    {
+      "pair": 1,
+      "label": "left",
+      "snapshot": "candidate",
+      "start_unix": 1793821341.2812443,
+      "elapsed_s": 2.9698891639709473,
+      "argv": [
+        "taskset",
+        "-c",
+        "7",
+        "perf",
+        "stat",
+        "-x",
+        ";",
+        "-e",
+        "cpu_atom/cycles/u,cpu_atom/instructions/u,task-clock,context-switches,cpu-migrations,page-faults",
+        "--",
+        "<ARTIFACTS>/candidate/benchmark",
+        "1000"
+      ],
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            191.652,
+            130.978,
+            131.948,
+            131.603,
+            131.65,
+            130.852,
+            131.639
+          ],
+          "median_ns": 131.639,
+          "checksum": 710500
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            150824.196,
+            149786.41,
+            124590.832,
+            111347.214,
+            162135.283,
+            152077.707,
+            147823.2
+          ],
+          "median_ns": 149786.41,
+          "checksum": 693000
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            133.969,
+            132.051,
+            132.092,
+            132.091,
+            143.151,
+            131.258,
+            131.35
+          ],
+          "median_ns": 132.091,
+          "checksum": 161000
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            116076.12,
+            151270.139,
+            193869.548,
+            165804.267,
+            182358.524,
+            147937.771,
+            171660.187
+          ],
+          "median_ns": 165804.267,
+          "checksum": 1911000
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            125234.328,
+            123119.847,
+            120380.21,
+            100304.251,
+            102280.548,
+            96667.086,
+            108089.002
+          ],
+          "median_ns": 108089.002,
+          "checksum": 1400000
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            2700.223,
+            2641.551,
+            2596.49,
+            2513.954,
+            2539.712,
+            2563.539,
+            2534.833
+          ],
+          "median_ns": 2563.539,
+          "checksum": 29522500
+        }
+      },
+      "stdout": "update-text-boundary-large samples_ns=[191.652, 130.978, 131.948, 131.603, 131.65, 130.852, 131.639] checksum=710500\nmedian=131.639 min=130.852 max=191.652\nupdate-text-resize-large samples_ns=[150824.196, 149786.41, 124590.832, 111347.214, 162135.283, 152077.707, 147823.2] checksum=693000\nmedian=149786.41 min=111347.214 max=162135.283\nupdate-integer-large samples_ns=[133.969, 132.051, 132.092, 132.091, 143.151, 131.258, 131.35] checksum=161000\nmedian=132.091 min=131.258 max=143.151\nupdate-text-list-large samples_ns=[116076.12, 151270.139, 193869.548, 165804.267, 182358.524, 147937.771, 171660.187] checksum=1911000\nmedian=165804.267 min=116076.12 max=193869.548\nupdate-two-text-large samples_ns=[125234.328, 123119.847, 120380.21, 100304.251, 102280.548, 96667.086, 108089.002] checksum=1400000\nmedian=108089.002 min=96667.086 max=125234.328\nupdate-text-full-large samples_ns=[2700.223, 2641.551, 2596.49, 2513.954, 2539.712, 2563.539, 2534.833] checksum=29522500\nmedian=2563.539 min=2513.954 max=2700.223\n",
+      "perf_stderr": "5017221037;;cpu_atom/cycles/u;2920946832;100.00;;\n818798409;;cpu_atom/instructions/u;2920946832;100.00;;\n2920.95;msec;task-clock:u;2920946832;100.00;;\n0;;context-switches:u;2920946832;100.00;;\n0;;cpu-migrations:u;2920946832;100.00;;\n887;;page-faults:u;2920946832;100.00;;\n"
+    },
+    {
+      "pair": 2,
+      "label": "left",
+      "snapshot": "candidate",
+      "start_unix": 1793821344.251388,
+      "elapsed_s": 2.8137693405151367,
+      "argv": [
+        "taskset",
+        "-c",
+        "7",
+        "perf",
+        "stat",
+        "-x",
+        ";",
+        "-e",
+        "cpu_atom/cycles/u,cpu_atom/instructions/u,task-clock,context-switches,cpu-migrations,page-faults",
+        "--",
+        "<ARTIFACTS>/candidate/benchmark",
+        "1000"
+      ],
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            153.206,
+            125.0,
+            124.932,
+            124.916,
+            135.612,
+            125.043,
+            125.506
+          ],
+          "median_ns": 125.043,
+          "checksum": 710500
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            104851.078,
+            117843.507,
+            125273.086,
+            120771.956,
+            117786.132,
+            119812.549,
+            121208.325
+          ],
+          "median_ns": 119812.549,
+          "checksum": 693000
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            120.045,
+            111.617,
+            123.521,
+            111.186,
+            111.198,
+            111.107,
+            111.212
+          ],
+          "median_ns": 111.212,
+          "checksum": 161000
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            147587.901,
+            140845.582,
+            138465.681,
+            169723.202,
+            166735.432,
+            157783.385,
+            137983.557
+          ],
+          "median_ns": 147587.901,
+          "checksum": 1911000
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            130357.573,
+            115310.76,
+            117912.667,
+            101949.204,
+            117855.118,
+            167359.91,
+            117587.973
+          ],
+          "median_ns": 117855.118,
+          "checksum": 1400000
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            2648.247,
+            2549.715,
+            2503.431,
+            2510.343,
+            2497.058,
+            2449.119,
+            2426.947
+          ],
+          "median_ns": 2503.431,
+          "checksum": 29522500
+        }
+      },
+      "stdout": "update-text-boundary-large samples_ns=[153.206, 125.0, 124.932, 124.916, 135.612, 125.043, 125.506] checksum=710500\nmedian=125.043 min=124.916 max=153.206\nupdate-text-resize-large samples_ns=[104851.078, 117843.507, 125273.086, 120771.956, 117786.132, 119812.549, 121208.325] checksum=693000\nmedian=119812.549 min=104851.078 max=125273.086\nupdate-integer-large samples_ns=[120.045, 111.617, 123.521, 111.186, 111.198, 111.107, 111.212] checksum=161000\nmedian=111.212 min=111.107 max=123.521\nupdate-text-list-large samples_ns=[147587.901, 140845.582, 138465.681, 169723.202, 166735.432, 157783.385, 137983.557] checksum=1911000\nmedian=147587.901 min=137983.557 max=169723.202\nupdate-two-text-large samples_ns=[130357.573, 115310.76, 117912.667, 101949.204, 117855.118, 167359.91, 117587.973] checksum=1400000\nmedian=117855.118 min=101949.204 max=167359.91\nupdate-text-full-large samples_ns=[2648.247, 2549.715, 2503.431, 2510.343, 2497.058, 2449.119, 2426.947] checksum=29522500\nmedian=2503.431 min=2426.947 max=2648.247\n",
+      "perf_stderr": "4872630147;;cpu_atom/cycles/u;2765389646;100.00;;\n818802461;;cpu_atom/instructions/u;2765389646;100.00;;\n2765.39;msec;task-clock:u;2765389646;100.00;;\n0;;context-switches:u;2765389646;100.00;;\n0;;cpu-migrations:u;2765389646;100.00;;\n886;;page-faults:u;2765389646;100.00;;\n"
+    },
+    {
+      "pair": 2,
+      "label": "right",
+      "snapshot": "baseline",
+      "start_unix": 1793821347.0653703,
+      "elapsed_s": 6.330398082733154,
+      "argv": [
+        "taskset",
+        "-c",
+        "7",
+        "perf",
+        "stat",
+        "-x",
+        ";",
+        "-e",
+        "cpu_atom/cycles/u,cpu_atom/instructions/u,task-clock,context-switches,cpu-migrations,page-faults",
+        "--",
+        "<ARTIFACTS>/baseline/benchmark",
+        "1000"
+      ],
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            115113.739,
+            112857.598,
+            103136.053,
+            131086.606,
+            131449.91,
+            134795.163,
+            171814.049
+          ],
+          "median_ns": 131086.606,
+          "checksum": 710500
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            199648.246,
+            183911.996,
+            173586.187,
+            188309.28,
+            155833.399,
+            161129.667,
+            124795.645
+          ],
+          "median_ns": 173586.187,
+          "checksum": 693000
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            113138.944,
+            101184.827,
+            89894.087,
+            90970.144,
+            84932.446,
+            87679.951,
+            115502.485
+          ],
+          "median_ns": 90970.144,
+          "checksum": 161000
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            139638.543,
+            139493.376,
+            144065.891,
+            128923.802,
+            146116.702,
+            167819.288,
+            204429.099
+          ],
+          "median_ns": 144065.891,
+          "checksum": 1911000
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            218331.892,
+            205543.238,
+            182540.158,
+            197042.271,
+            228237.137,
+            188579.716,
+            187375.203
+          ],
+          "median_ns": 197042.271,
+          "checksum": 1400000
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            159163.066,
+            141547.861,
+            114716.909,
+            161379.886,
+            174830.508,
+            164805.918,
+            131834.836
+          ],
+          "median_ns": 159163.066,
+          "checksum": 29522500
+        }
+      },
+      "stdout": "update-text-boundary-large samples_ns=[115113.739, 112857.598, 103136.053, 131086.606, 131449.91, 134795.163, 171814.049] checksum=710500\nmedian=131086.606 min=103136.053 max=171814.049\nupdate-text-resize-large samples_ns=[199648.246, 183911.996, 173586.187, 188309.28, 155833.399, 161129.667, 124795.645] checksum=693000\nmedian=173586.187 min=124795.645 max=199648.246\nupdate-integer-large samples_ns=[113138.944, 101184.827, 89894.087, 90970.144, 84932.446, 87679.951, 115502.485] checksum=161000\nmedian=90970.144 min=84932.446 max=115502.485\nupdate-text-list-large samples_ns=[139638.543, 139493.376, 144065.891, 128923.802, 146116.702, 167819.288, 204429.099] checksum=1911000\nmedian=144065.891 min=128923.802 max=204429.099\nupdate-two-text-large samples_ns=[218331.892, 205543.238, 182540.158, 197042.271, 228237.137, 188579.716, 187375.203] checksum=1400000\nmedian=197042.271 min=182540.158 max=228237.137\nupdate-text-full-large samples_ns=[159163.066, 141547.861, 114716.909, 161379.886, 174830.508, 164805.918, 131834.836] checksum=29522500\nmedian=159163.066 min=114716.909 max=174830.508\n",
+      "perf_stderr": "10085258314;;cpu_atom/cycles/u;6244585456;100.00;;\n1295658613;;cpu_atom/instructions/u;6244585456;100.00;;\n6244.59;msec;task-clock:u;6244585456;100.00;;\n0;;context-switches:u;6244585456;100.00;;\n0;;cpu-migrations:u;6244585456;100.00;;\n886;;page-faults:u;6244585456;100.00;;\n"
+    },
+    {
+      "pair": 3,
+      "label": "right",
+      "snapshot": "baseline",
+      "start_unix": 1793821353.3959515,
+      "elapsed_s": 5.839646100997925,
+      "argv": [
+        "taskset",
+        "-c",
+        "7",
+        "perf",
+        "stat",
+        "-x",
+        ";",
+        "-e",
+        "cpu_atom/cycles/u,cpu_atom/instructions/u,task-clock,context-switches,cpu-migrations,page-faults",
+        "--",
+        "<ARTIFACTS>/baseline/benchmark",
+        "1000"
+      ],
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            132341.838,
+            134819.387,
+            139664.026,
+            127801.409,
+            134663.74,
+            140092.637,
+            124838.758
+          ],
+          "median_ns": 134663.74,
+          "checksum": 710500
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            172281.701,
+            155839.097,
+            142766.998,
+            154322.669,
+            150397.424,
+            154680.171,
+            179460.06
+          ],
+          "median_ns": 154680.171,
+          "checksum": 693000
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            163871.766,
+            148971.494,
+            139148.024,
+            127218.158,
+            149016.692,
+            136100.301,
+            128195.684
+          ],
+          "median_ns": 139148.024,
+          "checksum": 161000
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            114515.271,
+            113311.199,
+            107990.613,
+            98839.214,
+            98185.445,
+            128389.934,
+            105838.474
+          ],
+          "median_ns": 107990.613,
+          "checksum": 1911000
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            132952.265,
+            130447.793,
+            128511.532,
+            154593.736,
+            170744.239,
+            184690.124,
+            136151.474
+          ],
+          "median_ns": 136151.474,
+          "checksum": 1400000
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            126749.909,
+            131709.095,
+            146778.527,
+            143622.14,
+            144785.202,
+            128950.742,
+            137062.534
+          ],
+          "median_ns": 137062.534,
+          "checksum": 29522500
+        }
+      },
+      "stdout": "update-text-boundary-large samples_ns=[132341.838, 134819.387, 139664.026, 127801.409, 134663.74, 140092.637, 124838.758] checksum=710500\nmedian=134663.74 min=124838.758 max=140092.637\nupdate-text-resize-large samples_ns=[172281.701, 155839.097, 142766.998, 154322.669, 150397.424, 154680.171, 179460.06] checksum=693000\nmedian=154680.171 min=142766.998 max=179460.06\nupdate-integer-large samples_ns=[163871.766, 148971.494, 139148.024, 127218.158, 149016.692, 136100.301, 128195.684] checksum=161000\nmedian=139148.024 min=127218.158 max=163871.766\nupdate-text-list-large samples_ns=[114515.271, 113311.199, 107990.613, 98839.214, 98185.445, 128389.934, 105838.474] checksum=1911000\nmedian=107990.613 min=98185.445 max=128389.934\nupdate-two-text-large samples_ns=[132952.265, 130447.793, 128511.532, 154593.736, 170744.239, 184690.124, 136151.474] checksum=1400000\nmedian=136151.474 min=128511.532 max=184690.124\nupdate-text-full-large samples_ns=[126749.909, 131709.095, 146778.527, 143622.14, 144785.202, 128950.742, 137062.534] checksum=29522500\nmedian=137062.534 min=126749.909 max=146778.527\n",
+      "perf_stderr": "10067804819;;cpu_atom/cycles/u;5801263958;100.00;;\n1295652575;;cpu_atom/instructions/u;5801263958;100.00;;\n5801.26;msec;task-clock:u;5801263958;100.00;;\n0;;context-switches:u;5801263958;100.00;;\n0;;cpu-migrations:u;5801263958;100.00;;\n890;;page-faults:u;5801263958;100.00;;\n"
+    },
+    {
+      "pair": 3,
+      "label": "left",
+      "snapshot": "candidate",
+      "start_unix": 1793821359.2358572,
+      "elapsed_s": 2.878002882003784,
+      "argv": [
+        "taskset",
+        "-c",
+        "7",
+        "perf",
+        "stat",
+        "-x",
+        ";",
+        "-e",
+        "cpu_atom/cycles/u,cpu_atom/instructions/u,task-clock,context-switches,cpu-migrations,page-faults",
+        "--",
+        "<ARTIFACTS>/candidate/benchmark",
+        "1000"
+      ],
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            135.779,
+            130.907,
+            130.941,
+            139.171,
+            131.374,
+            130.9,
+            131.419
+          ],
+          "median_ns": 131.374,
+          "checksum": 710500
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            112102.525,
+            130093.67,
+            140497.838,
+            130837.563,
+            120284.117,
+            134142.429,
+            127585.842
+          ],
+          "median_ns": 130093.67,
+          "checksum": 693000
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            125.366,
+            123.585,
+            131.92,
+            124.0,
+            123.958,
+            123.598,
+            123.371
+          ],
+          "median_ns": 123.958,
+          "checksum": 161000
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            125739.76,
+            134634.219,
+            140576.492,
+            119236.285,
+            129874.074,
+            121483.297,
+            122693.926
+          ],
+          "median_ns": 125739.76,
+          "checksum": 1911000
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            150508.858,
+            122589.03,
+            138683.672,
+            168795.459,
+            156649.562,
+            154590.901,
+            135099.001
+          ],
+          "median_ns": 150508.858,
+          "checksum": 1400000
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            2835.975,
+            2855.163,
+            2799.643,
+            2814.874,
+            2862.129,
+            2828.954,
+            2762.603
+          ],
+          "median_ns": 2828.954,
+          "checksum": 29522500
+        }
+      },
+      "stdout": "update-text-boundary-large samples_ns=[135.779, 130.907, 130.941, 139.171, 131.374, 130.9, 131.419] checksum=710500\nmedian=131.374 min=130.9 max=139.171\nupdate-text-resize-large samples_ns=[112102.525, 130093.67, 140497.838, 130837.563, 120284.117, 134142.429, 127585.842] checksum=693000\nmedian=130093.67 min=112102.525 max=140497.838\nupdate-integer-large samples_ns=[125.366, 123.585, 131.92, 124.0, 123.958, 123.598, 123.371] checksum=161000\nmedian=123.958 min=123.371 max=131.92\nupdate-text-list-large samples_ns=[125739.76, 134634.219, 140576.492, 119236.285, 129874.074, 121483.297, 122693.926] checksum=1911000\nmedian=125739.76 min=119236.285 max=140576.492\nupdate-two-text-large samples_ns=[150508.858, 122589.03, 138683.672, 168795.459, 156649.562, 154590.901, 135099.001] checksum=1400000\nmedian=150508.858 min=122589.03 max=168795.459\nupdate-text-full-large samples_ns=[2835.975, 2855.163, 2799.643, 2814.874, 2862.129, 2828.954, 2762.603] checksum=29522500\nmedian=2828.954 min=2762.603 max=2862.129\n",
+      "perf_stderr": "4988327727;;cpu_atom/cycles/u;2843596765;100.00;;\n818953385;;cpu_atom/instructions/u;2843596765;100.00;;\n2843.60;msec;task-clock:u;2843596765;100.00;;\n0;;context-switches:u;2843596765;100.00;;\n0;;cpu-migrations:u;2843596765;100.00;;\n888;;page-faults:u;2843596765;100.00;;\n"
+    },
+    {
+      "pair": 4,
+      "label": "left",
+      "snapshot": "candidate",
+      "start_unix": 1793821362.114155,
+      "elapsed_s": 2.9656519889831543,
+      "argv": [
+        "taskset",
+        "-c",
+        "7",
+        "perf",
+        "stat",
+        "-x",
+        ";",
+        "-e",
+        "cpu_atom/cycles/u,cpu_atom/instructions/u,task-clock,context-switches,cpu-migrations,page-faults",
+        "--",
+        "<ARTIFACTS>/candidate/benchmark",
+        "1000"
+      ],
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            145.063,
+            151.785,
+            140.805,
+            139.69,
+            140.452,
+            139.916,
+            140.519
+          ],
+          "median_ns": 140.519,
+          "checksum": 710500
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            156485.575,
+            160409.991,
+            142029.197,
+            154455.646,
+            173269.686,
+            166136.884,
+            138764.611
+          ],
+          "median_ns": 156485.575,
+          "checksum": 693000
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            126.347,
+            124.885,
+            124.711,
+            123.946,
+            123.926,
+            123.951,
+            133.356
+          ],
+          "median_ns": 124.711,
+          "checksum": 161000
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            149479.907,
+            146634.315,
+            117438.611,
+            125024.463,
+            125906.481,
+            128543.071,
+            139134.35
+          ],
+          "median_ns": 128543.071,
+          "checksum": 1911000
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            125713.889,
+            116002.698,
+            126069.443,
+            154210.085,
+            124093.537,
+            114884.021,
+            122847.874
+          ],
+          "median_ns": 124093.537,
+          "checksum": 1400000
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            2686.516,
+            2633.296,
+            2533.892,
+            2499.944,
+            2523.153,
+            2509.087,
+            2493.732
+          ],
+          "median_ns": 2523.153,
+          "checksum": 29522500
+        }
+      },
+      "stdout": "update-text-boundary-large samples_ns=[145.063, 151.785, 140.805, 139.69, 140.452, 139.916, 140.519] checksum=710500\nmedian=140.519 min=139.69 max=151.785\nupdate-text-resize-large samples_ns=[156485.575, 160409.991, 142029.197, 154455.646, 173269.686, 166136.884, 138764.611] checksum=693000\nmedian=156485.575 min=138764.611 max=173269.686\nupdate-integer-large samples_ns=[126.347, 124.885, 124.711, 123.946, 123.926, 123.951, 133.356] checksum=161000\nmedian=124.711 min=123.926 max=133.356\nupdate-text-list-large samples_ns=[149479.907, 146634.315, 117438.611, 125024.463, 125906.481, 128543.071, 139134.35] checksum=1911000\nmedian=128543.071 min=117438.611 max=149479.907\nupdate-two-text-large samples_ns=[125713.889, 116002.698, 126069.443, 154210.085, 124093.537, 114884.021, 122847.874] checksum=1400000\nmedian=124093.537 min=114884.021 max=154210.085\nupdate-text-full-large samples_ns=[2686.516, 2633.296, 2533.892, 2499.944, 2523.153, 2509.087, 2493.732] checksum=29522500\nmedian=2523.153 min=2493.732 max=2686.516\n",
+      "perf_stderr": "5218859678;;cpu_atom/cycles/u;2933999119;100.00;;\n818810753;;cpu_atom/instructions/u;2933999119;100.00;;\n2934.00;msec;task-clock:u;2933999119;100.00;;\n0;;context-switches:u;2933999119;100.00;;\n0;;cpu-migrations:u;2933999119;100.00;;\n890;;page-faults:u;2933999119;100.00;;\n"
+    },
+    {
+      "pair": 4,
+      "label": "right",
+      "snapshot": "baseline",
+      "start_unix": 1793821365.0799723,
+      "elapsed_s": 5.869715213775635,
+      "argv": [
+        "taskset",
+        "-c",
+        "7",
+        "perf",
+        "stat",
+        "-x",
+        ";",
+        "-e",
+        "cpu_atom/cycles/u,cpu_atom/instructions/u,task-clock,context-switches,cpu-migrations,page-faults",
+        "--",
+        "<ARTIFACTS>/baseline/benchmark",
+        "1000"
+      ],
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            146620.458,
+            146456.78,
+            132639.475,
+            154089.3,
+            122591.573,
+            146631.796,
+            131184.331
+          ],
+          "median_ns": 146456.78,
+          "checksum": 710500
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            151676.742,
+            102884.87,
+            87320.443,
+            90530.25,
+            124212.306,
+            111289.939,
+            102566.482
+          ],
+          "median_ns": 102884.87,
+          "checksum": 693000
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            178906.662,
+            136869.712,
+            120499.825,
+            126922.448,
+            142196.748,
+            126458.949,
+            136180.45
+          ],
+          "median_ns": 136180.45,
+          "checksum": 161000
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            106929.895,
+            100189.608,
+            103826.724,
+            105956.984,
+            99740.385,
+            88369.421,
+            91060.787
+          ],
+          "median_ns": 100189.608,
+          "checksum": 1911000
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            105299.299,
+            162803.091,
+            169917.25,
+            174479.64,
+            161725.096,
+            172240.368,
+            179390.56
+          ],
+          "median_ns": 169917.25,
+          "checksum": 1400000
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            187364.754,
+            173942.799,
+            182676.425,
+            194634.56,
+            180533.59,
+            200867.79,
+            172748.78
+          ],
+          "median_ns": 182676.425,
+          "checksum": 29522500
+        }
+      },
+      "stdout": "update-text-boundary-large samples_ns=[146620.458, 146456.78, 132639.475, 154089.3, 122591.573, 146631.796, 131184.331] checksum=710500\nmedian=146456.78 min=122591.573 max=154089.3\nupdate-text-resize-large samples_ns=[151676.742, 102884.87, 87320.443, 90530.25, 124212.306, 111289.939, 102566.482] checksum=693000\nmedian=102884.87 min=87320.443 max=151676.742\nupdate-integer-large samples_ns=[178906.662, 136869.712, 120499.825, 126922.448, 142196.748, 126458.949, 136180.45] checksum=161000\nmedian=136180.45 min=120499.825 max=178906.662\nupdate-text-list-large samples_ns=[106929.895, 100189.608, 103826.724, 105956.984, 99740.385, 88369.421, 91060.787] checksum=1911000\nmedian=100189.608 min=88369.421 max=106929.895\nupdate-two-text-large samples_ns=[105299.299, 162803.091, 169917.25, 174479.64, 161725.096, 172240.368, 179390.56] checksum=1400000\nmedian=169917.25 min=105299.299 max=179390.56\nupdate-text-full-large samples_ns=[187364.754, 173942.799, 182676.425, 194634.56, 180533.59, 200867.79, 172748.78] checksum=29522500\nmedian=182676.425 min=172748.78 max=200867.79\n",
+      "perf_stderr": "10274557396;;cpu_atom/cycles/u;5837286685;100.00;;\n1295652475;;cpu_atom/instructions/u;5837286685;100.00;;\n5837.29;msec;task-clock:u;5837286685;100.00;;\n0;;context-switches:u;5837286685;100.00;;\n0;;cpu-migrations:u;5837286685;100.00;;\n888;;page-faults:u;5837286685;100.00;;\n"
+    },
+    {
+      "pair": 5,
+      "label": "right",
+      "snapshot": "baseline",
+      "start_unix": 1793821370.9498703,
+      "elapsed_s": 5.115726470947266,
+      "argv": [
+        "taskset",
+        "-c",
+        "7",
+        "perf",
+        "stat",
+        "-x",
+        ";",
+        "-e",
+        "cpu_atom/cycles/u,cpu_atom/instructions/u,task-clock,context-switches,cpu-migrations,page-faults",
+        "--",
+        "<ARTIFACTS>/baseline/benchmark",
+        "1000"
+      ],
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            198544.281,
+            170874.729,
+            115352.966,
+            107151.682,
+            101763.065,
+            91000.527,
+            84315.617
+          ],
+          "median_ns": 107151.682,
+          "checksum": 710500
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            87531.106,
+            101705.805,
+            94503.718,
+            118062.066,
+            189584.481,
+            188530.586,
+            127238.642
+          ],
+          "median_ns": 118062.066,
+          "checksum": 693000
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            143607.432,
+            119239.935,
+            103667.416,
+            83394.776,
+            98754.898,
+            87531.177,
+            85919.238
+          ],
+          "median_ns": 98754.898,
+          "checksum": 161000
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            126186.649,
+            159198.178,
+            132873.406,
+            127037.647,
+            133939.672,
+            136360.018,
+            153523.019
+          ],
+          "median_ns": 133939.672,
+          "checksum": 1911000
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            139367.093,
+            86826.533,
+            77787.202,
+            132397.463,
+            131025.054,
+            115065.785,
+            113253.579
+          ],
+          "median_ns": 115065.785,
+          "checksum": 1400000
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            102319.459,
+            82312.618,
+            82065.906,
+            93751.924,
+            123058.189,
+            172429.761,
+            160809.526
+          ],
+          "median_ns": 102319.459,
+          "checksum": 29522500
+        }
+      },
+      "stdout": "update-text-boundary-large samples_ns=[198544.281, 170874.729, 115352.966, 107151.682, 101763.065, 91000.527, 84315.617] checksum=710500\nmedian=107151.682 min=84315.617 max=198544.281\nupdate-text-resize-large samples_ns=[87531.106, 101705.805, 94503.718, 118062.066, 189584.481, 188530.586, 127238.642] checksum=693000\nmedian=118062.066 min=87531.106 max=189584.481\nupdate-integer-large samples_ns=[143607.432, 119239.935, 103667.416, 83394.776, 98754.898, 87531.177, 85919.238] checksum=161000\nmedian=98754.898 min=83394.776 max=143607.432\nupdate-text-list-large samples_ns=[126186.649, 159198.178, 132873.406, 127037.647, 133939.672, 136360.018, 153523.019] checksum=1911000\nmedian=133939.672 min=126186.649 max=159198.178\nupdate-two-text-large samples_ns=[139367.093, 86826.533, 77787.202, 132397.463, 131025.054, 115065.785, 113253.579] checksum=1400000\nmedian=115065.785 min=77787.202 max=139367.093\nupdate-text-full-large samples_ns=[102319.459, 82312.618, 82065.906, 93751.924, 123058.189, 172429.761, 160809.526] checksum=29522500\nmedian=102319.459 min=82065.906 max=172429.761\n",
+      "perf_stderr": "9413600829;;cpu_atom/cycles/u;5079496115;100.00;;\n1295649941;;cpu_atom/instructions/u;5079496115;100.00;;\n5079.50;msec;task-clock:u;5079496115;100.00;;\n0;;context-switches:u;5079496115;100.00;;\n0;;cpu-migrations:u;5079496115;100.00;;\n886;;page-faults:u;5079496115;100.00;;\n"
+    },
+    {
+      "pair": 5,
+      "label": "left",
+      "snapshot": "candidate",
+      "start_unix": 1793821376.065779,
+      "elapsed_s": 3.3311614990234375,
+      "argv": [
+        "taskset",
+        "-c",
+        "7",
+        "perf",
+        "stat",
+        "-x",
+        ";",
+        "-e",
+        "cpu_atom/cycles/u,cpu_atom/instructions/u,task-clock,context-switches,cpu-migrations,page-faults",
+        "--",
+        "<ARTIFACTS>/candidate/benchmark",
+        "1000"
+      ],
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            137.937,
+            131.963,
+            132.823,
+            134.075,
+            134.501,
+            135.276,
+            148.363
+          ],
+          "median_ns": 134.501,
+          "checksum": 710500
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            158466.832,
+            156542.461,
+            161777.453,
+            117197.473,
+            173726.898,
+            186037.255,
+            148668.532
+          ],
+          "median_ns": 158466.832,
+          "checksum": 693000
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            133.62,
+            132.571,
+            131.972,
+            132.405,
+            131.813,
+            141.627,
+            132.142
+          ],
+          "median_ns": 132.405,
+          "checksum": 161000
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            153845.774,
+            154293.141,
+            133069.157,
+            132154.396,
+            129245.586,
+            155161.274,
+            176670.702
+          ],
+          "median_ns": 153845.774,
+          "checksum": 1911000
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            168243.452,
+            166232.46,
+            159650.036,
+            156904.589,
+            169074.766,
+            162117.625,
+            153027.804
+          ],
+          "median_ns": 162117.625,
+          "checksum": 1400000
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            3176.441,
+            3237.427,
+            2996.52,
+            3059.817,
+            3037.897,
+            3055.131,
+            3049.199
+          ],
+          "median_ns": 3055.131,
+          "checksum": 29522500
+        }
+      },
+      "stdout": "update-text-boundary-large samples_ns=[137.937, 131.963, 132.823, 134.075, 134.501, 135.276, 148.363] checksum=710500\nmedian=134.501 min=131.963 max=148.363\nupdate-text-resize-large samples_ns=[158466.832, 156542.461, 161777.453, 117197.473, 173726.898, 186037.255, 148668.532] checksum=693000\nmedian=158466.832 min=117197.473 max=186037.255\nupdate-integer-large samples_ns=[133.62, 132.571, 131.972, 132.405, 131.813, 141.627, 132.142] checksum=161000\nmedian=132.405 min=131.813 max=141.627\nupdate-text-list-large samples_ns=[153845.774, 154293.141, 133069.157, 132154.396, 129245.586, 155161.274, 176670.702] checksum=1911000\nmedian=153845.774 min=129245.586 max=176670.702\nupdate-two-text-large samples_ns=[168243.452, 166232.46, 159650.036, 156904.589, 169074.766, 162117.625, 153027.804] checksum=1400000\nmedian=162117.625 min=153027.804 max=169074.766\nupdate-text-full-large samples_ns=[3176.441, 3237.427, 2996.52, 3059.817, 3037.897, 3055.131, 3049.199] checksum=29522500\nmedian=3055.131 min=2996.52 max=3237.427\n",
+      "perf_stderr": "5414565239;;cpu_atom/cycles/u;3280654110;100.00;;\n818809083;;cpu_atom/instructions/u;3280654110;100.00;;\n3280.65;msec;task-clock:u;3280654110;100.00;;\n0;;context-switches:u;3280654110;100.00;;\n0;;cpu-migrations:u;3280654110;100.00;;\n889;;page-faults:u;3280654110;100.00;;\n"
+    },
+    {
+      "pair": 6,
+      "label": "left",
+      "snapshot": "candidate",
+      "start_unix": 1793821379.3971167,
+      "elapsed_s": 3.441283702850342,
+      "argv": [
+        "taskset",
+        "-c",
+        "7",
+        "perf",
+        "stat",
+        "-x",
+        ";",
+        "-e",
+        "cpu_atom/cycles/u,cpu_atom/instructions/u,task-clock,context-switches,cpu-migrations,page-faults",
+        "--",
+        "<ARTIFACTS>/candidate/benchmark",
+        "1000"
+      ],
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            135.212,
+            132.554,
+            133.53,
+            132.758,
+            143.131,
+            133.945,
+            133.086
+          ],
+          "median_ns": 133.53,
+          "checksum": 710500
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            156209.888,
+            156628.824,
+            163919.086,
+            158206.157,
+            167171.712,
+            165014.464,
+            164574.912
+          ],
+          "median_ns": 163919.086,
+          "checksum": 693000
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            134.84,
+            162.568,
+            148.265,
+            130.249,
+            130.93,
+            130.831,
+            130.207
+          ],
+          "median_ns": 130.93,
+          "checksum": 161000
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            158961.157,
+            166508.296,
+            163629.38,
+            166251.463,
+            159896.961,
+            159930.986,
+            166769.946
+          ],
+          "median_ns": 163629.38,
+          "checksum": 1911000
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            163302.407,
+            156666.984,
+            160155.101,
+            162558.593,
+            153827.056,
+            154867.61,
+            161830.103
+          ],
+          "median_ns": 160155.101,
+          "checksum": 1400000
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            3028.752,
+            3049.67,
+            3020.324,
+            2992.52,
+            3023.975,
+            3000.79,
+            3045.257
+          ],
+          "median_ns": 3023.975,
+          "checksum": 29522500
+        }
+      },
+      "stdout": "update-text-boundary-large samples_ns=[135.212, 132.554, 133.53, 132.758, 143.131, 133.945, 133.086] checksum=710500\nmedian=133.53 min=132.554 max=143.131\nupdate-text-resize-large samples_ns=[156209.888, 156628.824, 163919.086, 158206.157, 167171.712, 165014.464, 164574.912] checksum=693000\nmedian=163919.086 min=156209.888 max=167171.712\nupdate-integer-large samples_ns=[134.84, 162.568, 148.265, 130.249, 130.93, 130.831, 130.207] checksum=161000\nmedian=130.93 min=130.207 max=162.568\nupdate-text-list-large samples_ns=[158961.157, 166508.296, 163629.38, 166251.463, 159896.961, 159930.986, 166769.946] checksum=1911000\nmedian=163629.38 min=158961.157 max=166769.946\nupdate-two-text-large samples_ns=[163302.407, 156666.984, 160155.101, 162558.593, 153827.056, 154867.61, 161830.103] checksum=1400000\nmedian=160155.101 min=153827.056 max=163302.407\nupdate-text-full-large samples_ns=[3028.752, 3049.67, 3020.324, 2992.52, 3023.975, 3000.79, 3045.257] checksum=29522500\nmedian=3023.975 min=2992.52 max=3049.67\n",
+      "perf_stderr": "5657362166;;cpu_atom/cycles/u;3413120799;100.00;;\n818805752;;cpu_atom/instructions/u;3413120799;100.00;;\n3413.12;msec;task-clock:u;3413120799;100.00;;\n0;;context-switches:u;3413120799;100.00;;\n0;;cpu-migrations:u;3413120799;100.00;;\n887;;page-faults:u;3413120799;100.00;;\n"
+    },
+    {
+      "pair": 6,
+      "label": "right",
+      "snapshot": "baseline",
+      "start_unix": 1793821382.8385506,
+      "elapsed_s": 7.07337760925293,
+      "argv": [
+        "taskset",
+        "-c",
+        "7",
+        "perf",
+        "stat",
+        "-x",
+        ";",
+        "-e",
+        "cpu_atom/cycles/u,cpu_atom/instructions/u,task-clock,context-switches,cpu-migrations,page-faults",
+        "--",
+        "<ARTIFACTS>/baseline/benchmark",
+        "1000"
+      ],
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            157136.526,
+            158274.039,
+            151274.915,
+            152646.746,
+            156431.303,
+            157700.06,
+            164361.893
+          ],
+          "median_ns": 157136.526,
+          "checksum": 710500
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            158977.544,
+            161505.632,
+            158718.303,
+            160626.02,
+            158663.63,
+            151489.43,
+            183524.798
+          ],
+          "median_ns": 158977.544,
+          "checksum": 693000
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            164143.14,
+            161601.808,
+            155758.101,
+            155909.578,
+            176988.42,
+            202301.896,
+            168019.105
+          ],
+          "median_ns": 164143.14,
+          "checksum": 161000
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            167859.42,
+            168391.977,
+            165592.904,
+            165721.238,
+            195121.22,
+            185015.483,
+            163071.928
+          ],
+          "median_ns": 167859.42,
+          "checksum": 1911000
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            173936.905,
+            168686.425,
+            163843.973,
+            168189.685,
+            168366.423,
+            170727.893,
+            174581.004
+          ],
+          "median_ns": 168686.425,
+          "checksum": 1400000
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            167807.932,
+            172786.207,
+            167754.254,
+            170361.76,
+            180001.742,
+            187077.473,
+            178787.902
+          ],
+          "median_ns": 172786.207,
+          "checksum": 29522500
+        }
+      },
+      "stdout": "update-text-boundary-large samples_ns=[157136.526, 158274.039, 151274.915, 152646.746, 156431.303, 157700.06, 164361.893] checksum=710500\nmedian=157136.526 min=151274.915 max=164361.893\nupdate-text-resize-large samples_ns=[158977.544, 161505.632, 158718.303, 160626.02, 158663.63, 151489.43, 183524.798] checksum=693000\nmedian=158977.544 min=151489.43 max=183524.798\nupdate-integer-large samples_ns=[164143.14, 161601.808, 155758.101, 155909.578, 176988.42, 202301.896, 168019.105] checksum=161000\nmedian=164143.14 min=155758.101 max=202301.896\nupdate-text-list-large samples_ns=[167859.42, 168391.977, 165592.904, 165721.238, 195121.22, 185015.483, 163071.928] checksum=1911000\nmedian=167859.42 min=163071.928 max=195121.22\nupdate-two-text-large samples_ns=[173936.905, 168686.425, 163843.973, 168189.685, 168366.423, 170727.893, 174581.004] checksum=1400000\nmedian=168686.425 min=163843.973 max=174581.004\nupdate-text-full-large samples_ns=[167807.932, 172786.207, 167754.254, 170361.76, 180001.742, 187077.473, 178787.902] checksum=29522500\nmedian=172786.207 min=167754.254 max=187077.473\n",
+      "perf_stderr": "11003353657;;cpu_atom/cycles/u;6994536977;100.00;;\n1295949762;;cpu_atom/instructions/u;6994536977;100.00;;\n6994.54;msec;task-clock:u;6994536977;100.00;;\n0;;context-switches:u;6994536977;100.00;;\n0;;cpu-migrations:u;6994536977;100.00;;\n889;;page-faults:u;6994536977;100.00;;\n"
+    },
+    {
+      "pair": 7,
+      "label": "right",
+      "snapshot": "baseline",
+      "start_unix": 1793821389.912076,
+      "elapsed_s": 7.3362877368927,
+      "argv": [
+        "taskset",
+        "-c",
+        "7",
+        "perf",
+        "stat",
+        "-x",
+        ";",
+        "-e",
+        "cpu_atom/cycles/u,cpu_atom/instructions/u,task-clock,context-switches,cpu-migrations,page-faults",
+        "--",
+        "<ARTIFACTS>/baseline/benchmark",
+        "1000"
+      ],
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            167879.405,
+            174882.269,
+            174704.674,
+            167205.526,
+            161462.512,
+            173398.876,
+            176264.861
+          ],
+          "median_ns": 173398.876,
+          "checksum": 710500
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            173465.408,
+            177564.67,
+            175391.971,
+            181313.413,
+            167818.054,
+            171021.075,
+            172007.968
+          ],
+          "median_ns": 173465.408,
+          "checksum": 693000
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            169077.82,
+            173433.268,
+            180132.545,
+            175999.071,
+            177266.377,
+            175692.12,
+            168504.318
+          ],
+          "median_ns": 175692.12,
+          "checksum": 161000
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            173439.021,
+            170767.32,
+            168452.714,
+            172496.296,
+            183847.955,
+            184590.622,
+            180793.963
+          ],
+          "median_ns": 173439.021,
+          "checksum": 1911000
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            176814.33,
+            163294.529,
+            168749.179,
+            172720.375,
+            169427.559,
+            180332.24,
+            189702.14
+          ],
+          "median_ns": 172720.375,
+          "checksum": 1400000
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            184476.185,
+            169725.676,
+            175409.572,
+            176666.253,
+            165205.406,
+            169945.127,
+            171131.708
+          ],
+          "median_ns": 171131.708,
+          "checksum": 29522500
+        }
+      },
+      "stdout": "update-text-boundary-large samples_ns=[167879.405, 174882.269, 174704.674, 167205.526, 161462.512, 173398.876, 176264.861] checksum=710500\nmedian=173398.876 min=161462.512 max=176264.861\nupdate-text-resize-large samples_ns=[173465.408, 177564.67, 175391.971, 181313.413, 167818.054, 171021.075, 172007.968] checksum=693000\nmedian=173465.408 min=167818.054 max=181313.413\nupdate-integer-large samples_ns=[169077.82, 173433.268, 180132.545, 175999.071, 177266.377, 175692.12, 168504.318] checksum=161000\nmedian=175692.12 min=168504.318 max=180132.545\nupdate-text-list-large samples_ns=[173439.021, 170767.32, 168452.714, 172496.296, 183847.955, 184590.622, 180793.963] checksum=1911000\nmedian=173439.021 min=168452.714 max=184590.622\nupdate-two-text-large samples_ns=[176814.33, 163294.529, 168749.179, 172720.375, 169427.559, 180332.24, 189702.14] checksum=1400000\nmedian=172720.375 min=163294.529 max=189702.14\nupdate-text-full-large samples_ns=[184476.185, 169725.676, 175409.572, 176666.253, 165205.406, 169945.127, 171131.708] checksum=29522500\nmedian=171131.708 min=165205.406 max=184476.185\n",
+      "perf_stderr": "11183496544;;cpu_atom/cycles/u;7294174658;100.00;;\n1295657130;;cpu_atom/instructions/u;7294174658;100.00;;\n7294.17;msec;task-clock:u;7294174658;100.00;;\n0;;context-switches:u;7294174658;100.00;;\n0;;cpu-migrations:u;7294174658;100.00;;\n886;;page-faults:u;7294174658;100.00;;\n"
+    },
+    {
+      "pair": 7,
+      "label": "left",
+      "snapshot": "candidate",
+      "start_unix": 1793821397.2485025,
+      "elapsed_s": 3.7353014945983887,
+      "argv": [
+        "taskset",
+        "-c",
+        "7",
+        "perf",
+        "stat",
+        "-x",
+        ";",
+        "-e",
+        "cpu_atom/cycles/u,cpu_atom/instructions/u,task-clock,context-switches,cpu-migrations,page-faults",
+        "--",
+        "<ARTIFACTS>/candidate/benchmark",
+        "1000"
+      ],
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            153.756,
+            140.465,
+            140.037,
+            139.584,
+            139.685,
+            140.483,
+            141.231
+          ],
+          "median_ns": 140.465,
+          "checksum": 710500
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            181174.656,
+            181173.038,
+            183110.539,
+            183609.498,
+            175997.413,
+            177234.223,
+            173927.58
+          ],
+          "median_ns": 181173.038,
+          "checksum": 693000
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            149.516,
+            140.766,
+            140.539,
+            133.536,
+            132.57,
+            132.757,
+            135.711
+          ],
+          "median_ns": 135.711,
+          "checksum": 161000
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            177152.373,
+            177015.39,
+            178972.716,
+            171041.631,
+            164667.735,
+            175393.975,
+            173124.785
+          ],
+          "median_ns": 175393.975,
+          "checksum": 1911000
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            180047.829,
+            166417.718,
+            167586.507,
+            177278.874,
+            170065.449,
+            175502.362,
+            167064.805
+          ],
+          "median_ns": 170065.449,
+          "checksum": 1400000
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            3144.083,
+            3022.026,
+            3067.002,
+            3119.874,
+            3011.334,
+            3045.336,
+            2996.154
+          ],
+          "median_ns": 3045.336,
+          "checksum": 29522500
+        }
+      },
+      "stdout": "update-text-boundary-large samples_ns=[153.756, 140.465, 140.037, 139.584, 139.685, 140.483, 141.231] checksum=710500\nmedian=140.465 min=139.584 max=153.756\nupdate-text-resize-large samples_ns=[181174.656, 181173.038, 183110.539, 183609.498, 175997.413, 177234.223, 173927.58] checksum=693000\nmedian=181173.038 min=173927.58 max=183609.498\nupdate-integer-large samples_ns=[149.516, 140.766, 140.539, 133.536, 132.57, 132.757, 135.711] checksum=161000\nmedian=135.711 min=132.57 max=149.516\nupdate-text-list-large samples_ns=[177152.373, 177015.39, 178972.716, 171041.631, 164667.735, 175393.975, 173124.785] checksum=1911000\nmedian=175393.975 min=164667.735 max=178972.716\nupdate-two-text-large samples_ns=[180047.829, 166417.718, 167586.507, 177278.874, 170065.449, 175502.362, 167064.805] checksum=1400000\nmedian=170065.449 min=166417.718 max=180047.829\nupdate-text-full-large samples_ns=[3144.083, 3022.026, 3067.002, 3119.874, 3011.334, 3045.336, 2996.154] checksum=29522500\nmedian=3045.336 min=2996.154 max=3144.083\n",
+      "perf_stderr": "5827643839;;cpu_atom/cycles/u;3707444903;100.00;;\n818961655;;cpu_atom/instructions/u;3707444903;100.00;;\n3707.44;msec;task-clock:u;3707444903;100.00;;\n0;;context-switches:u;3707444903;100.00;;\n0;;cpu-migrations:u;3707444903;100.00;;\n888;;page-faults:u;3707444903;100.00;;\n"
+    },
+    {
+      "pair": 8,
+      "label": "left",
+      "snapshot": "candidate",
+      "start_unix": 1793821400.9839458,
+      "elapsed_s": 3.7949960231781006,
+      "argv": [
+        "taskset",
+        "-c",
+        "7",
+        "perf",
+        "stat",
+        "-x",
+        ";",
+        "-e",
+        "cpu_atom/cycles/u,cpu_atom/instructions/u,task-clock,context-switches,cpu-migrations,page-faults",
+        "--",
+        "<ARTIFACTS>/candidate/benchmark",
+        "1000"
+      ],
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            134.628,
+            131.179,
+            138.876,
+            131.338,
+            132.362,
+            134.121,
+            134.644
+          ],
+          "median_ns": 134.121,
+          "checksum": 710500
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            174251.661,
+            174876.785,
+            172810.77,
+            159514.444,
+            171857.644,
+            163946.526,
+            173784.749
+          ],
+          "median_ns": 172810.77,
+          "checksum": 693000
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            171.069,
+            144.954,
+            145.506,
+            157.051,
+            145.028,
+            146.502,
+            144.127
+          ],
+          "median_ns": 145.506,
+          "checksum": 161000
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            171101.41,
+            181368.061,
+            177473.249,
+            173497.001,
+            177442.953,
+            181884.533,
+            180247.049
+          ],
+          "median_ns": 177473.249,
+          "checksum": 1911000
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            171771.373,
+            175168.002,
+            170131.662,
+            172113.554,
+            171566.821,
+            212958.945,
+            225884.545
+          ],
+          "median_ns": 172113.554,
+          "checksum": 1400000
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            3695.13,
+            3792.802,
+            3930.049,
+            3699.513,
+            3931.805,
+            3780.295,
+            3456.576
+          ],
+          "median_ns": 3780.295,
+          "checksum": 29522500
+        }
+      },
+      "stdout": "update-text-boundary-large samples_ns=[134.628, 131.179, 138.876, 131.338, 132.362, 134.121, 134.644] checksum=710500\nmedian=134.121 min=131.179 max=138.876\nupdate-text-resize-large samples_ns=[174251.661, 174876.785, 172810.77, 159514.444, 171857.644, 163946.526, 173784.749] checksum=693000\nmedian=172810.77 min=159514.444 max=174876.785\nupdate-integer-large samples_ns=[171.069, 144.954, 145.506, 157.051, 145.028, 146.502, 144.127] checksum=161000\nmedian=145.506 min=144.127 max=171.069\nupdate-text-list-large samples_ns=[171101.41, 181368.061, 177473.249, 173497.001, 177442.953, 181884.533, 180247.049] checksum=1911000\nmedian=177473.249 min=171101.41 max=181884.533\nupdate-two-text-large samples_ns=[171771.373, 175168.002, 170131.662, 172113.554, 171566.821, 212958.945, 225884.545] checksum=1400000\nmedian=172113.554 min=170131.662 max=225884.545\nupdate-text-full-large samples_ns=[3695.13, 3792.802, 3930.049, 3699.513, 3931.805, 3780.295, 3456.576] checksum=29522500\nmedian=3780.295 min=3456.576 max=3931.805\n",
+      "perf_stderr": "5777979288;;cpu_atom/cycles/u;3724815912;100.00;;\n818959880;;cpu_atom/instructions/u;3724815912;100.00;;\n3724.82;msec;task-clock:u;3724815912;100.00;;\n0;;context-switches:u;3724815912;100.00;;\n0;;cpu-migrations:u;3724815912;100.00;;\n889;;page-faults:u;3724815912;100.00;;\n"
+    },
+    {
+      "pair": 8,
+      "label": "right",
+      "snapshot": "baseline",
+      "start_unix": 1793821404.779118,
+      "elapsed_s": 6.798909664154053,
+      "argv": [
+        "taskset",
+        "-c",
+        "7",
+        "perf",
+        "stat",
+        "-x",
+        ";",
+        "-e",
+        "cpu_atom/cycles/u,cpu_atom/instructions/u,task-clock,context-switches,cpu-migrations,page-faults",
+        "--",
+        "<ARTIFACTS>/baseline/benchmark",
+        "1000"
+      ],
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            173201.491,
+            150137.865,
+            161978.416,
+            154746.533,
+            150130.305,
+            156490.761,
+            150985.383
+          ],
+          "median_ns": 154746.533,
+          "checksum": 710500
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            157453.327,
+            154626.189,
+            153841.884,
+            175309.288,
+            166723.807,
+            165298.107,
+            162532.187
+          ],
+          "median_ns": 162532.187,
+          "checksum": 693000
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            160008.277,
+            165244.489,
+            170178.379,
+            161504.353,
+            154111.508,
+            161624.55,
+            163968.872
+          ],
+          "median_ns": 161624.55,
+          "checksum": 161000
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            166091.751,
+            161989.786,
+            168560.355,
+            165837.445,
+            157601.485,
+            176967.034,
+            163073.61
+          ],
+          "median_ns": 165837.445,
+          "checksum": 1911000
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            172874.994,
+            174238.856,
+            163131.932,
+            150619.472,
+            159702.353,
+            162083.278,
+            153431.672
+          ],
+          "median_ns": 162083.278,
+          "checksum": 1400000
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            154522.994,
+            158844.356,
+            161462.467,
+            155258.465,
+            155869.871,
+            153117.916,
+            155518.147
+          ],
+          "median_ns": 155518.147,
+          "checksum": 29522500
+        }
+      },
+      "stdout": "update-text-boundary-large samples_ns=[173201.491, 150137.865, 161978.416, 154746.533, 150130.305, 156490.761, 150985.383] checksum=710500\nmedian=154746.533 min=150130.305 max=173201.491\nupdate-text-resize-large samples_ns=[157453.327, 154626.189, 153841.884, 175309.288, 166723.807, 165298.107, 162532.187] checksum=693000\nmedian=162532.187 min=153841.884 max=175309.288\nupdate-integer-large samples_ns=[160008.277, 165244.489, 170178.379, 161504.353, 154111.508, 161624.55, 163968.872] checksum=161000\nmedian=161624.55 min=154111.508 max=170178.379\nupdate-text-list-large samples_ns=[166091.751, 161989.786, 168560.355, 165837.445, 157601.485, 176967.034, 163073.61] checksum=1911000\nmedian=165837.445 min=157601.485 max=176967.034\nupdate-two-text-large samples_ns=[172874.994, 174238.856, 163131.932, 150619.472, 159702.353, 162083.278, 153431.672] checksum=1400000\nmedian=162083.278 min=150619.472 max=174238.856\nupdate-text-full-large samples_ns=[154522.994, 158844.356, 161462.467, 155258.465, 155869.871, 153117.916, 155518.147] checksum=29522500\nmedian=155518.147 min=153117.916 max=161462.467\n",
+      "perf_stderr": "10762233866;;cpu_atom/cycles/u;6755928160;100.00;;\n1295655288;;cpu_atom/instructions/u;6755928160;100.00;;\n6755.93;msec;task-clock:u;6755928160;100.00;;\n0;;context-switches:u;6755928160;100.00;;\n0;;cpu-migrations:u;6755928160;100.00;;\n885;;page-faults:u;6755928160;100.00;;\n"
+    },
+    {
+      "pair": 9,
+      "label": "right",
+      "snapshot": "baseline",
+      "start_unix": 1793821411.578178,
+      "elapsed_s": 6.915264368057251,
+      "argv": [
+        "taskset",
+        "-c",
+        "7",
+        "perf",
+        "stat",
+        "-x",
+        ";",
+        "-e",
+        "cpu_atom/cycles/u,cpu_atom/instructions/u,task-clock,context-switches,cpu-migrations,page-faults",
+        "--",
+        "<ARTIFACTS>/baseline/benchmark",
+        "1000"
+      ],
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            157014.731,
+            165385.115,
+            160891.75,
+            156601.012,
+            154505.706,
+            151495.799,
+            153237.578
+          ],
+          "median_ns": 156601.012,
+          "checksum": 710500
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            158582.487,
+            159012.753,
+            156758.857,
+            157185.079,
+            161368.026,
+            157199.858,
+            165748.915
+          ],
+          "median_ns": 158582.487,
+          "checksum": 693000
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            167041.217,
+            170664.992,
+            160674.319,
+            160556.144,
+            163908.276,
+            159245.557,
+            166642.776
+          ],
+          "median_ns": 163908.276,
+          "checksum": 161000
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            162126.65,
+            170848.913,
+            164983.625,
+            163482.649,
+            167680.125,
+            158325.431,
+            166135.724
+          ],
+          "median_ns": 164983.625,
+          "checksum": 1911000
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            161333.623,
+            156321.476,
+            163754.721,
+            161888.821,
+            177258.79,
+            172523.537,
+            178450.81
+          ],
+          "median_ns": 163754.721,
+          "checksum": 1400000
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            199309.746,
+            159989.684,
+            170117.413,
+            173305.755,
+            168946.355,
+            165789.647,
+            157269.325
+          ],
+          "median_ns": 168946.355,
+          "checksum": 29522500
+        }
+      },
+      "stdout": "update-text-boundary-large samples_ns=[157014.731, 165385.115, 160891.75, 156601.012, 154505.706, 151495.799, 153237.578] checksum=710500\nmedian=156601.012 min=151495.799 max=165385.115\nupdate-text-resize-large samples_ns=[158582.487, 159012.753, 156758.857, 157185.079, 161368.026, 157199.858, 165748.915] checksum=693000\nmedian=158582.487 min=156758.857 max=165748.915\nupdate-integer-large samples_ns=[167041.217, 170664.992, 160674.319, 160556.144, 163908.276, 159245.557, 166642.776] checksum=161000\nmedian=163908.276 min=159245.557 max=170664.992\nupdate-text-list-large samples_ns=[162126.65, 170848.913, 164983.625, 163482.649, 167680.125, 158325.431, 166135.724] checksum=1911000\nmedian=164983.625 min=158325.431 max=170848.913\nupdate-two-text-large samples_ns=[161333.623, 156321.476, 163754.721, 161888.821, 177258.79, 172523.537, 178450.81] checksum=1400000\nmedian=163754.721 min=156321.476 max=178450.81\nupdate-text-full-large samples_ns=[199309.746, 159989.684, 170117.413, 173305.755, 168946.355, 165789.647, 157269.325] checksum=29522500\nmedian=168946.355 min=157269.325 max=199309.746\n",
+      "perf_stderr": "10967672778;;cpu_atom/cycles/u;6884333047;100.00;;\n1295664066;;cpu_atom/instructions/u;6884333047;100.00;;\n6884.33;msec;task-clock:u;6884333047;100.00;;\n0;;context-switches:u;6884333047;100.00;;\n0;;cpu-migrations:u;6884333047;100.00;;\n889;;page-faults:u;6884333047;100.00;;\n"
+    },
+    {
+      "pair": 9,
+      "label": "left",
+      "snapshot": "candidate",
+      "start_unix": 1793821418.4936066,
+      "elapsed_s": 3.33945894241333,
+      "argv": [
+        "taskset",
+        "-c",
+        "7",
+        "perf",
+        "stat",
+        "-x",
+        ";",
+        "-e",
+        "cpu_atom/cycles/u,cpu_atom/instructions/u,task-clock,context-switches,cpu-migrations,page-faults",
+        "--",
+        "<ARTIFACTS>/candidate/benchmark",
+        "1000"
+      ],
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            136.107,
+            132.484,
+            131.489,
+            131.978,
+            134.842,
+            136.3,
+            144.677
+          ],
+          "median_ns": 134.842,
+          "checksum": 710500
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            154571.569,
+            169202.694,
+            158215.624,
+            154397.118,
+            158204.184,
+            164684.845,
+            157739.943
+          ],
+          "median_ns": 158204.184,
+          "checksum": 693000
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            134.926,
+            142.879,
+            131.937,
+            132.927,
+            131.542,
+            133.67,
+            133.432
+          ],
+          "median_ns": 133.432,
+          "checksum": 161000
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            156855.397,
+            156045.378,
+            150943.373,
+            153770.15,
+            156675.709,
+            155569.134,
+            153363.193
+          ],
+          "median_ns": 155569.134,
+          "checksum": 1911000
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            150095.227,
+            154688.572,
+            149946.741,
+            161676.54,
+            155525.395,
+            156015.285,
+            156388.674
+          ],
+          "median_ns": 155525.395,
+          "checksum": 1400000
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            3013.986,
+            3041.086,
+            2980.107,
+            2997.155,
+            2968.936,
+            3026.209,
+            3019.835
+          ],
+          "median_ns": 3013.986,
+          "checksum": 29522500
+        }
+      },
+      "stdout": "update-text-boundary-large samples_ns=[136.107, 132.484, 131.489, 131.978, 134.842, 136.3, 144.677] checksum=710500\nmedian=134.842 min=131.489 max=144.677\nupdate-text-resize-large samples_ns=[154571.569, 169202.694, 158215.624, 154397.118, 158204.184, 164684.845, 157739.943] checksum=693000\nmedian=158204.184 min=154397.118 max=169202.694\nupdate-integer-large samples_ns=[134.926, 142.879, 131.937, 132.927, 131.542, 133.67, 133.432] checksum=161000\nmedian=133.432 min=131.542 max=142.879\nupdate-text-list-large samples_ns=[156855.397, 156045.378, 150943.373, 153770.15, 156675.709, 155569.134, 153363.193] checksum=1911000\nmedian=155569.134 min=150943.373 max=156855.397\nupdate-two-text-large samples_ns=[150095.227, 154688.572, 149946.741, 161676.54, 155525.395, 156015.285, 156388.674] checksum=1400000\nmedian=155525.395 min=149946.741 max=161676.54\nupdate-text-full-large samples_ns=[3013.986, 3041.086, 2980.107, 2997.155, 2968.936, 3026.209, 3019.835] checksum=29522500\nmedian=3013.986 min=2968.936 max=3041.086\n",
+      "perf_stderr": "5428715922;;cpu_atom/cycles/u;3305050067;100.00;;\n818963280;;cpu_atom/instructions/u;3305050067;100.00;;\n3305.05;msec;task-clock:u;3305050067;100.00;;\n0;;context-switches:u;3305050067;100.00;;\n0;;cpu-migrations:u;3305050067;100.00;;\n888;;page-faults:u;3305050067;100.00;;\n"
+    },
+    {
+      "pair": 10,
+      "label": "left",
+      "snapshot": "candidate",
+      "start_unix": 1793821421.833221,
+      "elapsed_s": 3.5885655879974365,
+      "argv": [
+        "taskset",
+        "-c",
+        "7",
+        "perf",
+        "stat",
+        "-x",
+        ";",
+        "-e",
+        "cpu_atom/cycles/u,cpu_atom/instructions/u,task-clock,context-switches,cpu-migrations,page-faults",
+        "--",
+        "<ARTIFACTS>/candidate/benchmark",
+        "1000"
+      ],
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            135.91,
+            131.685,
+            133.904,
+            132.264,
+            133.714,
+            143.165,
+            131.466
+          ],
+          "median_ns": 133.714,
+          "checksum": 710500
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            157719.214,
+            158943.102,
+            157485.191,
+            170231.583,
+            179332.864,
+            169958.446,
+            178798.176
+          ],
+          "median_ns": 169958.446,
+          "checksum": 693000
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            164.477,
+            162.453,
+            163.45,
+            176.623,
+            162.314,
+            162.732,
+            161.91
+          ],
+          "median_ns": 162.732,
+          "checksum": 161000
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            184223.862,
+            178689.062,
+            174359.585,
+            182270.076,
+            168297.816,
+            172706.879,
+            178498.407
+          ],
+          "median_ns": 178498.407,
+          "checksum": 1911000
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            163372.269,
+            173784.582,
+            153350.994,
+            141355.154,
+            160778.56,
+            160624.566,
+            168940.053
+          ],
+          "median_ns": 160778.56,
+          "checksum": 1400000
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            3030.526,
+            3088.504,
+            3052.987,
+            3066.163,
+            3048.566,
+            3018.412,
+            3119.469
+          ],
+          "median_ns": 3052.987,
+          "checksum": 29522500
+        }
+      },
+      "stdout": "update-text-boundary-large samples_ns=[135.91, 131.685, 133.904, 132.264, 133.714, 143.165, 131.466] checksum=710500\nmedian=133.714 min=131.466 max=143.165\nupdate-text-resize-large samples_ns=[157719.214, 158943.102, 157485.191, 170231.583, 179332.864, 169958.446, 178798.176] checksum=693000\nmedian=169958.446 min=157485.191 max=179332.864\nupdate-integer-large samples_ns=[164.477, 162.453, 163.45, 176.623, 162.314, 162.732, 161.91] checksum=161000\nmedian=162.732 min=161.91 max=176.623\nupdate-text-list-large samples_ns=[184223.862, 178689.062, 174359.585, 182270.076, 168297.816, 172706.879, 178498.407] checksum=1911000\nmedian=178498.407 min=168297.816 max=184223.862\nupdate-two-text-large samples_ns=[163372.269, 173784.582, 153350.994, 141355.154, 160778.56, 160624.566, 168940.053] checksum=1400000\nmedian=160778.56 min=141355.154 max=173784.582\nupdate-text-full-large samples_ns=[3030.526, 3088.504, 3052.987, 3066.163, 3048.566, 3018.412, 3119.469] checksum=29522500\nmedian=3052.987 min=3018.412 max=3119.469\n",
+      "perf_stderr": "5513142380;;cpu_atom/cycles/u;3552450164;100.00;;\n818964874;;cpu_atom/instructions/u;3552450164;100.00;;\n3552.45;msec;task-clock:u;3552450164;100.00;;\n0;;context-switches:u;3552450164;100.00;;\n0;;cpu-migrations:u;3552450164;100.00;;\n889;;page-faults:u;3552450164;100.00;;\n"
+    },
+    {
+      "pair": 10,
+      "label": "right",
+      "snapshot": "baseline",
+      "start_unix": 1793821425.421968,
+      "elapsed_s": 7.0377092361450195,
+      "argv": [
+        "taskset",
+        "-c",
+        "7",
+        "perf",
+        "stat",
+        "-x",
+        ";",
+        "-e",
+        "cpu_atom/cycles/u,cpu_atom/instructions/u,task-clock,context-switches,cpu-migrations,page-faults",
+        "--",
+        "<ARTIFACTS>/baseline/benchmark",
+        "1000"
+      ],
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            154667.67,
+            152156.34,
+            159821.498,
+            164258.63,
+            166465.639,
+            161718.209,
+            159000.47
+          ],
+          "median_ns": 159821.498,
+          "checksum": 710500
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            159036.534,
+            154770.249,
+            159942.773,
+            152969.038,
+            155014.901,
+            158491.474,
+            165312.12
+          ],
+          "median_ns": 158491.474,
+          "checksum": 693000
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            162919.912,
+            166309.575,
+            166333.609,
+            172010.357,
+            169343.424,
+            168030.845,
+            168992.741
+          ],
+          "median_ns": 168030.845,
+          "checksum": 161000
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            175732.065,
+            180957.578,
+            174628.221,
+            172322.336,
+            172832.322,
+            171339.917,
+            163173.029
+          ],
+          "median_ns": 172832.322,
+          "checksum": 1911000
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            166390.162,
+            169957.084,
+            179944.966,
+            161514.03,
+            172448.911,
+            170760.497,
+            174701.745
+          ],
+          "median_ns": 170760.497,
+          "checksum": 1400000
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            173956.105,
+            170507.812,
+            176968.818,
+            173099.936,
+            165371.724,
+            168129.429,
+            167095.642
+          ],
+          "median_ns": 170507.812,
+          "checksum": 29522500
+        }
+      },
+      "stdout": "update-text-boundary-large samples_ns=[154667.67, 152156.34, 159821.498, 164258.63, 166465.639, 161718.209, 159000.47] checksum=710500\nmedian=159821.498 min=152156.34 max=166465.639\nupdate-text-resize-large samples_ns=[159036.534, 154770.249, 159942.773, 152969.038, 155014.901, 158491.474, 165312.12] checksum=693000\nmedian=158491.474 min=152969.038 max=165312.12\nupdate-integer-large samples_ns=[162919.912, 166309.575, 166333.609, 172010.357, 169343.424, 168030.845, 168992.741] checksum=161000\nmedian=168030.845 min=162919.912 max=172010.357\nupdate-text-list-large samples_ns=[175732.065, 180957.578, 174628.221, 172322.336, 172832.322, 171339.917, 163173.029] checksum=1911000\nmedian=172832.322 min=163173.029 max=180957.578\nupdate-two-text-large samples_ns=[166390.162, 169957.084, 179944.966, 161514.03, 172448.911, 170760.497, 174701.745] checksum=1400000\nmedian=170760.497 min=161514.03 max=179944.966\nupdate-text-full-large samples_ns=[173956.105, 170507.812, 176968.818, 173099.936, 165371.724, 168129.429, 167095.642] checksum=29522500\nmedian=170507.812 min=165371.724 max=176968.818\n",
+      "perf_stderr": "10701661687;;cpu_atom/cycles/u;6991145751;100.00;;\n1295654886;;cpu_atom/instructions/u;6991145751;100.00;;\n6991.15;msec;task-clock:u;6991145751;100.00;;\n0;;context-switches:u;6991145751;100.00;;\n0;;cpu-migrations:u;6991145751;100.00;;\n892;;page-faults:u;6991145751;100.00;;\n"
+    },
+    {
+      "pair": 11,
+      "label": "right",
+      "snapshot": "baseline",
+      "start_unix": 1793821432.459834,
+      "elapsed_s": 7.024342060089111,
+      "argv": [
+        "taskset",
+        "-c",
+        "7",
+        "perf",
+        "stat",
+        "-x",
+        ";",
+        "-e",
+        "cpu_atom/cycles/u,cpu_atom/instructions/u,task-clock,context-switches,cpu-migrations,page-faults",
+        "--",
+        "<ARTIFACTS>/baseline/benchmark",
+        "1000"
+      ],
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            170275.353,
+            165970.026,
+            166433.045,
+            166587.183,
+            167442.709,
+            163217.275,
+            176863.823
+          ],
+          "median_ns": 166587.183,
+          "checksum": 710500
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            168464.731,
+            156788.905,
+            158596.144,
+            168438.741,
+            187274.384,
+            169806.173,
+            166561.121
+          ],
+          "median_ns": 168438.741,
+          "checksum": 693000
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            175243.543,
+            172921.595,
+            149295.769,
+            149201.472,
+            166971.58,
+            156740.989,
+            165977.432
+          ],
+          "median_ns": 165977.432,
+          "checksum": 161000
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            174365.064,
+            164894.419,
+            174204.859,
+            165161.36,
+            170532.076,
+            160824.105,
+            172991.936
+          ],
+          "median_ns": 170532.076,
+          "checksum": 1911000
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            167167.191,
+            165482.894,
+            165339.2,
+            158445.725,
+            154640.671,
+            160109.789,
+            144094.152
+          ],
+          "median_ns": 160109.789,
+          "checksum": 1400000
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            166662.571,
+            185168.42,
+            165051.371,
+            169905.838,
+            170847.491,
+            170920.833,
+            173731.227
+          ],
+          "median_ns": 170847.491,
+          "checksum": 29522500
+        }
+      },
+      "stdout": "update-text-boundary-large samples_ns=[170275.353, 165970.026, 166433.045, 166587.183, 167442.709, 163217.275, 176863.823] checksum=710500\nmedian=166587.183 min=163217.275 max=176863.823\nupdate-text-resize-large samples_ns=[168464.731, 156788.905, 158596.144, 168438.741, 187274.384, 169806.173, 166561.121] checksum=693000\nmedian=168438.741 min=156788.905 max=187274.384\nupdate-integer-large samples_ns=[175243.543, 172921.595, 149295.769, 149201.472, 166971.58, 156740.989, 165977.432] checksum=161000\nmedian=165977.432 min=149201.472 max=175243.543\nupdate-text-list-large samples_ns=[174365.064, 164894.419, 174204.859, 165161.36, 170532.076, 160824.105, 172991.936] checksum=1911000\nmedian=170532.076 min=160824.105 max=174365.064\nupdate-two-text-large samples_ns=[167167.191, 165482.894, 165339.2, 158445.725, 154640.671, 160109.789, 144094.152] checksum=1400000\nmedian=160109.789 min=144094.152 max=167167.191\nupdate-text-full-large samples_ns=[166662.571, 185168.42, 165051.371, 169905.838, 170847.491, 170920.833, 173731.227] checksum=29522500\nmedian=170847.491 min=165051.371 max=185168.42\n",
+      "perf_stderr": "10575195701;;cpu_atom/cycles/u;6992534378;100.00;;\n1295950895;;cpu_atom/instructions/u;6992534378;100.00;;\n6992.53;msec;task-clock:u;6992534378;100.00;;\n0;;context-switches:u;6992534378;100.00;;\n0;;cpu-migrations:u;6992534378;100.00;;\n888;;page-faults:u;6992534378;100.00;;\n"
+    },
+    {
+      "pair": 11,
+      "label": "left",
+      "snapshot": "candidate",
+      "start_unix": 1793821439.484302,
+      "elapsed_s": 3.590080976486206,
+      "argv": [
+        "taskset",
+        "-c",
+        "7",
+        "perf",
+        "stat",
+        "-x",
+        ";",
+        "-e",
+        "cpu_atom/cycles/u,cpu_atom/instructions/u,task-clock,context-switches,cpu-migrations,page-faults",
+        "--",
+        "<ARTIFACTS>/candidate/benchmark",
+        "1000"
+      ],
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            155.206,
+            151.282,
+            150.519,
+            152.226,
+            152.311,
+            183.721,
+            152.391
+          ],
+          "median_ns": 152.311,
+          "checksum": 710500
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            168590.252,
+            164143.499,
+            162244.01,
+            168469.831,
+            168916.518,
+            173093.488,
+            161858.298
+          ],
+          "median_ns": 168469.831,
+          "checksum": 693000
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            135.007,
+            133.211,
+            133.876,
+            133.678,
+            133.282,
+            140.238,
+            130.477
+          ],
+          "median_ns": 133.678,
+          "checksum": 161000
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            170431.138,
+            167601.73,
+            168151.644,
+            189413.278,
+            171994.648,
+            170739.816,
+            172281.807
+          ],
+          "median_ns": 170739.816,
+          "checksum": 1911000
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            167977.365,
+            155674.735,
+            155291.942,
+            169021.331,
+            173365.025,
+            159527.826,
+            171371.193
+          ],
+          "median_ns": 167977.365,
+          "checksum": 1400000
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            3379.459,
+            3417.507,
+            3428.259,
+            3214.376,
+            3271.834,
+            3221.701,
+            3259.038
+          ],
+          "median_ns": 3271.834,
+          "checksum": 29522500
+        }
+      },
+      "stdout": "update-text-boundary-large samples_ns=[155.206, 151.282, 150.519, 152.226, 152.311, 183.721, 152.391] checksum=710500\nmedian=152.311 min=150.519 max=183.721\nupdate-text-resize-large samples_ns=[168590.252, 164143.499, 162244.01, 168469.831, 168916.518, 173093.488, 161858.298] checksum=693000\nmedian=168469.831 min=161858.298 max=173093.488\nupdate-integer-large samples_ns=[135.007, 133.211, 133.876, 133.678, 133.282, 140.238, 130.477] checksum=161000\nmedian=133.678 min=130.477 max=140.238\nupdate-text-list-large samples_ns=[170431.138, 167601.73, 168151.644, 189413.278, 171994.648, 170739.816, 172281.807] checksum=1911000\nmedian=170739.816 min=167601.73 max=189413.278\nupdate-two-text-large samples_ns=[167977.365, 155674.735, 155291.942, 169021.331, 173365.025, 159527.826, 171371.193] checksum=1400000\nmedian=167977.365 min=155291.942 max=173365.025\nupdate-text-full-large samples_ns=[3379.459, 3417.507, 3428.259, 3214.376, 3271.834, 3221.701, 3259.038] checksum=29522500\nmedian=3271.834 min=3214.376 max=3428.259\n",
+      "perf_stderr": "5346397678;;cpu_atom/cycles/u;3560935344;100.00;;\n818812785;;cpu_atom/instructions/u;3560935344;100.00;;\n3560.94;msec;task-clock:u;3560935344;100.00;;\n0;;context-switches:u;3560935344;100.00;;\n0;;cpu-migrations:u;3560935344;100.00;;\n887;;page-faults:u;3560935344;100.00;;\n"
+    }
+  ],
+  "summary": {
+    "update-text-resize-large": {
+      "left_ns": 158335.508,
+      "right_ns": 158536.9805,
+      "right_left_ratio": 1.0012724404181026,
+      "paired_ratios": [
+        0.626860490623256,
+        0.9853169456427989,
+        1.4488147397648639,
+        1.1889907556609018,
+        0.657471910749601,
+        0.7450269845742863,
+        0.9698537728547363,
+        0.9574570803410605,
+        0.9405211665916425,
+        1.0023912325858586,
+        0.9325307316589608,
+        0.9998154565727557
+      ],
+      "paired_median_ratio": 0.9636554265978984
+    },
+    "update-text-list-large": {
+      "left_ns": 159599.25699999998,
+      "right_ns": 154675.6605,
+      "right_left_ratio": 0.9691502542521235,
+      "paired_ratios": [
+        0.8529404466551869,
+        0.8707115842802767,
+        0.976136187477861,
+        0.858842207110941,
+        0.7794244156497552,
+        0.8706100175361332,
+        1.025851347722518,
+        0.9888539272799992,
+        0.9344362935509227,
+        1.060516445376626,
+        0.968256943603984,
+        0.9987832949287002
+      ],
+      "paired_median_ratio": 0.9513466185774533
+    },
+    "update-two-text-large": {
+      "left_ns": 157840.248,
+      "right_ns": 162918.99949999998,
+      "right_left_ratio": 1.0321765301585182,
+      "paired_ratios": [
+        1.2047618595624534,
+        1.1184011209577087,
+        1.6719025388443463,
+        0.9046077141851676,
+        1.3692675227719555,
+        0.7097672754581743,
+        1.0532691368974878,
+        1.015611201543942,
+        0.941722916255625,
+        1.052913069277207,
+        1.062085000636901,
+        0.9531628800106491
+      ],
+      "paired_median_ratio": 1.0530911030873473
+    }
+  },
+  "original_local_manifest_sha256": "495e7b25caa137f02f57c874d4cec45365ee08621545f4d1f306a68b3e35d0f0"
+}

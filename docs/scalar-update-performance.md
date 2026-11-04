@@ -3,6 +3,10 @@
 This change targets one present scalar replacement whose combined source/text
 byte length is unchanged. It does not claim a general reload or loading speedup.
 
+The [memory and fallback follow-up](memory-and-fallback-audit.md) retains
+additional identical-binary controls and coverage-checked counters. It does
+not replace or relabel the historical measurements below.
+
 ## Implementation and contract
 
 The general transaction first copies live payloads into an independent arena,

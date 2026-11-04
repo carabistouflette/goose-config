@@ -1,0 +1,119 @@
+{
+  "prepared_utc": "2026-11-04T19:28:40Z",
+  "compiler": "<WORKSPACE>/.build/publication/standalone clone/.toolchain/goose/build/goose",
+  "compiler_sha256": "3f7a34dda0d8fd3e7df27e7ccce09c0844eabc041fc8caa37a362e0ed68b2f07",
+  "compiler_version": "goose eadca40 (runtime 3025e5810379)\n",
+  "gcc": "gcc (GCC) 16.2.1 20260810\nCopyright (C) 2026 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+  "flags": [
+    "--cc",
+    "gcc",
+    "-O2"
+  ],
+  "platform": "Linux-7.2.11-arch1-1-x86_64-with-glibc2.44",
+  "harness_path": "bench/updates.goose",
+  "harness_sha256": "48ef26cb17dc24295a407d7edbf983ca8bff2e4987e48ed08d4fee0678d456cd",
+  "cpu_affinity": 7,
+  "snapshots": {
+    "baseline": {
+      "revision": "53a68329332d20f61f5f4e9accedd651de8094f5",
+      "build_argv": [
+        "taskset",
+        "-c",
+        "6",
+        "<WORKSPACE>/.build/publication/standalone clone/.toolchain/goose/build/goose",
+        "build",
+        "<ARTIFACTS>/baseline/bench/bench.goose",
+        "--cc",
+        "gcc",
+        "-O2",
+        "-o",
+        "<ARTIFACTS>/baseline/benchmark"
+      ],
+      "source_sha256": {
+        "config.goose": "c004c3860599be45c569956b9b19b5776a15c9e6fa97911ce5ab6c1a0e874387",
+        "toml.goose": "4358d950c69162d62770d808a6f488422aa6879df8a8d26d5c34e8e12d491cfc",
+        "vendor.goose": "c4b021a0928444a5f049a99eb7a542689ea6803d0d2e845c86ba43a0fc6c31c1",
+        "bench/bench.goose": "48ef26cb17dc24295a407d7edbf983ca8bff2e4987e48ed08d4fee0678d456cd"
+      },
+      "binary_sha256": "759c7f42f9d2146217e2c44a008111da46b7a485d02efbf4c30f8562c83436df"
+    },
+    "candidate": {
+      "revision": "3ba1ecfaff9d640a8bad2cb76fd8c0b0e213ba9d",
+      "build_argv": [
+        "taskset",
+        "-c",
+        "6",
+        "<WORKSPACE>/.build/publication/standalone clone/.toolchain/goose/build/goose",
+        "build",
+        "<ARTIFACTS>/candidate/bench/bench.goose",
+        "--cc",
+        "gcc",
+        "-O2",
+        "-o",
+        "<ARTIFACTS>/candidate/benchmark"
+      ],
+      "source_sha256": {
+        "config.goose": "8a5113e14a2d44f4c6c2278c844ec2ad14c466117125dff22fb8c562c1eda4e6",
+        "toml.goose": "4358d950c69162d62770d808a6f488422aa6879df8a8d26d5c34e8e12d491cfc",
+        "vendor.goose": "c4b021a0928444a5f049a99eb7a542689ea6803d0d2e845c86ba43a0fc6c31c1",
+        "bench/bench.goose": "48ef26cb17dc24295a407d7edbf983ca8bff2e4987e48ed08d4fee0678d456cd"
+      },
+      "binary_sha256": "e1ff33bc6bd258d57841c02e5f661bffedb132db3ee387ad836633fc9e7499f9"
+    },
+    "candidate-copy": {
+      "revision": "3ba1ecfaff9d640a8bad2cb76fd8c0b0e213ba9d",
+      "build_argv": [
+        "taskset",
+        "-c",
+        "6",
+        "<WORKSPACE>/.build/publication/standalone clone/.toolchain/goose/build/goose",
+        "build",
+        "<ARTIFACTS>/candidate-copy/bench/bench.goose",
+        "--cc",
+        "gcc",
+        "-O2",
+        "-o",
+        "<ARTIFACTS>/candidate-copy/benchmark"
+      ],
+      "source_sha256": {
+        "config.goose": "8a5113e14a2d44f4c6c2278c844ec2ad14c466117125dff22fb8c562c1eda4e6",
+        "toml.goose": "4358d950c69162d62770d808a6f488422aa6879df8a8d26d5c34e8e12d491cfc",
+        "vendor.goose": "c4b021a0928444a5f049a99eb7a542689ea6803d0d2e845c86ba43a0fc6c31c1",
+        "bench/bench.goose": "48ef26cb17dc24295a407d7edbf983ca8bff2e4987e48ed08d4fee0678d456cd"
+      },
+      "binary_sha256": "f66cb57f4dd7c2f1dd2abc496f004fa2535245143477ba7dee10b117fe3f0586"
+    }
+  },
+  "host_controls": "no governor changes, no exclusive isolation, no dedicated warmup",
+  "prior_records": {
+    "scalar-updates-paired": {
+      "sha256": "a3aee6703b5f422bc605b4eca5d72f83a0d60dcf34e6499e09c8a2f6b9b93ffa",
+      "recorded_utc": "2026-11-04T18:45:07.446318+00:00",
+      "harness_sha256": "48ef26cb17dc24295a407d7edbf983ca8bff2e4987e48ed08d4fee0678d456cd",
+      "iterations_per_batch": 1000,
+      "pairs": 4
+    },
+    "scalar-updates-repeat": {
+      "sha256": "8a5252f387e50e9ba9e05a41a18e3e8f5f5db14d8c7cae9413c897c027b04a46",
+      "recorded_utc": "2026-11-04T18:46:17.366755+00:00",
+      "harness_sha256": "48ef26cb17dc24295a407d7edbf983ca8bff2e4987e48ed08d4fee0678d456cd",
+      "iterations_per_batch": 1000,
+      "pairs": 4
+    },
+    "scalar-core-paired": {
+      "sha256": "48b4f313596e5877bf9b30202e734f8bf49bcebfe2e43874b7a99aa0194bd563",
+      "recorded_utc": "2026-11-04T18:44:16.686992+00:00",
+      "harness_sha256": "a463e5dce08fbd847253ccc969e37d0ff9ebd75cc7f15053bd7806666f14592f",
+      "iterations_per_batch": 1000,
+      "pairs": 4
+    },
+    "scalar-core-repeat": {
+      "sha256": "91a2a528cb537f1780c980b1d75e84f3be3098336d563effec442432eb285dcf",
+      "recorded_utc": "2026-11-04T18:45:40.618702+00:00",
+      "harness_sha256": "a463e5dce08fbd847253ccc969e37d0ff9ebd75cc7f15053bd7806666f14592f",
+      "iterations_per_batch": 1000,
+      "pairs": 4
+    }
+  },
+  "path_redaction": "Absolute artifact/workspace prefixes replaced; source/compiler/binary/harness hashes unchanged."
+}

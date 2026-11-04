@@ -2,6 +2,13 @@
 
 ## Unreleased — v0.1.0 preparation
 
+- Audit deterministic grow/shrink/reload memory retention, identical-binary
+  timing controls and coverage-checked fallback counters; retain all raw
+  evidence in the [memory audit](docs/memory-and-fallback-audit.md). No runtime
+  change is justified by this follow-up.
+- Add isolated memory measurement and diagnostic reproduction tools with
+  artifact/protocol/failure regressions and a native CI smoke.
+
 - Stage only replacement bytes for one present scalar with unchanged combined
   source/text length; overwrite its checked span while preserving the existing
   general rebuild for every other case.

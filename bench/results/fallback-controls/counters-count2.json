@@ -1,0 +1,1658 @@
+{
+  "control": "ab",
+  "mapping": {
+    "left": "baseline",
+    "right": "candidate"
+  },
+  "reverse_initial_order": false,
+  "count": 2,
+  "batches": 7,
+  "pairs": 2,
+  "start_unix": 1793820769.6282794,
+  "elapsed_s": 0.08543539047241211,
+  "instrumented": true,
+  "manifest_sha256": "7961ad330f30f31837ff2a19e2ac8a526fcb26dc0390e6602cd3ff47fa825fd8",
+  "records": [
+    {
+      "pair": 0,
+      "label": "left",
+      "snapshot": "baseline",
+      "start_unix": 1793820769.6283348,
+      "elapsed_s": 0.031037569046020508,
+      "argv": [
+        "taskset",
+        "-c",
+        "7",
+        "<ARTIFACTS>/baseline/instrumented",
+        "2"
+      ],
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            205335.5,
+            141266.5,
+            187673.5,
+            145697.0,
+            165518.0,
+            131746.0,
+            105055.5
+          ],
+          "median_ns": 145697.0,
+          "checksum": 1421,
+          "counter_samples": [
+            {
+              "sample": 0,
+              "bytes": 4211712,
+              "calls": 520,
+              "cycles": 664793,
+              "instructions": 62821
+            },
+            {
+              "sample": 1,
+              "bytes": 4211712,
+              "calls": 520,
+              "cycles": 475710,
+              "instructions": 62135
+            },
+            {
+              "sample": 2,
+              "bytes": 4211712,
+              "calls": 520,
+              "cycles": 508393,
+              "instructions": 62136
+            },
+            {
+              "sample": 3,
+              "bytes": 4211712,
+              "calls": 520,
+              "cycles": 479257,
+              "instructions": 62135
+            },
+            {
+              "sample": 4,
+              "bytes": 4211712,
+              "calls": 520,
+              "cycles": 545048,
+              "instructions": 62135
+            },
+            {
+              "sample": 5,
+              "bytes": 4211712,
+              "calls": 520,
+              "cycles": 418002,
+              "instructions": 62136
+            },
+            {
+              "sample": 6,
+              "bytes": 4211712,
+              "calls": 520,
+              "cycles": 347835,
+              "instructions": 62135
+            }
+          ]
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            179907.5,
+            174327.0,
+            171330.5,
+            180427.5,
+            161679.5,
+            165077.0,
+            210714.5
+          ],
+          "median_ns": 174327.0,
+          "checksum": 1386,
+          "counter_samples": [
+            {
+              "sample": 7,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 566667,
+              "instructions": 62159
+            },
+            {
+              "sample": 8,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 572900,
+              "instructions": 62157
+            },
+            {
+              "sample": 9,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 564185,
+              "instructions": 62157
+            },
+            {
+              "sample": 10,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 581479,
+              "instructions": 62158
+            },
+            {
+              "sample": 11,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 532891,
+              "instructions": 62157
+            },
+            {
+              "sample": 12,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 541614,
+              "instructions": 62157
+            },
+            {
+              "sample": 13,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 658194,
+              "instructions": 62159
+            }
+          ]
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            152397.0,
+            161688.5,
+            140032.0,
+            131040.5,
+            141391.0,
+            134731.0,
+            130855.0
+          ],
+          "median_ns": 140032.0,
+          "checksum": 322,
+          "counter_samples": [
+            {
+              "sample": 14,
+              "bytes": 4211692,
+              "calls": 520,
+              "cycles": 499028,
+              "instructions": 62321
+            },
+            {
+              "sample": 15,
+              "bytes": 4211692,
+              "calls": 520,
+              "cycles": 516355,
+              "instructions": 62322
+            },
+            {
+              "sample": 16,
+              "bytes": 4211692,
+              "calls": 520,
+              "cycles": 459774,
+              "instructions": 62321
+            },
+            {
+              "sample": 17,
+              "bytes": 4211692,
+              "calls": 520,
+              "cycles": 431295,
+              "instructions": 62321
+            },
+            {
+              "sample": 18,
+              "bytes": 4211692,
+              "calls": 520,
+              "cycles": 452050,
+              "instructions": 62322
+            },
+            {
+              "sample": 19,
+              "bytes": 4211692,
+              "calls": 520,
+              "cycles": 443866,
+              "instructions": 62321
+            },
+            {
+              "sample": 20,
+              "bytes": 4211692,
+              "calls": 520,
+              "cycles": 428867,
+              "instructions": 62321
+            }
+          ]
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            210521.0,
+            196529.0,
+            203735.5,
+            148320.5,
+            151038.0,
+            138952.5,
+            158703.5
+          ],
+          "median_ns": 158703.5,
+          "checksum": 3822,
+          "counter_samples": [
+            {
+              "sample": 21,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 659891,
+              "instructions": 63032
+            },
+            {
+              "sample": 22,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 642684,
+              "instructions": 63031
+            },
+            {
+              "sample": 23,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 650351,
+              "instructions": 63032
+            },
+            {
+              "sample": 24,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 488382,
+              "instructions": 63031
+            },
+            {
+              "sample": 25,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 499633,
+              "instructions": 63031
+            },
+            {
+              "sample": 26,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 444373,
+              "instructions": 63032
+            },
+            {
+              "sample": 27,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 519755,
+              "instructions": 63031
+            }
+          ]
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            174437.0,
+            176503.5,
+            183487.0,
+            182602.5,
+            163992.0,
+            167743.0,
+            184450.0
+          ],
+          "median_ns": 176503.5,
+          "checksum": 2800,
+          "counter_samples": [
+            {
+              "sample": 28,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 554697,
+              "instructions": 63111
+            },
+            {
+              "sample": 29,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 582359,
+              "instructions": 63110
+            },
+            {
+              "sample": 30,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 600019,
+              "instructions": 63110
+            },
+            {
+              "sample": 31,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 585253,
+              "instructions": 63111
+            },
+            {
+              "sample": 32,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 539209,
+              "instructions": 63110
+            },
+            {
+              "sample": 33,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 549710,
+              "instructions": 63110
+            },
+            {
+              "sample": 34,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 588714,
+              "instructions": 63111
+            }
+          ]
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            179283.5,
+            170476.5,
+            179411.5,
+            156594.0,
+            151815.0,
+            133519.0,
+            138185.0
+          ],
+          "median_ns": 156594.0,
+          "checksum": 59045,
+          "counter_samples": [
+            {
+              "sample": 35,
+              "bytes": 4228076,
+              "calls": 520,
+              "cycles": 566222,
+              "instructions": 63333
+            },
+            {
+              "sample": 36,
+              "bytes": 4228076,
+              "calls": 520,
+              "cycles": 560271,
+              "instructions": 63333
+            },
+            {
+              "sample": 37,
+              "bytes": 4228076,
+              "calls": 520,
+              "cycles": 589102,
+              "instructions": 63333
+            },
+            {
+              "sample": 38,
+              "bytes": 4228076,
+              "calls": 520,
+              "cycles": 499698,
+              "instructions": 63334
+            },
+            {
+              "sample": 39,
+              "bytes": 4228076,
+              "calls": 520,
+              "cycles": 498626,
+              "instructions": 63333
+            },
+            {
+              "sample": 40,
+              "bytes": 4228076,
+              "calls": 520,
+              "cycles": 439470,
+              "instructions": 63333
+            },
+            {
+              "sample": 41,
+              "bytes": 4228076,
+              "calls": 520,
+              "cycles": 455223,
+              "instructions": 63333
+            }
+          ]
+        }
+      },
+      "stdout": "update-text-boundary-large samples_ns=[205335.5, 141266.5, 187673.5, 145697.0, 165518.0, 131746.0, 105055.5] checksum=1421\nmedian=145697.0 min=105055.5 max=205335.5\nupdate-text-resize-large samples_ns=[179907.5, 174327.0, 171330.5, 180427.5, 161679.5, 165077.0, 210714.5] checksum=1386\nmedian=174327.0 min=161679.5 max=210714.5\nupdate-integer-large samples_ns=[152397.0, 161688.5, 140032.0, 131040.5, 141391.0, 134731.0, 130855.0] checksum=322\nmedian=140032.0 min=130855.0 max=161688.5\nupdate-text-list-large samples_ns=[210521.0, 196529.0, 203735.5, 148320.5, 151038.0, 138952.5, 158703.5] checksum=3822\nmedian=158703.5 min=138952.5 max=210521.0\nupdate-two-text-large samples_ns=[174437.0, 176503.5, 183487.0, 182602.5, 163992.0, 167743.0, 184450.0] checksum=2800\nmedian=176503.5 min=163992.0 max=184450.0\nupdate-text-full-large samples_ns=[179283.5, 170476.5, 179411.5, 156594.0, 151815.0, 133519.0, 138185.0] checksum=59045\nmedian=156594.0 min=133519.0 max=179411.5\n",
+      "perf_stderr": "FC sample=0 bytes=4211712 calls=520 cycles=664793 instructions=62821\nFC sample=1 bytes=4211712 calls=520 cycles=475710 instructions=62135\nFC sample=2 bytes=4211712 calls=520 cycles=508393 instructions=62136\nFC sample=3 bytes=4211712 calls=520 cycles=479257 instructions=62135\nFC sample=4 bytes=4211712 calls=520 cycles=545048 instructions=62135\nFC sample=5 bytes=4211712 calls=520 cycles=418002 instructions=62136\nFC sample=6 bytes=4211712 calls=520 cycles=347835 instructions=62135\nFC sample=7 bytes=4211698 calls=520 cycles=566667 instructions=62159\nFC sample=8 bytes=4211698 calls=520 cycles=572900 instructions=62157\nFC sample=9 bytes=4211698 calls=520 cycles=564185 instructions=62157\nFC sample=10 bytes=4211698 calls=520 cycles=581479 instructions=62158\nFC sample=11 bytes=4211698 calls=520 cycles=532891 instructions=62157\nFC sample=12 bytes=4211698 calls=520 cycles=541614 instructions=62157\nFC sample=13 bytes=4211698 calls=520 cycles=658194 instructions=62159\nFC sample=14 bytes=4211692 calls=520 cycles=499028 instructions=62321\nFC sample=15 bytes=4211692 calls=520 cycles=516355 instructions=62322\nFC sample=16 bytes=4211692 calls=520 cycles=459774 instructions=62321\nFC sample=17 bytes=4211692 calls=520 cycles=431295 instructions=62321\nFC sample=18 bytes=4211692 calls=520 cycles=452050 instructions=62322\nFC sample=19 bytes=4211692 calls=520 cycles=443866 instructions=62321\nFC sample=20 bytes=4211692 calls=520 cycles=428867 instructions=62321\nFC sample=21 bytes=4211972 calls=538 cycles=659891 instructions=63032\nFC sample=22 bytes=4211972 calls=538 cycles=642684 instructions=63031\nFC sample=23 bytes=4211972 calls=538 cycles=650351 instructions=63032\nFC sample=24 bytes=4211972 calls=538 cycles=488382 instructions=63031\nFC sample=25 bytes=4211972 calls=538 cycles=499633 instructions=63031\nFC sample=26 bytes=4211972 calls=538 cycles=444373 instructions=63032\nFC sample=27 bytes=4211972 calls=538 cycles=519755 instructions=63031\nFC sample=28 bytes=4195300 calls=522 cycles=554697 instructions=63111\nFC sample=29 bytes=4195300 calls=522 cycles=582359 instructions=63110\nFC sample=30 bytes=4195300 calls=522 cycles=600019 instructions=63110\nFC sample=31 bytes=4195300 calls=522 cycles=585253 instructions=63111\nFC sample=32 bytes=4195300 calls=522 cycles=539209 instructions=63110\nFC sample=33 bytes=4195300 calls=522 cycles=549710 instructions=63110\nFC sample=34 bytes=4195300 calls=522 cycles=588714 instructions=63111\nFC sample=35 bytes=4228076 calls=520 cycles=566222 instructions=63333\nFC sample=36 bytes=4228076 calls=520 cycles=560271 instructions=63333\nFC sample=37 bytes=4228076 calls=520 cycles=589102 instructions=63333\nFC sample=38 bytes=4228076 calls=520 cycles=499698 instructions=63334\nFC sample=39 bytes=4228076 calls=520 cycles=498626 instructions=63333\nFC sample=40 bytes=4228076 calls=520 cycles=439470 instructions=63333\nFC sample=41 bytes=4228076 calls=520 cycles=455223 instructions=63333\n"
+    },
+    {
+      "pair": 0,
+      "label": "right",
+      "snapshot": "candidate",
+      "start_unix": 1793820769.6598327,
+      "elapsed_s": 0.014834880828857422,
+      "argv": [
+        "taskset",
+        "-c",
+        "7",
+        "<ARTIFACTS>/candidate/instrumented",
+        "2"
+      ],
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            14422.0,
+            2549.5,
+            1793.5,
+            1726.5,
+            1925.0,
+            3323.0,
+            1696.0
+          ],
+          "median_ns": 1925.0,
+          "checksum": 1421,
+          "counter_samples": [
+            {
+              "sample": 0,
+              "bytes": 16,
+              "calls": 4,
+              "cycles": 12002,
+              "instructions": 2721
+            },
+            {
+              "sample": 1,
+              "bytes": 16,
+              "calls": 4,
+              "cycles": 1103,
+              "instructions": 2035
+            },
+            {
+              "sample": 2,
+              "bytes": 16,
+              "calls": 4,
+              "cycles": 853,
+              "instructions": 2035
+            },
+            {
+              "sample": 3,
+              "bytes": 16,
+              "calls": 4,
+              "cycles": 895,
+              "instructions": 2035
+            },
+            {
+              "sample": 4,
+              "bytes": 16,
+              "calls": 4,
+              "cycles": 1083,
+              "instructions": 2035
+            },
+            {
+              "sample": 5,
+              "bytes": 16,
+              "calls": 4,
+              "cycles": 773,
+              "instructions": 2035
+            },
+            {
+              "sample": 6,
+              "bytes": 16,
+              "calls": 4,
+              "cycles": 781,
+              "instructions": 2035
+            }
+          ]
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            184069.5,
+            142239.0,
+            140972.0,
+            153219.0,
+            150181.0,
+            144155.5,
+            149799.5
+          ],
+          "median_ns": 149799.5,
+          "checksum": 1386,
+          "counter_samples": [
+            {
+              "sample": 7,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 580704,
+              "instructions": 62220
+            },
+            {
+              "sample": 8,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 468194,
+              "instructions": 62219
+            },
+            {
+              "sample": 9,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 461619,
+              "instructions": 62219
+            },
+            {
+              "sample": 10,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 479052,
+              "instructions": 62220
+            },
+            {
+              "sample": 11,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 492524,
+              "instructions": 62219
+            },
+            {
+              "sample": 12,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 471710,
+              "instructions": 62219
+            },
+            {
+              "sample": 13,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 490850,
+              "instructions": 62219
+            }
+          ]
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            4977.5,
+            2351.5,
+            2529.5,
+            1710.0,
+            2471.5,
+            1760.0,
+            2351.5
+          ],
+          "median_ns": 2351.5,
+          "checksum": 322,
+          "counter_samples": [
+            {
+              "sample": 14,
+              "bytes": 6,
+              "calls": 4,
+              "cycles": 3065,
+              "instructions": 2171
+            },
+            {
+              "sample": 15,
+              "bytes": 6,
+              "calls": 4,
+              "cycles": 969,
+              "instructions": 2171
+            },
+            {
+              "sample": 16,
+              "bytes": 6,
+              "calls": 4,
+              "cycles": 1099,
+              "instructions": 2171
+            },
+            {
+              "sample": 17,
+              "bytes": 6,
+              "calls": 4,
+              "cycles": 747,
+              "instructions": 2171
+            },
+            {
+              "sample": 18,
+              "bytes": 6,
+              "calls": 4,
+              "cycles": 841,
+              "instructions": 2171
+            },
+            {
+              "sample": 19,
+              "bytes": 6,
+              "calls": 4,
+              "cycles": 820,
+              "instructions": 2171
+            },
+            {
+              "sample": 20,
+              "bytes": 6,
+              "calls": 4,
+              "cycles": 779,
+              "instructions": 2171
+            }
+          ]
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            206399.5,
+            167068.5,
+            155820.0,
+            146667.0,
+            138197.5,
+            121187.5,
+            129271.0
+          ],
+          "median_ns": 146667.0,
+          "checksum": 3822,
+          "counter_samples": [
+            {
+              "sample": 21,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 639991,
+              "instructions": 63076
+            },
+            {
+              "sample": 22,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 545180,
+              "instructions": 63075
+            },
+            {
+              "sample": 23,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 504701,
+              "instructions": 63075
+            },
+            {
+              "sample": 24,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 459328,
+              "instructions": 63075
+            },
+            {
+              "sample": 25,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 453723,
+              "instructions": 63075
+            },
+            {
+              "sample": 26,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 398008,
+              "instructions": 63075
+            },
+            {
+              "sample": 27,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 424108,
+              "instructions": 63075
+            }
+          ]
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            145239.0,
+            127506.0,
+            135677.0,
+            129819.0,
+            129443.5,
+            129609.0,
+            143221.5
+          ],
+          "median_ns": 129819.0,
+          "checksum": 2800,
+          "counter_samples": [
+            {
+              "sample": 28,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 470545,
+              "instructions": 63120
+            },
+            {
+              "sample": 29,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 417460,
+              "instructions": 63120
+            },
+            {
+              "sample": 30,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 425450,
+              "instructions": 63121
+            },
+            {
+              "sample": 31,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 424932,
+              "instructions": 63120
+            },
+            {
+              "sample": 32,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 424541,
+              "instructions": 63120
+            },
+            {
+              "sample": 33,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 423714,
+              "instructions": 63120
+            },
+            {
+              "sample": 34,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 454272,
+              "instructions": 63121
+            }
+          ]
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            7648.5,
+            5573.5,
+            5185.5,
+            5120.0,
+            4585.0,
+            5134.5,
+            5174.0
+          ],
+          "median_ns": 5174.0,
+          "checksum": 59045,
+          "counter_samples": [
+            {
+              "sample": 35,
+              "bytes": 8198,
+              "calls": 4,
+              "cycles": 13460,
+              "instructions": 44143
+            },
+            {
+              "sample": 36,
+              "bytes": 8198,
+              "calls": 4,
+              "cycles": 10956,
+              "instructions": 44143
+            },
+            {
+              "sample": 37,
+              "bytes": 8198,
+              "calls": 4,
+              "cycles": 10430,
+              "instructions": 44143
+            },
+            {
+              "sample": 38,
+              "bytes": 8198,
+              "calls": 4,
+              "cycles": 10352,
+              "instructions": 44143
+            },
+            {
+              "sample": 39,
+              "bytes": 8198,
+              "calls": 4,
+              "cycles": 10385,
+              "instructions": 44143
+            },
+            {
+              "sample": 40,
+              "bytes": 8198,
+              "calls": 4,
+              "cycles": 10298,
+              "instructions": 44143
+            },
+            {
+              "sample": 41,
+              "bytes": 8198,
+              "calls": 4,
+              "cycles": 10324,
+              "instructions": 44143
+            }
+          ]
+        }
+      },
+      "stdout": "update-text-boundary-large samples_ns=[14422.0, 2549.5, 1793.5, 1726.5, 1925.0, 3323.0, 1696.0] checksum=1421\nmedian=1925.0 min=1696.0 max=14422.0\nupdate-text-resize-large samples_ns=[184069.5, 142239.0, 140972.0, 153219.0, 150181.0, 144155.5, 149799.5] checksum=1386\nmedian=149799.5 min=140972.0 max=184069.5\nupdate-integer-large samples_ns=[4977.5, 2351.5, 2529.5, 1710.0, 2471.5, 1760.0, 2351.5] checksum=322\nmedian=2351.5 min=1710.0 max=4977.5\nupdate-text-list-large samples_ns=[206399.5, 167068.5, 155820.0, 146667.0, 138197.5, 121187.5, 129271.0] checksum=3822\nmedian=146667.0 min=121187.5 max=206399.5\nupdate-two-text-large samples_ns=[145239.0, 127506.0, 135677.0, 129819.0, 129443.5, 129609.0, 143221.5] checksum=2800\nmedian=129819.0 min=127506.0 max=145239.0\nupdate-text-full-large samples_ns=[7648.5, 5573.5, 5185.5, 5120.0, 4585.0, 5134.5, 5174.0] checksum=59045\nmedian=5174.0 min=4585.0 max=7648.5\n",
+      "perf_stderr": "FC sample=0 bytes=16 calls=4 cycles=12002 instructions=2721\nFC sample=1 bytes=16 calls=4 cycles=1103 instructions=2035\nFC sample=2 bytes=16 calls=4 cycles=853 instructions=2035\nFC sample=3 bytes=16 calls=4 cycles=895 instructions=2035\nFC sample=4 bytes=16 calls=4 cycles=1083 instructions=2035\nFC sample=5 bytes=16 calls=4 cycles=773 instructions=2035\nFC sample=6 bytes=16 calls=4 cycles=781 instructions=2035\nFC sample=7 bytes=4211698 calls=520 cycles=580704 instructions=62220\nFC sample=8 bytes=4211698 calls=520 cycles=468194 instructions=62219\nFC sample=9 bytes=4211698 calls=520 cycles=461619 instructions=62219\nFC sample=10 bytes=4211698 calls=520 cycles=479052 instructions=62220\nFC sample=11 bytes=4211698 calls=520 cycles=492524 instructions=62219\nFC sample=12 bytes=4211698 calls=520 cycles=471710 instructions=62219\nFC sample=13 bytes=4211698 calls=520 cycles=490850 instructions=62219\nFC sample=14 bytes=6 calls=4 cycles=3065 instructions=2171\nFC sample=15 bytes=6 calls=4 cycles=969 instructions=2171\nFC sample=16 bytes=6 calls=4 cycles=1099 instructions=2171\nFC sample=17 bytes=6 calls=4 cycles=747 instructions=2171\nFC sample=18 bytes=6 calls=4 cycles=841 instructions=2171\nFC sample=19 bytes=6 calls=4 cycles=820 instructions=2171\nFC sample=20 bytes=6 calls=4 cycles=779 instructions=2171\nFC sample=21 bytes=4211972 calls=538 cycles=639991 instructions=63076\nFC sample=22 bytes=4211972 calls=538 cycles=545180 instructions=63075\nFC sample=23 bytes=4211972 calls=538 cycles=504701 instructions=63075\nFC sample=24 bytes=4211972 calls=538 cycles=459328 instructions=63075\nFC sample=25 bytes=4211972 calls=538 cycles=453723 instructions=63075\nFC sample=26 bytes=4211972 calls=538 cycles=398008 instructions=63075\nFC sample=27 bytes=4211972 calls=538 cycles=424108 instructions=63075\nFC sample=28 bytes=4195300 calls=522 cycles=470545 instructions=63120\nFC sample=29 bytes=4195300 calls=522 cycles=417460 instructions=63120\nFC sample=30 bytes=4195300 calls=522 cycles=425450 instructions=63121\nFC sample=31 bytes=4195300 calls=522 cycles=424932 instructions=63120\nFC sample=32 bytes=4195300 calls=522 cycles=424541 instructions=63120\nFC sample=33 bytes=4195300 calls=522 cycles=423714 instructions=63120\nFC sample=34 bytes=4195300 calls=522 cycles=454272 instructions=63121\nFC sample=35 bytes=8198 calls=4 cycles=13460 instructions=44143\nFC sample=36 bytes=8198 calls=4 cycles=10956 instructions=44143\nFC sample=37 bytes=8198 calls=4 cycles=10430 instructions=44143\nFC sample=38 bytes=8198 calls=4 cycles=10352 instructions=44143\nFC sample=39 bytes=8198 calls=4 cycles=10385 instructions=44143\nFC sample=40 bytes=8198 calls=4 cycles=10298 instructions=44143\nFC sample=41 bytes=8198 calls=4 cycles=10324 instructions=44143\n"
+    },
+    {
+      "pair": 1,
+      "label": "right",
+      "snapshot": "candidate",
+      "start_unix": 1793820769.6749287,
+      "elapsed_s": 0.015002965927124023,
+      "argv": [
+        "taskset",
+        "-c",
+        "7",
+        "<ARTIFACTS>/candidate/instrumented",
+        "2"
+      ],
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            17521.0,
+            2413.5,
+            1904.5,
+            1751.5,
+            1720.5,
+            1617.0,
+            1554.0
+          ],
+          "median_ns": 1751.5,
+          "checksum": 1421,
+          "counter_samples": [
+            {
+              "sample": 0,
+              "bytes": 16,
+              "calls": 4,
+              "cycles": 14861,
+              "instructions": 2721
+            },
+            {
+              "sample": 1,
+              "bytes": 16,
+              "calls": 4,
+              "cycles": 1215,
+              "instructions": 2035
+            },
+            {
+              "sample": 2,
+              "bytes": 16,
+              "calls": 4,
+              "cycles": 811,
+              "instructions": 2035
+            },
+            {
+              "sample": 3,
+              "bytes": 16,
+              "calls": 4,
+              "cycles": 777,
+              "instructions": 2035
+            },
+            {
+              "sample": 4,
+              "bytes": 16,
+              "calls": 4,
+              "cycles": 812,
+              "instructions": 2035
+            },
+            {
+              "sample": 5,
+              "bytes": 16,
+              "calls": 4,
+              "cycles": 851,
+              "instructions": 2035
+            },
+            {
+              "sample": 6,
+              "bytes": 16,
+              "calls": 4,
+              "cycles": 741,
+              "instructions": 2035
+            }
+          ]
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            142990.0,
+            117095.5,
+            123439.0,
+            126686.0,
+            118128.0,
+            134717.0,
+            188567.5
+          ],
+          "median_ns": 126686.0,
+          "checksum": 1386,
+          "counter_samples": [
+            {
+              "sample": 7,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 468780,
+              "instructions": 62233
+            },
+            {
+              "sample": 8,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 384116,
+              "instructions": 62233
+            },
+            {
+              "sample": 9,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 406289,
+              "instructions": 62233
+            },
+            {
+              "sample": 10,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 408843,
+              "instructions": 62234
+            },
+            {
+              "sample": 11,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 388359,
+              "instructions": 62233
+            },
+            {
+              "sample": 12,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 444249,
+              "instructions": 62233
+            },
+            {
+              "sample": 13,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 481530,
+              "instructions": 62233
+            }
+          ]
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            4599.5,
+            1820.5,
+            1700.0,
+            1853.0,
+            3443.5,
+            2257.5,
+            2392.0
+          ],
+          "median_ns": 2257.5,
+          "checksum": 322,
+          "counter_samples": [
+            {
+              "sample": 14,
+              "bytes": 6,
+              "calls": 4,
+              "cycles": 3341,
+              "instructions": 2171
+            },
+            {
+              "sample": 15,
+              "bytes": 6,
+              "calls": 4,
+              "cycles": 860,
+              "instructions": 2171
+            },
+            {
+              "sample": 16,
+              "bytes": 6,
+              "calls": 4,
+              "cycles": 778,
+              "instructions": 2171
+            },
+            {
+              "sample": 17,
+              "bytes": 6,
+              "calls": 4,
+              "cycles": 766,
+              "instructions": 2171
+            },
+            {
+              "sample": 18,
+              "bytes": 6,
+              "calls": 4,
+              "cycles": 750,
+              "instructions": 2171
+            },
+            {
+              "sample": 19,
+              "bytes": 6,
+              "calls": 4,
+              "cycles": 830,
+              "instructions": 2171
+            },
+            {
+              "sample": 20,
+              "bytes": 6,
+              "calls": 4,
+              "cycles": 747,
+              "instructions": 2171
+            }
+          ]
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            125146.0,
+            143878.5,
+            163918.0,
+            147875.0,
+            162473.5,
+            148344.5,
+            138561.0
+          ],
+          "median_ns": 147875.0,
+          "checksum": 3822,
+          "counter_samples": [
+            {
+              "sample": 21,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 409894,
+              "instructions": 63089
+            },
+            {
+              "sample": 22,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 456596,
+              "instructions": 63090
+            },
+            {
+              "sample": 23,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 538228,
+              "instructions": 63089
+            },
+            {
+              "sample": 24,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 485331,
+              "instructions": 63089
+            },
+            {
+              "sample": 25,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 501017,
+              "instructions": 63091
+            },
+            {
+              "sample": 26,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 487071,
+              "instructions": 63089
+            },
+            {
+              "sample": 27,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 454900,
+              "instructions": 63089
+            }
+          ]
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            140629.0,
+            109101.5,
+            112746.0,
+            137024.0,
+            190633.0,
+            180266.5,
+            204210.0
+          ],
+          "median_ns": 140629.0,
+          "checksum": 2800,
+          "counter_samples": [
+            {
+              "sample": 28,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 459893,
+              "instructions": 63134
+            },
+            {
+              "sample": 29,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 358127,
+              "instructions": 63134
+            },
+            {
+              "sample": 30,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 369628,
+              "instructions": 63134
+            },
+            {
+              "sample": 31,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 432346,
+              "instructions": 63135
+            },
+            {
+              "sample": 32,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 619530,
+              "instructions": 63134
+            },
+            {
+              "sample": 33,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 585287,
+              "instructions": 63134
+            },
+            {
+              "sample": 34,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 566603,
+              "instructions": 63135
+            }
+          ]
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            7541.5,
+            6053.0,
+            5292.5,
+            5183.0,
+            4638.5,
+            5188.5,
+            5158.5
+          ],
+          "median_ns": 5188.5,
+          "checksum": 59045,
+          "counter_samples": [
+            {
+              "sample": 35,
+              "bytes": 8198,
+              "calls": 4,
+              "cycles": 13183,
+              "instructions": 44143
+            },
+            {
+              "sample": 36,
+              "bytes": 8198,
+              "calls": 4,
+              "cycles": 10826,
+              "instructions": 44143
+            },
+            {
+              "sample": 37,
+              "bytes": 8198,
+              "calls": 4,
+              "cycles": 10428,
+              "instructions": 44143
+            },
+            {
+              "sample": 38,
+              "bytes": 8198,
+              "calls": 4,
+              "cycles": 10284,
+              "instructions": 44143
+            },
+            {
+              "sample": 39,
+              "bytes": 8198,
+              "calls": 4,
+              "cycles": 10342,
+              "instructions": 44143
+            },
+            {
+              "sample": 40,
+              "bytes": 8198,
+              "calls": 4,
+              "cycles": 10302,
+              "instructions": 44143
+            },
+            {
+              "sample": 41,
+              "bytes": 8198,
+              "calls": 4,
+              "cycles": 10276,
+              "instructions": 44143
+            }
+          ]
+        }
+      },
+      "stdout": "update-text-boundary-large samples_ns=[17521.0, 2413.5, 1904.5, 1751.5, 1720.5, 1617.0, 1554.0] checksum=1421\nmedian=1751.5 min=1554.0 max=17521.0\nupdate-text-resize-large samples_ns=[142990.0, 117095.5, 123439.0, 126686.0, 118128.0, 134717.0, 188567.5] checksum=1386\nmedian=126686.0 min=117095.5 max=188567.5\nupdate-integer-large samples_ns=[4599.5, 1820.5, 1700.0, 1853.0, 3443.5, 2257.5, 2392.0] checksum=322\nmedian=2257.5 min=1700.0 max=4599.5\nupdate-text-list-large samples_ns=[125146.0, 143878.5, 163918.0, 147875.0, 162473.5, 148344.5, 138561.0] checksum=3822\nmedian=147875.0 min=125146.0 max=163918.0\nupdate-two-text-large samples_ns=[140629.0, 109101.5, 112746.0, 137024.0, 190633.0, 180266.5, 204210.0] checksum=2800\nmedian=140629.0 min=109101.5 max=204210.0\nupdate-text-full-large samples_ns=[7541.5, 6053.0, 5292.5, 5183.0, 4638.5, 5188.5, 5158.5] checksum=59045\nmedian=5188.5 min=4638.5 max=7541.5\n",
+      "perf_stderr": "FC sample=0 bytes=16 calls=4 cycles=14861 instructions=2721\nFC sample=1 bytes=16 calls=4 cycles=1215 instructions=2035\nFC sample=2 bytes=16 calls=4 cycles=811 instructions=2035\nFC sample=3 bytes=16 calls=4 cycles=777 instructions=2035\nFC sample=4 bytes=16 calls=4 cycles=812 instructions=2035\nFC sample=5 bytes=16 calls=4 cycles=851 instructions=2035\nFC sample=6 bytes=16 calls=4 cycles=741 instructions=2035\nFC sample=7 bytes=4211698 calls=520 cycles=468780 instructions=62233\nFC sample=8 bytes=4211698 calls=520 cycles=384116 instructions=62233\nFC sample=9 bytes=4211698 calls=520 cycles=406289 instructions=62233\nFC sample=10 bytes=4211698 calls=520 cycles=408843 instructions=62234\nFC sample=11 bytes=4211698 calls=520 cycles=388359 instructions=62233\nFC sample=12 bytes=4211698 calls=520 cycles=444249 instructions=62233\nFC sample=13 bytes=4211698 calls=520 cycles=481530 instructions=62233\nFC sample=14 bytes=6 calls=4 cycles=3341 instructions=2171\nFC sample=15 bytes=6 calls=4 cycles=860 instructions=2171\nFC sample=16 bytes=6 calls=4 cycles=778 instructions=2171\nFC sample=17 bytes=6 calls=4 cycles=766 instructions=2171\nFC sample=18 bytes=6 calls=4 cycles=750 instructions=2171\nFC sample=19 bytes=6 calls=4 cycles=830 instructions=2171\nFC sample=20 bytes=6 calls=4 cycles=747 instructions=2171\nFC sample=21 bytes=4211972 calls=538 cycles=409894 instructions=63089\nFC sample=22 bytes=4211972 calls=538 cycles=456596 instructions=63090\nFC sample=23 bytes=4211972 calls=538 cycles=538228 instructions=63089\nFC sample=24 bytes=4211972 calls=538 cycles=485331 instructions=63089\nFC sample=25 bytes=4211972 calls=538 cycles=501017 instructions=63091\nFC sample=26 bytes=4211972 calls=538 cycles=487071 instructions=63089\nFC sample=27 bytes=4211972 calls=538 cycles=454900 instructions=63089\nFC sample=28 bytes=4195300 calls=522 cycles=459893 instructions=63134\nFC sample=29 bytes=4195300 calls=522 cycles=358127 instructions=63134\nFC sample=30 bytes=4195300 calls=522 cycles=369628 instructions=63134\nFC sample=31 bytes=4195300 calls=522 cycles=432346 instructions=63135\nFC sample=32 bytes=4195300 calls=522 cycles=619530 instructions=63134\nFC sample=33 bytes=4195300 calls=522 cycles=585287 instructions=63134\nFC sample=34 bytes=4195300 calls=522 cycles=566603 instructions=63135\nFC sample=35 bytes=8198 calls=4 cycles=13183 instructions=44143\nFC sample=36 bytes=8198 calls=4 cycles=10826 instructions=44143\nFC sample=37 bytes=8198 calls=4 cycles=10428 instructions=44143\nFC sample=38 bytes=8198 calls=4 cycles=10284 instructions=44143\nFC sample=39 bytes=8198 calls=4 cycles=10342 instructions=44143\nFC sample=40 bytes=8198 calls=4 cycles=10302 instructions=44143\nFC sample=41 bytes=8198 calls=4 cycles=10276 instructions=44143\n"
+    },
+    {
+      "pair": 1,
+      "label": "left",
+      "snapshot": "baseline",
+      "start_unix": 1793820769.6902006,
+      "elapsed_s": 0.02293872833251953,
+      "argv": [
+        "taskset",
+        "-c",
+        "7",
+        "<ARTIFACTS>/baseline/instrumented",
+        "2"
+      ],
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            233775.0,
+            202580.5,
+            252735.0,
+            171015.5,
+            176489.0,
+            139157.0,
+            133337.0
+          ],
+          "median_ns": 176489.0,
+          "checksum": 1421,
+          "counter_samples": [
+            {
+              "sample": 0,
+              "bytes": 4211712,
+              "calls": 520,
+              "cycles": 731637,
+              "instructions": 62821
+            },
+            {
+              "sample": 1,
+              "bytes": 4211712,
+              "calls": 520,
+              "cycles": 664452,
+              "instructions": 62135
+            },
+            {
+              "sample": 2,
+              "bytes": 4211712,
+              "calls": 520,
+              "cycles": 681007,
+              "instructions": 62136
+            },
+            {
+              "sample": 3,
+              "bytes": 4211712,
+              "calls": 520,
+              "cycles": 563487,
+              "instructions": 62135
+            },
+            {
+              "sample": 4,
+              "bytes": 4211712,
+              "calls": 520,
+              "cycles": 564769,
+              "instructions": 62136
+            },
+            {
+              "sample": 5,
+              "bytes": 4211712,
+              "calls": 520,
+              "cycles": 459690,
+              "instructions": 62135
+            },
+            {
+              "sample": 6,
+              "bytes": 4211712,
+              "calls": 520,
+              "cycles": 439598,
+              "instructions": 62135
+            }
+          ]
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            144726.0,
+            161530.5,
+            245411.0,
+            208953.5,
+            191939.5,
+            222174.0,
+            158654.0
+          ],
+          "median_ns": 191939.5,
+          "checksum": 1386,
+          "counter_samples": [
+            {
+              "sample": 7,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 474281,
+              "instructions": 62157
+            },
+            {
+              "sample": 8,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 530739,
+              "instructions": 62157
+            },
+            {
+              "sample": 9,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 702439,
+              "instructions": 62162
+            },
+            {
+              "sample": 10,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 686705,
+              "instructions": 62157
+            },
+            {
+              "sample": 11,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 632775,
+              "instructions": 62157
+            },
+            {
+              "sample": 12,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 564649,
+              "instructions": 62158
+            },
+            {
+              "sample": 13,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 524192,
+              "instructions": 62157
+            }
+          ]
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            188436.0,
+            150896.0,
+            144289.0,
+            149583.0,
+            147465.5,
+            147992.5,
+            141906.0
+          ],
+          "median_ns": 147992.5,
+          "checksum": 322,
+          "counter_samples": [
+            {
+              "sample": 14,
+              "bytes": 4211692,
+              "calls": 520,
+              "cycles": 614994,
+              "instructions": 62321
+            },
+            {
+              "sample": 15,
+              "bytes": 4211692,
+              "calls": 520,
+              "cycles": 497293,
+              "instructions": 62321
+            },
+            {
+              "sample": 16,
+              "bytes": 4211692,
+              "calls": 520,
+              "cycles": 456351,
+              "instructions": 62322
+            },
+            {
+              "sample": 17,
+              "bytes": 4211692,
+              "calls": 520,
+              "cycles": 448964,
+              "instructions": 62323
+            },
+            {
+              "sample": 18,
+              "bytes": 4211692,
+              "calls": 520,
+              "cycles": 484422,
+              "instructions": 62321
+            },
+            {
+              "sample": 19,
+              "bytes": 4211692,
+              "calls": 520,
+              "cycles": 465866,
+              "instructions": 62323
+            },
+            {
+              "sample": 20,
+              "bytes": 4211692,
+              "calls": 520,
+              "cycles": 467250,
+              "instructions": 62321
+            }
+          ]
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            120587.5,
+            120719.5,
+            120095.0,
+            116855.0,
+            110830.0,
+            113541.5,
+            117706.0
+          ],
+          "median_ns": 117706.0,
+          "checksum": 3822,
+          "counter_samples": [
+            {
+              "sample": 21,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 392694,
+              "instructions": 63031
+            },
+            {
+              "sample": 22,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 400771,
+              "instructions": 63031
+            },
+            {
+              "sample": 23,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 384726,
+              "instructions": 63032
+            },
+            {
+              "sample": 24,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 386835,
+              "instructions": 63031
+            },
+            {
+              "sample": 25,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 369059,
+              "instructions": 63031
+            },
+            {
+              "sample": 26,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 377102,
+              "instructions": 63031
+            },
+            {
+              "sample": 27,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 381567,
+              "instructions": 63032
+            }
+          ]
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            136286.0,
+            181825.5,
+            179625.0,
+            193916.0,
+            208586.0,
+            211821.0,
+            255109.5
+          ],
+          "median_ns": 193916.0,
+          "checksum": 2800,
+          "counter_samples": [
+            {
+              "sample": 28,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 433989,
+              "instructions": 63110
+            },
+            {
+              "sample": 29,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 572593,
+              "instructions": 63111
+            },
+            {
+              "sample": 30,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 588067,
+              "instructions": 63110
+            },
+            {
+              "sample": 31,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 631457,
+              "instructions": 63110
+            },
+            {
+              "sample": 32,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 659245,
+              "instructions": 63111
+            },
+            {
+              "sample": 33,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 691531,
+              "instructions": 63110
+            },
+            {
+              "sample": 34,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 811669,
+              "instructions": 63111
+            }
+          ]
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            204907.5,
+            199868.0,
+            134048.0,
+            143275.5,
+            121711.5,
+            124972.0,
+            138513.0
+          ],
+          "median_ns": 138513.0,
+          "checksum": 59045,
+          "counter_samples": [
+            {
+              "sample": 35,
+              "bytes": 4228076,
+              "calls": 520,
+              "cycles": 658693,
+              "instructions": 63334
+            },
+            {
+              "sample": 36,
+              "bytes": 4228076,
+              "calls": 520,
+              "cycles": 658271,
+              "instructions": 63333
+            },
+            {
+              "sample": 37,
+              "bytes": 4228076,
+              "calls": 520,
+              "cycles": 441730,
+              "instructions": 63333
+            },
+            {
+              "sample": 38,
+              "bytes": 4228076,
+              "calls": 520,
+              "cycles": 459760,
+              "instructions": 63334
+            },
+            {
+              "sample": 39,
+              "bytes": 4228076,
+              "calls": 520,
+              "cycles": 402176,
+              "instructions": 63333
+            },
+            {
+              "sample": 40,
+              "bytes": 4228076,
+              "calls": 520,
+              "cycles": 413026,
+              "instructions": 63333
+            },
+            {
+              "sample": 41,
+              "bytes": 4228076,
+              "calls": 520,
+              "cycles": 454593,
+              "instructions": 63333
+            }
+          ]
+        }
+      },
+      "stdout": "update-text-boundary-large samples_ns=[233775.0, 202580.5, 252735.0, 171015.5, 176489.0, 139157.0, 133337.0] checksum=1421\nmedian=176489.0 min=133337.0 max=252735.0\nupdate-text-resize-large samples_ns=[144726.0, 161530.5, 245411.0, 208953.5, 191939.5, 222174.0, 158654.0] checksum=1386\nmedian=191939.5 min=144726.0 max=245411.0\nupdate-integer-large samples_ns=[188436.0, 150896.0, 144289.0, 149583.0, 147465.5, 147992.5, 141906.0] checksum=322\nmedian=147992.5 min=141906.0 max=188436.0\nupdate-text-list-large samples_ns=[120587.5, 120719.5, 120095.0, 116855.0, 110830.0, 113541.5, 117706.0] checksum=3822\nmedian=117706.0 min=110830.0 max=120719.5\nupdate-two-text-large samples_ns=[136286.0, 181825.5, 179625.0, 193916.0, 208586.0, 211821.0, 255109.5] checksum=2800\nmedian=193916.0 min=136286.0 max=255109.5\nupdate-text-full-large samples_ns=[204907.5, 199868.0, 134048.0, 143275.5, 121711.5, 124972.0, 138513.0] checksum=59045\nmedian=138513.0 min=121711.5 max=204907.5\n",
+      "perf_stderr": "FC sample=0 bytes=4211712 calls=520 cycles=731637 instructions=62821\nFC sample=1 bytes=4211712 calls=520 cycles=664452 instructions=62135\nFC sample=2 bytes=4211712 calls=520 cycles=681007 instructions=62136\nFC sample=3 bytes=4211712 calls=520 cycles=563487 instructions=62135\nFC sample=4 bytes=4211712 calls=520 cycles=564769 instructions=62136\nFC sample=5 bytes=4211712 calls=520 cycles=459690 instructions=62135\nFC sample=6 bytes=4211712 calls=520 cycles=439598 instructions=62135\nFC sample=7 bytes=4211698 calls=520 cycles=474281 instructions=62157\nFC sample=8 bytes=4211698 calls=520 cycles=530739 instructions=62157\nFC sample=9 bytes=4211698 calls=520 cycles=702439 instructions=62162\nFC sample=10 bytes=4211698 calls=520 cycles=686705 instructions=62157\nFC sample=11 bytes=4211698 calls=520 cycles=632775 instructions=62157\nFC sample=12 bytes=4211698 calls=520 cycles=564649 instructions=62158\nFC sample=13 bytes=4211698 calls=520 cycles=524192 instructions=62157\nFC sample=14 bytes=4211692 calls=520 cycles=614994 instructions=62321\nFC sample=15 bytes=4211692 calls=520 cycles=497293 instructions=62321\nFC sample=16 bytes=4211692 calls=520 cycles=456351 instructions=62322\nFC sample=17 bytes=4211692 calls=520 cycles=448964 instructions=62323\nFC sample=18 bytes=4211692 calls=520 cycles=484422 instructions=62321\nFC sample=19 bytes=4211692 calls=520 cycles=465866 instructions=62323\nFC sample=20 bytes=4211692 calls=520 cycles=467250 instructions=62321\nFC sample=21 bytes=4211972 calls=538 cycles=392694 instructions=63031\nFC sample=22 bytes=4211972 calls=538 cycles=400771 instructions=63031\nFC sample=23 bytes=4211972 calls=538 cycles=384726 instructions=63032\nFC sample=24 bytes=4211972 calls=538 cycles=386835 instructions=63031\nFC sample=25 bytes=4211972 calls=538 cycles=369059 instructions=63031\nFC sample=26 bytes=4211972 calls=538 cycles=377102 instructions=63031\nFC sample=27 bytes=4211972 calls=538 cycles=381567 instructions=63032\nFC sample=28 bytes=4195300 calls=522 cycles=433989 instructions=63110\nFC sample=29 bytes=4195300 calls=522 cycles=572593 instructions=63111\nFC sample=30 bytes=4195300 calls=522 cycles=588067 instructions=63110\nFC sample=31 bytes=4195300 calls=522 cycles=631457 instructions=63110\nFC sample=32 bytes=4195300 calls=522 cycles=659245 instructions=63111\nFC sample=33 bytes=4195300 calls=522 cycles=691531 instructions=63110\nFC sample=34 bytes=4195300 calls=522 cycles=811669 instructions=63111\nFC sample=35 bytes=4228076 calls=520 cycles=658693 instructions=63334\nFC sample=36 bytes=4228076 calls=520 cycles=658271 instructions=63333\nFC sample=37 bytes=4228076 calls=520 cycles=441730 instructions=63333\nFC sample=38 bytes=4228076 calls=520 cycles=459760 instructions=63334\nFC sample=39 bytes=4228076 calls=520 cycles=402176 instructions=63333\nFC sample=40 bytes=4228076 calls=520 cycles=413026 instructions=63333\nFC sample=41 bytes=4228076 calls=520 cycles=454593 instructions=63333\n"
+    }
+  ],
+  "summary": {
+    "update-text-resize-large": {
+      "left_ns": 183133.25,
+      "right_ns": 138242.75,
+      "right_left_ratio": 0.754875206987262,
+      "paired_ratios": [
+        0.8593017719572986,
+        0.6600308951518578
+      ],
+      "paired_median_ratio": 0.7596663335545781
+    },
+    "update-text-list-large": {
+      "left_ns": 138204.75,
+      "right_ns": 147271.0,
+      "right_left_ratio": 1.0656001331358003,
+      "paired_ratios": [
+        0.9241573122205875,
+        1.2563080896470868
+      ],
+      "paired_median_ratio": 1.090232700933837
+    },
+    "update-two-text-large": {
+      "left_ns": 185209.75,
+      "right_ns": 135224.0,
+      "right_left_ratio": 0.7301127505436403,
+      "paired_ratios": [
+        0.7355038285359781,
+        0.7252057591947029
+      ],
+      "paired_median_ratio": 0.7303547938653405
+    }
+  },
+  "original_local_manifest_sha256": "e2a45d0057b4ee59f514a32fb7a1975690e986305ac7677569e793543fd70351"
+}

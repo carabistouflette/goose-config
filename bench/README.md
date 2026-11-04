@@ -1,5 +1,10 @@
 # Configuration benchmarks
 
+The [memory and fallback audit](../docs/memory-and-fallback-audit.md) records
+100-cycle grow/shrink/reload tests, same-binary timing controls and
+coverage-checked copy/PMU diagnostics. It supports retaining the current runtime;
+process memory and shared-host timings have explicit limits.
+
 The latest [scalar update audit](../docs/scalar-update-performance.md) retains
 all original fixtures, six update/control workloads, raw paired/repeat samples
 and regressions for the exact-size scalar fast path.

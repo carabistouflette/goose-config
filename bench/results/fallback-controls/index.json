@@ -1,0 +1,74 @@
+{
+  "README.md": {
+    "sha256": "4619c9a4ec3c0a5b96f40c0413f3a74536a228b9fd93819bd689de838bfa5b74",
+    "bytes": 8977
+  },
+  "audit-checks.json": {
+    "sha256": "1b338c76bb848bcbe2e2f0bede7bde789cb61d68554fe8a878680d8e493933da",
+    "bytes": 402
+  },
+  "counters-aa-source-count50.json": {
+    "sha256": "4123f06e392926083e07b4cb06e53f8da3c14cf337f1081319c783e895323b56",
+    "bytes": 230817
+  },
+  "counters-count2.json": {
+    "sha256": "cab8a01f041390b1dabbe53fbb2a5c605e0d37915255480ee92e1b7779f7e4f7",
+    "bytes": 56861
+  },
+  "counters-count50.json": {
+    "sha256": "24aaac4832644725bc0bc57dd9b6da7d74cc57ad0d13bf2351ce71a07089c79d",
+    "bytes": 235488
+  },
+  "final-aa-same-binary.json": {
+    "sha256": "3c27a449059f4212b5614b62bb6ec35f7c44fba406d800000477790227d9eb28",
+    "bytes": 90529
+  },
+  "final-ab.json": {
+    "sha256": "fa26e88154ac8f6a3f933d6af4aea369b481b1cd7bcaf0a2ff4a2ec4517af4a8",
+    "bytes": 92844
+  },
+  "final-ba-labels.json": {
+    "sha256": "68b291591d9172467d7502584050f30a1621ca2ed781845591e4c30066860f52",
+    "bytes": 92728
+  },
+  "instrumentation-manifest.json": {
+    "sha256": "7961ad330f30f31837ff2a19e2ac8a526fcb26dc0390e6602cd3ff47fa825fd8",
+    "bytes": 7767
+  },
+  "manifest.json": {
+    "sha256": "7690c3bc04171c5a05d1ae83af92d58dd5db44535d568f385f2e80b847f352ab",
+    "bytes": 5108
+  },
+  "text-section-hashes.json": {
+    "sha256": "9ce0047e5005ed4c6cabdf06ad44d9439428381678cc7453cd3364bd13818a94",
+    "bytes": 256
+  },
+  "verified-aa-count50.json": {
+    "sha256": "58ce0d1bb0558a869644e1bc006cd5b40ba6548eee0d6fc6b161342887a94f43",
+    "bytes": 298907
+  },
+  "verified-count2.json": {
+    "sha256": "b06c2653c8a37024634b22f4808eecf3d51e22f476c271fc7ffe9bda2066a313",
+    "bytes": 73576
+  },
+  "verified-count50.json": {
+    "sha256": "c9bcb84dd980a69d3eb309d7fdd6445305a6616b9328def92b4eaf2bb1dabffa",
+    "bytes": 305107
+  },
+  "verified-instrumentation-manifest.json": {
+    "sha256": "e4c6c5115ec65e13ecfa9583da5a8d15a9f08b788f6ac498addf1dd99f591942",
+    "bytes": 7772
+  },
+  "verified-manifest.json": {
+    "sha256": "4b7fbd06c5c3451ad40cf1df5ecc46aa18ecd0ba95a116a43fb21ddea39237cb",
+    "bytes": 4989
+  },
+  "../../diagnostics/fallback_controls.py": {
+    "sha256": "5fa8f16634cbbbbfd8bc459cb39989314d7adabaa7b5829192a712457c61716a",
+    "bytes": 12363
+  },
+  "../../diagnostics/instrument_fallback.py": {
+    "sha256": "2e07351ea0ea9afa8a2a554893cdbc981e2bdf48c1a052003016fca36d5ed38e",
+    "bytes": 5889
+  }
+}

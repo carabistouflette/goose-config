@@ -1,0 +1,7 @@
+{
+  "counters-count2.json": "all fallback copy bytes and calls exact in every sample",
+  "counters-count50.json": "all fallback copy bytes and calls exact in every sample",
+  "counters-aa-source-count50.json": "all fallback copy bytes and calls exact in every sample",
+  "source_hashes": "all prepared source/harness files unchanged",
+  "current_runtime": "config.goose byte-for-byte same as7f72dc3"
+}

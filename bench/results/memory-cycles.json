@@ -1,0 +1,2627 @@
+{
+  "recorded_utc": "2026-11-04T20:27:24.084750+00:00",
+  "revision": "3ba1ecfaff9d640a8bad2cb76fd8c0b0e213ba9d",
+  "measurement_started_utc": "2026-11-04T20:27:21.713048+00:00",
+  "measurement_finished_utc": "2026-11-04T20:27:24.084146+00:00",
+  "source_sha256": {
+    "config.goose": "8a5113e14a2d44f4c6c2278c844ec2ad14c466117125dff22fb8c562c1eda4e6",
+    "toml.goose": "4358d950c69162d62770d808a6f488422aa6879df8a8d26d5c34e8e12d491cfc",
+    "vendor.goose": "c4b021a0928444a5f049a99eb7a542689ea6803d0d2e845c86ba43a0fc6c31c1",
+    "bindings.goose": "92d9371a5937101d624cfdd3806a495e284d5ccceb6d9d2ca1852d136ee3eb06",
+    "json_layer.goose": "d6c34a3cb80de194d13cf19d1faeb6ba0923b361d167ccfd37d1ed2c58f55311",
+    "reload.goose": "55d2a1ad3c014cb7ec3b5b6fc04521dade728ed1dac99ed2e57c5ed60fd9a77f"
+  },
+  "compiler_revision": "eadca409f68210893f366e60d0c2f0dc29a339be",
+  "compiler_version": "goose eadca40 (runtime 3025e5810379)",
+  "compiler_sha256": "3f7a34dda0d8fd3e7df27e7ccce09c0844eabc041fc8caa37a362e0ed68b2f07",
+  "binary_sha256": "b9cc12a85d468d84cafd6cdb2eba830b892e2190c0219ee6838e9e61b6987fbb",
+  "harness_sha256": "d0db5bbd9293d43d6eab7abb2d9f93bb5dc94146c29197899faa18a33fc6586a",
+  "driver_sha256": "1b33b45f621897a881367e547dfe37cdada7d8ddfa2e4ca748249cf1e36ff9f9",
+  "record_writer_sha256": "92119796bb747a9a04482620598e24486b50709ef15f3b62a2002b368c252762",
+  "build_command": [
+    "<compiler>",
+    "build",
+    "<snapshot>/bench/memory.goose",
+    "--cc",
+    "gcc",
+    "-O2",
+    "-o",
+    "<binary>"
+  ],
+  "build_stdout": "built <workspace>/snapshot/memory\n",
+  "build_stderr": "compiling the runtime for gcc 20260810\n",
+  "diagnostics_paths_normalized": true,
+  "build_diagnostics_raw_sha256": {
+    "stdout": "00f0d35b96a9026a6a8a8e40322aa0e5ce3a83975865aec78135eccd07e32dce",
+    "stderr": "a2f64f6a12e1805bb32e01756be8457506508549597dee08ae7c35fcb26c65bf"
+  },
+  "gcc_version": "gcc (GCC) 16.2.1 20260810",
+  "gcc_executable": "gcc",
+  "gcc_sha256": "8aac907d6fbf40394b424b5fa4a2ad1aa291dac7d3a0315c5b415c1f5ace1287",
+  "toolchain_input_sha256": {
+    "stdlib/std.goose": "2bff7f6748300396e4c048bbf072f798566fadfe6b05d4256052d32c93e6d5d2",
+    "stdlib/os.goose": "2193f394d44469daffd993ed204a91b068084fd8db13e261e11156b40c66e934"
+  },
+  "python_version": "3.14.9 (main, Oct 25 2026, 14:52:47) [GCC 16.2.1 20260810]",
+  "cpu_model": "Intel(R) Core(TM) Ultra 7 258V",
+  "platform": {
+    "sysname": "Linux",
+    "release": "7.2.11-arch1-1",
+    "version": "#1 SMP PREEMPT_DYNAMIC Fri, 16 Oct 2026 00:28:58 +0000",
+    "machine": "x86_64"
+  },
+  "cycles": 100,
+  "repeats": 3,
+  "modes": [
+    "scalar",
+    "lists",
+    "reload"
+  ],
+  "cpu_affinity": 6,
+  "inherited_affinity": [
+    6
+  ],
+  "metric_units": "KiB for process memory; bytes/items/keys/fields are logical lengths",
+  "limitations": [
+    "RSS/private/peak include runtime, fixture inputs, getter checks and harness overhead",
+    "initial checkpoint includes schema/store setup and fixed prebuilt input fixtures",
+    "released checkpoint follows scenario owner teardown; physical high-water storage can remain",
+    "logical lengths do not expose retained builder capacity or runtime stack high-water storage",
+    "VmSize is virtual address-space size including reservations, not memory consumption",
+    "status VmHWM is approximate; wait4 is reported lifetime child high-water RSS",
+    "wait4 can include inherited pre-exec launcher RSS; same-binary controls omit scenario setup; parent launch RSS is recorded; do not subtract controls mechanically",
+    "no trim_memory or allocator instrumentation; no claim of allocation counts or general leak freedom",
+    "frequency, thermal state and unrelated host load are uncontrolled"
+  ],
+  "launcher_controls": [
+    {
+      "repeat": 1,
+      "command": [
+        "taskset",
+        "-c",
+        "6",
+        "<binary>",
+        "3",
+        "1"
+      ],
+      "pid": 811293,
+      "parent_launch_status_kib": {
+        "VmHWM": 28256,
+        "VmRSS": 24384
+      },
+      "checkpoints": [
+        {
+          "cycle": 0,
+          "state": "initial",
+          "logical_lengths": {
+            "bytes": 0,
+            "items": 0,
+            "keys": 0,
+            "fields": 0
+          },
+          "process": {
+            "rss_kib": 2496,
+            "private_kib": 312,
+            "status_peak_rss_kib": 2496,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 2496,
+              "Private_Clean": 0,
+              "Private_Dirty": 312,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 2496
+            }
+          }
+        },
+        {
+          "cycle": 0,
+          "state": "released",
+          "logical_lengths": {
+            "bytes": 0,
+            "items": 0,
+            "keys": 0,
+            "fields": 0
+          },
+          "process": {
+            "rss_kib": 2500,
+            "private_kib": 316,
+            "status_peak_rss_kib": 2500,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 2500,
+              "Private_Clean": 0,
+              "Private_Dirty": 316,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 2500
+            }
+          }
+        }
+      ],
+      "peak_rss_kib": 28256,
+      "peak_method": "Linux wait4 ru_maxrss for direct Popen PID",
+      "elapsed_seconds": 0.007264042040333152,
+      "stdout": "MEMORY1 0 initial 0 0 0 0\nMEMORY1 0 released 0 0 0 0\nDONE1\n",
+      "stderr": ""
+    },
+    {
+      "repeat": 2,
+      "command": [
+        "taskset",
+        "-c",
+        "6",
+        "<binary>",
+        "3",
+        "1"
+      ],
+      "pid": 811298,
+      "parent_launch_status_kib": {
+        "VmHWM": 28256,
+        "VmRSS": 24556
+      },
+      "checkpoints": [
+        {
+          "cycle": 0,
+          "state": "initial",
+          "logical_lengths": {
+            "bytes": 0,
+            "items": 0,
+            "keys": 0,
+            "fields": 0
+          },
+          "process": {
+            "rss_kib": 2456,
+            "private_kib": 300,
+            "status_peak_rss_kib": 2456,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 2456,
+              "Private_Clean": 0,
+              "Private_Dirty": 300,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 2456
+            }
+          }
+        },
+        {
+          "cycle": 0,
+          "state": "released",
+          "logical_lengths": {
+            "bytes": 0,
+            "items": 0,
+            "keys": 0,
+            "fields": 0
+          },
+          "process": {
+            "rss_kib": 2460,
+            "private_kib": 304,
+            "status_peak_rss_kib": 2460,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 2460,
+              "Private_Clean": 0,
+              "Private_Dirty": 304,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 2460
+            }
+          }
+        }
+      ],
+      "peak_rss_kib": 28256,
+      "peak_method": "Linux wait4 ru_maxrss for direct Popen PID",
+      "elapsed_seconds": 0.015978091978468,
+      "stdout": "MEMORY1 0 initial 0 0 0 0\nMEMORY1 0 released 0 0 0 0\nDONE1\n",
+      "stderr": ""
+    },
+    {
+      "repeat": 3,
+      "command": [
+        "taskset",
+        "-c",
+        "6",
+        "<binary>",
+        "3",
+        "1"
+      ],
+      "pid": 811302,
+      "parent_launch_status_kib": {
+        "VmHWM": 28256,
+        "VmRSS": 24596
+      },
+      "checkpoints": [
+        {
+          "cycle": 0,
+          "state": "initial",
+          "logical_lengths": {
+            "bytes": 0,
+            "items": 0,
+            "keys": 0,
+            "fields": 0
+          },
+          "process": {
+            "rss_kib": 2452,
+            "private_kib": 300,
+            "status_peak_rss_kib": 2452,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 2452,
+              "Private_Clean": 0,
+              "Private_Dirty": 300,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 2452
+            }
+          }
+        },
+        {
+          "cycle": 0,
+          "state": "released",
+          "logical_lengths": {
+            "bytes": 0,
+            "items": 0,
+            "keys": 0,
+            "fields": 0
+          },
+          "process": {
+            "rss_kib": 2456,
+            "private_kib": 304,
+            "status_peak_rss_kib": 2456,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 2456,
+              "Private_Clean": 0,
+              "Private_Dirty": 304,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 2456
+            }
+          }
+        }
+      ],
+      "peak_rss_kib": 28256,
+      "peak_method": "Linux wait4 ru_maxrss for direct Popen PID",
+      "elapsed_seconds": 0.015754038002341986,
+      "stdout": "MEMORY1 0 initial 0 0 0 0\nMEMORY1 0 released 0 0 0 0\nDONE1\n",
+      "stderr": ""
+    }
+  ],
+  "measurements": [
+    {
+      "repeat": 1,
+      "mode": "scalar",
+      "command": [
+        "taskset",
+        "-c",
+        "6",
+        "<binary>",
+        "0",
+        "100"
+      ],
+      "pid": 811294,
+      "parent_launch_status_kib": {
+        "VmHWM": 28256,
+        "VmRSS": 24536
+      },
+      "checkpoints": [
+        {
+          "cycle": 0,
+          "state": "initial",
+          "logical_lengths": {
+            "bytes": 0,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 2604,
+            "private_kib": 440,
+            "status_peak_rss_kib": 2604,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 2604,
+              "Private_Clean": 0,
+              "Private_Dirty": 440,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 2604
+            }
+          }
+        },
+        {
+          "cycle": 1,
+          "state": "large",
+          "logical_lengths": {
+            "bytes": 1049856,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 4692,
+            "private_kib": 2528,
+            "status_peak_rss_kib": 4692,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 4692,
+              "Private_Clean": 0,
+              "Private_Dirty": 2528,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 4692
+            }
+          }
+        },
+        {
+          "cycle": 1,
+          "state": "small",
+          "logical_lengths": {
+            "bytes": 1280,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 4692,
+            "private_kib": 2528,
+            "status_peak_rss_kib": 4692,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 4692,
+              "Private_Clean": 0,
+              "Private_Dirty": 2528,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 4692
+            }
+          }
+        },
+        {
+          "cycle": 10,
+          "state": "large",
+          "logical_lengths": {
+            "bytes": 1049856,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 4692,
+            "private_kib": 2528,
+            "status_peak_rss_kib": 4692,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 4692,
+              "Private_Clean": 0,
+              "Private_Dirty": 2528,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 4692
+            }
+          }
+        },
+        {
+          "cycle": 10,
+          "state": "small",
+          "logical_lengths": {
+            "bytes": 1280,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 4692,
+            "private_kib": 2528,
+            "status_peak_rss_kib": 4692,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 4692,
+              "Private_Clean": 0,
+              "Private_Dirty": 2528,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 4692
+            }
+          }
+        },
+        {
+          "cycle": 100,
+          "state": "large",
+          "logical_lengths": {
+            "bytes": 1049856,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 4692,
+            "private_kib": 2528,
+            "status_peak_rss_kib": 4692,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 4692,
+              "Private_Clean": 0,
+              "Private_Dirty": 2528,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 4692
+            }
+          }
+        },
+        {
+          "cycle": 100,
+          "state": "small",
+          "logical_lengths": {
+            "bytes": 1280,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 4692,
+            "private_kib": 2528,
+            "status_peak_rss_kib": 4692,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 4692,
+              "Private_Clean": 0,
+              "Private_Dirty": 2528,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 4692
+            }
+          }
+        },
+        {
+          "cycle": 0,
+          "state": "released",
+          "logical_lengths": {
+            "bytes": 0,
+            "items": 0,
+            "keys": 0,
+            "fields": 0
+          },
+          "process": {
+            "rss_kib": 4692,
+            "private_kib": 2528,
+            "status_peak_rss_kib": 4692,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 4692,
+              "Private_Clean": 0,
+              "Private_Dirty": 2528,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 4692
+            }
+          }
+        }
+      ],
+      "peak_rss_kib": 28256,
+      "peak_method": "Linux wait4 ru_maxrss for direct Popen PID",
+      "elapsed_seconds": 0.04603851301362738,
+      "stdout": "MEMORY1 0 initial 0 0 1938 256\nMEMORY1 1 large 1049856 0 1938 256\nMEMORY1 1 small 1280 0 1938 256\nMEMORY1 10 large 1049856 0 1938 256\nMEMORY1 10 small 1280 0 1938 256\nMEMORY1 100 large 1049856 0 1938 256\nMEMORY1 100 small 1280 0 1938 256\nMEMORY1 0 released 0 0 0 0\nDONE1\n",
+      "stderr": ""
+    },
+    {
+      "repeat": 1,
+      "mode": "lists",
+      "command": [
+        "taskset",
+        "-c",
+        "6",
+        "<binary>",
+        "1",
+        "100"
+      ],
+      "pid": 811295,
+      "parent_launch_status_kib": {
+        "VmHWM": 28256,
+        "VmRSS": 24540
+      },
+      "checkpoints": [
+        {
+          "cycle": 0,
+          "state": "initial",
+          "logical_lengths": {
+            "bytes": 0,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 2628,
+            "private_kib": 456,
+            "status_peak_rss_kib": 2628,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 2628,
+              "Private_Clean": 0,
+              "Private_Dirty": 456,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 2628
+            }
+          }
+        },
+        {
+          "cycle": 1,
+          "state": "large",
+          "logical_lengths": {
+            "bytes": 1049856,
+            "items": 65536,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 18024,
+            "private_kib": 15852,
+            "status_peak_rss_kib": 18024,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 18024,
+              "Private_Clean": 0,
+              "Private_Dirty": 15852,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 18024
+            }
+          }
+        },
+        {
+          "cycle": 1,
+          "state": "small",
+          "logical_lengths": {
+            "bytes": 1280,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 18024,
+            "private_kib": 15852,
+            "status_peak_rss_kib": 18024,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 18024,
+              "Private_Clean": 0,
+              "Private_Dirty": 15852,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 18024
+            }
+          }
+        },
+        {
+          "cycle": 10,
+          "state": "large",
+          "logical_lengths": {
+            "bytes": 1049856,
+            "items": 65536,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 18024,
+            "private_kib": 15852,
+            "status_peak_rss_kib": 18024,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 18024,
+              "Private_Clean": 0,
+              "Private_Dirty": 15852,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 18024
+            }
+          }
+        },
+        {
+          "cycle": 10,
+          "state": "small",
+          "logical_lengths": {
+            "bytes": 1280,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 18024,
+            "private_kib": 15852,
+            "status_peak_rss_kib": 18024,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 18024,
+              "Private_Clean": 0,
+              "Private_Dirty": 15852,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 18024
+            }
+          }
+        },
+        {
+          "cycle": 100,
+          "state": "large",
+          "logical_lengths": {
+            "bytes": 1049856,
+            "items": 65536,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 18024,
+            "private_kib": 15852,
+            "status_peak_rss_kib": 18024,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 18024,
+              "Private_Clean": 0,
+              "Private_Dirty": 15852,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 18024
+            }
+          }
+        },
+        {
+          "cycle": 100,
+          "state": "small",
+          "logical_lengths": {
+            "bytes": 1280,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 18024,
+            "private_kib": 15852,
+            "status_peak_rss_kib": 18024,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 18024,
+              "Private_Clean": 0,
+              "Private_Dirty": 15852,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 18024
+            }
+          }
+        },
+        {
+          "cycle": 0,
+          "state": "released",
+          "logical_lengths": {
+            "bytes": 0,
+            "items": 0,
+            "keys": 0,
+            "fields": 0
+          },
+          "process": {
+            "rss_kib": 18024,
+            "private_kib": 15852,
+            "status_peak_rss_kib": 18024,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 18024,
+              "Private_Clean": 0,
+              "Private_Dirty": 15852,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 18024
+            }
+          }
+        }
+      ],
+      "peak_rss_kib": 28256,
+      "peak_method": "Linux wait4 ru_maxrss for direct Popen PID",
+      "elapsed_seconds": 0.30549488798715174,
+      "stdout": "MEMORY1 0 initial 0 0 1938 256\nMEMORY1 1 large 1049856 65536 1938 256\nMEMORY1 1 small 1280 0 1938 256\nMEMORY1 10 large 1049856 65536 1938 256\nMEMORY1 10 small 1280 0 1938 256\nMEMORY1 100 large 1049856 65536 1938 256\nMEMORY1 100 small 1280 0 1938 256\nMEMORY1 0 released 0 0 0 0\nDONE1\n",
+      "stderr": ""
+    },
+    {
+      "repeat": 1,
+      "mode": "reload",
+      "command": [
+        "taskset",
+        "-c",
+        "6",
+        "<binary>",
+        "2",
+        "100"
+      ],
+      "pid": 811296,
+      "parent_launch_status_kib": {
+        "VmHWM": 28256,
+        "VmRSS": 24544
+      },
+      "checkpoints": [
+        {
+          "cycle": 0,
+          "state": "initial",
+          "logical_lengths": {
+            "bytes": 0,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 2648,
+            "private_kib": 452,
+            "status_peak_rss_kib": 2648,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 2648,
+              "Private_Clean": 0,
+              "Private_Dirty": 452,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 2648
+            }
+          }
+        },
+        {
+          "cycle": 1,
+          "state": "large",
+          "logical_lengths": {
+            "bytes": 1049854,
+            "items": 65280,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 25336,
+            "private_kib": 23140,
+            "status_peak_rss_kib": 25336,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 25336,
+              "Private_Clean": 0,
+              "Private_Dirty": 23140,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 25336
+            }
+          }
+        },
+        {
+          "cycle": 1,
+          "state": "small",
+          "logical_lengths": {
+            "bytes": 13,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 25336,
+            "private_kib": 23140,
+            "status_peak_rss_kib": 25336,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 25336,
+              "Private_Clean": 0,
+              "Private_Dirty": 23140,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 25336
+            }
+          }
+        },
+        {
+          "cycle": 1,
+          "state": "rejected",
+          "logical_lengths": {
+            "bytes": 13,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 25336,
+            "private_kib": 23140,
+            "status_peak_rss_kib": 25336,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 25336,
+              "Private_Clean": 0,
+              "Private_Dirty": 23140,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 25336
+            }
+          }
+        },
+        {
+          "cycle": 10,
+          "state": "large",
+          "logical_lengths": {
+            "bytes": 1049854,
+            "items": 65280,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 25336,
+            "private_kib": 23140,
+            "status_peak_rss_kib": 25336,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 25336,
+              "Private_Clean": 0,
+              "Private_Dirty": 23140,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 25336
+            }
+          }
+        },
+        {
+          "cycle": 10,
+          "state": "small",
+          "logical_lengths": {
+            "bytes": 13,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 25336,
+            "private_kib": 23140,
+            "status_peak_rss_kib": 25336,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 25336,
+              "Private_Clean": 0,
+              "Private_Dirty": 23140,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 25336
+            }
+          }
+        },
+        {
+          "cycle": 10,
+          "state": "rejected",
+          "logical_lengths": {
+            "bytes": 13,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 25336,
+            "private_kib": 23140,
+            "status_peak_rss_kib": 25336,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 25336,
+              "Private_Clean": 0,
+              "Private_Dirty": 23140,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 25336
+            }
+          }
+        },
+        {
+          "cycle": 100,
+          "state": "large",
+          "logical_lengths": {
+            "bytes": 1049854,
+            "items": 65280,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 25336,
+            "private_kib": 23140,
+            "status_peak_rss_kib": 25336,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 25336,
+              "Private_Clean": 0,
+              "Private_Dirty": 23140,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 25336
+            }
+          }
+        },
+        {
+          "cycle": 100,
+          "state": "small",
+          "logical_lengths": {
+            "bytes": 13,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 25336,
+            "private_kib": 23140,
+            "status_peak_rss_kib": 25336,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 25336,
+              "Private_Clean": 0,
+              "Private_Dirty": 23140,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 25336
+            }
+          }
+        },
+        {
+          "cycle": 100,
+          "state": "rejected",
+          "logical_lengths": {
+            "bytes": 13,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 25336,
+            "private_kib": 23140,
+            "status_peak_rss_kib": 25336,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 25336,
+              "Private_Clean": 0,
+              "Private_Dirty": 23140,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 25336
+            }
+          }
+        },
+        {
+          "cycle": 0,
+          "state": "released",
+          "logical_lengths": {
+            "bytes": 0,
+            "items": 0,
+            "keys": 0,
+            "fields": 0
+          },
+          "process": {
+            "rss_kib": 25336,
+            "private_kib": 23140,
+            "status_peak_rss_kib": 25336,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 25336,
+              "Private_Clean": 0,
+              "Private_Dirty": 23140,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 25336
+            }
+          }
+        }
+      ],
+      "peak_rss_kib": 28256,
+      "peak_method": "Linux wait4 ru_maxrss for direct Popen PID",
+      "elapsed_seconds": 0.4169168730149977,
+      "stdout": "MEMORY1 0 initial 0 0 1938 256\nMEMORY1 1 large 1049854 65280 1938 256\nMEMORY1 1 small 13 0 1938 256\nMEMORY1 1 rejected 13 0 1938 256\nMEMORY1 10 large 1049854 65280 1938 256\nMEMORY1 10 small 13 0 1938 256\nMEMORY1 10 rejected 13 0 1938 256\nMEMORY1 100 large 1049854 65280 1938 256\nMEMORY1 100 small 13 0 1938 256\nMEMORY1 100 rejected 13 0 1938 256\nMEMORY1 0 released 0 0 0 0\nDONE1\n",
+      "stderr": ""
+    },
+    {
+      "repeat": 2,
+      "mode": "scalar",
+      "command": [
+        "taskset",
+        "-c",
+        "6",
+        "<binary>",
+        "0",
+        "100"
+      ],
+      "pid": 811299,
+      "parent_launch_status_kib": {
+        "VmHWM": 28256,
+        "VmRSS": 24556
+      },
+      "checkpoints": [
+        {
+          "cycle": 0,
+          "state": "initial",
+          "logical_lengths": {
+            "bytes": 0,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 2524,
+            "private_kib": 444,
+            "status_peak_rss_kib": 2524,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 2524,
+              "Private_Clean": 0,
+              "Private_Dirty": 444,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 2524
+            }
+          }
+        },
+        {
+          "cycle": 1,
+          "state": "large",
+          "logical_lengths": {
+            "bytes": 1049856,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 4608,
+            "private_kib": 2528,
+            "status_peak_rss_kib": 4608,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 4608,
+              "Private_Clean": 0,
+              "Private_Dirty": 2528,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 4608
+            }
+          }
+        },
+        {
+          "cycle": 1,
+          "state": "small",
+          "logical_lengths": {
+            "bytes": 1280,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 4608,
+            "private_kib": 2528,
+            "status_peak_rss_kib": 4608,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 4608,
+              "Private_Clean": 0,
+              "Private_Dirty": 2528,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 4608
+            }
+          }
+        },
+        {
+          "cycle": 10,
+          "state": "large",
+          "logical_lengths": {
+            "bytes": 1049856,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 4608,
+            "private_kib": 2528,
+            "status_peak_rss_kib": 4608,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 4608,
+              "Private_Clean": 0,
+              "Private_Dirty": 2528,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 4608
+            }
+          }
+        },
+        {
+          "cycle": 10,
+          "state": "small",
+          "logical_lengths": {
+            "bytes": 1280,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 4608,
+            "private_kib": 2528,
+            "status_peak_rss_kib": 4608,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 4608,
+              "Private_Clean": 0,
+              "Private_Dirty": 2528,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 4608
+            }
+          }
+        },
+        {
+          "cycle": 100,
+          "state": "large",
+          "logical_lengths": {
+            "bytes": 1049856,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 4608,
+            "private_kib": 2528,
+            "status_peak_rss_kib": 4608,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 4608,
+              "Private_Clean": 0,
+              "Private_Dirty": 2528,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 4608
+            }
+          }
+        },
+        {
+          "cycle": 100,
+          "state": "small",
+          "logical_lengths": {
+            "bytes": 1280,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 4608,
+            "private_kib": 2528,
+            "status_peak_rss_kib": 4608,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 4608,
+              "Private_Clean": 0,
+              "Private_Dirty": 2528,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 4608
+            }
+          }
+        },
+        {
+          "cycle": 0,
+          "state": "released",
+          "logical_lengths": {
+            "bytes": 0,
+            "items": 0,
+            "keys": 0,
+            "fields": 0
+          },
+          "process": {
+            "rss_kib": 4608,
+            "private_kib": 2528,
+            "status_peak_rss_kib": 4608,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 4608,
+              "Private_Clean": 0,
+              "Private_Dirty": 2528,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 4608
+            }
+          }
+        }
+      ],
+      "peak_rss_kib": 28256,
+      "peak_method": "Linux wait4 ru_maxrss for direct Popen PID",
+      "elapsed_seconds": 0.042861681955400854,
+      "stdout": "MEMORY1 0 initial 0 0 1938 256\nMEMORY1 1 large 1049856 0 1938 256\nMEMORY1 1 small 1280 0 1938 256\nMEMORY1 10 large 1049856 0 1938 256\nMEMORY1 10 small 1280 0 1938 256\nMEMORY1 100 large 1049856 0 1938 256\nMEMORY1 100 small 1280 0 1938 256\nMEMORY1 0 released 0 0 0 0\nDONE1\n",
+      "stderr": ""
+    },
+    {
+      "repeat": 2,
+      "mode": "lists",
+      "command": [
+        "taskset",
+        "-c",
+        "6",
+        "<binary>",
+        "1",
+        "100"
+      ],
+      "pid": 811300,
+      "parent_launch_status_kib": {
+        "VmHWM": 28256,
+        "VmRSS": 24564
+      },
+      "checkpoints": [
+        {
+          "cycle": 0,
+          "state": "initial",
+          "logical_lengths": {
+            "bytes": 0,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 2652,
+            "private_kib": 452,
+            "status_peak_rss_kib": 2652,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 2652,
+              "Private_Clean": 0,
+              "Private_Dirty": 452,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 2652
+            }
+          }
+        },
+        {
+          "cycle": 1,
+          "state": "large",
+          "logical_lengths": {
+            "bytes": 1049856,
+            "items": 65536,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 18048,
+            "private_kib": 15848,
+            "status_peak_rss_kib": 18048,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 18048,
+              "Private_Clean": 0,
+              "Private_Dirty": 15848,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 18048
+            }
+          }
+        },
+        {
+          "cycle": 1,
+          "state": "small",
+          "logical_lengths": {
+            "bytes": 1280,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 18048,
+            "private_kib": 15848,
+            "status_peak_rss_kib": 18048,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 18048,
+              "Private_Clean": 0,
+              "Private_Dirty": 15848,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 18048
+            }
+          }
+        },
+        {
+          "cycle": 10,
+          "state": "large",
+          "logical_lengths": {
+            "bytes": 1049856,
+            "items": 65536,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 18048,
+            "private_kib": 15848,
+            "status_peak_rss_kib": 18048,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 18048,
+              "Private_Clean": 0,
+              "Private_Dirty": 15848,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 18048
+            }
+          }
+        },
+        {
+          "cycle": 10,
+          "state": "small",
+          "logical_lengths": {
+            "bytes": 1280,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 18048,
+            "private_kib": 15848,
+            "status_peak_rss_kib": 18048,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 18048,
+              "Private_Clean": 0,
+              "Private_Dirty": 15848,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 18048
+            }
+          }
+        },
+        {
+          "cycle": 100,
+          "state": "large",
+          "logical_lengths": {
+            "bytes": 1049856,
+            "items": 65536,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 18048,
+            "private_kib": 15848,
+            "status_peak_rss_kib": 18048,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 18048,
+              "Private_Clean": 0,
+              "Private_Dirty": 15848,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 18048
+            }
+          }
+        },
+        {
+          "cycle": 100,
+          "state": "small",
+          "logical_lengths": {
+            "bytes": 1280,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 18048,
+            "private_kib": 15848,
+            "status_peak_rss_kib": 18048,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 18048,
+              "Private_Clean": 0,
+              "Private_Dirty": 15848,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 18048
+            }
+          }
+        },
+        {
+          "cycle": 0,
+          "state": "released",
+          "logical_lengths": {
+            "bytes": 0,
+            "items": 0,
+            "keys": 0,
+            "fields": 0
+          },
+          "process": {
+            "rss_kib": 18048,
+            "private_kib": 15848,
+            "status_peak_rss_kib": 18048,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 18048,
+              "Private_Clean": 0,
+              "Private_Dirty": 15848,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 18048
+            }
+          }
+        }
+      ],
+      "peak_rss_kib": 28256,
+      "peak_method": "Linux wait4 ru_maxrss for direct Popen PID",
+      "elapsed_seconds": 0.2969205850386061,
+      "stdout": "MEMORY1 0 initial 0 0 1938 256\nMEMORY1 1 large 1049856 65536 1938 256\nMEMORY1 1 small 1280 0 1938 256\nMEMORY1 10 large 1049856 65536 1938 256\nMEMORY1 10 small 1280 0 1938 256\nMEMORY1 100 large 1049856 65536 1938 256\nMEMORY1 100 small 1280 0 1938 256\nMEMORY1 0 released 0 0 0 0\nDONE1\n",
+      "stderr": ""
+    },
+    {
+      "repeat": 2,
+      "mode": "reload",
+      "command": [
+        "taskset",
+        "-c",
+        "6",
+        "<binary>",
+        "2",
+        "100"
+      ],
+      "pid": 811301,
+      "parent_launch_status_kib": {
+        "VmHWM": 28256,
+        "VmRSS": 24576
+      },
+      "checkpoints": [
+        {
+          "cycle": 0,
+          "state": "initial",
+          "logical_lengths": {
+            "bytes": 0,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 2624,
+            "private_kib": 452,
+            "status_peak_rss_kib": 2624,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 2624,
+              "Private_Clean": 0,
+              "Private_Dirty": 452,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 2624
+            }
+          }
+        },
+        {
+          "cycle": 1,
+          "state": "large",
+          "logical_lengths": {
+            "bytes": 1049854,
+            "items": 65280,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 25312,
+            "private_kib": 23140,
+            "status_peak_rss_kib": 25312,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 25312,
+              "Private_Clean": 0,
+              "Private_Dirty": 23140,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 25312
+            }
+          }
+        },
+        {
+          "cycle": 1,
+          "state": "small",
+          "logical_lengths": {
+            "bytes": 13,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 25312,
+            "private_kib": 23140,
+            "status_peak_rss_kib": 25312,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 25312,
+              "Private_Clean": 0,
+              "Private_Dirty": 23140,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 25312
+            }
+          }
+        },
+        {
+          "cycle": 1,
+          "state": "rejected",
+          "logical_lengths": {
+            "bytes": 13,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 25312,
+            "private_kib": 23140,
+            "status_peak_rss_kib": 25312,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 25312,
+              "Private_Clean": 0,
+              "Private_Dirty": 23140,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 25312
+            }
+          }
+        },
+        {
+          "cycle": 10,
+          "state": "large",
+          "logical_lengths": {
+            "bytes": 1049854,
+            "items": 65280,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 25312,
+            "private_kib": 23140,
+            "status_peak_rss_kib": 25312,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 25312,
+              "Private_Clean": 0,
+              "Private_Dirty": 23140,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 25312
+            }
+          }
+        },
+        {
+          "cycle": 10,
+          "state": "small",
+          "logical_lengths": {
+            "bytes": 13,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 25312,
+            "private_kib": 23140,
+            "status_peak_rss_kib": 25312,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 25312,
+              "Private_Clean": 0,
+              "Private_Dirty": 23140,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 25312
+            }
+          }
+        },
+        {
+          "cycle": 10,
+          "state": "rejected",
+          "logical_lengths": {
+            "bytes": 13,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 25312,
+            "private_kib": 23140,
+            "status_peak_rss_kib": 25312,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 25312,
+              "Private_Clean": 0,
+              "Private_Dirty": 23140,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 25312
+            }
+          }
+        },
+        {
+          "cycle": 100,
+          "state": "large",
+          "logical_lengths": {
+            "bytes": 1049854,
+            "items": 65280,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 25312,
+            "private_kib": 23140,
+            "status_peak_rss_kib": 25312,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 25312,
+              "Private_Clean": 0,
+              "Private_Dirty": 23140,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 25312
+            }
+          }
+        },
+        {
+          "cycle": 100,
+          "state": "small",
+          "logical_lengths": {
+            "bytes": 13,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 25312,
+            "private_kib": 23140,
+            "status_peak_rss_kib": 25312,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 25312,
+              "Private_Clean": 0,
+              "Private_Dirty": 23140,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 25312
+            }
+          }
+        },
+        {
+          "cycle": 100,
+          "state": "rejected",
+          "logical_lengths": {
+            "bytes": 13,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 25312,
+            "private_kib": 23140,
+            "status_peak_rss_kib": 25312,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 25312,
+              "Private_Clean": 0,
+              "Private_Dirty": 23140,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 25312
+            }
+          }
+        },
+        {
+          "cycle": 0,
+          "state": "released",
+          "logical_lengths": {
+            "bytes": 0,
+            "items": 0,
+            "keys": 0,
+            "fields": 0
+          },
+          "process": {
+            "rss_kib": 25312,
+            "private_kib": 23140,
+            "status_peak_rss_kib": 25312,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 25312,
+              "Private_Clean": 0,
+              "Private_Dirty": 23140,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 25312
+            }
+          }
+        }
+      ],
+      "peak_rss_kib": 28256,
+      "peak_method": "Linux wait4 ru_maxrss for direct Popen PID",
+      "elapsed_seconds": 0.4196506399894133,
+      "stdout": "MEMORY1 0 initial 0 0 1938 256\nMEMORY1 1 large 1049854 65280 1938 256\nMEMORY1 1 small 13 0 1938 256\nMEMORY1 1 rejected 13 0 1938 256\nMEMORY1 10 large 1049854 65280 1938 256\nMEMORY1 10 small 13 0 1938 256\nMEMORY1 10 rejected 13 0 1938 256\nMEMORY1 100 large 1049854 65280 1938 256\nMEMORY1 100 small 13 0 1938 256\nMEMORY1 100 rejected 13 0 1938 256\nMEMORY1 0 released 0 0 0 0\nDONE1\n",
+      "stderr": ""
+    },
+    {
+      "repeat": 3,
+      "mode": "scalar",
+      "command": [
+        "taskset",
+        "-c",
+        "6",
+        "<binary>",
+        "0",
+        "100"
+      ],
+      "pid": 811303,
+      "parent_launch_status_kib": {
+        "VmHWM": 28256,
+        "VmRSS": 24596
+      },
+      "checkpoints": [
+        {
+          "cycle": 0,
+          "state": "initial",
+          "logical_lengths": {
+            "bytes": 0,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 2628,
+            "private_kib": 456,
+            "status_peak_rss_kib": 2628,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 2628,
+              "Private_Clean": 0,
+              "Private_Dirty": 456,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 2628
+            }
+          }
+        },
+        {
+          "cycle": 1,
+          "state": "large",
+          "logical_lengths": {
+            "bytes": 1049856,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 4712,
+            "private_kib": 2540,
+            "status_peak_rss_kib": 4712,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 4712,
+              "Private_Clean": 0,
+              "Private_Dirty": 2540,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 4712
+            }
+          }
+        },
+        {
+          "cycle": 1,
+          "state": "small",
+          "logical_lengths": {
+            "bytes": 1280,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 4712,
+            "private_kib": 2540,
+            "status_peak_rss_kib": 4712,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 4712,
+              "Private_Clean": 0,
+              "Private_Dirty": 2540,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 4712
+            }
+          }
+        },
+        {
+          "cycle": 10,
+          "state": "large",
+          "logical_lengths": {
+            "bytes": 1049856,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 4712,
+            "private_kib": 2540,
+            "status_peak_rss_kib": 4712,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 4712,
+              "Private_Clean": 0,
+              "Private_Dirty": 2540,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 4712
+            }
+          }
+        },
+        {
+          "cycle": 10,
+          "state": "small",
+          "logical_lengths": {
+            "bytes": 1280,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 4712,
+            "private_kib": 2540,
+            "status_peak_rss_kib": 4712,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 4712,
+              "Private_Clean": 0,
+              "Private_Dirty": 2540,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 4712
+            }
+          }
+        },
+        {
+          "cycle": 100,
+          "state": "large",
+          "logical_lengths": {
+            "bytes": 1049856,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 4712,
+            "private_kib": 2540,
+            "status_peak_rss_kib": 4712,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 4712,
+              "Private_Clean": 0,
+              "Private_Dirty": 2540,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 4712
+            }
+          }
+        },
+        {
+          "cycle": 100,
+          "state": "small",
+          "logical_lengths": {
+            "bytes": 1280,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 4712,
+            "private_kib": 2540,
+            "status_peak_rss_kib": 4712,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 4712,
+              "Private_Clean": 0,
+              "Private_Dirty": 2540,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 4712
+            }
+          }
+        },
+        {
+          "cycle": 0,
+          "state": "released",
+          "logical_lengths": {
+            "bytes": 0,
+            "items": 0,
+            "keys": 0,
+            "fields": 0
+          },
+          "process": {
+            "rss_kib": 4712,
+            "private_kib": 2540,
+            "status_peak_rss_kib": 4712,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 4712,
+              "Private_Clean": 0,
+              "Private_Dirty": 2540,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 4712
+            }
+          }
+        }
+      ],
+      "peak_rss_kib": 28256,
+      "peak_method": "Linux wait4 ru_maxrss for direct Popen PID",
+      "elapsed_seconds": 0.043219818035140634,
+      "stdout": "MEMORY1 0 initial 0 0 1938 256\nMEMORY1 1 large 1049856 0 1938 256\nMEMORY1 1 small 1280 0 1938 256\nMEMORY1 10 large 1049856 0 1938 256\nMEMORY1 10 small 1280 0 1938 256\nMEMORY1 100 large 1049856 0 1938 256\nMEMORY1 100 small 1280 0 1938 256\nMEMORY1 0 released 0 0 0 0\nDONE1\n",
+      "stderr": ""
+    },
+    {
+      "repeat": 3,
+      "mode": "lists",
+      "command": [
+        "taskset",
+        "-c",
+        "6",
+        "<binary>",
+        "1",
+        "100"
+      ],
+      "pid": 811304,
+      "parent_launch_status_kib": {
+        "VmHWM": 28256,
+        "VmRSS": 24620
+      },
+      "checkpoints": [
+        {
+          "cycle": 0,
+          "state": "initial",
+          "logical_lengths": {
+            "bytes": 0,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 2608,
+            "private_kib": 448,
+            "status_peak_rss_kib": 2608,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 2608,
+              "Private_Clean": 0,
+              "Private_Dirty": 448,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 2608
+            }
+          }
+        },
+        {
+          "cycle": 1,
+          "state": "large",
+          "logical_lengths": {
+            "bytes": 1049856,
+            "items": 65536,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 18008,
+            "private_kib": 15848,
+            "status_peak_rss_kib": 18008,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 18008,
+              "Private_Clean": 0,
+              "Private_Dirty": 15848,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 18008
+            }
+          }
+        },
+        {
+          "cycle": 1,
+          "state": "small",
+          "logical_lengths": {
+            "bytes": 1280,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 18008,
+            "private_kib": 15848,
+            "status_peak_rss_kib": 18008,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 18008,
+              "Private_Clean": 0,
+              "Private_Dirty": 15848,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 18008
+            }
+          }
+        },
+        {
+          "cycle": 10,
+          "state": "large",
+          "logical_lengths": {
+            "bytes": 1049856,
+            "items": 65536,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 18008,
+            "private_kib": 15848,
+            "status_peak_rss_kib": 18008,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 18008,
+              "Private_Clean": 0,
+              "Private_Dirty": 15848,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 18008
+            }
+          }
+        },
+        {
+          "cycle": 10,
+          "state": "small",
+          "logical_lengths": {
+            "bytes": 1280,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 18008,
+            "private_kib": 15848,
+            "status_peak_rss_kib": 18008,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 18008,
+              "Private_Clean": 0,
+              "Private_Dirty": 15848,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 18008
+            }
+          }
+        },
+        {
+          "cycle": 100,
+          "state": "large",
+          "logical_lengths": {
+            "bytes": 1049856,
+            "items": 65536,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 18008,
+            "private_kib": 15848,
+            "status_peak_rss_kib": 18008,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 18008,
+              "Private_Clean": 0,
+              "Private_Dirty": 15848,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 18008
+            }
+          }
+        },
+        {
+          "cycle": 100,
+          "state": "small",
+          "logical_lengths": {
+            "bytes": 1280,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 18008,
+            "private_kib": 15848,
+            "status_peak_rss_kib": 18008,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 18008,
+              "Private_Clean": 0,
+              "Private_Dirty": 15848,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 18008
+            }
+          }
+        },
+        {
+          "cycle": 0,
+          "state": "released",
+          "logical_lengths": {
+            "bytes": 0,
+            "items": 0,
+            "keys": 0,
+            "fields": 0
+          },
+          "process": {
+            "rss_kib": 18008,
+            "private_kib": 15848,
+            "status_peak_rss_kib": 18008,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 18008,
+              "Private_Clean": 0,
+              "Private_Dirty": 15848,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 18008
+            }
+          }
+        }
+      ],
+      "peak_rss_kib": 28256,
+      "peak_method": "Linux wait4 ru_maxrss for direct Popen PID",
+      "elapsed_seconds": 0.34729951102053747,
+      "stdout": "MEMORY1 0 initial 0 0 1938 256\nMEMORY1 1 large 1049856 65536 1938 256\nMEMORY1 1 small 1280 0 1938 256\nMEMORY1 10 large 1049856 65536 1938 256\nMEMORY1 10 small 1280 0 1938 256\nMEMORY1 100 large 1049856 65536 1938 256\nMEMORY1 100 small 1280 0 1938 256\nMEMORY1 0 released 0 0 0 0\nDONE1\n",
+      "stderr": ""
+    },
+    {
+      "repeat": 3,
+      "mode": "reload",
+      "command": [
+        "taskset",
+        "-c",
+        "6",
+        "<binary>",
+        "2",
+        "100"
+      ],
+      "pid": 811343,
+      "parent_launch_status_kib": {
+        "VmHWM": 28256,
+        "VmRSS": 24632
+      },
+      "checkpoints": [
+        {
+          "cycle": 0,
+          "state": "initial",
+          "logical_lengths": {
+            "bytes": 0,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 2644,
+            "private_kib": 456,
+            "status_peak_rss_kib": 2644,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 2644,
+              "Private_Clean": 0,
+              "Private_Dirty": 456,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 2644
+            }
+          }
+        },
+        {
+          "cycle": 1,
+          "state": "large",
+          "logical_lengths": {
+            "bytes": 1049854,
+            "items": 65280,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 25328,
+            "private_kib": 23140,
+            "status_peak_rss_kib": 25328,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 25328,
+              "Private_Clean": 0,
+              "Private_Dirty": 23140,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 25328
+            }
+          }
+        },
+        {
+          "cycle": 1,
+          "state": "small",
+          "logical_lengths": {
+            "bytes": 13,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 25328,
+            "private_kib": 23140,
+            "status_peak_rss_kib": 25328,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 25328,
+              "Private_Clean": 0,
+              "Private_Dirty": 23140,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 25328
+            }
+          }
+        },
+        {
+          "cycle": 1,
+          "state": "rejected",
+          "logical_lengths": {
+            "bytes": 13,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 25328,
+            "private_kib": 23140,
+            "status_peak_rss_kib": 25328,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 25328,
+              "Private_Clean": 0,
+              "Private_Dirty": 23140,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 25328
+            }
+          }
+        },
+        {
+          "cycle": 10,
+          "state": "large",
+          "logical_lengths": {
+            "bytes": 1049854,
+            "items": 65280,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 25328,
+            "private_kib": 23140,
+            "status_peak_rss_kib": 25328,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 25328,
+              "Private_Clean": 0,
+              "Private_Dirty": 23140,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 25328
+            }
+          }
+        },
+        {
+          "cycle": 10,
+          "state": "small",
+          "logical_lengths": {
+            "bytes": 13,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 25328,
+            "private_kib": 23140,
+            "status_peak_rss_kib": 25328,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 25328,
+              "Private_Clean": 0,
+              "Private_Dirty": 23140,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 25328
+            }
+          }
+        },
+        {
+          "cycle": 10,
+          "state": "rejected",
+          "logical_lengths": {
+            "bytes": 13,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 25328,
+            "private_kib": 23140,
+            "status_peak_rss_kib": 25328,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 25328,
+              "Private_Clean": 0,
+              "Private_Dirty": 23140,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 25328
+            }
+          }
+        },
+        {
+          "cycle": 100,
+          "state": "large",
+          "logical_lengths": {
+            "bytes": 1049854,
+            "items": 65280,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 25328,
+            "private_kib": 23140,
+            "status_peak_rss_kib": 25328,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 25328,
+              "Private_Clean": 0,
+              "Private_Dirty": 23140,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 25328
+            }
+          }
+        },
+        {
+          "cycle": 100,
+          "state": "small",
+          "logical_lengths": {
+            "bytes": 13,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 25328,
+            "private_kib": 23140,
+            "status_peak_rss_kib": 25328,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 25328,
+              "Private_Clean": 0,
+              "Private_Dirty": 23140,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 25328
+            }
+          }
+        },
+        {
+          "cycle": 100,
+          "state": "rejected",
+          "logical_lengths": {
+            "bytes": 13,
+            "items": 0,
+            "keys": 1938,
+            "fields": 256
+          },
+          "process": {
+            "rss_kib": 25328,
+            "private_kib": 23140,
+            "status_peak_rss_kib": 25328,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 25328,
+              "Private_Clean": 0,
+              "Private_Dirty": 23140,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 25328
+            }
+          }
+        },
+        {
+          "cycle": 0,
+          "state": "released",
+          "logical_lengths": {
+            "bytes": 0,
+            "items": 0,
+            "keys": 0,
+            "fields": 0
+          },
+          "process": {
+            "rss_kib": 25328,
+            "private_kib": 23140,
+            "status_peak_rss_kib": 25328,
+            "virtual_address_space_kib": 104913212,
+            "raw_smaps_kib": {
+              "Rss": 25328,
+              "Private_Clean": 0,
+              "Private_Dirty": 23140,
+              "Private_Hugetlb": 0
+            },
+            "raw_status_kib": {
+              "VmSize": 104913212,
+              "VmHWM": 25328
+            }
+          }
+        }
+      ],
+      "peak_rss_kib": 28256,
+      "peak_method": "Linux wait4 ru_maxrss for direct Popen PID",
+      "elapsed_seconds": 0.4112659469828941,
+      "stdout": "MEMORY1 0 initial 0 0 1938 256\nMEMORY1 1 large 1049854 65280 1938 256\nMEMORY1 1 small 13 0 1938 256\nMEMORY1 1 rejected 13 0 1938 256\nMEMORY1 10 large 1049854 65280 1938 256\nMEMORY1 10 small 13 0 1938 256\nMEMORY1 10 rejected 13 0 1938 256\nMEMORY1 100 large 1049854 65280 1938 256\nMEMORY1 100 small 13 0 1938 256\nMEMORY1 100 rejected 13 0 1938 256\nMEMORY1 0 released 0 0 0 0\nDONE1\n",
+      "stderr": ""
+    }
+  ]
+}

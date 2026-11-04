@@ -1,0 +1,1993 @@
+{
+  "control": "ab",
+  "mapping": {
+    "left": "baseline",
+    "right": "candidate"
+  },
+  "reverse_initial_order": false,
+  "count": 2,
+  "batches": 7,
+  "pairs": 2,
+  "start_unix": 1793823008.1704614,
+  "elapsed_s": 0.16988253593444824,
+  "instrumented": true,
+  "manifest_sha256": "e4c6c5115ec65e13ecfa9583da5a8d15a9f08b788f6ac498addf1dd99f591942",
+  "records": [
+    {
+      "pair": 0,
+      "label": "left",
+      "snapshot": "baseline",
+      "start_unix": 1793823008.1712584,
+      "elapsed_s": 0.048388004302978516,
+      "argv": [
+        "taskset",
+        "-c",
+        "6",
+        "<ARTIFACTS>/baseline/instrumented",
+        "2"
+      ],
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            195911.5,
+            1477237.5,
+            115635.5,
+            106234.0,
+            734587.0,
+            112428.5,
+            106575.5
+          ],
+          "median_ns": 115635.5,
+          "checksum": 1421,
+          "counter_samples": [
+            {
+              "sample": 0,
+              "bytes": 4211712,
+              "calls": 520,
+              "cycles": 580400,
+              "instructions": 62797,
+              "enabled_ns": 374894,
+              "running_ns": 374894
+            },
+            {
+              "sample": 1,
+              "bytes": 4211712,
+              "calls": 520,
+              "cycles": 919527,
+              "instructions": 62113,
+              "enabled_ns": 581861,
+              "running_ns": 581861
+            },
+            {
+              "sample": 2,
+              "bytes": 4211712,
+              "calls": 520,
+              "cycles": 380632,
+              "instructions": 62111,
+              "enabled_ns": 235336,
+              "running_ns": 235336
+            },
+            {
+              "sample": 3,
+              "bytes": 4211712,
+              "calls": 520,
+              "cycles": 348992,
+              "instructions": 62111,
+              "enabled_ns": 210722,
+              "running_ns": 210722
+            },
+            {
+              "sample": 4,
+              "bytes": 4211712,
+              "calls": 520,
+              "cycles": 726900,
+              "instructions": 62112,
+              "enabled_ns": 458195,
+              "running_ns": 458195
+            },
+            {
+              "sample": 5,
+              "bytes": 4211712,
+              "calls": 520,
+              "cycles": 368895,
+              "instructions": 62111,
+              "enabled_ns": 225410,
+              "running_ns": 225410
+            },
+            {
+              "sample": 6,
+              "bytes": 4211712,
+              "calls": 520,
+              "cycles": 348618,
+              "instructions": 62111,
+              "enabled_ns": 210805,
+              "running_ns": 210805
+            }
+          ]
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            117277.0,
+            110691.5,
+            1393129.5,
+            129156.5,
+            110367.0,
+            111741.0,
+            101870.5
+          ],
+          "median_ns": 111741.0,
+          "checksum": 1386,
+          "counter_samples": [
+            {
+              "sample": 7,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 385474,
+              "instructions": 62133,
+              "enabled_ns": 235203,
+              "running_ns": 235203
+            },
+            {
+              "sample": 8,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 363669,
+              "instructions": 62133,
+              "enabled_ns": 219240,
+              "running_ns": 219240
+            },
+            {
+              "sample": 9,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 546820,
+              "instructions": 62134,
+              "enabled_ns": 340419,
+              "running_ns": 340419
+            },
+            {
+              "sample": 10,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 454234,
+              "instructions": 62133,
+              "enabled_ns": 259879,
+              "running_ns": 259879
+            },
+            {
+              "sample": 11,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 361251,
+              "instructions": 62134,
+              "enabled_ns": 216897,
+              "running_ns": 216897
+            },
+            {
+              "sample": 12,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 391687,
+              "instructions": 62133,
+              "enabled_ns": 222170,
+              "running_ns": 222170
+            },
+            {
+              "sample": 13,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 357168,
+              "instructions": 62133,
+              "enabled_ns": 202985,
+              "running_ns": 202985
+            }
+          ]
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            101668.5,
+            732074.0,
+            108557.5,
+            99515.5,
+            1116855.0,
+            176030.5,
+            108267.5
+          ],
+          "median_ns": 108557.5,
+          "checksum": 322,
+          "counter_samples": [
+            {
+              "sample": 14,
+              "bytes": 4211692,
+              "calls": 520,
+              "cycles": 351657,
+              "instructions": 62297,
+              "enabled_ns": 201149,
+              "running_ns": 201149
+            },
+            {
+              "sample": 15,
+              "bytes": 4211692,
+              "calls": 520,
+              "cycles": 751226,
+              "instructions": 62298,
+              "enabled_ns": 471630,
+              "running_ns": 471630
+            },
+            {
+              "sample": 16,
+              "bytes": 4211692,
+              "calls": 520,
+              "cycles": 381756,
+              "instructions": 62297,
+              "enabled_ns": 219239,
+              "running_ns": 219239
+            },
+            {
+              "sample": 17,
+              "bytes": 4211692,
+              "calls": 520,
+              "cycles": 345022,
+              "instructions": 62297,
+              "enabled_ns": 195540,
+              "running_ns": 195540
+            },
+            {
+              "sample": 18,
+              "bytes": 4211692,
+              "calls": 520,
+              "cycles": 400781,
+              "instructions": 62299,
+              "enabled_ns": 271936,
+              "running_ns": 271936
+            },
+            {
+              "sample": 19,
+              "bytes": 4211692,
+              "calls": 520,
+              "cycles": 609813,
+              "instructions": 62298,
+              "enabled_ns": 347941,
+              "running_ns": 347941
+            },
+            {
+              "sample": 20,
+              "bytes": 4211692,
+              "calls": 520,
+              "cycles": 376536,
+              "instructions": 62297,
+              "enabled_ns": 214625,
+              "running_ns": 214625
+            }
+          ]
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            126769.0,
+            99968.0,
+            98591.5,
+            1187059.0,
+            101478.5,
+            98410.5,
+            98332.5
+          ],
+          "median_ns": 99968.0,
+          "checksum": 3822,
+          "counter_samples": [
+            {
+              "sample": 21,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 427607,
+              "instructions": 63007,
+              "enabled_ns": 253996,
+              "running_ns": 253996
+            },
+            {
+              "sample": 22,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 349985,
+              "instructions": 63007,
+              "enabled_ns": 197997,
+              "running_ns": 197997
+            },
+            {
+              "sample": 23,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 346029,
+              "instructions": 63007,
+              "enabled_ns": 195292,
+              "running_ns": 195292
+            },
+            {
+              "sample": 24,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 798360,
+              "instructions": 63010,
+              "enabled_ns": 489366,
+              "running_ns": 489366
+            },
+            {
+              "sample": 25,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 355776,
+              "instructions": 63007,
+              "enabled_ns": 206849,
+              "running_ns": 206849
+            },
+            {
+              "sample": 26,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 345223,
+              "instructions": 63007,
+              "enabled_ns": 194815,
+              "running_ns": 194815
+            },
+            {
+              "sample": 27,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 345239,
+              "instructions": 63007,
+              "enabled_ns": 194676,
+              "running_ns": 194676
+            }
+          ]
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            129633.5,
+            101250.0,
+            112830.0,
+            110217.0,
+            102181.5,
+            1226727.5,
+            226336.5
+          ],
+          "median_ns": 112830.0,
+          "checksum": 2800,
+          "counter_samples": [
+            {
+              "sample": 28,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 443909,
+              "instructions": 63086,
+              "enabled_ns": 259851,
+              "running_ns": 259851
+            },
+            {
+              "sample": 29,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 351699,
+              "instructions": 63086,
+              "enabled_ns": 200651,
+              "running_ns": 200651
+            },
+            {
+              "sample": 30,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 368577,
+              "instructions": 63087,
+              "enabled_ns": 222987,
+              "running_ns": 222987
+            },
+            {
+              "sample": 31,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 384104,
+              "instructions": 63086,
+              "enabled_ns": 218104,
+              "running_ns": 218104
+            },
+            {
+              "sample": 32,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 356355,
+              "instructions": 63086,
+              "enabled_ns": 202239,
+              "running_ns": 202239
+            },
+            {
+              "sample": 33,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 944393,
+              "instructions": 63088,
+              "enabled_ns": 563143,
+              "running_ns": 563143
+            },
+            {
+              "sample": 34,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 747016,
+              "instructions": 63087,
+              "enabled_ns": 449942,
+              "running_ns": 449942
+            }
+          ]
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            788364.0,
+            117191.5,
+            196667.0,
+            1139312.0,
+            188004.5,
+            123235.0,
+            106432.0
+          ],
+          "median_ns": 188004.5,
+          "checksum": 59045,
+          "counter_samples": [
+            {
+              "sample": 35,
+              "bytes": 4228076,
+              "calls": 520,
+              "cycles": 897171,
+              "instructions": 63310,
+              "enabled_ns": 544851,
+              "running_ns": 544851
+            },
+            {
+              "sample": 36,
+              "bytes": 4228076,
+              "calls": 520,
+              "cycles": 407803,
+              "instructions": 63309,
+              "enabled_ns": 234785,
+              "running_ns": 234785
+            },
+            {
+              "sample": 37,
+              "bytes": 4228076,
+              "calls": 520,
+              "cycles": 656466,
+              "instructions": 63310,
+              "enabled_ns": 388440,
+              "running_ns": 388440
+            },
+            {
+              "sample": 38,
+              "bytes": 4228076,
+              "calls": 520,
+              "cycles": 658900,
+              "instructions": 63310,
+              "enabled_ns": 400774,
+              "running_ns": 400774
+            },
+            {
+              "sample": 39,
+              "bytes": 4228076,
+              "calls": 520,
+              "cycles": 638769,
+              "instructions": 63309,
+              "enabled_ns": 364073,
+              "running_ns": 364073
+            },
+            {
+              "sample": 40,
+              "bytes": 4228076,
+              "calls": 520,
+              "cycles": 399105,
+              "instructions": 63310,
+              "enabled_ns": 245161,
+              "running_ns": 245161
+            },
+            {
+              "sample": 41,
+              "bytes": 4228076,
+              "calls": 520,
+              "cycles": 371059,
+              "instructions": 63309,
+              "enabled_ns": 210875,
+              "running_ns": 210875
+            }
+          ]
+        }
+      },
+      "stdout": "update-text-boundary-large samples_ns=[195911.5, 1477237.5, 115635.5, 106234.0, 734587.0, 112428.5, 106575.5] checksum=1421\nmedian=115635.5 min=106234.0 max=1477237.5\nupdate-text-resize-large samples_ns=[117277.0, 110691.5, 1393129.5, 129156.5, 110367.0, 111741.0, 101870.5] checksum=1386\nmedian=111741.0 min=101870.5 max=1393129.5\nupdate-integer-large samples_ns=[101668.5, 732074.0, 108557.5, 99515.5, 1116855.0, 176030.5, 108267.5] checksum=322\nmedian=108557.5 min=99515.5 max=1116855.0\nupdate-text-list-large samples_ns=[126769.0, 99968.0, 98591.5, 1187059.0, 101478.5, 98410.5, 98332.5] checksum=3822\nmedian=99968.0 min=98332.5 max=1187059.0\nupdate-two-text-large samples_ns=[129633.5, 101250.0, 112830.0, 110217.0, 102181.5, 1226727.5, 226336.5] checksum=2800\nmedian=112830.0 min=101250.0 max=1226727.5\nupdate-text-full-large samples_ns=[788364.0, 117191.5, 196667.0, 1139312.0, 188004.5, 123235.0, 106432.0] checksum=59045\nmedian=188004.5 min=106432.0 max=1139312.0\n",
+      "perf_stderr": "FC sample=0 bytes=4211712 calls=520 cycles=580400 instructions=62797 enabled=374894 running=374894\nFC sample=1 bytes=4211712 calls=520 cycles=919527 instructions=62113 enabled=581861 running=581861\nFC sample=2 bytes=4211712 calls=520 cycles=380632 instructions=62111 enabled=235336 running=235336\nFC sample=3 bytes=4211712 calls=520 cycles=348992 instructions=62111 enabled=210722 running=210722\nFC sample=4 bytes=4211712 calls=520 cycles=726900 instructions=62112 enabled=458195 running=458195\nFC sample=5 bytes=4211712 calls=520 cycles=368895 instructions=62111 enabled=225410 running=225410\nFC sample=6 bytes=4211712 calls=520 cycles=348618 instructions=62111 enabled=210805 running=210805\nFC sample=7 bytes=4211698 calls=520 cycles=385474 instructions=62133 enabled=235203 running=235203\nFC sample=8 bytes=4211698 calls=520 cycles=363669 instructions=62133 enabled=219240 running=219240\nFC sample=9 bytes=4211698 calls=520 cycles=546820 instructions=62134 enabled=340419 running=340419\nFC sample=10 bytes=4211698 calls=520 cycles=454234 instructions=62133 enabled=259879 running=259879\nFC sample=11 bytes=4211698 calls=520 cycles=361251 instructions=62134 enabled=216897 running=216897\nFC sample=12 bytes=4211698 calls=520 cycles=391687 instructions=62133 enabled=222170 running=222170\nFC sample=13 bytes=4211698 calls=520 cycles=357168 instructions=62133 enabled=202985 running=202985\nFC sample=14 bytes=4211692 calls=520 cycles=351657 instructions=62297 enabled=201149 running=201149\nFC sample=15 bytes=4211692 calls=520 cycles=751226 instructions=62298 enabled=471630 running=471630\nFC sample=16 bytes=4211692 calls=520 cycles=381756 instructions=62297 enabled=219239 running=219239\nFC sample=17 bytes=4211692 calls=520 cycles=345022 instructions=62297 enabled=195540 running=195540\nFC sample=18 bytes=4211692 calls=520 cycles=400781 instructions=62299 enabled=271936 running=271936\nFC sample=19 bytes=4211692 calls=520 cycles=609813 instructions=62298 enabled=347941 running=347941\nFC sample=20 bytes=4211692 calls=520 cycles=376536 instructions=62297 enabled=214625 running=214625\nFC sample=21 bytes=4211972 calls=538 cycles=427607 instructions=63007 enabled=253996 running=253996\nFC sample=22 bytes=4211972 calls=538 cycles=349985 instructions=63007 enabled=197997 running=197997\nFC sample=23 bytes=4211972 calls=538 cycles=346029 instructions=63007 enabled=195292 running=195292\nFC sample=24 bytes=4211972 calls=538 cycles=798360 instructions=63010 enabled=489366 running=489366\nFC sample=25 bytes=4211972 calls=538 cycles=355776 instructions=63007 enabled=206849 running=206849\nFC sample=26 bytes=4211972 calls=538 cycles=345223 instructions=63007 enabled=194815 running=194815\nFC sample=27 bytes=4211972 calls=538 cycles=345239 instructions=63007 enabled=194676 running=194676\nFC sample=28 bytes=4195300 calls=522 cycles=443909 instructions=63086 enabled=259851 running=259851\nFC sample=29 bytes=4195300 calls=522 cycles=351699 instructions=63086 enabled=200651 running=200651\nFC sample=30 bytes=4195300 calls=522 cycles=368577 instructions=63087 enabled=222987 running=222987\nFC sample=31 bytes=4195300 calls=522 cycles=384104 instructions=63086 enabled=218104 running=218104\nFC sample=32 bytes=4195300 calls=522 cycles=356355 instructions=63086 enabled=202239 running=202239\nFC sample=33 bytes=4195300 calls=522 cycles=944393 instructions=63088 enabled=563143 running=563143\nFC sample=34 bytes=4195300 calls=522 cycles=747016 instructions=63087 enabled=449942 running=449942\nFC sample=35 bytes=4228076 calls=520 cycles=897171 instructions=63310 enabled=544851 running=544851\nFC sample=36 bytes=4228076 calls=520 cycles=407803 instructions=63309 enabled=234785 running=234785\nFC sample=37 bytes=4228076 calls=520 cycles=656466 instructions=63310 enabled=388440 running=388440\nFC sample=38 bytes=4228076 calls=520 cycles=658900 instructions=63310 enabled=400774 running=400774\nFC sample=39 bytes=4228076 calls=520 cycles=638769 instructions=63309 enabled=364073 running=364073\nFC sample=40 bytes=4228076 calls=520 cycles=399105 instructions=63310 enabled=245161 running=245161\nFC sample=41 bytes=4228076 calls=520 cycles=371059 instructions=63309 enabled=210875 running=210875\n"
+    },
+    {
+      "pair": 0,
+      "label": "right",
+      "snapshot": "candidate",
+      "start_unix": 1793823008.22151,
+      "elapsed_s": 0.03635048866271973,
+      "argv": [
+        "taskset",
+        "-c",
+        "6",
+        "<ARTIFACTS>/candidate/instrumented",
+        "2"
+      ],
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            26310.5,
+            2544.0,
+            1493.5,
+            1382.5,
+            1415.5,
+            1308.5,
+            1290.5
+          ],
+          "median_ns": 1415.5,
+          "checksum": 1421,
+          "counter_samples": [
+            {
+              "sample": 0,
+              "bytes": 16,
+              "calls": 4,
+              "cycles": 20117,
+              "instructions": 2685,
+              "enabled_ns": 39265,
+              "running_ns": 39265
+            },
+            {
+              "sample": 1,
+              "bytes": 16,
+              "calls": 4,
+              "cycles": 1238,
+              "instructions": 1999,
+              "enabled_ns": 4825,
+              "running_ns": 4825
+            },
+            {
+              "sample": 2,
+              "bytes": 16,
+              "calls": 4,
+              "cycles": 750,
+              "instructions": 1999,
+              "enabled_ns": 3128,
+              "running_ns": 3128
+            },
+            {
+              "sample": 3,
+              "bytes": 16,
+              "calls": 4,
+              "cycles": 771,
+              "instructions": 1999,
+              "enabled_ns": 2781,
+              "running_ns": 2781
+            },
+            {
+              "sample": 4,
+              "bytes": 16,
+              "calls": 4,
+              "cycles": 691,
+              "instructions": 1999,
+              "enabled_ns": 2792,
+              "running_ns": 2792
+            },
+            {
+              "sample": 5,
+              "bytes": 16,
+              "calls": 4,
+              "cycles": 695,
+              "instructions": 1999,
+              "enabled_ns": 2650,
+              "running_ns": 2650
+            },
+            {
+              "sample": 6,
+              "bytes": 16,
+              "calls": 4,
+              "cycles": 673,
+              "instructions": 1999,
+              "enabled_ns": 2710,
+              "running_ns": 2710
+            }
+          ]
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            1225616.0,
+            172979.0,
+            155900.0,
+            107976.5,
+            104727.0,
+            157557.5,
+            168921.5
+          ],
+          "median_ns": 157557.5,
+          "checksum": 1386,
+          "counter_samples": [
+            {
+              "sample": 7,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 951137,
+              "instructions": 62186,
+              "enabled_ns": 563441,
+              "running_ns": 563441
+            },
+            {
+              "sample": 8,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 576952,
+              "instructions": 62186,
+              "enabled_ns": 344173,
+              "running_ns": 344173
+            },
+            {
+              "sample": 9,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 541511,
+              "instructions": 62185,
+              "enabled_ns": 309377,
+              "running_ns": 309377
+            },
+            {
+              "sample": 10,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 377742,
+              "instructions": 62185,
+              "enabled_ns": 215181,
+              "running_ns": 215181
+            },
+            {
+              "sample": 11,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 354455,
+              "instructions": 62185,
+              "enabled_ns": 199803,
+              "running_ns": 199803
+            },
+            {
+              "sample": 12,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 529137,
+              "instructions": 62186,
+              "enabled_ns": 308875,
+              "running_ns": 308875
+            },
+            {
+              "sample": 13,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 586491,
+              "instructions": 62185,
+              "enabled_ns": 333233,
+              "running_ns": 333233
+            }
+          ]
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            5362.5,
+            1795.0,
+            1657.0,
+            1854.0,
+            10959.5,
+            2034.5,
+            2661.5
+          ],
+          "median_ns": 2034.5,
+          "checksum": 322,
+          "counter_samples": [
+            {
+              "sample": 14,
+              "bytes": 6,
+              "calls": 4,
+              "cycles": 5366,
+              "instructions": 2135,
+              "enabled_ns": 12679,
+              "running_ns": 12679
+            },
+            {
+              "sample": 15,
+              "bytes": 6,
+              "calls": 4,
+              "cycles": 1221,
+              "instructions": 2135,
+              "enabled_ns": 3509,
+              "running_ns": 3509
+            },
+            {
+              "sample": 16,
+              "bytes": 6,
+              "calls": 4,
+              "cycles": 1168,
+              "instructions": 2135,
+              "enabled_ns": 2991,
+              "running_ns": 2991
+            },
+            {
+              "sample": 17,
+              "bytes": 6,
+              "calls": 4,
+              "cycles": 1381,
+              "instructions": 2135,
+              "enabled_ns": 3069,
+              "running_ns": 3069
+            },
+            {
+              "sample": 18,
+              "bytes": 6,
+              "calls": 4,
+              "cycles": 725,
+              "instructions": 2135,
+              "enabled_ns": 2711,
+              "running_ns": 2711
+            },
+            {
+              "sample": 19,
+              "bytes": 6,
+              "calls": 4,
+              "cycles": 1597,
+              "instructions": 2135,
+              "enabled_ns": 4224,
+              "running_ns": 4224
+            },
+            {
+              "sample": 20,
+              "bytes": 6,
+              "calls": 4,
+              "cycles": 728,
+              "instructions": 2135,
+              "enabled_ns": 2691,
+              "running_ns": 2691
+            }
+          ]
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            198690.5,
+            116398.0,
+            106500.5,
+            1253584.5,
+            157052.5,
+            103156.5,
+            128724.0
+          ],
+          "median_ns": 128724.0,
+          "checksum": 3822,
+          "counter_samples": [
+            {
+              "sample": 21,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 642705,
+              "instructions": 63042,
+              "enabled_ns": 393506,
+              "running_ns": 393506
+            },
+            {
+              "sample": 22,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 405250,
+              "instructions": 63041,
+              "enabled_ns": 230414,
+              "running_ns": 230414
+            },
+            {
+              "sample": 23,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 370438,
+              "instructions": 63041,
+              "enabled_ns": 210753,
+              "running_ns": 210753
+            },
+            {
+              "sample": 24,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 793189,
+              "instructions": 63042,
+              "enabled_ns": 476254,
+              "running_ns": 476254
+            },
+            {
+              "sample": 25,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 549702,
+              "instructions": 63041,
+              "enabled_ns": 315009,
+              "running_ns": 315009
+            },
+            {
+              "sample": 26,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 359396,
+              "instructions": 63041,
+              "enabled_ns": 204673,
+              "running_ns": 204673
+            },
+            {
+              "sample": 27,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 397417,
+              "instructions": 63042,
+              "enabled_ns": 253110,
+              "running_ns": 253110
+            }
+          ]
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            111948.0,
+            116109.0,
+            99347.0,
+            98987.0,
+            99329.5,
+            1840399.0,
+            127701.0
+          ],
+          "median_ns": 111948.0,
+          "checksum": 2800,
+          "counter_samples": [
+            {
+              "sample": 28,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 385093,
+              "instructions": 63086,
+              "enabled_ns": 224008,
+              "running_ns": 224008
+            },
+            {
+              "sample": 29,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 376784,
+              "instructions": 63087,
+              "enabled_ns": 228966,
+              "running_ns": 228966
+            },
+            {
+              "sample": 30,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 346465,
+              "instructions": 63086,
+              "enabled_ns": 195893,
+              "running_ns": 195893
+            },
+            {
+              "sample": 31,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 346059,
+              "instructions": 63086,
+              "enabled_ns": 195246,
+              "running_ns": 195246
+            },
+            {
+              "sample": 32,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 347618,
+              "instructions": 63086,
+              "enabled_ns": 196105,
+              "running_ns": 196105
+            },
+            {
+              "sample": 33,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 803067,
+              "instructions": 63088,
+              "enabled_ns": 487034,
+              "running_ns": 487034
+            },
+            {
+              "sample": 34,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 445343,
+              "instructions": 63086,
+              "enabled_ns": 255509,
+              "running_ns": 255509
+            }
+          ]
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            11349.5,
+            4623.5,
+            42339.5,
+            4328.5,
+            4166.5,
+            4131.0,
+            4043.0
+          ],
+          "median_ns": 4328.5,
+          "checksum": 59045,
+          "counter_samples": [
+            {
+              "sample": 35,
+              "bytes": 8198,
+              "calls": 4,
+              "cycles": 19015,
+              "instructions": 44107,
+              "enabled_ns": 21278,
+              "running_ns": 21278
+            },
+            {
+              "sample": 36,
+              "bytes": 8198,
+              "calls": 4,
+              "cycles": 10647,
+              "instructions": 44107,
+              "enabled_ns": 9493,
+              "running_ns": 9493
+            },
+            {
+              "sample": 37,
+              "bytes": 8198,
+              "calls": 4,
+              "cycles": 12409,
+              "instructions": 44108,
+              "enabled_ns": 41807,
+              "running_ns": 41807
+            },
+            {
+              "sample": 38,
+              "bytes": 8198,
+              "calls": 4,
+              "cycles": 10384,
+              "instructions": 44107,
+              "enabled_ns": 8723,
+              "running_ns": 8723
+            },
+            {
+              "sample": 39,
+              "bytes": 8198,
+              "calls": 4,
+              "cycles": 10310,
+              "instructions": 44107,
+              "enabled_ns": 8088,
+              "running_ns": 8088
+            },
+            {
+              "sample": 40,
+              "bytes": 8198,
+              "calls": 4,
+              "cycles": 10238,
+              "instructions": 44107,
+              "enabled_ns": 7953,
+              "running_ns": 7953
+            },
+            {
+              "sample": 41,
+              "bytes": 8198,
+              "calls": 4,
+              "cycles": 10211,
+              "instructions": 44107,
+              "enabled_ns": 8035,
+              "running_ns": 8035
+            }
+          ]
+        }
+      },
+      "stdout": "update-text-boundary-large samples_ns=[26310.5, 2544.0, 1493.5, 1382.5, 1415.5, 1308.5, 1290.5] checksum=1421\nmedian=1415.5 min=1290.5 max=26310.5\nupdate-text-resize-large samples_ns=[1225616.0, 172979.0, 155900.0, 107976.5, 104727.0, 157557.5, 168921.5] checksum=1386\nmedian=157557.5 min=104727.0 max=1225616.0\nupdate-integer-large samples_ns=[5362.5, 1795.0, 1657.0, 1854.0, 10959.5, 2034.5, 2661.5] checksum=322\nmedian=2034.5 min=1657.0 max=10959.5\nupdate-text-list-large samples_ns=[198690.5, 116398.0, 106500.5, 1253584.5, 157052.5, 103156.5, 128724.0] checksum=3822\nmedian=128724.0 min=103156.5 max=1253584.5\nupdate-two-text-large samples_ns=[111948.0, 116109.0, 99347.0, 98987.0, 99329.5, 1840399.0, 127701.0] checksum=2800\nmedian=111948.0 min=98987.0 max=1840399.0\nupdate-text-full-large samples_ns=[11349.5, 4623.5, 42339.5, 4328.5, 4166.5, 4131.0, 4043.0] checksum=59045\nmedian=4328.5 min=4043.0 max=42339.5\n",
+      "perf_stderr": "FC sample=0 bytes=16 calls=4 cycles=20117 instructions=2685 enabled=39265 running=39265\nFC sample=1 bytes=16 calls=4 cycles=1238 instructions=1999 enabled=4825 running=4825\nFC sample=2 bytes=16 calls=4 cycles=750 instructions=1999 enabled=3128 running=3128\nFC sample=3 bytes=16 calls=4 cycles=771 instructions=1999 enabled=2781 running=2781\nFC sample=4 bytes=16 calls=4 cycles=691 instructions=1999 enabled=2792 running=2792\nFC sample=5 bytes=16 calls=4 cycles=695 instructions=1999 enabled=2650 running=2650\nFC sample=6 bytes=16 calls=4 cycles=673 instructions=1999 enabled=2710 running=2710\nFC sample=7 bytes=4211698 calls=520 cycles=951137 instructions=62186 enabled=563441 running=563441\nFC sample=8 bytes=4211698 calls=520 cycles=576952 instructions=62186 enabled=344173 running=344173\nFC sample=9 bytes=4211698 calls=520 cycles=541511 instructions=62185 enabled=309377 running=309377\nFC sample=10 bytes=4211698 calls=520 cycles=377742 instructions=62185 enabled=215181 running=215181\nFC sample=11 bytes=4211698 calls=520 cycles=354455 instructions=62185 enabled=199803 running=199803\nFC sample=12 bytes=4211698 calls=520 cycles=529137 instructions=62186 enabled=308875 running=308875\nFC sample=13 bytes=4211698 calls=520 cycles=586491 instructions=62185 enabled=333233 running=333233\nFC sample=14 bytes=6 calls=4 cycles=5366 instructions=2135 enabled=12679 running=12679\nFC sample=15 bytes=6 calls=4 cycles=1221 instructions=2135 enabled=3509 running=3509\nFC sample=16 bytes=6 calls=4 cycles=1168 instructions=2135 enabled=2991 running=2991\nFC sample=17 bytes=6 calls=4 cycles=1381 instructions=2135 enabled=3069 running=3069\nFC sample=18 bytes=6 calls=4 cycles=725 instructions=2135 enabled=2711 running=2711\nFC sample=19 bytes=6 calls=4 cycles=1597 instructions=2135 enabled=4224 running=4224\nFC sample=20 bytes=6 calls=4 cycles=728 instructions=2135 enabled=2691 running=2691\nFC sample=21 bytes=4211972 calls=538 cycles=642705 instructions=63042 enabled=393506 running=393506\nFC sample=22 bytes=4211972 calls=538 cycles=405250 instructions=63041 enabled=230414 running=230414\nFC sample=23 bytes=4211972 calls=538 cycles=370438 instructions=63041 enabled=210753 running=210753\nFC sample=24 bytes=4211972 calls=538 cycles=793189 instructions=63042 enabled=476254 running=476254\nFC sample=25 bytes=4211972 calls=538 cycles=549702 instructions=63041 enabled=315009 running=315009\nFC sample=26 bytes=4211972 calls=538 cycles=359396 instructions=63041 enabled=204673 running=204673\nFC sample=27 bytes=4211972 calls=538 cycles=397417 instructions=63042 enabled=253110 running=253110\nFC sample=28 bytes=4195300 calls=522 cycles=385093 instructions=63086 enabled=224008 running=224008\nFC sample=29 bytes=4195300 calls=522 cycles=376784 instructions=63087 enabled=228966 running=228966\nFC sample=30 bytes=4195300 calls=522 cycles=346465 instructions=63086 enabled=195893 running=195893\nFC sample=31 bytes=4195300 calls=522 cycles=346059 instructions=63086 enabled=195246 running=195246\nFC sample=32 bytes=4195300 calls=522 cycles=347618 instructions=63086 enabled=196105 running=196105\nFC sample=33 bytes=4195300 calls=522 cycles=803067 instructions=63088 enabled=487034 running=487034\nFC sample=34 bytes=4195300 calls=522 cycles=445343 instructions=63086 enabled=255509 running=255509\nFC sample=35 bytes=8198 calls=4 cycles=19015 instructions=44107 enabled=21278 running=21278\nFC sample=36 bytes=8198 calls=4 cycles=10647 instructions=44107 enabled=9493 running=9493\nFC sample=37 bytes=8198 calls=4 cycles=12409 instructions=44108 enabled=41807 running=41807\nFC sample=38 bytes=8198 calls=4 cycles=10384 instructions=44107 enabled=8723 running=8723\nFC sample=39 bytes=8198 calls=4 cycles=10310 instructions=44107 enabled=8088 running=8088\nFC sample=40 bytes=8198 calls=4 cycles=10238 instructions=44107 enabled=7953 running=7953\nFC sample=41 bytes=8198 calls=4 cycles=10211 instructions=44107 enabled=8035 running=8035\n"
+    },
+    {
+      "pair": 1,
+      "label": "right",
+      "snapshot": "candidate",
+      "start_unix": 1793823008.2593462,
+      "elapsed_s": 0.031183719635009766,
+      "argv": [
+        "taskset",
+        "-c",
+        "6",
+        "<ARTIFACTS>/candidate/instrumented",
+        "2"
+      ],
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            27419.5,
+            2381.0,
+            1525.5,
+            1383.5,
+            1289.0,
+            1326.0,
+            1329.5
+          ],
+          "median_ns": 1383.5,
+          "checksum": 1421,
+          "counter_samples": [
+            {
+              "sample": 0,
+              "bytes": 16,
+              "calls": 4,
+              "cycles": 24842,
+              "instructions": 2685,
+              "enabled_ns": 49628,
+              "running_ns": 49628
+            },
+            {
+              "sample": 1,
+              "bytes": 16,
+              "calls": 4,
+              "cycles": 1107,
+              "instructions": 1999,
+              "enabled_ns": 4721,
+              "running_ns": 4721
+            },
+            {
+              "sample": 2,
+              "bytes": 16,
+              "calls": 4,
+              "cycles": 736,
+              "instructions": 1999,
+              "enabled_ns": 3177,
+              "running_ns": 3177
+            },
+            {
+              "sample": 3,
+              "bytes": 16,
+              "calls": 4,
+              "cycles": 682,
+              "instructions": 1999,
+              "enabled_ns": 2851,
+              "running_ns": 2851
+            },
+            {
+              "sample": 4,
+              "bytes": 16,
+              "calls": 4,
+              "cycles": 665,
+              "instructions": 1999,
+              "enabled_ns": 2626,
+              "running_ns": 2626
+            },
+            {
+              "sample": 5,
+              "bytes": 16,
+              "calls": 4,
+              "cycles": 761,
+              "instructions": 1999,
+              "enabled_ns": 2623,
+              "running_ns": 2623
+            },
+            {
+              "sample": 6,
+              "bytes": 16,
+              "calls": 4,
+              "cycles": 686,
+              "instructions": 1999,
+              "enabled_ns": 2591,
+              "running_ns": 2591
+            }
+          ]
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            569240.5,
+            172150.5,
+            104837.5,
+            101639.0,
+            100673.0,
+            109188.5,
+            101599.0
+          ],
+          "median_ns": 104837.5,
+          "checksum": 1386,
+          "counter_samples": [
+            {
+              "sample": 7,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 489876,
+              "instructions": 62186,
+              "enabled_ns": 302553,
+              "running_ns": 302553
+            },
+            {
+              "sample": 8,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 569457,
+              "instructions": 62186,
+              "enabled_ns": 337026,
+              "running_ns": 337026
+            },
+            {
+              "sample": 9,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 366311,
+              "instructions": 62185,
+              "enabled_ns": 208547,
+              "running_ns": 208547
+            },
+            {
+              "sample": 10,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 355788,
+              "instructions": 62185,
+              "enabled_ns": 200669,
+              "running_ns": 200669
+            },
+            {
+              "sample": 11,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 352466,
+              "instructions": 62185,
+              "enabled_ns": 198760,
+              "running_ns": 198760
+            },
+            {
+              "sample": 12,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 369133,
+              "instructions": 62186,
+              "enabled_ns": 214952,
+              "running_ns": 214952
+            },
+            {
+              "sample": 13,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 354015,
+              "instructions": 62185,
+              "enabled_ns": 199801,
+              "running_ns": 199801
+            }
+          ]
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            3594.0,
+            1739.0,
+            1595.5,
+            2781.5,
+            1568.0,
+            1620.5,
+            2575.5
+          ],
+          "median_ns": 1739.0,
+          "checksum": 322,
+          "counter_samples": [
+            {
+              "sample": 14,
+              "bytes": 6,
+              "calls": 4,
+              "cycles": 2244,
+              "instructions": 2135,
+              "enabled_ns": 4226,
+              "running_ns": 4226
+            },
+            {
+              "sample": 15,
+              "bytes": 6,
+              "calls": 4,
+              "cycles": 767,
+              "instructions": 2135,
+              "enabled_ns": 2966,
+              "running_ns": 2966
+            },
+            {
+              "sample": 16,
+              "bytes": 6,
+              "calls": 4,
+              "cycles": 769,
+              "instructions": 2135,
+              "enabled_ns": 2689,
+              "running_ns": 2689
+            },
+            {
+              "sample": 17,
+              "bytes": 6,
+              "calls": 4,
+              "cycles": 684,
+              "instructions": 2135,
+              "enabled_ns": 2698,
+              "running_ns": 2698
+            },
+            {
+              "sample": 18,
+              "bytes": 6,
+              "calls": 4,
+              "cycles": 712,
+              "instructions": 2135,
+              "enabled_ns": 3179,
+              "running_ns": 3179
+            },
+            {
+              "sample": 19,
+              "bytes": 6,
+              "calls": 4,
+              "cycles": 658,
+              "instructions": 2135,
+              "enabled_ns": 2578,
+              "running_ns": 2578
+            },
+            {
+              "sample": 20,
+              "bytes": 6,
+              "calls": 4,
+              "cycles": 652,
+              "instructions": 2135,
+              "enabled_ns": 2623,
+              "running_ns": 2623
+            }
+          ]
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            154269.0,
+            104532.0,
+            93540.5,
+            93020.5,
+            92842.5,
+            93102.0,
+            97212.5
+          ],
+          "median_ns": 93540.5,
+          "checksum": 3822,
+          "counter_samples": [
+            {
+              "sample": 21,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 549939,
+              "instructions": 63041,
+              "enabled_ns": 311237,
+              "running_ns": 311237
+            },
+            {
+              "sample": 22,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 357429,
+              "instructions": 63042,
+              "enabled_ns": 207007,
+              "running_ns": 207007
+            },
+            {
+              "sample": 23,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 345392,
+              "instructions": 63041,
+              "enabled_ns": 184884,
+              "running_ns": 184884
+            },
+            {
+              "sample": 24,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 343533,
+              "instructions": 63041,
+              "enabled_ns": 183833,
+              "running_ns": 183833
+            },
+            {
+              "sample": 25,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 342732,
+              "instructions": 63041,
+              "enabled_ns": 183182,
+              "running_ns": 183182
+            },
+            {
+              "sample": 26,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 343866,
+              "instructions": 63041,
+              "enabled_ns": 183823,
+              "running_ns": 183823
+            },
+            {
+              "sample": 27,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 344123,
+              "instructions": 63042,
+              "enabled_ns": 192383,
+              "running_ns": 192383
+            }
+          ]
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            104626.5,
+            93928.0,
+            1837126.5,
+            98609.0,
+            117302.0,
+            120291.5,
+            96854.5
+          ],
+          "median_ns": 104626.5,
+          "checksum": 2800,
+          "counter_samples": [
+            {
+              "sample": 28,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 379303,
+              "instructions": 63086,
+              "enabled_ns": 206708,
+              "running_ns": 206708
+            },
+            {
+              "sample": 29,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 344929,
+              "instructions": 63086,
+              "enabled_ns": 184382,
+              "running_ns": 184382
+            },
+            {
+              "sample": 30,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 889435,
+              "instructions": 63087,
+              "enabled_ns": 508913,
+              "running_ns": 508913
+            },
+            {
+              "sample": 31,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 362475,
+              "instructions": 63086,
+              "enabled_ns": 200578,
+              "running_ns": 200578
+            },
+            {
+              "sample": 32,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 434005,
+              "instructions": 63086,
+              "enabled_ns": 231947,
+              "running_ns": 231947
+            },
+            {
+              "sample": 33,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 413394,
+              "instructions": 63087,
+              "enabled_ns": 237785,
+              "running_ns": 237785
+            },
+            {
+              "sample": 34,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 358440,
+              "instructions": 63086,
+              "enabled_ns": 192326,
+              "running_ns": 192326
+            }
+          ]
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            6392.0,
+            4339.0,
+            4702.0,
+            4018.0,
+            4618.0,
+            4108.5,
+            4456.5
+          ],
+          "median_ns": 4456.5,
+          "checksum": 59045,
+          "counter_samples": [
+            {
+              "sample": 35,
+              "bytes": 8198,
+              "calls": 4,
+              "cycles": 13394,
+              "instructions": 44107,
+              "enabled_ns": 11253,
+              "running_ns": 11253
+            },
+            {
+              "sample": 36,
+              "bytes": 8198,
+              "calls": 4,
+              "cycles": 10529,
+              "instructions": 44107,
+              "enabled_ns": 7962,
+              "running_ns": 7962
+            },
+            {
+              "sample": 37,
+              "bytes": 8198,
+              "calls": 4,
+              "cycles": 10283,
+              "instructions": 44107,
+              "enabled_ns": 7726,
+              "running_ns": 7726
+            },
+            {
+              "sample": 38,
+              "bytes": 8198,
+              "calls": 4,
+              "cycles": 10251,
+              "instructions": 44107,
+              "enabled_ns": 7712,
+              "running_ns": 7712
+            },
+            {
+              "sample": 39,
+              "bytes": 8198,
+              "calls": 4,
+              "cycles": 10264,
+              "instructions": 44107,
+              "enabled_ns": 7661,
+              "running_ns": 7661
+            },
+            {
+              "sample": 40,
+              "bytes": 8198,
+              "calls": 4,
+              "cycles": 10215,
+              "instructions": 44107,
+              "enabled_ns": 7723,
+              "running_ns": 7723
+            },
+            {
+              "sample": 41,
+              "bytes": 8198,
+              "calls": 4,
+              "cycles": 10231,
+              "instructions": 44107,
+              "enabled_ns": 7665,
+              "running_ns": 7665
+            }
+          ]
+        }
+      },
+      "stdout": "update-text-boundary-large samples_ns=[27419.5, 2381.0, 1525.5, 1383.5, 1289.0, 1326.0, 1329.5] checksum=1421\nmedian=1383.5 min=1289.0 max=27419.5\nupdate-text-resize-large samples_ns=[569240.5, 172150.5, 104837.5, 101639.0, 100673.0, 109188.5, 101599.0] checksum=1386\nmedian=104837.5 min=100673.0 max=569240.5\nupdate-integer-large samples_ns=[3594.0, 1739.0, 1595.5, 2781.5, 1568.0, 1620.5, 2575.5] checksum=322\nmedian=1739.0 min=1568.0 max=3594.0\nupdate-text-list-large samples_ns=[154269.0, 104532.0, 93540.5, 93020.5, 92842.5, 93102.0, 97212.5] checksum=3822\nmedian=93540.5 min=92842.5 max=154269.0\nupdate-two-text-large samples_ns=[104626.5, 93928.0, 1837126.5, 98609.0, 117302.0, 120291.5, 96854.5] checksum=2800\nmedian=104626.5 min=93928.0 max=1837126.5\nupdate-text-full-large samples_ns=[6392.0, 4339.0, 4702.0, 4018.0, 4618.0, 4108.5, 4456.5] checksum=59045\nmedian=4456.5 min=4018.0 max=6392.0\n",
+      "perf_stderr": "FC sample=0 bytes=16 calls=4 cycles=24842 instructions=2685 enabled=49628 running=49628\nFC sample=1 bytes=16 calls=4 cycles=1107 instructions=1999 enabled=4721 running=4721\nFC sample=2 bytes=16 calls=4 cycles=736 instructions=1999 enabled=3177 running=3177\nFC sample=3 bytes=16 calls=4 cycles=682 instructions=1999 enabled=2851 running=2851\nFC sample=4 bytes=16 calls=4 cycles=665 instructions=1999 enabled=2626 running=2626\nFC sample=5 bytes=16 calls=4 cycles=761 instructions=1999 enabled=2623 running=2623\nFC sample=6 bytes=16 calls=4 cycles=686 instructions=1999 enabled=2591 running=2591\nFC sample=7 bytes=4211698 calls=520 cycles=489876 instructions=62186 enabled=302553 running=302553\nFC sample=8 bytes=4211698 calls=520 cycles=569457 instructions=62186 enabled=337026 running=337026\nFC sample=9 bytes=4211698 calls=520 cycles=366311 instructions=62185 enabled=208547 running=208547\nFC sample=10 bytes=4211698 calls=520 cycles=355788 instructions=62185 enabled=200669 running=200669\nFC sample=11 bytes=4211698 calls=520 cycles=352466 instructions=62185 enabled=198760 running=198760\nFC sample=12 bytes=4211698 calls=520 cycles=369133 instructions=62186 enabled=214952 running=214952\nFC sample=13 bytes=4211698 calls=520 cycles=354015 instructions=62185 enabled=199801 running=199801\nFC sample=14 bytes=6 calls=4 cycles=2244 instructions=2135 enabled=4226 running=4226\nFC sample=15 bytes=6 calls=4 cycles=767 instructions=2135 enabled=2966 running=2966\nFC sample=16 bytes=6 calls=4 cycles=769 instructions=2135 enabled=2689 running=2689\nFC sample=17 bytes=6 calls=4 cycles=684 instructions=2135 enabled=2698 running=2698\nFC sample=18 bytes=6 calls=4 cycles=712 instructions=2135 enabled=3179 running=3179\nFC sample=19 bytes=6 calls=4 cycles=658 instructions=2135 enabled=2578 running=2578\nFC sample=20 bytes=6 calls=4 cycles=652 instructions=2135 enabled=2623 running=2623\nFC sample=21 bytes=4211972 calls=538 cycles=549939 instructions=63041 enabled=311237 running=311237\nFC sample=22 bytes=4211972 calls=538 cycles=357429 instructions=63042 enabled=207007 running=207007\nFC sample=23 bytes=4211972 calls=538 cycles=345392 instructions=63041 enabled=184884 running=184884\nFC sample=24 bytes=4211972 calls=538 cycles=343533 instructions=63041 enabled=183833 running=183833\nFC sample=25 bytes=4211972 calls=538 cycles=342732 instructions=63041 enabled=183182 running=183182\nFC sample=26 bytes=4211972 calls=538 cycles=343866 instructions=63041 enabled=183823 running=183823\nFC sample=27 bytes=4211972 calls=538 cycles=344123 instructions=63042 enabled=192383 running=192383\nFC sample=28 bytes=4195300 calls=522 cycles=379303 instructions=63086 enabled=206708 running=206708\nFC sample=29 bytes=4195300 calls=522 cycles=344929 instructions=63086 enabled=184382 running=184382\nFC sample=30 bytes=4195300 calls=522 cycles=889435 instructions=63087 enabled=508913 running=508913\nFC sample=31 bytes=4195300 calls=522 cycles=362475 instructions=63086 enabled=200578 running=200578\nFC sample=32 bytes=4195300 calls=522 cycles=434005 instructions=63086 enabled=231947 running=231947\nFC sample=33 bytes=4195300 calls=522 cycles=413394 instructions=63087 enabled=237785 running=237785\nFC sample=34 bytes=4195300 calls=522 cycles=358440 instructions=63086 enabled=192326 running=192326\nFC sample=35 bytes=8198 calls=4 cycles=13394 instructions=44107 enabled=11253 running=11253\nFC sample=36 bytes=8198 calls=4 cycles=10529 instructions=44107 enabled=7962 running=7962\nFC sample=37 bytes=8198 calls=4 cycles=10283 instructions=44107 enabled=7726 running=7726\nFC sample=38 bytes=8198 calls=4 cycles=10251 instructions=44107 enabled=7712 running=7712\nFC sample=39 bytes=8198 calls=4 cycles=10264 instructions=44107 enabled=7661 running=7661\nFC sample=40 bytes=8198 calls=4 cycles=10215 instructions=44107 enabled=7723 running=7723\nFC sample=41 bytes=8198 calls=4 cycles=10231 instructions=44107 enabled=7665 running=7665\n"
+    },
+    {
+      "pair": 1,
+      "label": "left",
+      "snapshot": "baseline",
+      "start_unix": 1793823008.291953,
+      "elapsed_s": 0.04799008369445801,
+      "argv": [
+        "taskset",
+        "-c",
+        "6",
+        "<ARTIFACTS>/baseline/instrumented",
+        "2"
+      ],
+      "fixtures": {
+        "update-text-boundary-large": {
+          "samples_ns": [
+            251149.5,
+            116599.0,
+            103440.0,
+            1752622.0,
+            119308.5,
+            110796.5,
+            213552.5
+          ],
+          "median_ns": 119308.5,
+          "checksum": 1421,
+          "counter_samples": [
+            {
+              "sample": 0,
+              "bytes": 4211712,
+              "calls": 520,
+              "cycles": 779939,
+              "instructions": 62798,
+              "enabled_ns": 485426,
+              "running_ns": 485426
+            },
+            {
+              "sample": 1,
+              "bytes": 4211712,
+              "calls": 520,
+              "cycles": 404472,
+              "instructions": 62111,
+              "enabled_ns": 230312,
+              "running_ns": 230312
+            },
+            {
+              "sample": 2,
+              "bytes": 4211712,
+              "calls": 520,
+              "cycles": 361251,
+              "instructions": 62111,
+              "enabled_ns": 205005,
+              "running_ns": 205005
+            },
+            {
+              "sample": 3,
+              "bytes": 4211712,
+              "calls": 520,
+              "cycles": 914898,
+              "instructions": 62114,
+              "enabled_ns": 644094,
+              "running_ns": 644094
+            },
+            {
+              "sample": 4,
+              "bytes": 4211712,
+              "calls": 520,
+              "cycles": 414979,
+              "instructions": 62111,
+              "enabled_ns": 241137,
+              "running_ns": 241137
+            },
+            {
+              "sample": 5,
+              "bytes": 4211712,
+              "calls": 520,
+              "cycles": 384149,
+              "instructions": 62111,
+              "enabled_ns": 218104,
+              "running_ns": 218104
+            },
+            {
+              "sample": 6,
+              "bytes": 4211712,
+              "calls": 520,
+              "cycles": 718842,
+              "instructions": 62112,
+              "enabled_ns": 420794,
+              "running_ns": 420794
+            }
+          ]
+        },
+        "update-text-resize-large": {
+          "samples_ns": [
+            127718.5,
+            130774.5,
+            143066.0,
+            104884.0,
+            102305.5,
+            638207.0,
+            194044.5
+          ],
+          "median_ns": 130774.5,
+          "checksum": 1386,
+          "counter_samples": [
+            {
+              "sample": 7,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 440930,
+              "instructions": 62133,
+              "enabled_ns": 257229,
+              "running_ns": 257229
+            },
+            {
+              "sample": 8,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 428199,
+              "instructions": 62134,
+              "enabled_ns": 258042,
+              "running_ns": 258042
+            },
+            {
+              "sample": 9,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 501644,
+              "instructions": 62133,
+              "enabled_ns": 284125,
+              "running_ns": 284125
+            },
+            {
+              "sample": 10,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 365364,
+              "instructions": 62133,
+              "enabled_ns": 207173,
+              "running_ns": 207173
+            },
+            {
+              "sample": 11,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 357593,
+              "instructions": 62133,
+              "enabled_ns": 202345,
+              "running_ns": 202345
+            },
+            {
+              "sample": 12,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 414301,
+              "instructions": 62134,
+              "enabled_ns": 260824,
+              "running_ns": 260824
+            },
+            {
+              "sample": 13,
+              "bytes": 4211698,
+              "calls": 520,
+              "cycles": 676136,
+              "instructions": 62133,
+              "enabled_ns": 381688,
+              "running_ns": 381688
+            }
+          ]
+        },
+        "update-integer-large": {
+          "samples_ns": [
+            105803.5,
+            138644.0,
+            105154.5,
+            101094.0,
+            118086.0,
+            192382.0,
+            103593.0
+          ],
+          "median_ns": 105803.5,
+          "checksum": 322,
+          "counter_samples": [
+            {
+              "sample": 14,
+              "bytes": 4211692,
+              "calls": 520,
+              "cycles": 365496,
+              "instructions": 62297,
+              "enabled_ns": 209669,
+              "running_ns": 209669
+            },
+            {
+              "sample": 15,
+              "bytes": 4211692,
+              "calls": 520,
+              "cycles": 455817,
+              "instructions": 62298,
+              "enabled_ns": 272901,
+              "running_ns": 272901
+            },
+            {
+              "sample": 16,
+              "bytes": 4211692,
+              "calls": 520,
+              "cycles": 365884,
+              "instructions": 62297,
+              "enabled_ns": 208318,
+              "running_ns": 208318
+            },
+            {
+              "sample": 17,
+              "bytes": 4211692,
+              "calls": 520,
+              "cycles": 351709,
+              "instructions": 62297,
+              "enabled_ns": 199305,
+              "running_ns": 199305
+            },
+            {
+              "sample": 18,
+              "bytes": 4211692,
+              "calls": 520,
+              "cycles": 409726,
+              "instructions": 62297,
+              "enabled_ns": 232447,
+              "running_ns": 232447
+            },
+            {
+              "sample": 19,
+              "bytes": 4211692,
+              "calls": 520,
+              "cycles": 658248,
+              "instructions": 62298,
+              "enabled_ns": 379687,
+              "running_ns": 379687
+            },
+            {
+              "sample": 20,
+              "bytes": 4211692,
+              "calls": 520,
+              "cycles": 381802,
+              "instructions": 62297,
+              "enabled_ns": 207467,
+              "running_ns": 207467
+            }
+          ]
+        },
+        "update-text-list-large": {
+          "samples_ns": [
+            145791.5,
+            117618.5,
+            109875.5,
+            137387.5,
+            186073.5,
+            118849.0,
+            1886371.0
+          ],
+          "median_ns": 137387.5,
+          "checksum": 3822,
+          "counter_samples": [
+            {
+              "sample": 21,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 508528,
+              "instructions": 63007,
+              "enabled_ns": 287335,
+              "running_ns": 287335
+            },
+            {
+              "sample": 22,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 432309,
+              "instructions": 63007,
+              "enabled_ns": 232522,
+              "running_ns": 232522
+            },
+            {
+              "sample": 23,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 406023,
+              "instructions": 63007,
+              "enabled_ns": 217343,
+              "running_ns": 217343
+            },
+            {
+              "sample": 24,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 479423,
+              "instructions": 63008,
+              "enabled_ns": 264215,
+              "running_ns": 264215
+            },
+            {
+              "sample": 25,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 683870,
+              "instructions": 63007,
+              "enabled_ns": 367787,
+              "running_ns": 367787
+            },
+            {
+              "sample": 26,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 439523,
+              "instructions": 63007,
+              "enabled_ns": 238936,
+              "running_ns": 238936
+            },
+            {
+              "sample": 27,
+              "bytes": 4211972,
+              "calls": 538,
+              "cycles": 978209,
+              "instructions": 63008,
+              "enabled_ns": 556031,
+              "running_ns": 556031
+            }
+          ]
+        },
+        "update-two-text-large": {
+          "samples_ns": [
+            239455.5,
+            257105.0,
+            207357.5,
+            160551.0,
+            214722.0,
+            104355.5,
+            125199.0
+          ],
+          "median_ns": 207357.5,
+          "checksum": 2800,
+          "counter_samples": [
+            {
+              "sample": 28,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 826328,
+              "instructions": 63086,
+              "enabled_ns": 481005,
+              "running_ns": 481005
+            },
+            {
+              "sample": 29,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 860589,
+              "instructions": 63087,
+              "enabled_ns": 507827,
+              "running_ns": 507827
+            },
+            {
+              "sample": 30,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 726605,
+              "instructions": 63086,
+              "enabled_ns": 414948,
+              "running_ns": 414948
+            },
+            {
+              "sample": 31,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 562641,
+              "instructions": 63086,
+              "enabled_ns": 319491,
+              "running_ns": 319491
+            },
+            {
+              "sample": 32,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 716488,
+              "instructions": 63086,
+              "enabled_ns": 443157,
+              "running_ns": 443157
+            },
+            {
+              "sample": 33,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 365312,
+              "instructions": 63086,
+              "enabled_ns": 209859,
+              "running_ns": 209859
+            },
+            {
+              "sample": 34,
+              "bytes": 4195300,
+              "calls": 522,
+              "cycles": 434088,
+              "instructions": 63086,
+              "enabled_ns": 247593,
+              "running_ns": 247593
+            }
+          ]
+        },
+        "update-text-full-large": {
+          "samples_ns": [
+            116118.0,
+            101250.0,
+            98640.5,
+            110207.5,
+            100343.5,
+            98932.5,
+            98904.0
+          ],
+          "median_ns": 100343.5,
+          "checksum": 59045,
+          "counter_samples": [
+            {
+              "sample": 35,
+              "bytes": 4228076,
+              "calls": 520,
+              "cycles": 403134,
+              "instructions": 63309,
+              "enabled_ns": 231516,
+              "running_ns": 231516
+            },
+            {
+              "sample": 36,
+              "bytes": 4228076,
+              "calls": 520,
+              "cycles": 355716,
+              "instructions": 63309,
+              "enabled_ns": 201067,
+              "running_ns": 201067
+            },
+            {
+              "sample": 37,
+              "bytes": 4228076,
+              "calls": 520,
+              "cycles": 346357,
+              "instructions": 63309,
+              "enabled_ns": 195856,
+              "running_ns": 195856
+            },
+            {
+              "sample": 38,
+              "bytes": 4228076,
+              "calls": 520,
+              "cycles": 371907,
+              "instructions": 63310,
+              "enabled_ns": 217320,
+              "running_ns": 217320
+            },
+            {
+              "sample": 39,
+              "bytes": 4228076,
+              "calls": 520,
+              "cycles": 351514,
+              "instructions": 63309,
+              "enabled_ns": 199086,
+              "running_ns": 199086
+            },
+            {
+              "sample": 40,
+              "bytes": 4228076,
+              "calls": 520,
+              "cycles": 346372,
+              "instructions": 63309,
+              "enabled_ns": 195823,
+              "running_ns": 195823
+            },
+            {
+              "sample": 41,
+              "bytes": 4228076,
+              "calls": 520,
+              "cycles": 347127,
+              "instructions": 63309,
+              "enabled_ns": 196195,
+              "running_ns": 196195
+            }
+          ]
+        }
+      },
+      "stdout": "update-text-boundary-large samples_ns=[251149.5, 116599.0, 103440.0, 1752622.0, 119308.5, 110796.5, 213552.5] checksum=1421\nmedian=119308.5 min=103440.0 max=1752622.0\nupdate-text-resize-large samples_ns=[127718.5, 130774.5, 143066.0, 104884.0, 102305.5, 638207.0, 194044.5] checksum=1386\nmedian=130774.5 min=102305.5 max=638207.0\nupdate-integer-large samples_ns=[105803.5, 138644.0, 105154.5, 101094.0, 118086.0, 192382.0, 103593.0] checksum=322\nmedian=105803.5 min=101094.0 max=192382.0\nupdate-text-list-large samples_ns=[145791.5, 117618.5, 109875.5, 137387.5, 186073.5, 118849.0, 1886371.0] checksum=3822\nmedian=137387.5 min=109875.5 max=1886371.0\nupdate-two-text-large samples_ns=[239455.5, 257105.0, 207357.5, 160551.0, 214722.0, 104355.5, 125199.0] checksum=2800\nmedian=207357.5 min=104355.5 max=257105.0\nupdate-text-full-large samples_ns=[116118.0, 101250.0, 98640.5, 110207.5, 100343.5, 98932.5, 98904.0] checksum=59045\nmedian=100343.5 min=98640.5 max=116118.0\n",
+      "perf_stderr": "FC sample=0 bytes=4211712 calls=520 cycles=779939 instructions=62798 enabled=485426 running=485426\nFC sample=1 bytes=4211712 calls=520 cycles=404472 instructions=62111 enabled=230312 running=230312\nFC sample=2 bytes=4211712 calls=520 cycles=361251 instructions=62111 enabled=205005 running=205005\nFC sample=3 bytes=4211712 calls=520 cycles=914898 instructions=62114 enabled=644094 running=644094\nFC sample=4 bytes=4211712 calls=520 cycles=414979 instructions=62111 enabled=241137 running=241137\nFC sample=5 bytes=4211712 calls=520 cycles=384149 instructions=62111 enabled=218104 running=218104\nFC sample=6 bytes=4211712 calls=520 cycles=718842 instructions=62112 enabled=420794 running=420794\nFC sample=7 bytes=4211698 calls=520 cycles=440930 instructions=62133 enabled=257229 running=257229\nFC sample=8 bytes=4211698 calls=520 cycles=428199 instructions=62134 enabled=258042 running=258042\nFC sample=9 bytes=4211698 calls=520 cycles=501644 instructions=62133 enabled=284125 running=284125\nFC sample=10 bytes=4211698 calls=520 cycles=365364 instructions=62133 enabled=207173 running=207173\nFC sample=11 bytes=4211698 calls=520 cycles=357593 instructions=62133 enabled=202345 running=202345\nFC sample=12 bytes=4211698 calls=520 cycles=414301 instructions=62134 enabled=260824 running=260824\nFC sample=13 bytes=4211698 calls=520 cycles=676136 instructions=62133 enabled=381688 running=381688\nFC sample=14 bytes=4211692 calls=520 cycles=365496 instructions=62297 enabled=209669 running=209669\nFC sample=15 bytes=4211692 calls=520 cycles=455817 instructions=62298 enabled=272901 running=272901\nFC sample=16 bytes=4211692 calls=520 cycles=365884 instructions=62297 enabled=208318 running=208318\nFC sample=17 bytes=4211692 calls=520 cycles=351709 instructions=62297 enabled=199305 running=199305\nFC sample=18 bytes=4211692 calls=520 cycles=409726 instructions=62297 enabled=232447 running=232447\nFC sample=19 bytes=4211692 calls=520 cycles=658248 instructions=62298 enabled=379687 running=379687\nFC sample=20 bytes=4211692 calls=520 cycles=381802 instructions=62297 enabled=207467 running=207467\nFC sample=21 bytes=4211972 calls=538 cycles=508528 instructions=63007 enabled=287335 running=287335\nFC sample=22 bytes=4211972 calls=538 cycles=432309 instructions=63007 enabled=232522 running=232522\nFC sample=23 bytes=4211972 calls=538 cycles=406023 instructions=63007 enabled=217343 running=217343\nFC sample=24 bytes=4211972 calls=538 cycles=479423 instructions=63008 enabled=264215 running=264215\nFC sample=25 bytes=4211972 calls=538 cycles=683870 instructions=63007 enabled=367787 running=367787\nFC sample=26 bytes=4211972 calls=538 cycles=439523 instructions=63007 enabled=238936 running=238936\nFC sample=27 bytes=4211972 calls=538 cycles=978209 instructions=63008 enabled=556031 running=556031\nFC sample=28 bytes=4195300 calls=522 cycles=826328 instructions=63086 enabled=481005 running=481005\nFC sample=29 bytes=4195300 calls=522 cycles=860589 instructions=63087 enabled=507827 running=507827\nFC sample=30 bytes=4195300 calls=522 cycles=726605 instructions=63086 enabled=414948 running=414948\nFC sample=31 bytes=4195300 calls=522 cycles=562641 instructions=63086 enabled=319491 running=319491\nFC sample=32 bytes=4195300 calls=522 cycles=716488 instructions=63086 enabled=443157 running=443157\nFC sample=33 bytes=4195300 calls=522 cycles=365312 instructions=63086 enabled=209859 running=209859\nFC sample=34 bytes=4195300 calls=522 cycles=434088 instructions=63086 enabled=247593 running=247593\nFC sample=35 bytes=4228076 calls=520 cycles=403134 instructions=63309 enabled=231516 running=231516\nFC sample=36 bytes=4228076 calls=520 cycles=355716 instructions=63309 enabled=201067 running=201067\nFC sample=37 bytes=4228076 calls=520 cycles=346357 instructions=63309 enabled=195856 running=195856\nFC sample=38 bytes=4228076 calls=520 cycles=371907 instructions=63310 enabled=217320 running=217320\nFC sample=39 bytes=4228076 calls=520 cycles=351514 instructions=63309 enabled=199086 running=199086\nFC sample=40 bytes=4228076 calls=520 cycles=346372 instructions=63309 enabled=195823 running=195823\nFC sample=41 bytes=4228076 calls=520 cycles=347127 instructions=63309 enabled=196195 running=196195\n"
+    }
+  ],
+  "summary": {
+    "update-text-resize-large": {
+      "left_ns": 121257.75,
+      "right_ns": 131197.5,
+      "right_left_ratio": 1.081972080135084,
+      "paired_ratios": [
+        1.4100240735271745,
+        0.8016662269785012
+      ],
+      "paired_median_ratio": 1.105845150252838
+    },
+    "update-text-list-large": {
+      "left_ns": 118677.75,
+      "right_ns": 111132.25,
+      "right_left_ratio": 0.93642026411859,
+      "paired_ratios": [
+        1.2876520486555698,
+        0.6808516058593395
+      ],
+      "paired_median_ratio": 0.9842518272574546
+    },
+    "update-two-text-large": {
+      "left_ns": 160093.75,
+      "right_ns": 108287.25,
+      "right_left_ratio": 0.6763989849697443,
+      "paired_ratios": [
+        0.9921829300717894,
+        0.5045706087312974
+      ],
+      "paired_median_ratio": 0.7483767694015434
+    }
+  }
+}

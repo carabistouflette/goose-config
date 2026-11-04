@@ -231,7 +231,8 @@ General transaction staging adds another live payload; the scalar fast path
 stages at most 4,352 replacement bytes. Parsing TOML adds its own
 bounded arenas. These are logical size bounds, not exact allocator budgets.
 Repeated layers retain no history and have no total layer-count limit. Runtime
-storage can retain high-water capacity. See [benchmarks](bench/README.md).
+storage can retain high-water capacity. See the [measured memory and fallback
+audit](docs/memory-and-fallback-audit.md) and [benchmarks](bench/README.md).
 
 ## Development
 
@@ -283,9 +284,10 @@ report the parser's work limit. Rejected layers are checked for preservation of
 every seeded value and source. AddressSanitizer/UndefinedBehaviorSanitizer cover
 behavior, ownership, independent-model and hostile-input suites. CI runs both
 optimized compilers and optimized GCC/Clang sanitizer builds, and smoke-runs
-benchmarks without timing thresholds. Seventeen Python regressions reject corrupt
-benchmark records, including nonfinite or boolean samples, duplicate rows,
-and renamed fixtures.
+benchmarks without timing thresholds, including a native memory-protocol smoke.
+Forty-four Python regressions cover corrupt benchmark records, immutable source
+provenance, memory checkpoint/reaping/timeout handling, and diagnostic counter
+coverage, artifact validation and atomic output failures.
 
 `make conformance` checks the vendored parser against all 208 valid and 509
 invalid TOML 1.0 cases at the pinned official `toml-test` revision. It compares
