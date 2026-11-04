@@ -68,7 +68,8 @@ python3 bench/measure.py --goose /absolute/path/to/goose \
 ```
 
 The script exports just the three library source files from each immutable
-revision under ignored `.build/paired`, builds both with GCC `-O2`, and runs
+revision under a private temporary directory inside ignored `.build/paired`,
+builds both with GCC `-O2`, and runs
 four pairs in alternating before/after order. It records all seven samples per
 fixture, exact revisions, harness SHA-256, flags, hardware, affinity, iteration
 counts and checksums in [the final raw paired record](results/audit-paired.json).
@@ -128,3 +129,45 @@ serializes strict JSON with nonfinite values disabled. Eleven stdlib Python
 regressions run under `make test`; `python3 tests/benchmark_measure.py` runs them
 alone without building a Goose program. Existing committed raw records were
 checked during review and contain valid finite samples.
+
+## Concurrent runs and provenance
+
+Each measurement invocation owns its exported sources and executable paths
+until all samples finish, then removes its temporary workspace. Concurrent
+runs cannot overwrite each other's snapshots. Records are published as complete
+strict JSON with an atomic replacement; a failed serialization preserves an
+existing result. Use different output filenames to retain multiple runs.
+
+The provenance regression suite uses isolated fixture repositories and fake
+toolchains to verify concurrency, cleanup, and pinned source exports without
+network access. It runs with `make test` or `python3 tests/provenance.py`.
+
+## Recorded results at a glance
+
+This is the historical schema-validation audit in `schema-paired.json`, before
+`b098ce8` and after `925c53e`; it is not a cross-library ranking or a promise for
+other hardware. The before/after columns are medians of four run medians (seven batches per
+run), in local nanoseconds per operation. The ratio divides these two medians. Observed variation and
+regressions remain in the raw record. Later packaging/tooling changes do not
+relabel these source revisions.
+
+![All sixteen historical audit fixtures](results/schema-summary.svg)
+
+| Fixture | Before ns/op | After ns/op | After / before |
+| --- | ---: | ---: | ---: |
+| `lookup-small` | 15.2 | 12.5 | 0.82 |
+| `lookup-first-wide` | 15.1 | 12.1 | 0.80 |
+| `lookup-mixed-wide` | 98.6 | 79.6 | 0.81 |
+| `lookup-missing-wide` | 69.4 | 57.0 | 0.82 |
+| `lookup-last-wide` | 87.6 | 71.6 | 0.82 |
+| `reject-layer-wide` | 128.1 | 106.2 | 0.83 |
+| `apply-small` | 445.9 | 371.4 | 0.83 |
+| `apply-wide` | 23,498.7 | 19,241.8 | 0.82 |
+| `update-one-large` | 91,700.3 | 77,613.8 | 0.85 |
+| `lookup-last-long-prefix` | 208.6 | 204.9 | 0.98 |
+| `lookup-mixed-long-prefix` | 283.0 | 273.5 | 0.97 |
+| `apply-wide-long-prefix` | 64,591.9 | 65,495.7 | 1.01 |
+| `init-small` | 256.3 | 258.1 | 1.01 |
+| `init-wide` | 62,340.9 | 27,342.6 | 0.44 |
+| `init-wide-long-prefix` | 375,715.2 | 129,677.5 | 0.35 |
+| `toml-small` | 433.5 | 469.1 | 1.08 |

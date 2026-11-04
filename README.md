@@ -1,15 +1,29 @@
 # goose-config
 
 Pure, schema-driven configuration for the [Goose language](https://github.com/aardappel/goose).
-Apache-2.0. Experimental API; no release yet.
+Apache-2.0. Experimental API; no tagged release yet.
 
 Explicit layers of defaults, TOML, environment values and CLI overrides; strict
 Text/Integer/Float/Boolean types, numeric ranges, required settings, owned
 values and source labels. No runtime dependencies beyond Goose's standard
 library. Applications own file/process I/O and the order of layers.
 
+## Quick start
+
+```sh
+git clone https://github.com/carabistouflette/goose-config.git
+cd goose-config
+make setup check test
+.toolchain/goose/build/goose run examples/settings.goose
+```
+
+The example prints `port=9000 (from APP_PORT)`. `make setup` builds the pinned
+compiler locally; see the development requirements below.
+
+For another project, declare a full-commit dependency in its root Goose file:
+
 ```goose
-import config from "../goose-config";
+import config from "carabistouflette/goose-config@d3082dc0b15a9f56e3c59146f343ecfd67b2a6ee";
 import config.toml; // optional; omit for key/value-only applications
 import std;
 
@@ -33,9 +47,18 @@ fn main() {
 ```
 
 `assert` keeps this example short; applications should handle all returned errors.
-See [the layered example](examples/settings.goose). Declare the package in the
-program's root file. A published repository can also be imported at a full
-commit hash; this checkout has no public remote or release yet.
+See [the layered example](examples/settings.goose). The full commit above pins
+the reviewed implementation; select a newer full commit when updating.
+For a neighboring checkout, use `import config from "../goose-config";` instead.
+Examples inside this repository use `import config from "..";`.
+
+## Platforms
+
+Validated on Linux x86_64 with the pinned Goose compiler, GCC 16.2.1 and
+Clang 23.1.4. CI targets Ubuntu 24.04 x86_64 with its installed GCC and Clang.
+Other platforms and compiler revisions have not been validated by this project.
+The core and TOML modules perform no OS I/O; setup, test and benchmark scripts
+currently target a Linux development environment.
 
 ## API
 
@@ -123,8 +146,8 @@ and `source` return read-only borrowed views: keep the store alive and do not
 mutate it while using them. Goose checks these lifetimes. Borrowed views can be
 used solely as the next override's inputs: the transaction stages all data
 before replacing the previous arena. Schema keys, TOML text, and TOML source
-labels may likewise borrow old store storage solely as inputs to their next initialization/update: they are staged
-before replacement. Reinitialization invalidates old views.
+labels may likewise borrow old store storage solely as inputs to their next
+initialization/update: they are staged before replacement. Reinitialization invalidates old views.
 
 Failed `init`, `apply` and `apply_toml` preserve all values and source labels.
 Successful layers replace only mentioned settings and retain no history.
@@ -159,14 +182,16 @@ ancestor stack with O(fields) bounded comparisons. Raw-prefix ancestors are
 retained across lexical neighbors such as `a-` between `a` and `a.b`. Small or
 rejected schemas use the original quadratic validator, preserving exact
 first-error precedence and failed-initialization atomicity. Up to eight fields
-use linear lookup. Wider schemas keep a sorted array of field IDs and use deterministic binary search,
+use linear lookup. Wider schemas keep a sorted array of field IDs and use
+deterministic binary search,
 with a fast path for the first declared field. Metadata and validation errors
 retain declaration order. Comparisons skip equal eight-byte prefixes using
 bounds-checked slices; no unaligned casts or hash-table collision assumptions
 are involved. Layer validation performs one bounded lookup per entry; TOML
 table-prefix validation remains linear in schema size. Commit uses a fixed
 field-indexed replacement map, then rebuilds the live value arena once to
-ensure atomic ownership. Even a one-key update copies all current text and source bytes. Persistent logical payload is bounded by
+ensure atomic ownership. Even a one-key update copies all current text and
+source bytes. Persistent logical payload is bounded by
 256 × (4096 + 256) bytes plus at most 256 × 256 key bytes and fixed-size metadata.
 Temporary transaction data adds another live payload; parsing TOML adds its own
 bounded arenas. These are logical size bounds, not exact allocator budgets.
@@ -191,12 +216,17 @@ benchmarks target Linux with GCC; `SANITIZER_CC=clang` can select Clang's compat
 sanitizer flags. Sanitizers use C `-O2` with `--debug --no-bce`. Goose's debug
 mode emits `-O0`; the wrapper appends `SANITIZER_OPT` last so its setting wins.
 A compiler-state prerequisite checks actual ASan/optimization markers and
-requires a UBSan runtime overflow diagnostic before running the suite. `SANITIZER_OPT=-O0` selects unoptimized debugging. Use
-`make GOOSE=/absolute/path/to/goose ...` with an existing compiler. Optimized release checks require the selected GCC or Clang compiler.
+requires a UBSan runtime overflow diagnostic before running the suite.
+`SANITIZER_OPT=-O0` selects unoptimized debugging. Use
+`make GOOSE=/absolute/path/to/goose ...` with an existing compiler. Optimized
+release checks require the selected GCC or Clang compiler.
 `GOOSE_REVISION` pins the same compiler as goose-json; compatibility
 with other revisions is not guaranteed. The optional `conformance` target needs
 Go 1.27+ (or automatic Go toolchain downloads); it builds the official runner
-at `TOML_TEST_REVISION` using read-only module dependencies.
+at `TOML_TEST_REVISION` from a private immutable Git export with read-only
+module dependencies and ambient Go workspaces disabled. Dirty cache files and
+HEAD are preserved. Conformance executes the private binary, so concurrent
+setup cannot replace the runner mid-check.
 
 Tests exercise in-process, native, native debug, and optimized GCC/Clang
 execution, plus compile-time ownership and consumer-overload checks. Eight
@@ -223,3 +253,5 @@ scalar subset. No encoder is provided or tested. The suite is not exhaustive.
 See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 [Apache-2.0](LICENSE). Copyright 2026 goose-config contributors.
+See [third-party notices](THIRD_PARTY_NOTICES.md), [security reporting](SECURITY.md),
+and [contribution standards](CONTRIBUTING.md).

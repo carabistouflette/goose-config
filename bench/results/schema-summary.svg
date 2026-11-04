@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="650" viewBox="0 0 1000 650" role="img" aria-labelledby="title desc">
+<title id="title">goose-config schema-validation audit</title>
+<desc id="desc">Historical before/after time ratios for all sixteen fixtures. Dots are ratios of revision medians; lines show observed paired ranges. Lower ratios mean less time.</desc>
+<rect width="1000" height="650" fill="#ffffff"/>
+<g font-family="sans-serif" fill="#172033">
+<text x="20" y="29" font-size="20">Measured schema-validation audit</text>
+<text x="20" y="51" font-size="13">Historical snapshots b098ce8 → 925c53e · lower ratio = less time · baseline = 1</text>
+<line x1="300.0" x2="300.0" y1="65" y2="520" stroke="#e2e8f0"/>
+<text x="300.0" y="551" text-anchor="middle" font-size="12">0</text>
+<line x1="405.8333333333333" x2="405.8333333333333" y1="65" y2="520" stroke="#e2e8f0"/>
+<text x="405.8333333333333" y="551" text-anchor="middle" font-size="12">0.5</text>
+<line x1="511.66666666666663" x2="511.66666666666663" y1="65" y2="520" stroke="#64748b"/>
+<text x="511.66666666666663" y="551" text-anchor="middle" font-size="12">1</text>
+<line x1="617.5" x2="617.5" y1="65" y2="520" stroke="#e2e8f0"/>
+<text x="617.5" y="551" text-anchor="middle" font-size="12">1.5</text>
+<line x1="723.3333333333333" x2="723.3333333333333" y1="65" y2="520" stroke="#e2e8f0"/>
+<text x="723.3333333333333" y="551" text-anchor="middle" font-size="12">2</text>
+<line x1="829.1666666666666" x2="829.1666666666666" y1="65" y2="520" stroke="#e2e8f0"/>
+<text x="829.1666666666666" y="551" text-anchor="middle" font-size="12">2.5</text>
+<line x1="935.0" x2="935.0" y1="65" y2="520" stroke="#e2e8f0"/>
+<text x="935.0" y="551" text-anchor="middle" font-size="12">3</text>
+<text x="20" y="89" font-size="13" font-family="monospace">lookup-small</text>
+<line x1="465.6045605518651" x2="511.7838361472461" y1="85" y2="85" stroke="#94a3b8" stroke-width="3"/>
+<circle cx="474.10651567372395" cy="85" r="4.5" fill="#2563eb"/>
+<text x="975" y="89" text-anchor="end" font-size="12">0.82</text>
+<text x="20" y="117" font-size="13" font-family="monospace">lookup-first-wide</text>
+<line x1="460.14407956541277" x2="511.82849133537206" y1="113" y2="113" stroke="#94a3b8" stroke-width="3"/>
+<circle cx="469.37398589357264" cy="113" r="4.5" fill="#2563eb"/>
+<text x="975" y="117" text-anchor="end" font-size="12">0.80</text>
+<text x="20" y="145" font-size="13" font-family="monospace">lookup-mixed-wide</text>
+<line x1="462.7444254427829" x2="518.4202452524096" y1="141" y2="141" stroke="#94a3b8" stroke-width="3"/>
+<circle cx="470.78804944730007" cy="141" r="4.5" fill="#2563eb"/>
+<text x="975" y="145" text-anchor="end" font-size="12">0.81</text>
+<text x="20" y="173" font-size="13" font-family="monospace">lookup-missing-wide</text>
+<line x1="465.59108472736796" x2="521.5501690331305" y1="169" y2="169" stroke="#94a3b8" stroke-width="3"/>
+<circle cx="474.0476156150961" cy="169" r="4.5" fill="#2563eb"/>
+<text x="975" y="173" text-anchor="end" font-size="12">0.82</text>
+<text x="20" y="201" font-size="13" font-family="monospace">lookup-last-wide</text>
+<line x1="465.7169845066959" x2="519.777325647112" y1="197" y2="197" stroke="#94a3b8" stroke-width="3"/>
+<circle cx="473.0308451068556" cy="197" r="4.5" fill="#2563eb"/>
+<text x="975" y="201" text-anchor="end" font-size="12">0.82</text>
+<text x="20" y="229" font-size="13" font-family="monospace">reject-layer-wide</text>
+<line x1="465.2171977453991" x2="511.8590346258844" y1="225" y2="225" stroke="#94a3b8" stroke-width="3"/>
+<circle cx="475.4421698359862" cy="225" r="4.5" fill="#2563eb"/>
+<text x="975" y="229" text-anchor="end" font-size="12">0.83</text>
+<text x="20" y="257" font-size="13" font-family="monospace">apply-small</text>
+<line x1="467.7005508747824" x2="521.6626163546563" y1="253" y2="253" stroke="#94a3b8" stroke-width="3"/>
+<circle cx="476.29759651609197" cy="253" r="4.5" fill="#2563eb"/>
+<text x="975" y="257" text-anchor="end" font-size="12">0.83</text>
+<text x="20" y="285" font-size="13" font-family="monospace">apply-wide</text>
+<line x1="460.5874529829249" x2="511.50601522293516" y1="281" y2="281" stroke="#94a3b8" stroke-width="3"/>
+<circle cx="473.3226576331997" cy="281" r="4.5" fill="#2563eb"/>
+<text x="975" y="285" text-anchor="end" font-size="12">0.82</text>
+<text x="20" y="313" font-size="13" font-family="monospace">update-one-large</text>
+<line x1="427.29234835654853" x2="885.7208518805295" y1="309" y2="309" stroke="#94a3b8" stroke-width="3"/>
+<circle cx="479.15158082296375" cy="309" r="4.5" fill="#2563eb"/>
+<text x="975" y="313" text-anchor="end" font-size="12">0.85</text>
+<text x="20" y="341" font-size="13" font-family="monospace">lookup-last-long-prefix</text>
+<line x1="471.0465042989757" x2="654.824653746846" y1="337" y2="337" stroke="#94a3b8" stroke-width="3"/>
+<circle cx="507.9918963862565" cy="337" r="4.5" fill="#2563eb"/>
+<text x="975" y="341" text-anchor="end" font-size="12">0.98</text>
+<text x="20" y="369" font-size="13" font-family="monospace">lookup-mixed-long-prefix</text>
+<line x1="469.77677676149176" x2="680.3735732620071" y1="365" y2="365" stroke="#94a3b8" stroke-width="3"/>
+<circle cx="504.5524774782732" cy="365" r="4.5" fill="#2563eb"/>
+<text x="975" y="369" text-anchor="end" font-size="12">0.97</text>
+<text x="20" y="397" font-size="13" font-family="monospace">apply-wide-long-prefix</text>
+<line x1="434.6074333150792" x2="631.7018190542963" y1="393" y2="393" stroke="#94a3b8" stroke-width="3"/>
+<circle cx="514.6284537257294" cy="393" r="4.5" fill="#2563eb"/>
+<text x="975" y="397" text-anchor="end" font-size="12">1.01</text>
+<text x="20" y="425" font-size="13" font-family="monospace">init-small</text>
+<line x1="466.0769336480019" x2="677.1426954249898" y1="421" y2="421" stroke="#94a3b8" stroke-width="3"/>
+<circle cx="513.1091625918102" cy="421" r="4.5" fill="#2563eb"/>
+<text x="975" y="425" text-anchor="end" font-size="12">1.01</text>
+<text x="20" y="453" font-size="13" font-family="monospace">init-wide</text>
+<line x1="358.9634899122815" x2="422.8157680382702" y1="449" y2="449" stroke="#94a3b8" stroke-width="3"/>
+<circle cx="392.83647866043054" cy="449" r="4.5" fill="#2563eb"/>
+<text x="975" y="453" text-anchor="end" font-size="12">0.44</text>
+<text x="20" y="481" font-size="13" font-family="monospace">init-wide-long-prefix</text>
+<line x1="364.60259311935624" x2="387.98721982270433" y1="477" y2="477" stroke="#94a3b8" stroke-width="3"/>
+<circle cx="373.0564237703479" cy="477" r="4.5" fill="#2563eb"/>
+<text x="975" y="481" text-anchor="end" font-size="12">0.35</text>
+<text x="20" y="509" font-size="13" font-family="monospace">toml-small</text>
+<line x1="444.4280384680577" x2="617.3676522881287" y1="505" y2="505" stroke="#94a3b8" stroke-width="3"/>
+<circle cx="529.0602544818082" cy="505" r="4.5" fill="#2563eb"/>
+<text x="975" y="509" text-anchor="end" font-size="12">1.08</text>
+<text x="20" y="570" font-size="12">Dots: ratio of median run medians. Lines: min–max of four paired ratios, not confidence intervals.</text>
+<text x="20" y="592" font-size="12">Intel Core Ultra 7 258V · GCC 16.2.1 -O2 · CPU 4 · 1,000 iterations × 7 batches × 4 pairs</text>
+<text x="20" y="614" font-size="12">Frequency and other system load were uncontrolled. Raw samples: bench/results/schema-paired.json.</text>
+<text x="20" y="636" font-size="11">No universal performance claim; unchanged paths varied. See bench/README.md for exact revisions and methodology.</text>
+</g></svg>

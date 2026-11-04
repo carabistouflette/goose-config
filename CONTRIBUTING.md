@@ -14,15 +14,15 @@ Add public API regressions for behavior changes. Run `make format`,
 `git diff --check`. Also run `make release RELEASE_CC=gcc` and
 `make release RELEASE_CC=clang` to verify optimized C builds, and
 `SANITIZER_CC=clang make sanitize` for the second optimized sanitizer compiler.
-Request independent correctness, security, and performance reviews at milestones; fix actionable findings and keep CI passing. Never commit
+Request independent correctness, security, and performance reviews at
+milestones; fix actionable findings and keep CI passing. Never commit
 credentials, generated compilers/build output, or private workspace notes.
 
 Run `make conformance` for vendored-parser or TOML test-runner changes. Keep
 `TOML_TEST_REVISION` pinned to a reviewed full commit; do not skip failing cases.
 
 GOOSE_REVISION pins the exact compiler. Review compiler and vendored parser
-updates and rerun full validation. Report vulnerabilities privately using
-GitHub advisory reporting when available.
+updates and rerun full validation. Report vulnerabilities through the private route in [SECURITY.md](SECURITY.md).
 
 Profile before optimizing. Keep validation and ownership guarantees. Benchmarks
 must record compiler, flags, hardware, fixture sizes, and raw samples; report
