@@ -3,6 +3,8 @@
 Pure, schema-driven configuration for the [Goose language](https://github.com/aardappel/goose).
 Apache-2.0. Experimental API; no tagged release yet.
 
+[v0.1 API candidate](docs/api.md) · [remaining release gates](docs/release.md).
+
 Strict scalar and homogeneous-list schemas, JSON/TOML layers, environment/CLI
 bindings, numeric ranges, required settings, owned values and source labels.
 Explicit reload rebuilds and validates current layers before publication.

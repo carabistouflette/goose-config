@@ -8,7 +8,10 @@ Preserve atomic updates, source ownership, strict types, and safe diagnostics.
 Use focused branches (`feat/...`, `fix/...`, `docs/...`) and Conventional Commits
 with imperative subjects: `feat: add ...`, `fix: reject ...`, `test: cover ...`,
 `perf: reduce ...`, `docs: clarify ...`, `chore: update ...`. Commit coherent,
-working milestones regularly. No stability guarantee exists before 1.0.
+working milestones regularly. Before v0.1.0, the API remains a candidate.
+Tagged 0.1.x patches preserve [the supported surface](docs/api.md); breaking
+changes require a new minor version. Security-driven limit changes must be
+called out explicitly in release notes.
 
 Add public API regressions for behavior changes. Run `make format`,
 `make check test property security sanitize`, `make bench BENCH_ITERATIONS=100`, and
