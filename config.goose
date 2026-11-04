@@ -144,20 +144,62 @@ fn order_fields(fields: OwnedField[:], keys: const u8[:], ordered: i64[>..]&) {
     }
 }
 
+// Keep field rules centralized; invalid schemas use the original declaration-
+// ordered validator so optimizations do not change which error is reported.
+fn field_problem(field: Field&) -> const u8[:] {
+    if !valid_key(field.key) { return "invalid schema key"; }
+    if field.int_min > field.int_max || !finite(field.float_min) || !finite(field.float_max) || field.float_min > field.float_max {
+        return "invalid numeric range";
+    }
+    ""
+}
+fn schema_error(schema: Field[:]) -> u8[>..] {
+    for i in schema.len {
+        let field = schema[i];
+        let issue = field_problem(field);
+        if issue.len > 0 { return problem(issue, field.key); }
+        for j in i {
+            let previous = schema[j].key;
+            if previous == field.key || prefix(previous, field.key) || prefix(field.key, previous) {
+                return problem("duplicate or conflicting schema key", field.key);
+            }
+        }
+    }
+    []
+}
+// Sorted raw-prefix descendants are contiguous. Retain their ancestors across
+// lexical distractors such as a-, which sorts between a and a.b. An existing
+// dotted ancestor would already have rejected the first such descendant, so
+// checking the nearest remaining ancestor is sufficient. Each ID is pushed
+// once and popped at most once; the bounded stack holds at most MAX_FIELDS IDs.
+fn conflicting(fields: OwnedField[:], keys: const u8[:], ordered: i64[:]) -> bool {
+    var ancestors: i64[MAX_FIELDS] = [0; MAX_FIELDS];
+    var depth = 0;
+    for id in ordered {
+        let key = view(keys, fields[id].key);
+        while depth > 0 {
+            let previous = view(keys, fields[ancestors[depth - 1]].key);
+            if previous.len <= key.len && previous == key[..previous.len] {
+                if previous.len == key.len || key[previous.len] == '.' { return true; }
+                break;
+            }
+            depth--;
+        }
+        ancestors[depth] = id;
+        depth++;
+    }
+    false
+}
+
 // Atomic initialization: failure preserves the previous store.
 fn init(schema: Field[:], store: Store&) -> u8[>..] {
     if schema.len > MAX_FIELDS { return problem("too many schema fields"); }
-    for i in schema.len {
-        let f = schema[i];
-        if !valid_key(f.key) { return problem("invalid schema key", f.key); }
-        if f.int_min > f.int_max || !finite(f.float_min) || !finite(f.float_max) || f.float_min > f.float_max {
-            return problem("invalid numeric range", f.key);
-        }
-        for j in i {
-            let previous = schema[j].key;
-            if previous == f.key || prefix(previous, f.key) || prefix(f.key, previous) {
-                return problem("duplicate or conflicting schema key", f.key);
-            }
+    if schema.len <= 8 {
+        let error = schema_error(schema);
+        if error.len > 0 { return error; }
+    } else {
+        for field in schema {
+            if field_problem(field).len > 0 { return schema_error(schema); }
         }
     }
     // Copy everything before clearing: inputs may be independent temporary owners.
@@ -170,7 +212,13 @@ fn init(schema: Field[:], store: Store&) -> u8[>..] {
     // in declaration order, so validation diagnostics retain their order.
     var ordered: i64[>..] = [];
     let count = fields.len;
-    if count > 8 { order_fields(fields, keys, ordered); }
+    if count > 8 {
+        order_fields(fields, keys, ordered);
+        if conflicting(fields, keys, ordered) {
+            let error = schema_error(schema);
+            if error.len > 0 { return error; }
+        }
+    }
     store.values.clear(); store.fields.clear(); store.keys.clear(); store.bytes.clear(); store.ordered.clear();
     store.fields.append(fields); store.keys.append(keys); store.ordered.append(ordered);
     for i in count { store.values.push(Value { .. }); }
