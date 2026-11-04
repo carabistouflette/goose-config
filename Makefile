@@ -70,7 +70,7 @@ release:
 conformance:
 	mkdir -p .build
 	$(GOOSE) build tests/toml-decoder.goose --cc gcc -O2 -o .build/toml-decoder
-	./scripts/setup-toml-test.sh test -decoder="$(abspath .build/toml-decoder)" -toml=1.0 -color=never
+	./scripts/setup-toml-test.sh test -decoder=./.build/toml-decoder -toml=1.0 -color=never
 bench:
 	mkdir -p .build
 	$(GOOSE) build bench/bench.goose --cc gcc -O2 -o .build/bench
