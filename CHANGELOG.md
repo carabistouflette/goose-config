@@ -2,6 +2,10 @@
 
 ## Unreleased — v0.1.0 preparation
 
+- Document integration into the existing goose-check application: opt-in
+  JSON/TOML numeric defaults, legacy CLI precedence/grammar, bounded reads,
+  strict prelaunch failures and real compiler acceptance checks.
+
 - Add an optional live-reloading job worker with bounded file reads, layered
   JSON/TOML/environment/CLI configuration, application validation and owned
   policy publication. Preserve active work behavior after rejected reloads.

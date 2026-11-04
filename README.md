@@ -60,6 +60,10 @@ It processes jobs using validated configuration from actual JSON/TOML files,
 environment and CLI settings, and keeps its previous policy after a rejected
 reload. Its bounded file reads use an optional pinned goose-fs dependency.
 
+An existing application, [goose-check](docs/consumer-integration.md), uses
+goose-config for explicit JSON/TOML defaults while retaining its numeric CLI,
+bounded fixtures, process deadlines and child ownership contracts.
+
 ## Platforms
 
 Validated on Linux x86_64 with the pinned Goose compiler, GCC 16.2.1 and
