@@ -7,36 +7,49 @@ const MAX_KEY_BYTES = 256;
 const MAX_VALUE_BYTES = 4096;
 const MAX_SOURCE_BYTES = 256;
 const MAX_NUMBER_BYTES = 128;
+const MAX_LIST_ITEMS = 256;
 // Internal accelerator bounds, not Store tuning parameters. The sorted index
 // remains the deterministic fallback when eight probes cannot place a key.
 const LOOKUP_SLOTS = 512;
 const LOOKUP_PROBES = 8;
 const LOOKUP_HASH_BYTES = 32;
 
-enum Kind { Text, Integer, Float, Boolean }
+enum Kind { Text, Integer, Float, Boolean, TextList, IntegerList, FloatList, BooleanList }
+fn list_kind(kind: Kind) -> bool {
+    kind == Kind.TextList || kind == Kind.IntegerList || kind == Kind.FloatList || kind == Kind.BooleanList
+}
+fn scalar_kind(kind: Kind) -> Kind {
+    if kind == Kind.TextList { return Kind.Text; }
+    if kind == Kind.IntegerList { return Kind.Integer; }
+    if kind == Kind.FloatList { return Kind.Float; }
+    if kind == Kind.BooleanList { return Kind.Boolean; }
+    kind
+}
 struct Field {
     key:       const u8[:], kind: Kind, required: bool = false,
     int_min:   i64                                     = -9223372036854775808, int_max: i64 = 9223372036854775807,
     float_min: f64                                     = -1.7976931348623157e308, float_max: f64 = 1.7976931348623157e308,
 }
 struct Override { key: const u8[:], value: const u8[:], source: const u8[:] }
+struct ListOverride { key: const u8[:], values: const (const u8[:])[:], source: const u8[:] }
 // Internal storage. Mutating these fields directly is outside the API contract.
 struct Span { start: i64 = 0, len: i64 = 0 }
+struct Item { integer: i64 = 0, number: f64 = 0.0, boolean: bool = false, text: Span }
 struct OwnedField {
     kind:      Kind, required: bool, int_min: i64, int_max: i64,
     float_min: f64, float_max: f64, key: Span,
 }
 struct Value {
     present: bool = false, integer: i64 = 0, number: f64 = 0.0, boolean: bool = false,
-    source:  Span, text: Span,
+    source:  Span, text: Span, list: Span,
 }
 struct Candidate {
     integer: i64 = 0, number: f64 = 0.0, boolean: bool = false,
-    source:  const u8[:], text: const u8[:],
+    source:  const u8[:], text: const u8[:], list: Span,
 }
 root struct Store {
     initialized: bool = false, fields: OwnedField[>..], values: Value[>..],
-    ordered:     i64[>..], hash_ids: i64[>..], keys: u8[>..], bytes: u8[>..],
+    ordered:     i64[>..], hash_ids: i64[>..], keys: u8[>..], bytes: u8[>..], items: Item[>..],
 }
 fn view(bytes: const u8[:], span: Span) -> const u8[:] { bytes[span.start..span.start + span.len] }
 fn save(bytes: u8[>..]&, text: const u8[:]) -> Span {
@@ -255,16 +268,30 @@ fn init(schema: Field[:], store: Store&) -> u8[>..] {
         }
         index_fields(fields, keys, hash_ids);
     }
-    store.values.clear(); store.fields.clear(); store.keys.clear(); store.bytes.clear(); store.ordered.clear(); store.hash_ids.clear();
+    store.values.clear(); store.fields.clear(); store.keys.clear(); store.bytes.clear(); store.items.clear(); store.ordered.clear(); store.hash_ids.clear();
     store.fields.append(fields); store.keys.append(keys); store.ordered.append(ordered); store.hash_ids.append(hash_ids);
     for i in count { store.values.push(Value { .. }); }
     store.initialized = true;
     []
 }
 
+// Publish an already validated independent staging store. Source and destination
+// must be distinct stores. Arena offsets remain valid because all arenas and
+// their metadata are copied together, without sharing their owned storage.
+fn publish_store(destination: Store&, source: Store&) {
+    destination.fields.clear(); destination.fields.append(source.fields);
+    destination.values.clear(); destination.values.append(source.values);
+    destination.keys.clear(); destination.keys.append(source.keys);
+    destination.bytes.clear(); destination.bytes.append(source.bytes);
+    destination.ordered.clear(); destination.ordered.append(source.ordered);
+    destination.hash_ids.clear(); destination.hash_ids.append(source.hash_ids);
+    destination.items.clear(); destination.items.append(source.items);
+    destination.initialized = source.initialized;
+}
+
 fn range_error(field: OwnedField&, value: Candidate&) -> bool {
-    if field.kind == Kind.Integer { return value.integer < field.int_min || value.integer > field.int_max; }
-    if field.kind == Kind.Float { return !finite(value.number) || value.number < field.float_min || value.number > field.float_max; }
+    if scalar_kind(field.kind) == Kind.Integer { return value.integer < field.int_min || value.integer > field.int_max; }
+    if scalar_kind(field.kind) == Kind.Float { return !finite(value.number) || value.number < field.float_min || value.number > field.float_max; }
     false
 }
 // Decimal grammar: optional sign, digits, optional fraction, optional exponent.
@@ -292,6 +319,7 @@ fn decimal(s: const u8[:], floating: bool) -> bool {
 }
 fn parse_value(field: OwnedField&, input: Override&) -> Candidate, u8[>..] {
     var v = Candidate { source: input.source, text: "", .. };
+    if list_kind(field.kind) { return v, problem("expected a list override", input.key, input.source); }
     if field.kind == Kind.Text { v = Candidate { source: input.source, text: input.value, .. }; }
     else if field.kind == Kind.Boolean {
         if input.value != "true" && input.value != "false" { return v, problem("expected true or false", input.key, input.source); }
@@ -312,19 +340,35 @@ fn parse_value(field: OwnedField&, input: Override&) -> Candidate, u8[>..] {
     return v, [];
 }
 // Shared transaction commit; candidates and mapping have already been validated.
-fn commit_layer(store: Store&, ids: i64[:], candidates: Candidate[:]) {
+// Item text spans refer to list_bytes for staged items, or store.bytes for old
+// items. Own every value and source before invalidating any previous storage.
+fn commit_layer(store: Store&, ids: i64[:], candidates: Candidate[:], items: Item[:] = [], list_bytes: const u8[:] = "") {
     var next:         Value[>..]      = [];
     var bytes:        u8[>..]         = [];
+    var next_items:   Item[>..]       = [];
     var replacements: i64[MAX_FIELDS] = [-1; MAX_FIELDS];
     for j in ids.len { replacements[ids[j]] = j; }
     for i in store.fields.len {
         let replacement = replacements[i];
         if replacement >= 0 {
             let c = candidates[replacement];
+            let list = Span { next_items.len, c.list.len };
+            for item_index in c.list.len {
+                var item = items[c.list.start + item_index];
+                item.text = save(bytes, view(list_bytes, item.text));
+                next_items.push(item);
+            }
             next.push(Value { present: true, integer: c.integer, number: c.number, boolean: c.boolean,
-                              source: save(bytes, c.source), text: save(bytes, c.text) });
+                              source: save(bytes, c.source), text: save(bytes, c.text), list: list });
         } else {
             var previous = store.values[i];
+            let list = Span { next_items.len, previous.list.len };
+            for item_index in previous.list.len {
+                var item = store.items[previous.list.start + item_index];
+                item.text = save(bytes, view(store.bytes, item.text));
+                next_items.push(item);
+            }
+            previous.list = list;
             previous.source = save(bytes, view(store.bytes, previous.source));
             previous.text = save(bytes, view(store.bytes, previous.text));
             next.push(previous);
@@ -332,6 +376,7 @@ fn commit_layer(store: Store&, ids: i64[:], candidates: Candidate[:]) {
     }
     store.values.clear(); store.values.append(next);
     store.bytes.clear(); store.bytes.append(bytes);
+    store.items.clear(); store.items.append(next_items);
 }
 fn apply(store: Store&, inputs: Override[:]) -> u8[>..] {
     if !store.initialized { return problem("store is not initialized"); }
@@ -353,6 +398,46 @@ fn apply(store: Store&, inputs: Override[:]) -> u8[>..] {
         ids.push(id); candidates.push(value);
     }
     if inputs.len > 0 { commit_layer(store, ids, candidates); }
+    []
+}
+// Textual list inputs use the scalar grammar for every element. The list and
+// all text bytes are staged in one transaction, so a late failure changes nothing.
+fn apply_lists(store: Store&, inputs: ListOverride[:]) -> u8[>..] {
+    if !store.initialized { return problem("store is not initialized"); }
+    if inputs.len > MAX_FIELDS { return problem("too many overrides"); }
+    var ids:        i64[>..]         = [];
+    var candidates: Candidate[>..]   = [];
+    var items:      Item[>..]        = [];
+    var bytes:      u8[>..]          = [];
+    var seen:       bool[MAX_FIELDS] = [false; MAX_FIELDS];
+    for input_index in inputs.len {
+        let input .= inputs[input_index];
+        if input.key.len > MAX_KEY_BYTES || input.source.len > MAX_SOURCE_BYTES {
+            return problem("override exceeds byte limit", input.key, input.source);
+        }
+        if input.values.len > MAX_LIST_ITEMS { return problem("too many list items", input.key, input.source); }
+        let id = locate(store, input.key);
+        if id < 0 { return problem("unknown key", input.key, input.source); }
+        if seen[id] { return problem("duplicate key in layer", input.key, input.source); }
+        seen[id] = true;
+        var field = store.fields[id];
+        if !list_kind(field.kind) { return problem("expected a scalar override", input.key, input.source); }
+        field.kind = scalar_kind(field.kind);
+        var candidate = Candidate { source: input.source, text: "", list: Span { items.len, input.values.len }, .. };
+        var text_bytes = 0;
+        for text in input.values {
+            if field.kind == Kind.Text {
+                if text.len > MAX_VALUE_BYTES - text_bytes { return problem("list text exceeds byte limit", input.key, input.source); }
+                text_bytes += text.len;
+            }
+            let scalar = Override { input.key, text, input.source };
+            let value, error = parse_value(field, scalar);
+            if error.len > 0 { return error; }
+            items.push(Item { value.integer, value.number, value.boolean, save(bytes, value.text) });
+        }
+        ids.push(id); candidates.push(candidate);
+    }
+    if inputs.len > 0 { commit_layer(store, ids, candidates, items, bytes); }
     []
 }
 // Check completeness after all layers. Range/type checks happen during apply.
@@ -401,4 +486,47 @@ fn source(store: Store&, key: const u8[:]) -> const u8[:], u8[>..] {
     let id, error = access(store, key);
     if error.len > 0 { return "", error; }
     return view(store.bytes, store.values[id].source), [];
+}
+
+// Copy through explicit bytes to avoid consumer copy overloads.
+fn own_text(input: const u8[:]) -> u8[>..] {
+    var out: u8[>..] = [];
+    out.append(input);
+    out
+}
+
+// List getters return independent owned arrays, including every text element.
+fn get_text_list(store: Store&, key: const u8[:]) -> u8[][>..], u8[>..] {
+    var values: u8[][>..] = [];
+    let id, error = typed_access(store, key, Kind.TextList);
+    if error.len > 0 { return values, error; }
+    let list = store.values[id].list;
+    for index in list.len {
+        values.push(own_text(view(store.bytes, store.items[list.start + index].text)));
+    }
+    return values, [];
+}
+fn get_integer_list(store: Store&, key: const u8[:]) -> i64[>..], u8[>..] {
+    var values: i64[>..] = [];
+    let id, error = typed_access(store, key, Kind.IntegerList);
+    if error.len > 0 { return values, error; }
+    let list = store.values[id].list;
+    for index in list.len { values.push(store.items[list.start + index].integer); }
+    return values, [];
+}
+fn get_float_list(store: Store&, key: const u8[:]) -> f64[>..], u8[>..] {
+    var values: f64[>..] = [];
+    let id, error = typed_access(store, key, Kind.FloatList);
+    if error.len > 0 { return values, error; }
+    let list = store.values[id].list;
+    for index in list.len { values.push(store.items[list.start + index].number); }
+    return values, [];
+}
+fn get_boolean_list(store: Store&, key: const u8[:]) -> bool[>..], u8[>..] {
+    var values: bool[>..] = [];
+    let id, error = typed_access(store, key, Kind.BooleanList);
+    if error.len > 0 { return values, error; }
+    let list = store.values[id].list;
+    for index in list.len { values.push(store.items[list.start + index].boolean); }
+    return values, [];
 }
