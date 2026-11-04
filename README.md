@@ -97,7 +97,9 @@ not accepted as textual numbers. Numeric tokens are bounded before conversion.
 
 ## TOML
 
-The optional adapter vendors a fixed Apache-2.0 TOML parser; see
+The optional adapter imports its private parser with an explicit relative
+module path, so unrelated application packages named `vendor` can coexist.
+It vendors a fixed Apache-2.0 TOML parser; see
 [vendor provenance and local hardening](vendor/README.md). It targets TOML 1.0
 within the parser limits. Dotted keys, tables and inline tables become dotted
 schema paths. Decoded key components must follow the same ASCII grammar:
@@ -176,6 +178,7 @@ storage can retain high-water capacity. See [benchmarks](bench/README.md).
 ```sh
 make setup
 make format check test property security sanitize
+SANITIZER_CC=clang make sanitize
 make release RELEASE_CC=gcc
 make release RELEASE_CC=clang
 make bench BENCH_ITERATIONS=1000
@@ -184,13 +187,19 @@ make bench BENCH_ITERATIONS=1000
 Setup needs Git, CMake 3.27+, C/C++20 compilers, and Make; Linux's in-process
 runner needs libc development headers. Tests need Python 3.11+. Sanitizers and
 benchmarks target Linux with GCC; `SANITIZER_CC=clang` can select Clang's compatible
-sanitizer flags. Use `make GOOSE=/absolute/path/to/goose ...` with an existing
-compiler. Optimized release checks require the selected GCC or Clang compiler.
+sanitizer flags. Sanitizers use C `-O2` with `--debug --no-bce`. Goose's debug
+mode emits `-O0`; the wrapper appends `SANITIZER_OPT` last so its setting wins.
+A compiler-state prerequisite checks actual ASan/optimization markers before
+running the suite. `SANITIZER_OPT=-O0` selects unoptimized debugging. Use
+`make GOOSE=/absolute/path/to/goose ...` with an existing compiler. Optimized release checks require the selected GCC or Clang compiler.
 `GOOSE_REVISION` pins the same compiler as goose-json; compatibility
 with other revisions is not guaranteed.
 
 Tests exercise in-process, native, native debug, and optimized GCC/Clang
-execution, plus compile-time ownership and consumer-overload checks. Two
+execution, plus compile-time ownership and consumer-overload checks. Eight
+isolated consumer cases exercise import ordering, module-name collisions,
+transitive imports, paths containing spaces, and a core-only package without
+the TOML files; each runs in-process and as a GCC `-O2` executable. Two
 independent models check 2,206 flat-schema transactions and 2,109 nested
 transactions with 100,577 responses across 45 reinitialization cycles.
 
@@ -199,7 +208,8 @@ including genuine hash-collision budget rejection with a five-second
 per-document timeout. Rejected layers are checked for preservation of every
 seeded value and source. AddressSanitizer/UndefinedBehaviorSanitizer cover
 behavior, ownership, independent-model and hostile-input suites. CI runs both
-optimized compilers and smoke-runs benchmarks without timing thresholds.
+optimized compilers and optimized GCC/Clang sanitizer builds, and smoke-runs
+benchmarks without timing thresholds.
 See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 [Apache-2.0](LICENSE). Copyright 2026 goose-config contributors.

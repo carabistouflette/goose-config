@@ -15,6 +15,7 @@ jobs:
           key: goose-${{ runner.os }}-${{ hashFiles('GOOSE_REVISION', 'scripts/setup-goose.sh') }}
       - run: make setup
       - run: make check test property security sanitize
+      - run: SANITIZER_CC=clang make sanitize
       - run: make release RELEASE_CC=gcc
       - run: make release RELEASE_CC=clang
       - run: make bench BENCH_ITERATIONS=10

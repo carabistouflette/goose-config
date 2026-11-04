@@ -1,9 +1,11 @@
 GOOSE ?= .toolchain/goose/build/goose
 BENCH_ITERATIONS ?= 1000
 RELEASE_CC ?= gcc
+SANITIZER_OPT ?= -O2
+export SANITIZER_OPT
 TESTS = config behavior toml overloads index ownership schema
 
-.PHONY: setup format check test property security sanitize release bench
+.PHONY: setup format check test integration property security sanitize sanitizer-config release bench
 setup:
 	./scripts/setup-goose.sh
 format:
@@ -13,7 +15,7 @@ check:
 	@set -e; for name in $(TESTS) property nested security; do $(GOOSE) check tests/$$name.goose; done
 	$(GOOSE) check examples/settings.goose
 	$(GOOSE) check bench/bench.goose
-test:
+test: integration
 	mkdir -p .build
 	@set -e; for name in $(TESTS); do \
 		$(GOOSE) run tests/$$name.goose; \
@@ -22,6 +24,8 @@ test:
 	done
 	$(GOOSE) run examples/settings.goose
 	python3 tests/ownership.py $(GOOSE)
+integration:
+	python3 tests/integration.py $(GOOSE)
 property:
 	mkdir -p .build
 	$(GOOSE) build tests/property.goose -o .build/property
@@ -35,7 +39,9 @@ security:
 	$(GOOSE) build tests/security.goose -o .build/security
 	$(GOOSE) build tests/security.goose --debug --no-bce -o .build/security-debug
 	python3 tests/security.py .build/security .build/security-debug
-sanitize:
+sanitizer-config:
+	python3 tests/sanitizer-config.py
+sanitize: sanitizer-config
 	mkdir -p .build
 	@set -e; for name in $(TESTS); do \
 		$(GOOSE) build tests/$$name.goose --standalone --debug --no-bce --cc ./scripts/sanitizer-cc.sh -o .build/$$name-sanitized; \
