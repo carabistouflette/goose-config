@@ -17,6 +17,7 @@ check:
 	$(GOOSE) check bench/bench.goose
 test: integration
 	python3 tests/benchmark_measure.py
+	python3 tests/provenance.py
 	mkdir -p .build
 	@set -e; for name in $(TESTS); do \
 		$(GOOSE) run tests/$$name.goose; \
@@ -67,9 +68,9 @@ release:
 	$(GOOSE) build tests/nested.goose --cc $(RELEASE_CC) -O2 -o .build/release/nested
 	python3 tests/nested.py .build/release/nested
 conformance:
-	./scripts/setup-toml-test.sh
+	mkdir -p .build
 	$(GOOSE) build tests/toml-decoder.goose --cc gcc -O2 -o .build/toml-decoder
-	.build/toml-test test -decoder="$(abspath .build/toml-decoder)" -toml=1.0 -color=never
+	./scripts/setup-toml-test.sh test -decoder="$(abspath .build/toml-decoder)" -toml=1.0 -color=never
 bench:
 	mkdir -p .build
 	$(GOOSE) build bench/bench.goose --cc gcc -O2 -o .build/bench
