@@ -1,4 +1,8 @@
 // SPDX-License-Identifier: Apache-2.0
+// Derived from goose-toml 2179e47098a3b8553ad223676d603746cf1fe00c.
+// Copyright 2026 goose-toml contributors.
+// Modified for goose-config: isolated namespace, constant limits, and hardened
+// errors, index copies/sizing, and numeric calls. See vendor/README.md.
 namespace config_toml;
 import std;
 
