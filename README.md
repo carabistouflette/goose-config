@@ -182,17 +182,25 @@ ancestor stack with O(fields) bounded comparisons. Raw-prefix ancestors are
 retained across lexical neighbors such as `a-` between `a` and `a.b`. Small or
 rejected schemas use the original quadratic validator, preserving exact
 first-error precedence and failed-initialization atomicity. Up to eight fields
-use linear lookup. Wider schemas keep a sorted array of field IDs and use
-deterministic binary search,
-with a fast path for the first declared field. Metadata and validation errors
+use linear lookup. Wider schemas keep a sorted array of field IDs and a
+512-slot accelerator indexed by a private, noncryptographic FNV-1a hash of
+the key length and at most its trailing 32 bytes.
+Insertion and lookup perform at most eight probes, then lookup falls back to
+deterministic binary search. A key that cannot fit within eight probes remains
+accessible through that fallback. Empty-slot misses are safe because slots
+are never deleted between schema initializations. A fast path handles the
+first declared field. Metadata and validation errors
 retain declaration order. Comparisons skip equal eight-byte prefixes using
-bounds-checked slices; no unaligned casts or hash-table collision assumptions
-are involved. Layer validation performs one bounded lookup per entry; TOML
+bounds-checked slices; no unaligned casts are involved. Full equality establishes
+key identity, and adversarial collisions retain a fixed probe bound plus the
+sorted fallback. Layer validation performs one bounded lookup per entry; TOML
 table-prefix validation remains linear in schema size. Commit uses a fixed
 field-indexed replacement map, then rebuilds the live value arena once to
 ensure atomic ownership. Even a one-key update copies all current text and
 source bytes. Persistent logical payload is bounded by
 256 × (4096 + 256) bytes plus at most 256 × 256 key bytes and fixed-size metadata.
+The wide-schema accelerator adds 512 machine integers (4 KiB logical payload);
+initialization stages another such index before replacing the current one.
 Temporary transaction data adds another live payload; parsing TOML adds its own
 bounded arenas. These are logical size bounds, not exact allocator budgets.
 Repeated layers retain no history and have no total layer-count limit. Runtime

@@ -7,6 +7,11 @@ const MAX_KEY_BYTES = 256;
 const MAX_VALUE_BYTES = 4096;
 const MAX_SOURCE_BYTES = 256;
 const MAX_NUMBER_BYTES = 128;
+// Internal accelerator bounds, not Store tuning parameters. The sorted index
+// remains the deterministic fallback when eight probes cannot place a key.
+const LOOKUP_SLOTS = 512;
+const LOOKUP_PROBES = 8;
+const LOOKUP_HASH_BYTES = 32;
 
 enum Kind { Text, Integer, Float, Boolean }
 struct Field {
@@ -31,7 +36,7 @@ struct Candidate {
 }
 root struct Store {
     initialized: bool = false, fields: OwnedField[>..], values: Value[>..],
-    ordered:     i64[>..], keys: u8[>..], bytes: u8[>..],
+    ordered:     i64[>..], hash_ids: i64[>..], keys: u8[>..], bytes: u8[>..],
 }
 fn view(bytes: const u8[:], span: Span) -> const u8[:] { bytes[span.start..span.start + span.len] }
 fn save(bytes: u8[>..]&, text: const u8[:]) -> Span {
@@ -94,15 +99,33 @@ fn compare_key(a: const u8[:], b: const u8[:]) -> i64 {
     if a.len > b.len { return 1; }
     0
 }
+// A noncryptographic FNV-1a variant hashes the length and at most 32 trailing
+// bytes, keeping long shared-prefix keys cheap. Equal suffixes may collide:
+// full key equality and the sorted fallback still determine identity. Keep
+// this namespaced so consumer hash overloads cannot change its behavior.
+fn lookup_hash(key: const u8[:]) -> u64 {
+    var result: u64 = 14695981039346656037 ^ (key.len as u64);
+    let start = if key.len > LOOKUP_HASH_BYTES { key.len - LOOKUP_HASH_BYTES } else { 0 };
+    for byte in key[start..] { result = (result ^ byte) * 1099511628211; }
+    result
+}
 fn locate(store: Store&, key: const u8[:]) -> i64 {
     if key.len > MAX_KEY_BYTES { return -1; }
-    // Keep tiny schemas and the first declared key cheap. Wide schemas use
-    // deterministic binary search, including for keys chosen by an attacker.
+    // Keep tiny schemas and the first declared key cheap.
     if store.fields.len <= 8 {
         for i in store.fields.len { if view(store.keys, store.fields[i].key) == key { return i; } }
         return -1;
     }
     if view(store.keys, store.fields[0].key) == key { return 0; }
+    var slot = (lookup_hash(key) & (LOOKUP_SLOTS - 1)) as i64;
+    for probe in LOOKUP_PROBES {
+        let id = store.hash_ids[slot];
+        // No deletion occurs. An inserted key has no earlier empty slot; a
+        // skipped key had all eight slots occupied and they remain occupied.
+        if id < 0 { return -1; }
+        if view(store.keys, store.fields[id].key) == key { return id; }
+        slot = (slot + 1) & (LOOKUP_SLOTS - 1);
+    }
     var low = 0;
     var high = store.ordered.len;
     while low < high {
@@ -114,6 +137,17 @@ fn locate(store: Store&, key: const u8[:]) -> i64 {
         else { high = middle; }
     }
     -1
+}
+
+fn index_fields(fields: OwnedField[:], keys: const u8[:], hash_ids: i64[>..]&) {
+    for i in LOOKUP_SLOTS { hash_ids.push(-1); }
+    for id in fields.len {
+        var slot = (lookup_hash(view(keys, fields[id].key)) & (LOOKUP_SLOTS - 1)) as i64;
+        for probe in LOOKUP_PROBES {
+            if hash_ids[slot] < 0 { hash_ids[slot] = id; break; }
+            slot = (slot + 1) & (LOOKUP_SLOTS - 1);
+        }
+    }
 }
 
 // Bounded, stable bottom-up merge sort. Sorting only IDs keeps key ownership
@@ -210,7 +244,8 @@ fn init(schema: Field[:], store: Store&) -> u8[>..] {
     }
     // Stage the index before invalidating old views. Keep metadata and values
     // in declaration order, so validation diagnostics retain their order.
-    var ordered: i64[>..] = [];
+    var ordered:  i64[>..] = [];
+    var hash_ids: i64[>..] = [];
     let count = fields.len;
     if count > 8 {
         order_fields(fields, keys, ordered);
@@ -218,9 +253,10 @@ fn init(schema: Field[:], store: Store&) -> u8[>..] {
             let error = schema_error(schema);
             if error.len > 0 { return error; }
         }
+        index_fields(fields, keys, hash_ids);
     }
-    store.values.clear(); store.fields.clear(); store.keys.clear(); store.bytes.clear(); store.ordered.clear();
-    store.fields.append(fields); store.keys.append(keys); store.ordered.append(ordered);
+    store.values.clear(); store.fields.clear(); store.keys.clear(); store.bytes.clear(); store.ordered.clear(); store.hash_ids.clear();
+    store.fields.append(fields); store.keys.append(keys); store.ordered.append(ordered); store.hash_ids.append(hash_ids);
     for i in count { store.values.push(Value { .. }); }
     store.initialized = true;
     []

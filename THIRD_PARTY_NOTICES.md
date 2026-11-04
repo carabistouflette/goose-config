@@ -23,3 +23,8 @@ The Goose compiler and official toml-test runner are fetched separately at
 `GOOSE_REVISION` and `TOML_TEST_REVISION`. Their source trees and binaries are not
 vendored or distributed in this repository. Their own upstream licenses apply.
 The library has no runtime dependency on the Go test runner.
+
+The cross-library benchmark fetches Viper, Koanf and their dependencies using
+the pinned [Go module files](bench/competitors/go.mod). Their source trees are
+not vendored here and their upstream licenses apply. These are development-only
+dependencies; Goose applications do not link them.
