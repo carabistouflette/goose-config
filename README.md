@@ -8,7 +8,7 @@ Apache-2.0. Experimental API; no tagged release yet.
 Strict scalar and homogeneous-list schemas, JSON/TOML layers, environment/CLI
 bindings, numeric ranges, required settings, owned values and source labels.
 Explicit reload rebuilds and validates current layers before publication.
-No runtime dependencies beyond Goose's standard library. Applications choose
+No core runtime dependencies beyond Goose's standard library. Applications choose
 layer order and own file I/O, reload triggers and synchronization.
 
 ## Quick start
@@ -54,6 +54,11 @@ See [the layered example](examples/settings.goose). The full commit above pins
 the reviewed implementation; select a newer full commit when updating.
 For a neighboring checkout, use `import config from "../goose-config";` instead.
 Examples inside this repository use `import config from "..";`.
+
+For a running application, see the [live-reloading job worker](docs/worker.md).
+It processes jobs using validated configuration from actual JSON/TOML files,
+environment and CLI settings, and keeps its previous policy after a rejected
+reload. Its bounded file reads use an optional pinned goose-fs dependency.
 
 ## Platforms
 
@@ -244,6 +249,8 @@ make release RELEASE_CC=gcc
 make release RELEASE_CC=clang
 make conformance
 make bench BENCH_ITERATIONS=1000
+# Optional Linux application and its four compiler/sanitizer variants:
+make worker
 ```
 
 Setup needs Git, CMake 3.27+, C/C++20 compilers, and Make; Linux's in-process
@@ -285,9 +292,11 @@ every seeded value and source. AddressSanitizer/UndefinedBehaviorSanitizer cover
 behavior, ownership, independent-model and hostile-input suites. CI runs both
 optimized compilers and optimized GCC/Clang sanitizer builds, and smoke-runs
 benchmarks without timing thresholds, including a native memory-protocol smoke.
-Forty-four Python regressions cover corrupt benchmark records, immutable source
+Forty-six Python regressions cover corrupt benchmark records, immutable source
 provenance, memory checkpoint/reaping/timeout handling, and diagnostic counter
-coverage, artifact validation and atomic output failures.
+coverage, artifact validation, atomic output failures and worker-harness
+partial-write/deadline handling. The optional worker acceptance suite also runs
+in CI; see its [application and I/O contracts](docs/worker.md).
 
 `make conformance` checks the vendored parser against all 208 valid and 509
 invalid TOML 1.0 cases at the pinned official `toml-test` revision. It compares

@@ -2,6 +2,12 @@
 
 ## Unreleased — v0.1.0 preparation
 
+- Add an optional live-reloading job worker with bounded file reads, layered
+  JSON/TOML/environment/CLI configuration, application validation and owned
+  policy publication. Preserve active work behavior after rejected reloads.
+- Check the worker under optimized GCC/Clang and both sanitizer compilers;
+  cover file/key removal, exact byte limits, override precedence and failures.
+
 - Audit deterministic grow/shrink/reload memory retention, identical-binary
   timing controls and coverage-checked fallback counters; retain all raw
   evidence in the [memory audit](docs/memory-and-fallback-audit.md). No runtime

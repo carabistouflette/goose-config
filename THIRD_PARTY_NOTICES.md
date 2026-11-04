@@ -19,6 +19,12 @@ key with the pinned Goose hash implementation.
 
 ## Development tools
 
+The optional worker example fetches goose-fs at
+`1c0deb1779181ecb5ef3b5af1de78f93b65e086b`, under Apache-2.0, separately through
+Goose's package loader. Its source and native build artifacts are not vendored
+here. It is copyright 2026 goose-fs contributors; its upstream license and
+notices accompany that dependency. Core goose-config consumers do not link it.
+
 The Goose compiler and official toml-test runner are fetched separately at
 `GOOSE_REVISION` and `TOML_TEST_REVISION`. Their source trees and binaries are not
 vendored or distributed in this repository. Their own upstream licenses apply.

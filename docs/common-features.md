@@ -11,6 +11,10 @@ registered CLI flags. Run it with `--port=9100 --tag first --tag second`.
 For in-process execution use `goose run examples/layered.goose -- --port=9100`.
 Applications choose source order; there is no implicit priority hierarchy.
 
+The [job worker application](worker.md) adds real bounded file reads and a live
+reload loop, including application-level validation before publishing an owned
+policy. Its optional filesystem dependency is separate from the core library.
+
 ## Typed lists
 
 Declare `Kind.TextList`, `IntegerList`, `FloatList`, or `BooleanList`.
