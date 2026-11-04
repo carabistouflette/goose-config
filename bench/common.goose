@@ -17,8 +17,8 @@ fn list_scenario(count: i64, json: bool) {
     let toml_documents = ["ports=[8080,9000]\ntags=['goose','duck']", "ports=[9001]\ntags=['duck']"];
     var store = config::Store { .. };
     assert(config::init(schema, store).len == 0);
-    var samples: f64[SAMPLES] = [0.0; SAMPLES];
-    var checksum: i64 = 0;
+    var samples:  f64[SAMPLES] = [0.0; SAMPLES];
+    var checksum: i64          = 0;
     for sample in SAMPLES {
         let start = clock_ns();
         for i in count {
@@ -55,8 +55,8 @@ fn reload_scenario(count: i64) {
     let defaults = [config::Override { "port", "8080", "defaults" }, config::Override { "name", "default", "defaults" }];
     let documents = ["{\"port\":9000,\"name\":\"file\"}", "{\"name\":\"edited\"}"];
     var store = config::Store { .. };
-    var samples: f64[SAMPLES] = [0.0; SAMPLES];
-    var checksum: i64 = 0;
+    var samples:  f64[SAMPLES] = [0.0; SAMPLES];
+    var checksum: i64          = 0;
     for sample in SAMPLES {
         let start = clock_ns();
         for i in count {
