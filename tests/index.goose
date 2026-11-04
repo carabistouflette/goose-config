@@ -6,6 +6,41 @@ import std;
 // Global consumer helpers must not intercept the private lookup accelerator.
 fn hash(key: const u8[:]) -> u64 { assert(false); 0 }
 fn lookup_hash(key: const u8[:]) -> u64 { assert(false); 0 }
+// Internal ordering seam: the reference examines one unsigned byte at a time,
+// independently of the optimized comparator's chunk sizes and slice checks.
+fn reference_order(a: const u8[:], b: const u8[:]) -> i64 {
+    var i = 0;
+    while i < a.len && i < b.len {
+        if a[i] != b[i] { return if a[i] < b[i] { -1 } else { 1 }; }
+        i++;
+    }
+    if a.len == b.len { return 0; }
+    if a.len < b.len { return -1; }
+    1
+}
+fn check_order(a: const u8[:], b: const u8[:]) {
+    assert(config::compare_key(a, b) == reference_order(a, b));
+    assert(config::compare_key(b, a) == reference_order(b, a));
+}
+fn key_order() {
+    var original: u8[256] = [0; 256];
+    var changed:  u8[256] = [0; 256];
+    for i in 256 { original[i] = i as u8; changed[i] = i as u8; }
+    for length in 257 {
+        // Separate backing arrays include every byte, including NUL and 255.
+        check_order(original[..length], changed[..length]);
+        check_order(original[..length], changed);
+        for position in length {
+            // Every possible first-difference position is checked at every
+            // containing length, including both sides of chunk boundaries.
+            changed[position] = original[position] ^ 255;
+            check_order(original[..length], changed[..length]);
+            check_order(original[..length], changed);
+            changed[position] = original[position];
+        }
+    }
+    print("key ordering matched bytewise reference for 132612 comparisons");
+}
 fn exercise(store: config::Store&, count: i64, prefix_bytes: i64, varied: bool) {
     var keys: u8[..256][256] = [[]; 256];
     let digits = "0123456789";
@@ -143,6 +178,7 @@ fn key_bytes() {
     }
 }
 fn main() {
+    key_order();
     key_bytes();
     collisions();
     suffix_collisions();
