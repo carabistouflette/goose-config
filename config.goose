@@ -39,9 +39,11 @@ struct OwnedField {
     kind:      Kind, required: bool, int_min: i64, int_max: i64,
     float_min: f64, float_max: f64, key: Span,
 }
+// The field kind determines the payload arena: byte text for scalars, Item
+// records for lists. Scalar source bytes immediately precede their text bytes.
 struct Value {
     present: bool = false, integer: i64 = 0, number: f64 = 0.0, boolean: bool = false,
-    source:  Span, text: Span, list: Span,
+    source:  Span, payload: Span,
 }
 struct Candidate {
     integer: i64 = 0, number: f64 = 0.0, boolean: bool = false,
@@ -67,14 +69,17 @@ fn component(s: const u8[:]) -> bool {
 }
 fn valid_key(s: const u8[:]) -> bool {
     if s.len == 0 || s.len > MAX_KEY_BYTES { return false; }
+    // Validate bytes and dotted component boundaries in one pass.
     var start = 0;
     for i in s.len {
-        if s[i] == '.' {
-            if !component(s[start..i]) { return false; }
+        let c = s[i];
+        if c == '.' {
+            if i == start { return false; }
             start = i + 1;
-        }
+        } else if !((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
+                    (c >= '0' && c <= '9') || c == '_' || c == '-') { return false; }
     }
-    component(s[start..])
+    start < s.len
 }
 fn prefix(a: const u8[:], b: const u8[:]) -> bool {
     a.len < b.len && b[a.len] == '.' && b[..a.len] == a
@@ -352,25 +357,36 @@ fn commit_layer(store: Store&, ids: i64[:], candidates: Candidate[:], items: Ite
         let replacement = replacements[i];
         if replacement >= 0 {
             let c = candidates[replacement];
-            let list = Span { next_items.len, c.list.len };
-            for item_index in c.list.len {
-                var item = items[c.list.start + item_index];
-                item.text = save(bytes, view(list_bytes, item.text));
-                next_items.push(item);
-            }
+            let source = save(bytes, c.source);
+            var payload = Span { next_items.len, c.list.len };
+            if list_kind(store.fields[i].kind) {
+                for item_index in c.list.len {
+                    var item = items[c.list.start + item_index];
+                    item.text = save(bytes, view(list_bytes, item.text));
+                    next_items.push(item);
+                }
+            } else { payload = save(bytes, c.text); }
             next.push(Value { present: true, integer: c.integer, number: c.number, boolean: c.boolean,
-                              source: save(bytes, c.source), text: save(bytes, c.text), list: list });
+                              source: source, payload: payload });
         } else {
             var previous = store.values[i];
-            let list = Span { next_items.len, previous.list.len };
-            for item_index in previous.list.len {
-                var item = store.items[previous.list.start + item_index];
-                item.text = save(bytes, view(store.bytes, item.text));
-                next_items.push(item);
+            if list_kind(store.fields[i].kind) {
+                let list = Span { next_items.len, previous.payload.len };
+                for item_index in previous.payload.len {
+                    var item = store.items[previous.payload.start + item_index];
+                    item.text = save(bytes, view(store.bytes, item.text));
+                    next_items.push(item);
+                }
+                previous.payload = list;
+                previous.source = save(bytes, view(store.bytes, previous.source));
+            } else {
+                // Scalar source and text were saved consecutively. Copy their
+                // bounded combined span once while retaining separate views.
+                let start = bytes.len;
+                bytes.append(view(store.bytes, Span { previous.source.start, previous.source.len + previous.payload.len }));
+                previous.source.start = start;
+                previous.payload.start = start + previous.source.len;
             }
-            previous.list = list;
-            previous.source = save(bytes, view(store.bytes, previous.source));
-            previous.text = save(bytes, view(store.bytes, previous.text));
             next.push(previous);
         }
     }
@@ -480,7 +496,7 @@ fn get_boolean(store: Store&, key: const u8[:]) -> bool, u8[>..] {
 fn get_text(store: Store&, key: const u8[:]) -> const u8[:], u8[>..] {
     let id, error = typed_access(store, key, Kind.Text);
     if error.len > 0 { return "", error; }
-    return view(store.bytes, store.values[id].text), [];
+    return view(store.bytes, store.values[id].payload), [];
 }
 fn source(store: Store&, key: const u8[:]) -> const u8[:], u8[>..] {
     let id, error = access(store, key);
@@ -500,7 +516,7 @@ fn get_text_list(store: Store&, key: const u8[:]) -> u8[][>..], u8[>..] {
     var values: u8[][>..] = [];
     let id, error = typed_access(store, key, Kind.TextList);
     if error.len > 0 { return values, error; }
-    let list = store.values[id].list;
+    let list = store.values[id].payload;
     for index in list.len {
         values.push(own_text(view(store.bytes, store.items[list.start + index].text)));
     }
@@ -510,7 +526,7 @@ fn get_integer_list(store: Store&, key: const u8[:]) -> i64[>..], u8[>..] {
     var values: i64[>..] = [];
     let id, error = typed_access(store, key, Kind.IntegerList);
     if error.len > 0 { return values, error; }
-    let list = store.values[id].list;
+    let list = store.values[id].payload;
     for index in list.len { values.push(store.items[list.start + index].integer); }
     return values, [];
 }
@@ -518,7 +534,7 @@ fn get_float_list(store: Store&, key: const u8[:]) -> f64[>..], u8[>..] {
     var values: f64[>..] = [];
     let id, error = typed_access(store, key, Kind.FloatList);
     if error.len > 0 { return values, error; }
-    let list = store.values[id].list;
+    let list = store.values[id].payload;
     for index in list.len { values.push(store.items[list.start + index].number); }
     return values, [];
 }
@@ -526,7 +542,7 @@ fn get_boolean_list(store: Store&, key: const u8[:]) -> bool[>..], u8[>..] {
     var values: bool[>..] = [];
     let id, error = typed_access(store, key, Kind.BooleanList);
     if error.len > 0 { return values, error; }
-    let list = store.values[id].list;
+    let list = store.values[id].payload;
     for index in list.len { values.push(store.items[list.start + index].boolean); }
     return values, [];
 }

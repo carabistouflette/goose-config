@@ -153,12 +153,51 @@ fn aliases_and_arbitrary_bytes() {
     assert(config::apply(store, [config::Override { "key", "text", "source" }]).len == 0);
     let key, ke = config::get_text(store, "key"); assert(ke.len == 0);
     let source, se = config::source(store, "text"); assert(se.len == 0);
-    let item = config::view(store.bytes, store.items[store.values[1].list.start].text);
+    let item = config::view(store.bytes, store.items[store.values[1].payload.start].text);
     assert(config::apply_lists(store, [config::ListOverride { key, [item, item], source }]).len == 0);
     let aliased, ae = config::get_text_list(store, "text"); assert(ae.len == 0 && aliased.len == 2);
     for text in aliased { assert(text == expected); }
 }
+fn empty_and_reinitialized_payloads() {
+    var store = config::Store { .. };
+    let schema = [config::Field { "text", config::Kind.Text },
+                  config::Field { key: "items", kind: config::Kind.TextList, required: true },
+                  config::Field { "tail", config::Kind.Text }];
+    assert(config::init(schema, store).len == 0);
+    assert(config::apply(store, [config::Override { "text", "retained", "first-origin" },
+                                 config::Override { "tail", "", "" }]).len == 0);
+    assert(config::apply_lists(store, [config::ListOverride { "items", [], "" }]).len == 0);
+    // Empty present lists and zero-length source/text spans survive scalar
+    // compaction while surrounding source lengths change in both directions.
+    for round in 3 {
+        let origin = if round == 0 { "" } else { if round == 1 { "a-longer-source-label" } else { "x" } };
+        assert(config::apply(store, [config::Override { "tail", origin, origin }]).len == 0);
+        let empty, ee = config::get_text_list(store, "items");
+        let source, se = config::source(store, "items");
+        let text, te = config::get_text(store, "text");
+        let text_source, tse = config::source(store, "text");
+        assert(ee.len == 0 && empty.len == 0 && se.len == 0 && source.len == 0);
+        assert(te.len == 0 && text == "retained" && tse.len == 0 && text_source == "first-origin");
+        assert(config::validate(store).len == 0);
+    }
+    let borrowed, be = config::get_text(store, "text");
+    let origin, oe = config::source(store, "tail");
+    assert(be.len == 0 && oe.len == 0);
+    assert(config::apply_lists(store, [config::ListOverride { "items", [borrowed, ""], origin }]).len == 0);
+    let owned, owned_error = config::get_text_list(store, "items");
+    assert(owned_error.len == 0 && texts_equal(owned, ["retained", ""]));
+    // Reinitialization changes the same key's payload arena and clears presence.
+    assert(config::init([config::Field { "items", config::Kind.Text }], store).len == 0);
+    assert(config::apply(store, [config::Override { "items", "scalar", "new-origin" }]).len == 0);
+    let scalar, scalar_error = config::get_text(store, "items");
+    assert(scalar_error.len == 0 && scalar == "scalar");
+    assert(config::init(schema, store).len == 0);
+    assert(config::validate(store).len > 0);
+    assert(config::apply_lists(store, [config::ListOverride { "items", [], "again" }]).len == 0);
+    assert(config::validate(store).len == 0);
+    assert(texts_equal(owned, ["retained", ""]));
+}
 fn main() {
-    transactions(); limits_and_ranges(); aliases_and_arbitrary_bytes();
+    transactions(); limits_and_ranges(); aliases_and_arbitrary_bytes(); empty_and_reinitialized_payloads();
     print("typed lists: OK");
 }

@@ -122,7 +122,28 @@ fn suffix_collisions() {
     let missing, error = config::get_text(store, keys[16]);
     assert(error.len > 0);
 }
+fn key_bytes() {
+    // An explicit alphabet is independent of the validator's range checks.
+    let alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-";
+    for byte in 256 {
+        var token: u8[>..] = []; token.push(byte as u8);
+        let letter = find(alphabet, token) >= 0;
+        for dotted in [false, true] {
+            let key = if dotted { str("a.", token, ".b") } else { str("a", token, "b") };
+            let expected = letter || (!dotted && byte == '.');
+            for count in [1, 9] {
+                var fields: config::Field[>..] = [config::Field { key, config::Kind.Text }];
+                let padding = ["pad0", "pad1", "pad2", "pad3", "pad4", "pad5", "pad6", "pad7"];
+                for i in count - 1 { fields.push(config::Field { padding[i], config::Kind.Text }); }
+                var store = config::Store { .. };
+                let error = config::init(fields, store);
+                assert((error.len == 0) == expected);
+            }
+        }
+    }
+}
 fn main() {
+    key_bytes();
     collisions();
     suffix_collisions();
     var store = config::Store { .. };
