@@ -126,7 +126,7 @@ The measurement tool rejects nonnumeric, boolean, nonfinite and negative timing
 samples, wrong sample counts, missing/extra or renamed fixtures and duplicate
 fixture rows. The sixteen expected fixture names are checked explicitly.
 It preserves valid raw numbers, calculates medians only after validation, and
-serializes strict JSON with nonfinite values disabled. Twelve stdlib Python
+serializes strict JSON with nonfinite values disabled. Thirteen stdlib Python
 regressions run under `make test`; `python3 tests/benchmark_measure.py` runs them
 alone without building a Goose program. Existing committed raw records were
 checked during review and contain valid finite samples.

@@ -32,7 +32,7 @@ def run(command, **kwargs):
     return subprocess.run(command, check=True, capture_output=True, text=True, timeout=120, **kwargs).stdout
 
 
-def parse_fixtures(output):
+def parse_fixtures(output, expected_names=FIXTURE_NAMES):
     """Reject corrupt timing records before computing or publishing statistics."""
     pattern = re.compile(r"^(.+) samples_ns=(\[.*\]) checksum=(-?\d+)$")
     fixtures = {}
@@ -57,7 +57,7 @@ def parse_fixtures(output):
                 raise ValueError(f"timing must be finite and nonnegative: {name}")
         fixtures[name] = {"samples_ns": samples, "median_ns": statistics.median(samples),
                           "checksum": int(match[3])}
-    expected = set(FIXTURE_NAMES)
+    expected = set(expected_names)
     if set(fixtures) != expected:
         missing = sorted(expected - fixtures.keys())
         unexpected = sorted(fixtures.keys() - expected)

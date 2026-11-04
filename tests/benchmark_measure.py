@@ -90,6 +90,14 @@ class BenchmarkMeasurementTests(unittest.TestCase):
             with self.subTest(renamed=len(names)), self.assertRaisesRegex(ValueError, "fixture mismatch"):
                 MEASURE.parse_fixtures(text)
 
+    def test_explicit_comparison_subset_rejects_extra_and_missing_rows(self):
+        names = MEASURE.FIXTURE_NAMES[:2]
+        text = "\n".join(fixture(index) for index in range(2))
+        self.assertEqual(set(MEASURE.parse_fixtures(text, names)), set(names))
+        for invalid in (fixture(0), text + "\n" + fixture(2)):
+            with self.assertRaises(ValueError):
+                MEASURE.parse_fixtures(invalid, names)
+
 
 if __name__ == "__main__":
     unittest.main()

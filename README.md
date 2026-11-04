@@ -245,7 +245,7 @@ report the parser's work limit. Rejected layers are checked for preservation of
 every seeded value and source. AddressSanitizer/UndefinedBehaviorSanitizer cover
 behavior, ownership, independent-model and hostile-input suites. CI runs both
 optimized compilers and optimized GCC/Clang sanitizer builds, and smoke-runs
-benchmarks without timing thresholds. Twelve Python regressions reject corrupt
+benchmarks without timing thresholds. Thirteen Python regressions reject corrupt
 benchmark records, including nonfinite or boolean samples, duplicate rows,
 and renamed fixtures.
 
@@ -255,6 +255,9 @@ decoded values and types, not only acceptance. This tests the full private
 parser; the public config adapter deliberately supports only its documented
 scalar subset. No encoder is provided or tested. The suite is not exhaustive.
 See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+See [the feature-gap matrix and reproducible cross-library comparison](docs/comparison.md)
+for Viper/Koanf coverage and measurement limits. Feature parity is not yet implemented.
 
 [Apache-2.0](LICENSE). Copyright 2026 goose-config contributors.
 See [third-party notices](THIRD_PARTY_NOTICES.md), [security reporting](SECURITY.md),

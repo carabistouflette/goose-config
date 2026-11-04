@@ -20,4 +20,8 @@ jobs:
       - run: make release RELEASE_CC=clang
       - run: make conformance
       - run: make bench BENCH_ITERATIONS=10
+      - name: Smoke-test cross-library comparison
+        run: |
+          cpu=$(python3 -c 'import os; print(min(os.sched_getaffinity(0)))')
+          python3 bench/compare.py --goose .toolchain/goose/build/goose --iterations 2 --rounds 1 --cpu "$cpu" --output .build/comparison-smoke.json
       - run: git diff --exit-code

@@ -107,16 +107,22 @@ fn toml_scenario(count: i64) {
 }
 fn main() {
     var count: i64 = 1000;
+    var shared = false;
     if arg_count() > 1 {
         var argument: u8[>..] = []; arg(1, argument);
         let parsed, ok = parse_int(argument, 10);
         assert(ok && parsed > 0 && parsed <= 100000); count = parsed;
     }
+    if arg_count() > 2 {
+        let argv = args();
+        assert(argv.len == 3 && argv[2] == "shared"); shared = true;
+    }
     scenario("lookup-small", count, 8, 32, 0);
-    scenario("lookup-first-wide", count, 256, 32, 0);
+    if !shared { scenario("lookup-first-wide", count, 256, 32, 0); }
     scenario("lookup-mixed-wide", count, 256, 32, 6);
-    scenario("lookup-missing-wide", count, 256, 32, 1);
+    if !shared { scenario("lookup-missing-wide", count, 256, 32, 1); }
     scenario("lookup-last-wide", count, 256, 32, 4);
+    if shared { toml_scenario(count); return; }
     scenario("reject-layer-wide", count, 256, 32, 5);
     scenario("apply-small", count, 8, 32, 3);
     scenario("apply-wide", count, 256, 32, 3);
