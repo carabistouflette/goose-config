@@ -174,3 +174,79 @@ near baseline and wide initialization is approximately 3% slower here. This
 variation prevents attributing all timing changes to index construction or
 claiming a fixed initialization penalty. The extra storage and bounded index
 construction are real costs. Both invocations are retained without selection.
+
+## Selected common-feature implementation
+
+The selected scope now ships (see [API contracts](common-features.md)).
+These fresh measurements use runtime source `86df42f588a6056cc935c2dfaad306c8aca98e99`
+on CPU 7, not the CPU 4 of the historical runs above. They must not be used
+as a direct timing ratio against those earlier records. Same-run comparisons
+use matching data, counts, affinity and rotating process order.
+
+[Scalar/shared raw results](../bench/results/common-scalar-comparison.json) use
+10,000 operations per batch; [list/reload raw results](../bench/results/common-feature-comparison.json)
+use 1,000. Each has three rounds and seven samples per process/fixture.
+Median run medians, ns/operation (lower is faster):
+
+| Fixture | goose-config | Viper | Koanf |
+| --- | ---: | ---: | ---: |
+| `lookup-small` | 17.1 | 136.3 | 71.2 |
+| `lookup-mixed-wide` | 40.5 | 144.4 | 117.8 |
+| `lookup-last-wide` | 30.2 | 128.9 | 82.4 |
+| `toml-small` | 607.5 | 4,978.6 | 4,377.6 |
+| `json-lists` | 858.5 | 6,249.5 | 10,539.7 |
+| `toml-lists` | 970.1 | 4,671.3 | 7,000.1 |
+| `reload-removal` | 1,132.5 | 4,533.2 | 10,571.4 |
+
+Goose has the lowest median in all seven measured successful shared workloads
+in this run. Env/CLI binding speed is not measured. Full provider ecosystems,
+error-path equivalence and universal performance rankings are not established.
+
+The list cases parse/replace two lists, then call a public integer-list getter.
+Goose returns an independently owned list and validates schema, numeric range,
+strict types and sources; the Go getters have different conversion and ownership
+contracts. The reload case reconstructs defaults plus current JSON each time;
+a removed file key must fall back to defaults. Viper/Koanf construct fresh
+instances. Construction, source replay, parsing and getters are timed. Input
+preparation and complete final checks are not. The adapters use only small,
+exact integers. See [adapter details](../bench/competitors/README.md).
+
+Reproduce the new cases with:
+
+```sh
+python3 bench/compare_common.py --goose /absolute/path/to/pinned/goose \
+  --iterations 1000 --rounds 3 --cpu 7 \
+  --output bench/results/common-feature-comparison.json
+```
+
+### Cost of the feature expansion
+
+[All sixteen before/after fixtures](../bench/results/common-expansion-paired.json)
+compare `f1802f9` with the common-feature implementation on CPU 7 using
+three alternating pairs and 1,000 operations per batch. All checksums agree.
+No result or regression is omitted.
+
+| Fixture | Before ns/op | After ns/op | After / before |
+| --- | ---: | ---: | ---: |
+| `lookup-small` | 18.3 | 18.3 | 1.00 |
+| `lookup-first-wide` | 17.6 | 17.6 | 1.00 |
+| `lookup-mixed-wide` | 43.0 | 43.1 | 1.00 |
+| `lookup-missing-wide` | 91.7 | 91.4 | 1.00 |
+| `lookup-last-wide` | 31.8 | 31.8 | 1.00 |
+| `reject-layer-wide` | 121.4 | 123.9 | 1.02 |
+| `apply-small` | 573.5 | 579.5 | 1.01 |
+| `apply-wide` | 13,769.2 | 13,877.6 | 1.01 |
+| `update-one-large` | 132,905.0 | 150,872.0 | 1.14 |
+| `lookup-last-long-prefix` | 144.7 | 145.6 | 1.01 |
+| `lookup-mixed-long-prefix` | 143.7 | 151.3 | 1.05 |
+| `apply-wide-long-prefix` | 36,938.6 | 41,244.1 | 1.12 |
+| `init-small` | 325.0 | 402.5 | 1.24 |
+| `init-wide` | 35,417.0 | 36,291.2 | 1.02 |
+| `init-wide-long-prefix` | 222,247.1 | 216,564.3 | 0.97 |
+| `toml-small` | 688.9 | 625.4 | 0.91 |
+
+The extra list metadata has costs. Small initialization, large-text single-key
+updates and long-prefix full updates are slower in this run; lookups remain
+near baseline. Timings include code-generation/layout, host load and frequency
+variation. These results do not justify claiming the feature expansion is free.
+All original records remain unchanged.

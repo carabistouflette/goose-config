@@ -1,0 +1,566 @@
+{
+  "recorded_utc": "2026-11-04T12:34:33.209293+00:00",
+  "revision": "86df42f588a6056cc935c2dfaad306c8aca98e99",
+  "goose_revision": "eadca409f68210893f366e60d0c2f0dc29a339be",
+  "goose_version": "goose eadca40 (runtime 3025e5810379)",
+  "competitor_metadata": {
+    "build_settings": [
+      {
+        "Key": "-buildmode",
+        "Value": "exe"
+      },
+      {
+        "Key": "-compiler",
+        "Value": "gc"
+      },
+      {
+        "Key": "-trimpath",
+        "Value": "true"
+      },
+      {
+        "Key": "DefaultGODEBUG",
+        "Value": "containermaxprocs=0,cryptocustomrand=1,decoratemappings=0,gotestjsonbuildtext=1,httpcookiemaxnum=0,httpservecontentmaxranges=1,multipathtcp=0,randseednop=0,rsa1024min=0,tlsmlkem=0,tlssecpmlkem=0,tlssha1=1,tracebacklabels=0,updatemaxprocs=0,urlmaxqueryparams=0,urlstrictcolons=0,x509rsacrt=0,x509sha256skid=0,x509sslcertoverrideplatform=0,x509usepolicies=0"
+      },
+      {
+        "Key": "CGO_ENABLED",
+        "Value": "1"
+      },
+      {
+        "Key": "GOARCH",
+        "Value": "amd64"
+      },
+      {
+        "Key": "GOEXPERIMENT",
+        "Value": "nodwarf5"
+      },
+      {
+        "Key": "GOOS",
+        "Value": "linux"
+      },
+      {
+        "Key": "GOAMD64",
+        "Value": "v1"
+      }
+    ],
+    "dependencies": {
+      "github.com/fsnotify/fsnotify": "v1.9.0",
+      "github.com/go-viper/mapstructure/v2": "v2.4.0",
+      "github.com/knadh/koanf/maps": "v0.1.2",
+      "github.com/knadh/koanf/parsers/json": "v1.0.0",
+      "github.com/knadh/koanf/parsers/toml/v2": "v2.2.2",
+      "github.com/knadh/koanf/providers/rawbytes": "v1.0.1",
+      "github.com/knadh/koanf/v2": "v2.4.1",
+      "github.com/mitchellh/copystructure": "v1.2.0",
+      "github.com/mitchellh/reflectwalk": "v1.0.2",
+      "github.com/pelletier/go-toml/v2": "v2.4.3",
+      "github.com/sagikazarmark/locafero": "v0.11.0",
+      "github.com/sourcegraph/conc": "v0.3.1-0.20240121214520-5f936abd7ae8",
+      "github.com/spf13/afero": "v1.15.0",
+      "github.com/spf13/cast": "v1.10.0",
+      "github.com/spf13/pflag": "v1.0.10",
+      "github.com/spf13/viper": "v1.21.0",
+      "github.com/subosito/gotenv": "v1.6.0",
+      "go.yaml.in/yaml/v3": "v3.0.4",
+      "golang.org/x/sys": "v0.29.0",
+      "golang.org/x/text": "v0.28.0"
+    },
+    "go_version": "go1.27.3-X:nodwarf5",
+    "goarch": "amd64",
+    "gomaxprocs": 1,
+    "goos": "linux",
+    "samples": 7,
+    "semantic_limitations": [
+      "Shared successful lookup, TOML, JSON/list replacement, and current-source replay subsets only; not feature equivalence.",
+      "No Goose schema declaration, strict kind errors, or atomic rejected-layer behavior is supplied by these adapter paths.",
+      "Typed getters have different conversion and missing-value behavior; fixtures use present values of matching types.",
+      "Final values are checked outside timing; source labels cannot be verified and are not reconstructed.",
+      "Common list getters are Viper GetIntSlice and Koanf Int64s; their conversion and ownership contracts differ from Goose's strict independently owned i64 arrays.",
+      "Common reload-removal creates fresh Viper/Koanf instances and replays defaults plus current JSON per operation; it does not supply Goose's atomic validated reload or retain old snapshots.",
+      "Goose enforces integer range 1..65535 in common fixtures; adapters do not implement schema/range validation. All fixture numbers are small exact integers."
+    ],
+    "source_labels": "unsupported: neither adapter tracks Goose per-setting source labels"
+  },
+  "gcc": "gcc (GCC) 16.2.1 20260810",
+  "platform": "Linux-7.2.11-arch1-1-x86_64-with-glibc2.44",
+  "cpu": "Intel(R) Core(TM) Ultra 7 258V",
+  "cpu_affinity": 7,
+  "iterations": 1000,
+  "rounds": 3,
+  "samples_per_run": 7,
+  "source_sha256": {
+    "GOOSE_REVISION": "64e14b181dfe96743211738fb0f1b1f7798ea940da2ca50ff122e6f028c24e15",
+    "bench/compare_common.py": "b5d149342ac8ac458f0c374e0ecd9f640362c2c8a467f5a3f030c5f147daff05",
+    "bench/measure.py": "c82029d033c2bf7f25260105b25adf2f9d8f97dde7da0617274844ceb3742c81",
+    "bench/competitors/go.mod": "ae553a6c4fbd24011c61271ecb05ded341fec42d61ac7ccae6e177b1a5f91de8",
+    "bench/competitors/go.sum": "267d37f012b36d597f6d55de3cad8a509673a5f0c5a9f28e464fbb85d44493dc",
+    "bench/competitors/main.go": "9f3966dc1c1f1b62a0c80492b4af0c78015227bd04bc401d7c95f0516ba23006",
+    "config.goose": "f8b1026b77be7f0c4633eb6cb39f20a475fc9401f2779bbae49080cf0c16c5da",
+    "toml.goose": "4358d950c69162d62770d808a6f488422aa6879df8a8d26d5c34e8e12d491cfc",
+    "vendor.goose": "c4b021a0928444a5f049a99eb7a542689ea6803d0d2e845c86ba43a0fc6c31c1",
+    "json_layer.goose": "d6c34a3cb80de194d13cf19d1faeb6ba0923b361d167ccfd37d1ed2c58f55311",
+    "bindings.goose": "92d9371a5937101d624cfdd3806a495e284d5ccceb6d9d2ca1852d136ee3eb06",
+    "reload.goose": "55d2a1ad3c014cb7ec3b5b6fc04521dade728ed1dac99ed2e57c5ed60fd9a77f",
+    "bench/common.goose": "fe7669f1c81c7b27dd2e87620ba8db53f9cc35a44aec7f4db93721d9c34127f9"
+  },
+  "binary_sha256": {
+    "compiler": "3f7a34dda0d8fd3e7df27e7ccce09c0844eabc041fc8caa37a362e0ed68b2f07",
+    "goose_benchmark": "0c3c9a10c10fef1def0bc5869ed0144c4362bf76d0cd3dba3311da54a5ad216f",
+    "competitors": "6217d8d4173bccd634a3c21214807d91909c67c8ed585b4fda4f641555602197"
+  },
+  "flags": {
+    "goose": "gcc -O2",
+    "go": "go build -mod=readonly -trimpath -buildvcs=false"
+  },
+  "runtime_environment": {
+    "GOMAXPROCS": null,
+    "GOGC": null,
+    "GOMEMLIMIT": null,
+    "GODEBUG": null,
+    "GOEXPERIMENT": null
+  },
+  "limitations": [
+    "Cross-language/runtime measurements; successful shared feature workloads only.",
+    "Goose validates declared schema, integer range 1..65535 and strict types; adapters do not.",
+    "Goose returns independently owned i64 lists; Go public list getters have different conversion and ownership contracts.",
+    "JSON/list fixtures use small exact integers; they do not compare large-integer precision or malformed input handling.",
+    "Goose tracks per-setting sources and publishes reload atomically; adapter paths do not supply these contracts.",
+    "Reload times fresh current-source replay: defaults plus current JSON; Viper/Koanf create new instances each operation.",
+    "List fixtures parse/merge existing instances and read first integer plus list length; no file I/O.",
+    "Documents and schemas are prepared before timing; reload source assembly/default registration is timed.",
+    "Final complete list/name/port checks occur outside timing; every checksum must match before publication.",
+    "Frequency, thermals and other system load uncontrolled; setup only, no dedicated warmup."
+  ],
+  "runs": [
+    {
+      "round": 0,
+      "library": "goose-config",
+      "raw_stdout": "json-lists samples_ns=[829.76, 802.629, 818.176, 835.646, 759.978, 760.982, 2212.36] checksum=59794000\ntoml-lists samples_ns=[936.974, 806.77, 805.736, 803.209, 842.033, 820.234, 895.807] checksum=59794000\nreload-removal samples_ns=[1073.773, 993.483, 1020.812, 1006.088, 978.545, 986.259, 977.346] checksum=59780000\n",
+      "fixtures": {
+        "json-lists": {
+          "samples_ns": [
+            829.76,
+            802.629,
+            818.176,
+            835.646,
+            759.978,
+            760.982,
+            2212.36
+          ],
+          "median_ns": 818.176,
+          "checksum": 59794000
+        },
+        "toml-lists": {
+          "samples_ns": [
+            936.974,
+            806.77,
+            805.736,
+            803.209,
+            842.033,
+            820.234,
+            895.807
+          ],
+          "median_ns": 820.234,
+          "checksum": 59794000
+        },
+        "reload-removal": {
+          "samples_ns": [
+            1073.773,
+            993.483,
+            1020.812,
+            1006.088,
+            978.545,
+            986.259,
+            977.346
+          ],
+          "median_ns": 993.483,
+          "checksum": 59780000
+        }
+      }
+    },
+    {
+      "round": 0,
+      "library": "viper",
+      "raw_stdout": "json-lists samples_ns=[5663.349,6906.903,6144.256,6249.534,5943.97,7898.024,7276.303] checksum=59794000\ntoml-lists samples_ns=[4236.227,5194.953,5152.09,4658.002,3962.011,5092.045,5006.045] checksum=59794000\nreload-removal samples_ns=[5022.75,4900.928,4533.193,4371.99,4681.784,4513.625,4196.701] checksum=59780000\n",
+      "fixtures": {
+        "json-lists": {
+          "samples_ns": [
+            5663.349,
+            6906.903,
+            6144.256,
+            6249.534,
+            5943.97,
+            7898.024,
+            7276.303
+          ],
+          "median_ns": 6249.534,
+          "checksum": 59794000
+        },
+        "toml-lists": {
+          "samples_ns": [
+            4236.227,
+            5194.953,
+            5152.09,
+            4658.002,
+            3962.011,
+            5092.045,
+            5006.045
+          ],
+          "median_ns": 5006.045,
+          "checksum": 59794000
+        },
+        "reload-removal": {
+          "samples_ns": [
+            5022.75,
+            4900.928,
+            4533.193,
+            4371.99,
+            4681.784,
+            4513.625,
+            4196.701
+          ],
+          "median_ns": 4533.193,
+          "checksum": 59780000
+        }
+      }
+    },
+    {
+      "round": 0,
+      "library": "koanf",
+      "raw_stdout": "json-lists samples_ns=[10172.082,10761.475,10623.397,10591.509,10539.656,9655.519,9204.158] checksum=59794000\ntoml-lists samples_ns=[6586.425,6848.466,6911.39,6806.54,7349.103,7330.69,6865.774] checksum=59794000\nreload-removal samples_ns=[8081.355,8314.647,8380.164,8304.949,8303.553,8140.873,8397.828] checksum=59780000\n",
+      "fixtures": {
+        "json-lists": {
+          "samples_ns": [
+            10172.082,
+            10761.475,
+            10623.397,
+            10591.509,
+            10539.656,
+            9655.519,
+            9204.158
+          ],
+          "median_ns": 10539.656,
+          "checksum": 59794000
+        },
+        "toml-lists": {
+          "samples_ns": [
+            6586.425,
+            6848.466,
+            6911.39,
+            6806.54,
+            7349.103,
+            7330.69,
+            6865.774
+          ],
+          "median_ns": 6865.774,
+          "checksum": 59794000
+        },
+        "reload-removal": {
+          "samples_ns": [
+            8081.355,
+            8314.647,
+            8380.164,
+            8304.949,
+            8303.553,
+            8140.873,
+            8397.828
+          ],
+          "median_ns": 8304.949,
+          "checksum": 59780000
+        }
+      }
+    },
+    {
+      "round": 1,
+      "library": "viper",
+      "raw_stdout": "json-lists samples_ns=[5963.921,6767.441,5436.662,5746.716,5936.166,5653.52,5224.225] checksum=59794000\ntoml-lists samples_ns=[3146.85,4039.745,3880.312,3380.372,3359.19,4000.132,3946.998] checksum=59794000\nreload-removal samples_ns=[3781.445,3185.225,4136.274,4487.98,4202.784,4342.838,4341.897] checksum=59780000\n",
+      "fixtures": {
+        "json-lists": {
+          "samples_ns": [
+            5963.921,
+            6767.441,
+            5436.662,
+            5746.716,
+            5936.166,
+            5653.52,
+            5224.225
+          ],
+          "median_ns": 5746.716,
+          "checksum": 59794000
+        },
+        "toml-lists": {
+          "samples_ns": [
+            3146.85,
+            4039.745,
+            3880.312,
+            3380.372,
+            3359.19,
+            4000.132,
+            3946.998
+          ],
+          "median_ns": 3880.312,
+          "checksum": 59794000
+        },
+        "reload-removal": {
+          "samples_ns": [
+            3781.445,
+            3185.225,
+            4136.274,
+            4487.98,
+            4202.784,
+            4342.838,
+            4341.897
+          ],
+          "median_ns": 4202.784,
+          "checksum": 59780000
+        }
+      }
+    },
+    {
+      "round": 1,
+      "library": "koanf",
+      "raw_stdout": "json-lists samples_ns=[9898.823,10332.372,10724.724,11472.192,12124.377,9492.385,10538.451] checksum=59794000\ntoml-lists samples_ns=[7000.052,6983.615,6473.939,7294.318,7276.37,6499.366,8365.449] checksum=59794000\nreload-removal samples_ns=[9846.719,9622.369,10236.231,10571.39,17323.618,11260.043,11343.457] checksum=59780000\n",
+      "fixtures": {
+        "json-lists": {
+          "samples_ns": [
+            9898.823,
+            10332.372,
+            10724.724,
+            11472.192,
+            12124.377,
+            9492.385,
+            10538.451
+          ],
+          "median_ns": 10538.451,
+          "checksum": 59794000
+        },
+        "toml-lists": {
+          "samples_ns": [
+            7000.052,
+            6983.615,
+            6473.939,
+            7294.318,
+            7276.37,
+            6499.366,
+            8365.449
+          ],
+          "median_ns": 7000.052,
+          "checksum": 59794000
+        },
+        "reload-removal": {
+          "samples_ns": [
+            9846.719,
+            9622.369,
+            10236.231,
+            10571.39,
+            17323.618,
+            11260.043,
+            11343.457
+          ],
+          "median_ns": 10571.39,
+          "checksum": 59780000
+        }
+      }
+    },
+    {
+      "round": 1,
+      "library": "goose-config",
+      "raw_stdout": "json-lists samples_ns=[22212.299, 1026.73, 1044.08, 1149.76, 3969.145, 981.507, 985.579] checksum=59794000\ntoml-lists samples_ns=[3153.971, 1158.674, 1183.42, 1167.318, 1228.513, 1087.405, 1072.173] checksum=59794000\nreload-removal samples_ns=[1279.756, 1508.863, 1218.606, 1254.301, 1216.561, 2807.831, 1602.361] checksum=59780000\n",
+      "fixtures": {
+        "json-lists": {
+          "samples_ns": [
+            22212.299,
+            1026.73,
+            1044.08,
+            1149.76,
+            3969.145,
+            981.507,
+            985.579
+          ],
+          "median_ns": 1044.08,
+          "checksum": 59794000
+        },
+        "toml-lists": {
+          "samples_ns": [
+            3153.971,
+            1158.674,
+            1183.42,
+            1167.318,
+            1228.513,
+            1087.405,
+            1072.173
+          ],
+          "median_ns": 1167.318,
+          "checksum": 59794000
+        },
+        "reload-removal": {
+          "samples_ns": [
+            1279.756,
+            1508.863,
+            1218.606,
+            1254.301,
+            1216.561,
+            2807.831,
+            1602.361
+          ],
+          "median_ns": 1279.756,
+          "checksum": 59780000
+        }
+      }
+    },
+    {
+      "round": 2,
+      "library": "koanf",
+      "raw_stdout": "json-lists samples_ns=[13316.156,15372.002,15254.831,12818.612,14372.635,14503.251,15128.421] checksum=59794000\ntoml-lists samples_ns=[11646.125,10736.382,10357.364,10798.766,10726.4,10417.638,10396.782] checksum=59794000\nreload-removal samples_ns=[10805.263,10921.779,12923.37,11226.246,11710.848,12001.728,12495.838] checksum=59780000\n",
+      "fixtures": {
+        "json-lists": {
+          "samples_ns": [
+            13316.156,
+            15372.002,
+            15254.831,
+            12818.612,
+            14372.635,
+            14503.251,
+            15128.421
+          ],
+          "median_ns": 14503.251,
+          "checksum": 59794000
+        },
+        "toml-lists": {
+          "samples_ns": [
+            11646.125,
+            10736.382,
+            10357.364,
+            10798.766,
+            10726.4,
+            10417.638,
+            10396.782
+          ],
+          "median_ns": 10726.4,
+          "checksum": 59794000
+        },
+        "reload-removal": {
+          "samples_ns": [
+            10805.263,
+            10921.779,
+            12923.37,
+            11226.246,
+            11710.848,
+            12001.728,
+            12495.838
+          ],
+          "median_ns": 11710.848,
+          "checksum": 59780000
+        }
+      }
+    },
+    {
+      "round": 2,
+      "library": "goose-config",
+      "raw_stdout": "json-lists samples_ns=[928.057, 858.491, 945.818, 795.97, 1032.066, 806.749, 856.106] checksum=59794000\ntoml-lists samples_ns=[954.181, 970.121, 976.884, 982.219, 911.94, 1123.402, 930.88] checksum=59794000\nreload-removal samples_ns=[1217.911, 1117.417, 1123.517, 1147.699, 1132.518, 1123.456, 1199.212] checksum=59780000\n",
+      "fixtures": {
+        "json-lists": {
+          "samples_ns": [
+            928.057,
+            858.491,
+            945.818,
+            795.97,
+            1032.066,
+            806.749,
+            856.106
+          ],
+          "median_ns": 858.491,
+          "checksum": 59794000
+        },
+        "toml-lists": {
+          "samples_ns": [
+            954.181,
+            970.121,
+            976.884,
+            982.219,
+            911.94,
+            1123.402,
+            930.88
+          ],
+          "median_ns": 970.121,
+          "checksum": 59794000
+        },
+        "reload-removal": {
+          "samples_ns": [
+            1217.911,
+            1117.417,
+            1123.517,
+            1147.699,
+            1132.518,
+            1123.456,
+            1199.212
+          ],
+          "median_ns": 1132.518,
+          "checksum": 59780000
+        }
+      }
+    },
+    {
+      "round": 2,
+      "library": "viper",
+      "raw_stdout": "json-lists samples_ns=[7196.567,8209.95,6510.174,7372.394,7283.18,6779.7,6280.369] checksum=59794000\ntoml-lists samples_ns=[5218.909,4928.688,4362.734,4231.141,5119.554,4671.339,3775.864] checksum=59794000\nreload-removal samples_ns=[5623.559,4748.472,5863.451,5198.5,4849.716,4576.245,4895.381] checksum=59780000\n",
+      "fixtures": {
+        "json-lists": {
+          "samples_ns": [
+            7196.567,
+            8209.95,
+            6510.174,
+            7372.394,
+            7283.18,
+            6779.7,
+            6280.369
+          ],
+          "median_ns": 7196.567,
+          "checksum": 59794000
+        },
+        "toml-lists": {
+          "samples_ns": [
+            5218.909,
+            4928.688,
+            4362.734,
+            4231.141,
+            5119.554,
+            4671.339,
+            3775.864
+          ],
+          "median_ns": 4671.339,
+          "checksum": 59794000
+        },
+        "reload-removal": {
+          "samples_ns": [
+            5623.559,
+            4748.472,
+            5863.451,
+            5198.5,
+            4849.716,
+            4576.245,
+            4895.381
+          ],
+          "median_ns": 4895.381,
+          "checksum": 59780000
+        }
+      }
+    }
+  ],
+  "median_of_run_medians_ns": {
+    "goose-config": {
+      "json-lists": 858.491,
+      "toml-lists": 970.121,
+      "reload-removal": 1132.518
+    },
+    "viper": {
+      "json-lists": 6249.534,
+      "toml-lists": 4671.339,
+      "reload-removal": 4533.193
+    },
+    "koanf": {
+      "json-lists": 10539.656,
+      "toml-lists": 7000.052,
+      "reload-removal": 10571.39
+    }
+  }
+}
