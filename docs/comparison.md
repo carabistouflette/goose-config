@@ -79,3 +79,21 @@ and tracks setting sources. The competitor adapter paths do not supply that
 same contract. Their larger feature sets also do work absent from our core.
 Only present matching-type values are used, so differing missing/error/coercion
 semantics are not timed. Values are views/strings, not copied byte throughput.
+
+## Initial measured baseline
+
+[Raw baseline and provenance](../bench/results/competitors-baseline.json) use
+source revision `6ae9cac4f51a5d991686cce035a2c83c3c07fa7b`, 10,000 operations per batch,
+three rotating rounds and seven samples per fixture/run, pinned to CPU 4.
+Values are medians of run medians in ns/operation; lower is faster.
+
+| Fixture | goose-config | Viper | Koanf |
+| --- | ---: | ---: | ---: |
+| `lookup-small` | 15.6 | 123.0 | 54.6 |
+| `lookup-mixed-wide` | 99.6 | 124.9 | 74.5 |
+| `lookup-last-wide` | 85.7 | 110.6 | 69.3 |
+| `toml-small` | 561.0 | 4,232.7 | 3,060.3 |
+
+This baseline favors goose-config on the small lookup and TOML fixture;
+Koanf wins both wide lookups. No across-the-board performance claim is made.
+The complete raw samples, including variation, are retained.

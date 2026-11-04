@@ -1,0 +1,673 @@
+{
+  "recorded_utc": "2026-11-04T10:20:06.121830+00:00",
+  "revision": "6ae9cac4f51a5d991686cce035a2c83c3c07fa7b",
+  "goose_revision": "eadca409f68210893f366e60d0c2f0dc29a339be",
+  "goose_version": "goose eadca40 (runtime 3025e5810379)",
+  "competitor_metadata": {
+    "build_settings": [
+      {
+        "Key": "-buildmode",
+        "Value": "exe"
+      },
+      {
+        "Key": "-compiler",
+        "Value": "gc"
+      },
+      {
+        "Key": "-trimpath",
+        "Value": "true"
+      },
+      {
+        "Key": "DefaultGODEBUG",
+        "Value": "containermaxprocs=0,cryptocustomrand=1,decoratemappings=0,gotestjsonbuildtext=1,httpcookiemaxnum=0,httpservecontentmaxranges=1,multipathtcp=0,randseednop=0,rsa1024min=0,tlsmlkem=0,tlssecpmlkem=0,tlssha1=1,tracebacklabels=0,updatemaxprocs=0,urlmaxqueryparams=0,urlstrictcolons=0,x509rsacrt=0,x509sha256skid=0,x509sslcertoverrideplatform=0,x509usepolicies=0"
+      },
+      {
+        "Key": "CGO_ENABLED",
+        "Value": "1"
+      },
+      {
+        "Key": "GOARCH",
+        "Value": "amd64"
+      },
+      {
+        "Key": "GOEXPERIMENT",
+        "Value": "nodwarf5"
+      },
+      {
+        "Key": "GOOS",
+        "Value": "linux"
+      },
+      {
+        "Key": "GOAMD64",
+        "Value": "v1"
+      },
+      {
+        "Key": "vcs",
+        "Value": "git"
+      },
+      {
+        "Key": "vcs.revision",
+        "Value": "6ae9cac4f51a5d991686cce035a2c83c3c07fa7b"
+      },
+      {
+        "Key": "vcs.time",
+        "Value": "2026-11-04T10:19:43Z"
+      },
+      {
+        "Key": "vcs.modified",
+        "Value": "false"
+      }
+    ],
+    "dependencies": {
+      "github.com/fsnotify/fsnotify": "v1.9.0",
+      "github.com/go-viper/mapstructure/v2": "v2.4.0",
+      "github.com/knadh/koanf/maps": "v0.1.2",
+      "github.com/knadh/koanf/parsers/toml/v2": "v2.2.2",
+      "github.com/knadh/koanf/providers/rawbytes": "v1.0.1",
+      "github.com/knadh/koanf/v2": "v2.4.1",
+      "github.com/mitchellh/copystructure": "v1.2.0",
+      "github.com/mitchellh/reflectwalk": "v1.0.2",
+      "github.com/pelletier/go-toml/v2": "v2.4.3",
+      "github.com/sagikazarmark/locafero": "v0.11.0",
+      "github.com/sourcegraph/conc": "v0.3.1-0.20240121214520-5f936abd7ae8",
+      "github.com/spf13/afero": "v1.15.0",
+      "github.com/spf13/cast": "v1.10.0",
+      "github.com/spf13/pflag": "v1.0.10",
+      "github.com/spf13/viper": "v1.21.0",
+      "github.com/subosito/gotenv": "v1.6.0",
+      "go.yaml.in/yaml/v3": "v3.0.4",
+      "golang.org/x/sys": "v0.29.0",
+      "golang.org/x/text": "v0.28.0"
+    },
+    "go_version": "go1.27.3-X:nodwarf5",
+    "goarch": "amd64",
+    "gomaxprocs": 1,
+    "goos": "linux",
+    "samples": 7,
+    "semantic_limitations": [
+      "Shared successful lookup and TOML subset only; not feature equivalence.",
+      "No Goose schema declaration, strict kind errors, or atomic rejected-layer behavior is supplied by these adapter paths.",
+      "Typed getters have different conversion and missing-value behavior; fixtures use present values of matching types.",
+      "Final values are checked outside timing; source labels cannot be verified and are not reconstructed."
+    ],
+    "source_labels": "unsupported: neither adapter tracks Goose per-setting source labels"
+  },
+  "gcc": "gcc (GCC) 16.2.1 20260810",
+  "platform": "Linux-7.2.11-arch1-1-x86_64-with-glibc2.44",
+  "cpu": "Intel(R) Core(TM) Ultra 7 258V",
+  "cpu_affinity": 4,
+  "iterations": 10000,
+  "rounds": 3,
+  "samples_per_run": 7,
+  "source_sha256": {
+    "competitors/go.mod": "81775f02aaeea6bd58079291ea70cafd4b3bb2a21bd7a80afb9c757c21c92d5e",
+    "competitors/go.sum": "bc3ab0a0ce5f6774350caff33930212db69b3be8ddf0222eee047845b41be096",
+    "competitors/main.go": "a6e03e9aac935971547acee3fbcc100384d6b3919e51512e25adc9157ff16aa1",
+    "config.goose": "69cbe5cac9842c65cb0e6293d353643984f05fed6e9e4b7b6a5c33965548486d",
+    "toml.goose": "85ec3697079ee849b30d8583dbcfa72d35ba324e777773fcdafe04e289f3398d",
+    "vendor.goose": "c4b021a0928444a5f049a99eb7a542689ea6803d0d2e845c86ba43a0fc6c31c1",
+    "bench/bench.goose": "a463e5dce08fbd847253ccc969e37d0ff9ebd75cc7f15053bd7806666f14592f"
+  },
+  "flags": {
+    "goose": "gcc -O2",
+    "go": "go build -mod=readonly -trimpath"
+  },
+  "runtime_environment": {
+    "GOGC": null,
+    "GOMEMLIMIT": null,
+    "GODEBUG": null,
+    "GOEXPERIMENT": null
+  },
+  "limitations": [
+    "Cross-language/runtime measurements; scalar shared subset only.",
+    "Goose additionally validates schema and types and commits atomically.",
+    "Goose returns source metadata; competitors do not match this contract.",
+    "TOML fixture includes merging and an integer getter; no I/O.",
+    "Frequency, thermals and other system load uncontrolled.",
+    "No dedicated warmup; setup occurs before timing."
+  ],
+  "runs": [
+    {
+      "round": 0,
+      "library": "goose-config",
+      "fixtures": {
+        "lookup-small": {
+          "samples_ns": [
+            19.7443,
+            17.5479,
+            17.5835,
+            17.5492,
+            17.6018,
+            34.447,
+            17.563
+          ],
+          "median_ns": 17.5835,
+          "checksum": 2240000
+        },
+        "lookup-mixed-wide": {
+          "samples_ns": [
+            120.9163,
+            118.8446,
+            116.6107,
+            121.5163,
+            115.3587,
+            114.2387,
+            114.0585
+          ],
+          "median_ns": 116.6107,
+          "checksum": 2240000
+        },
+        "lookup-last-wide": {
+          "samples_ns": [
+            102.0442,
+            102.2898,
+            101.6191,
+            103.4048,
+            101.7854,
+            96.2518,
+            95.4998
+          ],
+          "median_ns": 101.7854,
+          "checksum": 2240000
+        },
+        "toml-small": {
+          "samples_ns": [
+            618.2632,
+            615.4715,
+            603.379,
+            616.1538,
+            628.1842,
+            617.608,
+            624.3076
+          ],
+          "median_ns": 617.608,
+          "checksum": 597800000
+        }
+      }
+    },
+    {
+      "round": 0,
+      "library": "viper",
+      "fixtures": {
+        "lookup-small": {
+          "samples_ns": [
+            130.5756,
+            139.6354,
+            139.3668,
+            142.9664,
+            172.4985,
+            130.0682,
+            128.3581
+          ],
+          "median_ns": 139.3668,
+          "checksum": 2240000
+        },
+        "lookup-mixed-wide": {
+          "samples_ns": [
+            151.6585,
+            154.4169,
+            213.0708,
+            302.026,
+            149.2699,
+            152.3265,
+            153.2917
+          ],
+          "median_ns": 153.2917,
+          "checksum": 2240000
+        },
+        "lookup-last-wide": {
+          "samples_ns": [
+            131.9695,
+            132.6879,
+            137.8798,
+            128.9469,
+            128.202,
+            130.7597,
+            248.606
+          ],
+          "median_ns": 131.9695,
+          "checksum": 2240000
+        },
+        "toml-small": {
+          "samples_ns": [
+            5201.8483,
+            4757.4247,
+            4935.1851,
+            4628.0399,
+            4038.4729,
+            4319.2948,
+            3641.4511
+          ],
+          "median_ns": 4628.0399,
+          "checksum": 597800000
+        }
+      }
+    },
+    {
+      "round": 0,
+      "library": "koanf",
+      "fixtures": {
+        "lookup-small": {
+          "samples_ns": [
+            51.8154,
+            49.5491,
+            50.8774,
+            51.8233,
+            55.169,
+            53.8279,
+            54.3476
+          ],
+          "median_ns": 51.8233,
+          "checksum": 2240000
+        },
+        "lookup-mixed-wide": {
+          "samples_ns": [
+            73.3503,
+            72.4799,
+            73.8042,
+            73.804,
+            74.2815,
+            73.0004,
+            83.5473
+          ],
+          "median_ns": 73.804,
+          "checksum": 2240000
+        },
+        "lookup-last-wide": {
+          "samples_ns": [
+            87.235,
+            60.1335,
+            63.0499,
+            64.4423,
+            66.8054,
+            81.6459,
+            73.2131
+          ],
+          "median_ns": 66.8054,
+          "checksum": 2240000
+        },
+        "toml-small": {
+          "samples_ns": [
+            3112.5386,
+            3141.0869,
+            3158.0325,
+            2987.3661,
+            2929.5306,
+            3024.772,
+            3041.726
+          ],
+          "median_ns": 3041.726,
+          "checksum": 597800000
+        }
+      }
+    },
+    {
+      "round": 1,
+      "library": "viper",
+      "fixtures": {
+        "lookup-small": {
+          "samples_ns": [
+            88.3603,
+            91.8141,
+            123.1145,
+            90.7807,
+            91.1021,
+            93.2215,
+            86.3049
+          ],
+          "median_ns": 91.1021,
+          "checksum": 2240000
+        },
+        "lookup-mixed-wide": {
+          "samples_ns": [
+            100.5908,
+            117.1563,
+            135.0395,
+            158.273,
+            101.357,
+            102.3145,
+            103.3591
+          ],
+          "median_ns": 103.3591,
+          "checksum": 2240000
+        },
+        "lookup-last-wide": {
+          "samples_ns": [
+            90.0051,
+            89.9468,
+            93.3347,
+            90.5253,
+            92.1249,
+            117.1663,
+            155.6054
+          ],
+          "median_ns": 92.1249,
+          "checksum": 2240000
+        },
+        "toml-small": {
+          "samples_ns": [
+            3201.5252,
+            3163.9055,
+            3209.1053,
+            3112.1107,
+            3186.201,
+            3351.9988,
+            3257.9784
+          ],
+          "median_ns": 3201.5252,
+          "checksum": 597800000
+        }
+      }
+    },
+    {
+      "round": 1,
+      "library": "koanf",
+      "fixtures": {
+        "lookup-small": {
+          "samples_ns": [
+            50.9521,
+            58.0373,
+            51.4602,
+            58.758,
+            55.5955,
+            51.9482,
+            54.6237
+          ],
+          "median_ns": 54.6237,
+          "checksum": 2240000
+        },
+        "lookup-mixed-wide": {
+          "samples_ns": [
+            74.224,
+            75.9991,
+            74.4827,
+            73.4552,
+            74.1168,
+            75.5879,
+            78.839
+          ],
+          "median_ns": 74.4827,
+          "checksum": 2240000
+        },
+        "lookup-last-wide": {
+          "samples_ns": [
+            80.8214,
+            87.775,
+            74.7919,
+            69.2843,
+            63.9979,
+            63.0478,
+            60.4826
+          ],
+          "median_ns": 69.2843,
+          "checksum": 2240000
+        },
+        "toml-small": {
+          "samples_ns": [
+            3060.2649,
+            2979.6435,
+            2794.4371,
+            3256.4057,
+            3127.8986,
+            3003.782,
+            3196.5216
+          ],
+          "median_ns": 3060.2649,
+          "checksum": 597800000
+        }
+      }
+    },
+    {
+      "round": 1,
+      "library": "goose-config",
+      "fixtures": {
+        "lookup-small": {
+          "samples_ns": [
+            14.1854,
+            16.3433,
+            14.0393,
+            14.0383,
+            14.0361,
+            14.0376,
+            14.0348
+          ],
+          "median_ns": 14.0383,
+          "checksum": 2240000
+        },
+        "lookup-mixed-wide": {
+          "samples_ns": [
+            94.7281,
+            94.2998,
+            91.6091,
+            92.5324,
+            93.3569,
+            92.5196,
+            112.8681
+          ],
+          "median_ns": 93.3569,
+          "checksum": 2240000
+        },
+        "lookup-last-wide": {
+          "samples_ns": [
+            82.722,
+            81.6012,
+            86.2558,
+            85.8695,
+            86.0172,
+            85.0882,
+            85.6943
+          ],
+          "median_ns": 85.6943,
+          "checksum": 2240000
+        },
+        "toml-small": {
+          "samples_ns": [
+            587.3342,
+            567.1283,
+            546.5812,
+            530.4551,
+            501.6608,
+            481.875,
+            470.7754
+          ],
+          "median_ns": 530.4551,
+          "checksum": 597800000
+        }
+      }
+    },
+    {
+      "round": 2,
+      "library": "koanf",
+      "fixtures": {
+        "lookup-small": {
+          "samples_ns": [
+            54.912,
+            71.2706,
+            59.5341,
+            59.7362,
+            60.9892,
+            58.5954,
+            59.2352
+          ],
+          "median_ns": 59.5341,
+          "checksum": 2240000
+        },
+        "lookup-mixed-wide": {
+          "samples_ns": [
+            117.4941,
+            81.1655,
+            84.2032,
+            81.0843,
+            82.2896,
+            79.5801,
+            81.5095
+          ],
+          "median_ns": 81.5095,
+          "checksum": 2240000
+        },
+        "lookup-last-wide": {
+          "samples_ns": [
+            98.484,
+            95.7473,
+            104.1342,
+            94.0649,
+            76.8094,
+            71.8638,
+            71.8403
+          ],
+          "median_ns": 94.0649,
+          "checksum": 2240000
+        },
+        "toml-small": {
+          "samples_ns": [
+            3836.4392,
+            3880.1177,
+            5176.3441,
+            6044.8317,
+            5717.3623,
+            4250.8958,
+            3967.9313
+          ],
+          "median_ns": 4250.8958,
+          "checksum": 597800000
+        }
+      }
+    },
+    {
+      "round": 2,
+      "library": "goose-config",
+      "fixtures": {
+        "lookup-small": {
+          "samples_ns": [
+            15.7315,
+            15.6188,
+            15.599,
+            15.5978,
+            16.5836,
+            15.597,
+            15.5969
+          ],
+          "median_ns": 15.599,
+          "checksum": 2240000
+        },
+        "lookup-mixed-wide": {
+          "samples_ns": [
+            106.0616,
+            100.8186,
+            109.0939,
+            99.5851,
+            94.9227,
+            97.8377,
+            94.626
+          ],
+          "median_ns": 99.5851,
+          "checksum": 2240000
+        },
+        "lookup-last-wide": {
+          "samples_ns": [
+            85.4554,
+            85.1137,
+            85.4234,
+            85.3327,
+            80.4454,
+            81.5561,
+            81.5655
+          ],
+          "median_ns": 85.1137,
+          "checksum": 2240000
+        },
+        "toml-small": {
+          "samples_ns": [
+            521.9639,
+            522.8979,
+            542.3787,
+            570.6789,
+            568.545,
+            572.7335,
+            560.9648
+          ],
+          "median_ns": 560.9648,
+          "checksum": 597800000
+        }
+      }
+    },
+    {
+      "round": 2,
+      "library": "viper",
+      "fixtures": {
+        "lookup-small": {
+          "samples_ns": [
+            122.9888,
+            125.2796,
+            126.3628,
+            179.5118,
+            114.9867,
+            112.0777,
+            108.0782
+          ],
+          "median_ns": 122.9888,
+          "checksum": 2240000
+        },
+        "lookup-mixed-wide": {
+          "samples_ns": [
+            124.9328,
+            132.3542,
+            220.1497,
+            222.0366,
+            120.4247,
+            121.8277,
+            124.9459
+          ],
+          "median_ns": 124.9459,
+          "checksum": 2240000
+        },
+        "lookup-last-wide": {
+          "samples_ns": [
+            111.3588,
+            110.6453,
+            104.7874,
+            104.2085,
+            114.0987,
+            173.2346,
+            106.7757
+          ],
+          "median_ns": 110.6453,
+          "checksum": 2240000
+        },
+        "toml-small": {
+          "samples_ns": [
+            4095.9728,
+            3410.5427,
+            3704.7538,
+            4232.6988,
+            5000.027,
+            5828.1152,
+            4980.5547
+          ],
+          "median_ns": 4232.6988,
+          "checksum": 597800000
+        }
+      }
+    }
+  ],
+  "median_of_run_medians_ns": {
+    "goose-config": {
+      "lookup-small": 15.599,
+      "lookup-mixed-wide": 99.5851,
+      "lookup-last-wide": 85.6943,
+      "toml-small": 560.9648
+    },
+    "viper": {
+      "lookup-small": 122.9888,
+      "lookup-mixed-wide": 124.9459,
+      "lookup-last-wide": 110.6453,
+      "toml-small": 4232.6988
+    },
+    "koanf": {
+      "lookup-small": 54.6237,
+      "lookup-mixed-wide": 74.4827,
+      "lookup-last-wide": 69.2843,
+      "toml-small": 3060.2649
+    }
+  }
+}
