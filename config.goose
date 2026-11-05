@@ -166,7 +166,9 @@ fn locate_canonical(store: Store&, key: const u8[:]) -> i64 {
 
 // Canonical reads retain their original path. Aliases are searched only on a
 // miss, by bounded binary search over owned keys and direct canonical IDs.
-fn locate(store: Store&, key: const u8[:]) -> i64 {
+// Keep alias metadata out of an out-of-line canonical lookup ABI. The pinned
+// frontend must inline this resolver before the native compiler optimizes it.
+inline fn locate(store: Store&, key: const u8[:]) -> i64 {
     let id = locate_canonical(store, key);
     if id >= 0 || key.len > MAX_KEY_BYTES { return id; }
     var low = 0; var high = store.aliases.len;
