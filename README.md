@@ -26,7 +26,7 @@ compiler locally; see the development requirements below.
 For another project, declare a full-commit dependency in its root Goose file:
 
 ```goose
-import config from "carabistouflette/goose-config@7f72dc34d7c154014ca2dc4a0c087dfac0097331";
+import config from "carabistouflette/goose-config@64004f57ada6cb52a5dd2d644769210d4dec57d7";
 import config.toml; // optional; omit for key/value-only applications
 import std;
 
@@ -131,6 +131,8 @@ there is no automatic fallback to old values.
 Textual overrides accept:
 
 - Text: arbitrary bytes, including empty strings, NUL and invalid UTF-8. No trimming.
+- Duration: checked compound units such as `250ms` and `1m30s`; see the
+  [exact duration grammar](docs/durations.md).
 - Integer: optional `+`/`-` and one or more decimal digits within `i64`.
 - Float: optional sign, decimal digits, optional fraction with digits on both sides
   of `.`, and optional `e`/`E` exponent with optional sign and required digits.
@@ -138,7 +140,7 @@ Textual overrides accept:
   results are accepted; correctly rounded underflow to signed zero is allowed.
 - Boolean: exactly `true` or `false`.
 
-Whitespace, hexadecimal, separators, suffixes, `.5`, `1.`, NaN and infinity are
+For Integer/Float, whitespace, hexadecimal, separators, suffixes, `.5`, `1.`, NaN and infinity are
 not accepted as textual numbers. Numeric tokens are bounded before conversion.
 
 ## TOML

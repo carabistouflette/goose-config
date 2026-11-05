@@ -50,6 +50,7 @@ def corpus():
               b'9223372036854775807ns1ns', b'-9223372036854775808ns1ns', b'106752d',
               b'0'*126+b'ns', b'0'*127+b'ns', b'0.'+b'9'*125+b'h',
               b'1\x00s', b'1\xffs', b'1\xc2s', b'1\xce\xbcs', b'1\xc2\xb5s', b'1\xc0\xafs']
+    tokens += [b'0'*n+unit.encode() for n in (125, 126) for unit in ('µs', 'μs')]
     rng = random.Random(SEED)
     units = tuple(UNITS)
     for _ in range(700):

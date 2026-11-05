@@ -17,7 +17,7 @@ policy. Its optional filesystem dependency is separate from the core library.
 
 ## Typed lists
 
-Declare `Kind.TextList`, `IntegerList`, `FloatList`, or `BooleanList`.
+Declare `Kind.TextList`, `IntegerList`, `FloatList`, `BooleanList`, or `DurationList`.
 Every element must match the declared kind; scalar/list coercion is rejected.
 `Field` numeric bounds apply to each numeric element. An empty list is present
 and satisfies `required`; nonempty/business rules remain application validation.
@@ -35,7 +35,7 @@ let ports, error = config::get_integer_list(store, "ports");
 assert(error.len == 0 && ports[0] == 8080);
 ```
 
-The four `get_*_list` getters return an owned array and an owned error. Discard
+The five `get_*_list` getters return an owned array and an owned error. Discard
 the array on failure. Returned values survive store updates/destruction. Text
 elements are owned, independent byte arrays; iterate them because Goose does
 not randomly index arrays of variable-sized elements. Scalar Text getters

@@ -66,6 +66,8 @@ fn layers() {
     assert(oe.len == 0 && owned.len == 2 && owned[0].nanoseconds == 1000000000 && owned[1].nanoseconds == 250000000);
     assert(config::apply_env_values(store, bindings, [config::EnvValue { "DELAY", "2s" }, config::EnvValue { "RETRY", "1s:bad" }]).len > 0);
     duration_is(store, 1250000000, "DELAY"); duration_survivors(store, [1000000000, 250000000], "RETRY");
+    assert(config::apply_env_values(store, bindings, [config::EnvValue { "RETRY", "" }]).len == 0);
+    duration_survivors(store, [], "RETRY");
     let cli = [config::Binding { "delay", "delay" }, config::Binding { "retry", "retry" }];
     assert(config::apply_cli(store, cli, ["--delay=.5s", "--retry", "1s", "--retry=1ms"]).len == 0);
     duration_is(store, 500000000, "--delay");
@@ -134,6 +136,12 @@ fn limits() {
     duration_is(store, 1, "seed");
     let values_after, error = config::get_duration_list(store, "retry"); assert(error.len == 0 && values_after.len == 256);
     for value in values_after { assert(value.nanoseconds == 0); }
+    assert(config::apply_json(store, "{\"retry\":[\"9223372036854775807ns\",\"-9223372036854775808ns\"]}", "bounds.json").len == 0);
+    let extremes, xe = config::get_duration_list(store, "retry");
+    assert(xe.len == 0 && extremes.len == 2 && extremes[0].nanoseconds == 9223372036854775807 && extremes[1].nanoseconds == -9223372036854775808);
+    assert(config::apply_toml(store, "retry=['9223372036854775807ns','-9223372036854775808ns']", "bounds.toml").len == 0);
+    let ends, de = config::get_duration_list(store, "retry");
+    assert(de.len == 0 && ends.len == 2 && ends[0].nanoseconds == 9223372036854775807 && ends[1].nanoseconds == -9223372036854775808);
 }
 fn native_environment() {
     var store = config::Store { .. };
