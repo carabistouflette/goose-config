@@ -6,7 +6,7 @@ export SANITIZER_OPT
 TESTS = config behavior toml overloads index ownership schema lists toml-lists json-layer bindings reload durations aliases typed-settings
 SOURCES = config.goose toml.goose vendor.goose json_layer.goose bindings.goose reload.goose typed.goose
 
-.PHONY: setup format check test integration property security sanitize sanitizer-config release conformance bench worker generated generated-check
+.PHONY: setup format check test integration property security sanitize sanitizer-config release conformance bench worker generated generated-check typed-limit
 setup:
 	./scripts/setup-goose.sh
 format:
@@ -32,11 +32,14 @@ check: generated-check
 	$(GOOSE) check bench/memory.goose
 	$(GOOSE) check bench/durations.goose
 	$(GOOSE) check bench/aliases.goose
+	$(GOOSE) check bench/typed_settings.goose
 test: integration
 	python3 tests/generate_settings.py
 	python3 -O tests/generate_settings.py
 	python3 tests/typed-ownership.py $(GOOSE)
 	python3 tests/typed-codegen.py $(GOOSE)
+	python3 tests/benchmark_typed.py
+	python3 -O tests/benchmark_typed.py
 	python3 tests/benchmark_aliases.py
 	python3 tests/benchmark_duration.py
 	python3 tests/benchmark_measure.py
@@ -128,3 +131,7 @@ worker:
 	python3 tests/worker.py $(GOOSE) --cc clang
 	python3 tests/worker.py $(GOOSE) --cc gcc --sanitize
 	python3 tests/worker.py $(GOOSE) --cc clang --sanitize
+
+typed-limit:
+	python3 tests/typed-limit.py $(GOOSE) --cc gcc
+	python3 tests/typed-limit.py $(GOOSE) --cc clang

@@ -26,7 +26,7 @@ compiler locally; see the development requirements below.
 For another project, declare a full-commit dependency in its root Goose file:
 
 ```goose
-import config from "carabistouflette/goose-config@d654a6eb6138e676dfb6e49037c707cbf954a41d";
+import config from "carabistouflette/goose-config@e5d077db98fe42cf1008721124aba886747f5c7e";
 import config.toml; // optional; omit for key/value-only applications
 import std;
 

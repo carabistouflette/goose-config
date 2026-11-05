@@ -75,7 +75,7 @@ fn report(name: const u8[:], samples: f64[:], checksum: i64) {
     sort(samples); print("median=", samples[SAMPLES / 2], " min=", samples[0], " max=", samples[SAMPLES - 1]);
 }
 fn scenario<Load>(name: const u8[:], count: i64, mode: i64, generated: bool) {
-    let large = mode == 1 || mode == 2 || mode == 4;
+    let large = mode == 1 || mode == 2 || mode == 4 || mode == 5;
     let schema = typed_fixture::schema();
     let a_text = document(true, large, false); let b_text = document(false, large, mode == 3, mode == 6);
     var a = config::Store { .. }; var b = config::Store { .. };
@@ -120,7 +120,7 @@ fn main() {
     let arguments = args(); assert(arguments.len == 3);
     let count, ok = parse_int(arguments[1], 10); assert(ok && count > 0 && count <= 100000);
     let generated = arguments[2] == "generated"; assert(generated || arguments[2] == "reference");
-    let names = ["load-small", "load-owned", "cold-owned", "optional-removal", "refresh-owned", "reject-validator", "reject-missing", "application-read"];
+    let names = ["load-small", "load-owned", "cold-owned", "optional-removal", "refresh-owned", "reject-validator", "reject-schema", "application-read"];
     for name, mode in names {
         if generated { scenario(name, count, mode, generated, typed_fixture::load); }
         else { scenario(name, count, mode, generated, typed_reference::load); }
