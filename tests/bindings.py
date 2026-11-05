@@ -18,6 +18,8 @@ def main():
         GOOSE_CONFIG_TEST_INVALID="1.0",
         GOOSE_CONFIG_TEST_LARGE="x" * 4097,
         GOOSE_CONFIG_TEST_LIST="2:-3",
+        GOOSE_CONFIG_TEST_DURATION="1.25s",
+        GOOSE_CONFIG_TEST_DURATIONS="1s:250ms",
     )
     for executable in sys.argv[1:]:
         subprocess.run([executable, "--environment"], env=environment, check=True, timeout=30)

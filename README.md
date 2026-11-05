@@ -74,6 +74,10 @@ currently target a Linux development environment.
 
 ## API
 
+[Duration settings](docs/durations.md) add typed nanoseconds and lists, checked
+compound-unit parsing, and consistent JSON/TOML/env/CLI/reload validation.
+See the [runnable example](examples/durations.goose).
+
 | API | Contract |
 | --- | --- |
 | `Field { key, kind, required = false, ... }` | Declare one setting and optional inclusive bounds |
@@ -87,6 +91,7 @@ currently target a Linux development environment.
 | `get_text_list`, `get_integer_list`, `get_float_list`, `get_boolean_list` | Return an owned array and error; list replacement is whole-value |
 | `apply_toml(store, text, source)` | Atomically apply a TOML document; requires `import config.toml` |
 | `validate(store)` | Check required settings after layering |
+| `parse_duration`, `get_duration`, `get_duration_list` | Checked compound-unit parsing and typed nanoseconds; [contracts](docs/durations.md) |
 | `get_integer`, `get_float`, `get_boolean`, `get_text` | Return `(value, error)`; no implicit fallback or coercion |
 | `source(store, key)` | Return `(borrowed source label, error)` for a present setting |
 
@@ -100,7 +105,7 @@ further explicit layers are allowed. Successful initialization resets all values
 `Field` has `int_min`/`int_max` (`i64`) and `float_min`/`float_max` (`f64`), defaulting
 to the full finite range. Bounds are inclusive, must be ordered, and float bounds
 must be finite. Both pairs are validated for every field; only its matching kind
-uses them, including each element of its matching list kind. Integer bounds
+uses them, including each element of its matching list kind. Integer and Duration bounds
 remain integers, including above 2^53. Types and ranges
 are checked on every apply; required presence is checked only by `validate`.
 Application-specific rules, including allowed text choices, remain application

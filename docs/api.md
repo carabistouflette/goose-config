@@ -7,10 +7,11 @@ Optional imports: `config.toml`, `config.json_layer`, `config.bindings`,
 
 ## Supported types
 
-- `Kind`: Text, Integer, Float, Boolean, TextList, IntegerList, FloatList, BooleanList.
+- `Kind`: Text, Integer, Float, Boolean, TextList, IntegerList, FloatList, BooleanList, Duration, DurationList.
+- `Duration { nanoseconds: i64 = 0 }`: a canonical signed duration.
 - `Field`, in order: key, kind, required=false, int_min=i64 minimum,
   int_max=i64 maximum, float_min=negative largest finite f64,
-  float_max=largest finite f64. Both inclusive bound pairs must be valid.
+  float_max=largest finite f64. Both inclusive bound pairs must be valid; Duration/DurationList use integer nanosecond bounds.
 - `Override { key, value, source }`: each field is `const u8[:]`.
 - `ListOverride { key, values, source }`: key/source are `const u8[:]`;
   values is `const (const u8[:])[:]`.
@@ -34,6 +35,9 @@ apply(store: Store&, inputs: Override[:]) -> error
 apply_lists(store: Store&, inputs: ListOverride[:]) -> error
 validate(store: Store&) -> error
 get_integer(store: Store&, key: const u8[:]) -> i64, error
+parse_duration(text: const u8[:]) -> Duration, error
+get_duration(store: Store&, key: const u8[:]) -> Duration, error
+get_duration_list(store: Store&, key: const u8[:]) -> Duration[>..], error
 get_float(store: Store&, key: const u8[:]) -> f64, error
 get_boolean(store: Store&, key: const u8[:]) -> bool, error
 get_text(store: Store&, key: const u8[:]) -> const u8[:], error
@@ -68,7 +72,7 @@ wording, ordering and positions are not stable APIs.
 
 Supported constants: MAX_FIELDS=256, MAX_KEY_BYTES=256, MAX_VALUE_BYTES=4096,
 MAX_SOURCE_BYTES=256, MAX_NUMBER_BYTES=128, MAX_LIST_ITEMS=256,
-MAX_CLI_ARGUMENTS=512, MAX_LAYERS=32, JSON_MAX_INPUT_BYTES=1048576,
+MAX_DURATION_BYTES=128, MAX_CLI_ARGUMENTS=512, MAX_LAYERS=32, JSON_MAX_INPUT_BYTES=1048576,
 JSON_MAX_DEPTH=64 (including root), JSON_MAX_NODES=65536, JSON_MAX_WORK=16777216.
 They are limits, not knobs. TOML's documented limits also constrain inputs;
 its private parser symbols/constants are not supported APIs.
@@ -96,3 +100,5 @@ All other visible symbols are internal: Store fields, Span/Item/Value/Candidate/
 OwnedField/BoundSpan/JsonReader, lookup constants, helpers, `config_toml`, and
 storage/layout/algorithm/timing behavior. `publish_store` requires distinct
 stores and is not a public clone API.
+
+Duration grammar, exact fractional truncation and layer rules: [duration settings](durations.md).

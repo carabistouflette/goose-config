@@ -133,3 +133,6 @@ validation and synchronization. Reload is atomic with respect to reported
 errors, not a lock-free/concurrent operation. It does not watch files or retain
 untrusted source text for automatic replay. Allocation failure follows the
 Goose runtime policy rather than returning a configuration error.
+
+[Duration settings](durations.md) add typed nanoseconds and lists across these
+same layer and replacement-reload contracts.

@@ -17,6 +17,10 @@ fn toml_value(field: OwnedField&, doc: config_toml::Document&, id: i64,
         let text = config_toml::text(doc, id);
         if text.len > MAX_VALUE_BYTES { return value, problem("TOML string exceeds byte limit", key, origin); }
         value.text = text;
+    } else if node.kind == config_toml::Kind.String && field.kind == Kind.Duration {
+        let number, issue = duration_number(config_toml::text(doc, id));
+        if issue.len > 0 { return value, problem(issue, key, origin); }
+        value.integer = number;
     } else if node.kind == config_toml::Kind.Integer && field.kind == Kind.Integer { value.integer = node.integer; }
     else if node.kind == config_toml::Kind.Float && field.kind == Kind.Float { value.number = node.number; }
     else if node.kind == config_toml::Kind.Boolean && field.kind == Kind.Boolean { value.boolean = node.boolean; }

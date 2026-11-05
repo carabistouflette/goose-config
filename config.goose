@@ -8,21 +8,24 @@ const MAX_VALUE_BYTES = 4096;
 const MAX_SOURCE_BYTES = 256;
 const MAX_NUMBER_BYTES = 128;
 const MAX_LIST_ITEMS = 256;
+const MAX_DURATION_BYTES = 128;
 // Internal accelerator bounds, not Store tuning parameters. The sorted index
 // remains the deterministic fallback when eight probes cannot place a key.
 const LOOKUP_SLOTS = 512;
 const LOOKUP_PROBES = 8;
 const LOOKUP_HASH_BYTES = 32;
 
-enum Kind { Text, Integer, Float, Boolean, TextList, IntegerList, FloatList, BooleanList }
+enum Kind { Text, Integer, Float, Boolean, TextList, IntegerList, FloatList, BooleanList, Duration, DurationList }
+struct Duration { nanoseconds: i64 = 0 }
 fn list_kind(kind: Kind) -> bool {
-    kind == Kind.TextList || kind == Kind.IntegerList || kind == Kind.FloatList || kind == Kind.BooleanList
+    kind == Kind.TextList || kind == Kind.IntegerList || kind == Kind.FloatList || kind == Kind.BooleanList || kind == Kind.DurationList
 }
 fn scalar_kind(kind: Kind) -> Kind {
     if kind == Kind.TextList { return Kind.Text; }
     if kind == Kind.IntegerList { return Kind.Integer; }
     if kind == Kind.FloatList { return Kind.Float; }
     if kind == Kind.BooleanList { return Kind.Boolean; }
+    if kind == Kind.DurationList { return Kind.Duration; }
     kind
 }
 struct Field {
@@ -295,7 +298,8 @@ fn publish_store(destination: Store&, source: Store&) {
 }
 
 fn range_error(field: OwnedField&, value: Candidate&) -> bool {
-    if scalar_kind(field.kind) == Kind.Integer { return value.integer < field.int_min || value.integer > field.int_max; }
+    let kind = scalar_kind(field.kind);
+    if kind == Kind.Integer || kind == Kind.Duration { return value.integer < field.int_min || value.integer > field.int_max; }
     if scalar_kind(field.kind) == Kind.Float { return !finite(value.number) || value.number < field.float_min || value.number > field.float_max; }
     false
 }
@@ -322,6 +326,75 @@ fn decimal(s: const u8[:], floating: bool) -> bool {
     }
     i == s.len
 }
+// Parse bounded duration text without allocations or floating-point rounding.
+// Unsigned magnitudes admit abs(i64 minimum) without overflowing a signed value.
+fn duration_digit(c: u8) -> bool { c >= '0' && c <= '9' }
+fn duration_unit(unit: const u8[:]) -> u64 {
+    if unit == "ns" { return 1; }
+    if unit == "us" || unit == "µs" || unit == "μs" { return 1000; }
+    if unit == "ms" { return 1000000; }
+    if unit == "s" { return 1000000000; }
+    if unit == "m" { return 60000000000; }
+    if unit == "h" { return 3600000000000; }
+    if unit == "d" { return 86400000000000; }
+    0
+}
+fn duration_number(text: const u8[:]) -> i64, const u8[:] {
+    if text.len > MAX_DURATION_BYTES { return 0, "duration exceeds byte limit"; }
+    if text.len == 0 { return 0, "invalid duration syntax"; }
+    var at = 0;
+    var negative = false;
+    if text[at] == '+' || text[at] == '-' { negative = text[at] == '-'; at++; }
+    if at == text.len { return 0, "invalid duration syntax"; }
+    if text[at..] == "0" { return 0, ""; }
+    let limit: u64 = if negative { 9223372036854775808 } else { 9223372036854775807 };
+    var total: u64 = 0;
+    while at < text.len {
+        let begin = at;
+        var whole: u64 = 0;
+        while at < text.len && duration_digit(text[at]) {
+            let digit = (text[at] - '0') as u64;
+            if whole > (limit - digit) / 10 { return 0, "duration outside i64 nanoseconds"; }
+            whole = whole * 10 + digit; at++;
+        }
+        let integer_digits = at - begin;
+        var fraction_begin = at;
+        var fraction_end = at;
+        if at < text.len && text[at] == '.' {
+            at++; fraction_begin = at;
+            while at < text.len && duration_digit(text[at]) { at++; }
+            fraction_end = at;
+        }
+        if integer_digits == 0 && fraction_begin == fraction_end { return 0, "invalid duration syntax"; }
+        let unit_begin = at;
+        while at < text.len && !duration_digit(text[at]) && text[at] != '.' { at++; }
+        let unit = duration_unit(text[unit_begin..at]);
+        if unit == 0 { return 0, "invalid duration unit"; }
+        let remaining = limit - total;
+        if whole > remaining / unit { return 0, "duration outside i64 nanoseconds"; }
+        let scaled = whole * unit;
+        // Reverse decimal recurrence computes floor(fraction*unit) exactly;
+        // each intermediate is <10*unit, including the fixed24h day.
+        var fraction: u64 = 0;
+        var digit_at = fraction_end;
+        while digit_at > fraction_begin {
+            digit_at--;
+            fraction = ((text[digit_at] - '0') * unit + fraction) / 10;
+        }
+        if fraction > remaining - scaled { return 0, "duration outside i64 nanoseconds"; }
+        total += scaled + fraction;
+    }
+    if negative {
+        if total == 9223372036854775808 { return -9223372036854775808, ""; }
+        return -(total as i64), "";
+    }
+    return total as i64, "";
+}
+fn parse_duration(text: const u8[:]) -> Duration, u8[>..] {
+    let number, issue = duration_number(text);
+    if issue.len > 0 { return Duration { .. }, problem(issue); }
+    return Duration { number }, [];
+}
 fn parse_value(field: OwnedField&, input: Override&) -> Candidate, u8[>..] {
     var v = Candidate { source: input.source, text: "", .. };
     if list_kind(field.kind) { return v, problem("expected a list override", input.key, input.source); }
@@ -329,6 +402,10 @@ fn parse_value(field: OwnedField&, input: Override&) -> Candidate, u8[>..] {
     else if field.kind == Kind.Boolean {
         if input.value != "true" && input.value != "false" { return v, problem("expected true or false", input.key, input.source); }
         v.boolean = input.value == "true";
+    } else if field.kind == Kind.Duration {
+        let number, issue = duration_number(input.value);
+        if issue.len > 0 { return v, problem(issue, input.key, input.source); }
+        v.integer = number;
     } else {
         if !decimal(input.value, field.kind == Kind.Float) { return v, problem("invalid decimal number", input.key, input.source); }
         if field.kind == Kind.Integer {
@@ -500,6 +577,11 @@ fn get_integer(store: Store&, key: const u8[:]) -> i64, u8[>..] {
     if error.len > 0 { return 0, error; }
     return store.values[id].integer, [];
 }
+fn get_duration(store: Store&, key: const u8[:]) -> Duration, u8[>..] {
+    let id, error = typed_access(store, key, Kind.Duration);
+    if error.len > 0 { return Duration { .. }, error; }
+    return Duration { store.values[id].integer }, [];
+}
 fn get_float(store: Store&, key: const u8[:]) -> f64, u8[>..] {
     let id, error = typed_access(store, key, Kind.Float);
     if error.len > 0 { return 0.0, error; }
@@ -547,6 +629,14 @@ fn get_integer_list(store: Store&, key: const u8[:]) -> i64[>..], u8[>..] {
     let list = store.values[id].payload;
     for index in list.len { values.push(store.items[list.start + index].integer); }
     return values, [];
+}
+fn get_duration_list(store: Store&, key: const u8[:]) -> Duration[>..], u8[>..] {
+    var out: Duration[>..] = [];
+    let id, error = typed_access(store, key, Kind.DurationList);
+    if error.len > 0 { return out, error; }
+    let span = store.values[id].payload;
+    for item in store.items[span.start..span.start + span.len] { out.push(Duration { item.integer }); }
+    return out, [];
 }
 fn get_float_list(store: Store&, key: const u8[:]) -> f64[>..], u8[>..] {
     var values: f64[>..] = [];

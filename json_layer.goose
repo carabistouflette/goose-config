@@ -125,6 +125,14 @@ fn json_scalar(r: JsonReader&, kind: Kind, out: Item&, depth: i64) {
     if kind == Kind.Text && c == '"' {
         let start = r.bytes.len; json_string(r, r.bytes, start + MAX_VALUE_BYTES);
         out.text = Span { start, r.bytes.len - start };
+    } else if kind == Kind.Duration && c == '"' {
+        // Duration tokens are parsed numbers, not retained Text payloads.
+        // Keep scratch separate so numeric lists retain their per-item limit.
+        var text: u8[>..] = []; json_string(r, text, MAX_DURATION_BYTES);
+        if r.bad { return; }
+        let number, issue = duration_number(text);
+        if issue.len > 0 { r.bad = true; return; }
+        out.integer = number;
     } else if kind == Kind.Boolean && c == 't' { out.boolean = json_literal(r, "true"); }
     else if kind == Kind.Boolean && c == 'f' { json_literal(r, "false"); out.boolean = false; }
     else if (kind == Kind.Integer || kind == Kind.Float) && (c == '-' || (c >= '0' && c <= '9')) { json_number(r, kind, out); }

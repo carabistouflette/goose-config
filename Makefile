@@ -3,7 +3,7 @@ BENCH_ITERATIONS ?= 1000
 RELEASE_CC ?= gcc
 SANITIZER_OPT ?= -O2
 export SANITIZER_OPT
-TESTS = config behavior toml overloads index ownership schema lists toml-lists json-layer bindings reload
+TESTS = config behavior toml overloads index ownership schema lists toml-lists json-layer bindings reload durations
 SOURCES = config.goose toml.goose vendor.goose json_layer.goose bindings.goose reload.goose
 
 .PHONY: setup format check test integration property security sanitize sanitizer-config release conformance bench worker
@@ -13,7 +13,8 @@ format:
 	$(GOOSE) format $(SOURCES) examples tests bench
 check:
 	$(GOOSE) format --check $(SOURCES) examples tests bench
-	@set -e; for name in $(TESTS) property nested common-model security toml-decoder; do $(GOOSE) check tests/$$name.goose; done
+	@set -e; for name in $(TESTS) property nested common-model security toml-decoder duration-model; do $(GOOSE) check tests/$$name.goose; done
+	$(GOOSE) check examples/durations.goose
 	$(GOOSE) check examples/settings.goose
 	$(GOOSE) check examples/layered.goose
 	$(GOOSE) check bench/bench.goose
@@ -34,7 +35,8 @@ test: integration
 		$(GOOSE) build tests/$$name.goose -o .build/$$name; ./.build/$$name; \
 		$(GOOSE) build tests/$$name.goose --debug --no-bce -o .build/$$name-debug; ./.build/$$name-debug; \
 	done
-	python3 tests/bindings.py .build/bindings .build/bindings-debug .build/reload .build/reload-debug
+	python3 tests/bindings.py .build/bindings .build/bindings-debug .build/reload .build/reload-debug .build/durations .build/durations-debug
+	$(GOOSE) run examples/durations.goose
 	$(GOOSE) run examples/settings.goose
 	python3 tests/examples.py $(GOOSE)
 	python3 tests/ownership.py $(GOOSE)
@@ -42,6 +44,9 @@ integration:
 	python3 tests/integration.py $(GOOSE)
 property:
 	mkdir -p .build
+	$(GOOSE) build tests/duration-model.goose --cc gcc -O2 -o .build/duration-model
+	$(GOOSE) build tests/duration-model.goose --debug --no-bce -o .build/duration-model-debug
+	python3 tests/duration-model.py .build/duration-model .build/duration-model-debug
 	$(GOOSE) build tests/property.goose -o .build/property
 	$(GOOSE) build tests/property.goose --debug --no-bce -o .build/property-debug
 	python3 tests/property.py .build/property .build/property-debug
@@ -60,11 +65,13 @@ sanitizer-config:
 	python3 tests/sanitizer-config.py
 sanitize: sanitizer-config
 	mkdir -p .build
+	$(GOOSE) build tests/duration-model.goose --standalone --debug --no-bce --cc ./scripts/sanitizer-cc.sh -o .build/duration-model-sanitized
+	python3 tests/duration-model.py .build/duration-model-sanitized
 	@set -e; for name in $(TESTS); do \
 		$(GOOSE) build tests/$$name.goose --standalone --debug --no-bce --cc ./scripts/sanitizer-cc.sh -o .build/$$name-sanitized; \
 		./.build/$$name-sanitized; \
 	done
-	python3 tests/bindings.py .build/bindings-sanitized .build/reload-sanitized
+	python3 tests/bindings.py .build/bindings-sanitized .build/reload-sanitized .build/durations-sanitized
 	$(GOOSE) build tests/property.goose --standalone --debug --no-bce --cc ./scripts/sanitizer-cc.sh -o .build/property-sanitized
 	python3 tests/property.py .build/property-sanitized
 	$(GOOSE) build tests/security.goose --standalone --debug --no-bce --cc ./scripts/sanitizer-cc.sh -o .build/security-sanitized
@@ -75,11 +82,13 @@ sanitize: sanitizer-config
 	python3 tests/common-model.py .build/common-model-sanitized
 release:
 	mkdir -p .build/release
+	$(GOOSE) build tests/duration-model.goose --cc $(RELEASE_CC) -O2 -o .build/release/duration-model
+	python3 tests/duration-model.py .build/release/duration-model
 	@set -e; for name in $(TESTS); do \
 		$(GOOSE) build tests/$$name.goose --cc $(RELEASE_CC) -O2 -o .build/release/$$name; \
 		./.build/release/$$name; \
 	done
-	python3 tests/bindings.py .build/release/bindings .build/release/reload
+	python3 tests/bindings.py .build/release/bindings .build/release/reload .build/release/durations
 	$(GOOSE) build tests/property.goose --cc $(RELEASE_CC) -O2 -o .build/release/property
 	python3 tests/property.py .build/release/property
 	$(GOOSE) build tests/security.goose --cc $(RELEASE_CC) -O2 -o .build/release/security

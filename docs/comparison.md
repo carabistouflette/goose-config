@@ -1,6 +1,6 @@
 # Configuration library comparison
 
-Reviewed 2026-11-04. goose-config is not feature-equivalent to Viper or Koanf.
+Reviewed 2026-11-05. goose-config is not feature-equivalent to Viper or Koanf.
 The comparisons below distinguish shipped APIs from work delegated to callers.
 Performance on a shared subset cannot establish full feature parity.
 
@@ -22,7 +22,7 @@ The executable comparison pins Viper 1.21.0 and Koanf 2.4.1; see
 | Nested paths | Declared dotted scalar leaves | Supported | Configurable paths |
 | Primitive lists | Strict homogeneous lists | Supported | Supported |
 | Map values / object lists | Nested scalar paths only | Supported | Supported |
-| Duration interpretation | Missing | Getter | Getter |
+| Duration interpretation | Strict scalar/list schema, exact parser and typed getters | Getter | Getter |
 | Key aliases | Missing | Native API | No native API documented |
 | File discovery / reading | Caller-owned | Native | Provider |
 | Source reload | Fresh-store replay and required validation | Supported | Provider callbacks |
@@ -36,7 +36,7 @@ Absence of a documented/bundled API is not a claim that no third-party
 implementation exists. The selected common-application scope now ships:
 JSON/TOML, homogeneous primitive lists, registered env/CLI bindings, validation,
 and explicit replacement reload. See [the exact contracts](common-features.md).
-Duration parsing, YAML/INI, aliases, remote providers, watching, struct decoding
+[Duration settings](durations.md) extend that scope. YAML/INI, aliases, remote providers, watching, struct decoding
 and writeback remain outside that selected scope.
 
 ## Contract choices

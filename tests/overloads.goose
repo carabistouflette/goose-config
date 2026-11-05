@@ -25,7 +25,14 @@ fn max(a: i64, b: i64) -> i64 { 16 }
 fn copy(value: u8[>..]&) -> u8[>..] { [] }
 fn copy(value: i64[>..]&) -> i64[>..] { [] }
 
+fn duration_digit(c: u8) -> bool { true }
+fn duration_unit(text: const u8[:]) -> u64 { 1 }
+fn duration_number(text: const u8[:]) -> i64, const u8[:] { return 123, ""; }
 fn main() {
+    let duration, duration_error = config::parse_duration("1.5s");
+    assert(duration_error.len == 0 && duration.nanoseconds == 1500000000);
+    let bad_duration, bad_duration_error = config::parse_duration("secret_invalid");
+    assert(bad_duration_error.len > 0 && find(bad_duration_error, "secret_invalid") < 0);
     var store = config::Store { .. };
     let schema = [config::Field { "i", config::Kind.Integer },
                   config::Field { "f", config::Kind.Float }];
