@@ -1,0 +1,1614 @@
+{
+  "completed": true,
+  "smoke_only": false,
+  "revision": "d8b4ddabf3ac694f56f850f655f0869ebde6558e",
+  "compiler_revision": "eadca409f68210893f366e60d0c2f0dc29a339be",
+  "compiler_version": "goose eadca40 (runtime 3025e5810379)",
+  "compiler_sha256": "3f7a34dda0d8fd3e7df27e7ccce09c0844eabc041fc8caa37a362e0ed68b2f07",
+  "source_sha256": {
+    "config.goose": "a3665f71528d2bd2806fa43c3442defe8bafcd13a275aab650fdd213c49ce9cc",
+    "toml.goose": "5ef319b83d8b8318ccb4c9aa22cbbe9ce9bf4f1b530977ed1e324017ad37505e",
+    "vendor.goose": "c4b021a0928444a5f049a99eb7a542689ea6803d0d2e845c86ba43a0fc6c31c1",
+    "json_layer.goose": "ce60981ebf0e3b97608e0bcdc6bb7ce07d83884983e863addcb6548e3a74f772",
+    "bindings.goose": "2ced04c7bd849b0713e07105f2c1cf443a244345eb9e801c31910e0e69b6449c",
+    "reload.goose": "6ebf1a704c516f80a1b0899e2a02865e5072195e77d4abaa34fae54929661fb7",
+    "typed.goose": "777570240df56b55f19344c58b9a45e9bc6e785129c8ecb651ac318fe11681e7",
+    "GOOSE_REVISION": "64e14b181dfe96743211738fb0f1b1f7798ea940da2ca50ff122e6f028c24e15",
+    "bench/generated_bindings.goose": "8f12aa39ea2ef76ac3e56730855066f4542fc2642b3f7969c5fca88b137c7920",
+    "bench/worker_settings.goose": "7f05ff1b028637fdbfc902bb21dc1b9aae181188a274c36dc41ec14c6882d9a9",
+    "schemas/worker.json": "5dcfa66ca330d86599bf7d65f6577b2b13ebc8e2277fa2817619d70c9e57a003"
+  },
+  "toolchain_input_sha256": {
+    "gcc": "8aac907d6fbf40394b424b5fa4a2ad1aa291dac7d3a0315c5b415c1f5ace1287",
+    "bench/measure.py": "92119796bb747a9a04482620598e24486b50709ef15f3b62a2002b368c252762",
+    "bench/measure_generated_bindings.py": "bb0aed84bcdce06c25be28679696c5a18bee190dca50ea6974dc6335bd6862cc",
+    "cc1": "49a325fc4c6c5aa5a8f9ea8c828e37f3900a757c6be48d997ff4af0b51ee8315",
+    "as": "3dfdf6007545ea36176c350eef201d1ece55c347a182697bb5f9bac815a1f34b",
+    "ld": "4d83828f709f0eade25bcae2f4a2508c47db2f01b58daaca5c1c4cefce897847",
+    "src/runtime_inline.h": "94e4e6299a9662052375074e18092e73e8193ce7db3c760a2a087af36b265a53",
+    "stdlib/base64.goose": "fa1111ce46e9534311f825880dbd2988953430aeb3f1f52d8f0eaecbbc298a61",
+    "stdlib/binary.goose": "24f3f09192738f42dfc0cb08b7447bbdc38009f7fec2567cae932b3022455631",
+    "stdlib/csv.goose": "a49b0647f4a2f8ca36170e5a184ab6c6e505492434d0a10a5e05127e96da61ba",
+    "stdlib/dictionary.goose": "fb39f896731faf3799e81727f7261849a62bdfbdc92d5fdbc36405a85830f322",
+    "stdlib/exception.goose": "093863eda5433176750182b597aa6760a93808d86b0c9b713681443d2fb29160",
+    "stdlib/ffi.goose": "e092b245fbe13ee2fdc71599b7b8eb44198e5261cad9600b7681e13ad75a6c2e",
+    "stdlib/json.goose": "81595baa298b9b0deb271297c971166fd084c13b128bba2a7f7486191ea0de4e",
+    "stdlib/math.goose": "b20bd3f78cd1ca291fdbc65df85d9aeaa77054cdf601b5adecfdd4f9db9f0d6e",
+    "stdlib/os.goose": "2193f394d44469daffd993ed204a91b068084fd8db13e261e11156b40c66e934",
+    "stdlib/regex.goose": "1ea3fc0a38402f29193777478b793b4a74a3074da0e3baf96f0b54eea1a84a95",
+    "stdlib/slice_pool.goose": "e15aa757be8edea4b367ac0b2cb8cce48df9f4f249f5002a9393475cc89404f0",
+    "stdlib/slice_pool_internal.goose": "488048c4e67754c878aa24ae25a941833a4a1a36ba679a2444b13806e7d42e15",
+    "stdlib/slot_pool.goose": "e83b975bfff2806df0401afc3e37e147618c5673a9c98690007e6beb3bd51745",
+    "stdlib/std.goose": "2bff7f6748300396e4c048bbf072f798566fadfe6b05d4256052d32c93e6d5d2",
+    "stdlib/vec.goose": "2cac168c72047834433bfb419734c38455c9429ea045b1273898031c53faa82e",
+    "src/runtime/goose.h": "51234daf2f8fb52d4a18158175ed517ab5bfeeb5473c5448babf19f94ffbeccf",
+    "src/runtime/jit_c.h": "d4c8f0d2e577982f68fdabeaa32f58698ddbafcbb19ca3c9952103725dd8e371",
+    "src/runtime/runtime.h": "5e744690e69fd4b365adbe24b1eea86cefd0d1789b38216c1d7c62e117021521",
+    "src/runtime/runtime_ext.h": "d50f3c7eacbff5969aa1af513938db0e444240efaf44cb97373bec49abb01d9e",
+    "src/runtime/runtime_impl.h": "f95d3d3360614853e4abdbd39a45cfcbbd1aad0136eeffb8c02af371f7676680",
+    "src/runtime/runtime_os.h": "196308b80c7fbc34eb45fcc3e4231b02bb1c5a2e99ca7ebe109f4e2301de21ab",
+    "src/runtime/runtime_threads.h": "f7540e51cedccf3c6302531541a035ebbf3c68a047ba04b2a66ba3ada5e620e7"
+  },
+  "platform": "Linux-7.2.11-arch1-1-x86_64-with-glibc2.44",
+  "cpu": "Intel(R) Core(TM) Ultra 7 258V",
+  "cpu_affinity": [
+    6
+  ],
+  "gcc": "gcc (GCC) 16.2.1 20260810",
+  "flags": "GCC -O2",
+  "iterations": 1000,
+  "rounds": 9,
+  "seed": 606,
+  "limitations": [
+    "Shared host; no exclusive isolation or control correction.",
+    "Generated fixed arrays compared with prior fixed manual literals; exact metadata bytes checked before timing.",
+    "Construction may be folded/hoisted; throughput is not allocation latency.",
+    "Environment/CLI include schema initialization and controlled application, not process startup or native getenv.",
+    "Three fixed-order cases per process; shuffled callers; reference A/B use identical binary/argv.",
+    "Full final values/lists/sources checked outside timer; no RSS/allocation or universal speed claim."
+  ],
+  "warmup": "Counts1/2/3 per caller preflighted; first timed batch retained.",
+  "preflights": [
+    {
+      "count": 1,
+      "caller": "generated",
+      "raw_stdout": "construct samples_ns=[664.0, 52.0, 193.0, 51.0, 52.0, 49.0, 49.0] checksum=231\nenvironment samples_ns=[155195.0, 7082.0, 3963.0, 3510.0, 3097.0, 3031.0, 3010.0] checksum=63\ncli samples_ns=[12773.0, 4433.0, 3200.0, 3112.0, 2894.0, 2995.0, 2955.0] checksum=63\n",
+      "fixtures": {
+        "construct": {
+          "samples_ns": [
+            664.0,
+            52.0,
+            193.0,
+            51.0,
+            52.0,
+            49.0,
+            49.0
+          ],
+          "median_ns": 52.0,
+          "checksum": 231
+        },
+        "environment": {
+          "samples_ns": [
+            155195.0,
+            7082.0,
+            3963.0,
+            3510.0,
+            3097.0,
+            3031.0,
+            3010.0
+          ],
+          "median_ns": 3510.0,
+          "checksum": 63
+        },
+        "cli": {
+          "samples_ns": [
+            12773.0,
+            4433.0,
+            3200.0,
+            3112.0,
+            2894.0,
+            2995.0,
+            2955.0
+          ],
+          "median_ns": 3112.0,
+          "checksum": 63
+        }
+      }
+    },
+    {
+      "count": 1,
+      "caller": "reference",
+      "raw_stdout": "construct samples_ns=[503.0, 57.0, 55.0, 55.0, 54.0, 53.0, 54.0] checksum=231\nenvironment samples_ns=[165843.0, 7437.0, 4387.0, 3485.0, 3283.0, 3221.0, 3184.0] checksum=63\ncli samples_ns=[9761.0, 4854.0, 3366.0, 3273.0, 2974.0, 3157.0, 3094.0] checksum=63\n",
+      "fixtures": {
+        "construct": {
+          "samples_ns": [
+            503.0,
+            57.0,
+            55.0,
+            55.0,
+            54.0,
+            53.0,
+            54.0
+          ],
+          "median_ns": 55.0,
+          "checksum": 231
+        },
+        "environment": {
+          "samples_ns": [
+            165843.0,
+            7437.0,
+            4387.0,
+            3485.0,
+            3283.0,
+            3221.0,
+            3184.0
+          ],
+          "median_ns": 3485.0,
+          "checksum": 63
+        },
+        "cli": {
+          "samples_ns": [
+            9761.0,
+            4854.0,
+            3366.0,
+            3273.0,
+            2974.0,
+            3157.0,
+            3094.0
+          ],
+          "median_ns": 3273.0,
+          "checksum": 63
+        }
+      }
+    },
+    {
+      "count": 2,
+      "caller": "generated",
+      "raw_stdout": "construct samples_ns=[222.0, 54.5, 38.0, 38.5, 37.5, 38.0, 37.5] checksum=525\nenvironment samples_ns=[70567.5, 3786.0, 3152.0, 3072.0, 3084.0, 3075.0, 2991.0] checksum=126\ncli samples_ns=[7062.0, 3344.0, 2969.0, 2970.5, 2976.5, 2998.5, 2997.0] checksum=126\n",
+      "fixtures": {
+        "construct": {
+          "samples_ns": [
+            222.0,
+            54.5,
+            38.0,
+            38.5,
+            37.5,
+            38.0,
+            37.5
+          ],
+          "median_ns": 38.0,
+          "checksum": 525
+        },
+        "environment": {
+          "samples_ns": [
+            70567.5,
+            3786.0,
+            3152.0,
+            3072.0,
+            3084.0,
+            3075.0,
+            2991.0
+          ],
+          "median_ns": 3084.0,
+          "checksum": 126
+        },
+        "cli": {
+          "samples_ns": [
+            7062.0,
+            3344.0,
+            2969.0,
+            2970.5,
+            2976.5,
+            2998.5,
+            2997.0
+          ],
+          "median_ns": 2997.0,
+          "checksum": 126
+        }
+      }
+    },
+    {
+      "count": 2,
+      "caller": "reference",
+      "raw_stdout": "construct samples_ns=[419.5, 53.5, 37.5, 37.5, 37.5, 37.0, 37.0] checksum=525\nenvironment samples_ns=[102793.5, 3962.0, 3264.0, 3106.5, 3050.5, 3069.5, 3023.5] checksum=126\ncli samples_ns=[7049.5, 3339.5, 2999.5, 2986.5, 2896.5, 2919.5, 2978.5] checksum=126\n",
+      "fixtures": {
+        "construct": {
+          "samples_ns": [
+            419.5,
+            53.5,
+            37.5,
+            37.5,
+            37.5,
+            37.0,
+            37.0
+          ],
+          "median_ns": 37.5,
+          "checksum": 525
+        },
+        "environment": {
+          "samples_ns": [
+            102793.5,
+            3962.0,
+            3264.0,
+            3106.5,
+            3050.5,
+            3069.5,
+            3023.5
+          ],
+          "median_ns": 3106.5,
+          "checksum": 126
+        },
+        "cli": {
+          "samples_ns": [
+            7049.5,
+            3339.5,
+            2999.5,
+            2986.5,
+            2896.5,
+            2919.5,
+            2978.5
+          ],
+          "median_ns": 2986.5,
+          "checksum": 126
+        }
+      }
+    },
+    {
+      "count": 3,
+      "caller": "generated",
+      "raw_stdout": "construct samples_ns=[272.0, 44.0, 32.333333333333336, 32.333333333333336, 32.333333333333336, 32.333333333333336, 32.0] checksum=861\nenvironment samples_ns=[71968.66666666667, 8089.0, 3151.3333333333335, 3119.3333333333335, 3092.3333333333335, 3060.3333333333335, 3073.6666666666665] checksum=189\ncli samples_ns=[6012.333333333333, 2942.3333333333335, 2932.6666666666665, 2857.6666666666665, 2947.0, 2893.0, 2892.3333333333335] checksum=189\n",
+      "fixtures": {
+        "construct": {
+          "samples_ns": [
+            272.0,
+            44.0,
+            32.333333333333336,
+            32.333333333333336,
+            32.333333333333336,
+            32.333333333333336,
+            32.0
+          ],
+          "median_ns": 32.333333333333336,
+          "checksum": 861
+        },
+        "environment": {
+          "samples_ns": [
+            71968.66666666667,
+            8089.0,
+            3151.3333333333335,
+            3119.3333333333335,
+            3092.3333333333335,
+            3060.3333333333335,
+            3073.6666666666665
+          ],
+          "median_ns": 3119.3333333333335,
+          "checksum": 189
+        },
+        "cli": {
+          "samples_ns": [
+            6012.333333333333,
+            2942.3333333333335,
+            2932.6666666666665,
+            2857.6666666666665,
+            2947.0,
+            2893.0,
+            2892.3333333333335
+          ],
+          "median_ns": 2932.6666666666665,
+          "checksum": 189
+        }
+      }
+    },
+    {
+      "count": 3,
+      "caller": "reference",
+      "raw_stdout": "construct samples_ns=[264.0, 39.0, 33.0, 33.0, 33.0, 32.666666666666664, 31.333333333333332] checksum=861\nenvironment samples_ns=[68373.33333333333, 3299.3333333333335, 3037.6666666666665, 3022.3333333333335, 3013.0, 3028.6666666666665, 2978.3333333333335] checksum=189\ncli samples_ns=[9620.666666666666, 3051.0, 2953.6666666666665, 2950.3333333333335, 2937.3333333333335, 2944.6666666666665, 2917.6666666666665] checksum=189\n",
+      "fixtures": {
+        "construct": {
+          "samples_ns": [
+            264.0,
+            39.0,
+            33.0,
+            33.0,
+            33.0,
+            32.666666666666664,
+            31.333333333333332
+          ],
+          "median_ns": 33.0,
+          "checksum": 861
+        },
+        "environment": {
+          "samples_ns": [
+            68373.33333333333,
+            3299.3333333333335,
+            3037.6666666666665,
+            3022.3333333333335,
+            3013.0,
+            3028.6666666666665,
+            2978.3333333333335
+          ],
+          "median_ns": 3028.6666666666665,
+          "checksum": 189
+        },
+        "cli": {
+          "samples_ns": [
+            9620.666666666666,
+            3051.0,
+            2953.6666666666665,
+            2950.3333333333335,
+            2937.3333333333335,
+            2944.6666666666665,
+            2917.6666666666665
+          ],
+          "median_ns": 2950.3333333333335,
+          "checksum": 189
+        }
+      }
+    }
+  ],
+  "measurements": [
+    {
+      "round": 0,
+      "caller": "reference-A",
+      "raw_stdout": "construct samples_ns=[22.58, 21.921, 21.887, 21.885, 21.883, 21.864, 21.848] checksum=289373\nenvironment samples_ns=[3453.108, 3126.608, 2919.847, 2955.873, 2903.07, 2859.255, 2774.396] checksum=63000\ncli samples_ns=[2637.774, 2553.886, 2567.99, 2500.276, 2402.213, 2398.005, 2379.283] checksum=63000\n",
+      "fixtures": {
+        "construct": {
+          "samples_ns": [
+            22.58,
+            21.921,
+            21.887,
+            21.885,
+            21.883,
+            21.864,
+            21.848
+          ],
+          "median_ns": 21.885,
+          "checksum": 289373
+        },
+        "environment": {
+          "samples_ns": [
+            3453.108,
+            3126.608,
+            2919.847,
+            2955.873,
+            2903.07,
+            2859.255,
+            2774.396
+          ],
+          "median_ns": 2919.847,
+          "checksum": 63000
+        },
+        "cli": {
+          "samples_ns": [
+            2637.774,
+            2553.886,
+            2567.99,
+            2500.276,
+            2402.213,
+            2398.005,
+            2379.283
+          ],
+          "median_ns": 2500.276,
+          "checksum": 63000
+        }
+      }
+    },
+    {
+      "round": 0,
+      "caller": "generated",
+      "raw_stdout": "construct samples_ns=[18.528, 17.717, 17.745, 17.708, 17.735, 17.693, 18.332] checksum=289373\nenvironment samples_ns=[2738.916, 2514.588, 2426.5, 2446.775, 2337.349, 2325.952, 2333.109] checksum=63000\ncli samples_ns=[2199.42, 2201.3, 2165.722, 2164.621, 2188.248, 2165.955, 2169.34] checksum=63000\n",
+      "fixtures": {
+        "construct": {
+          "samples_ns": [
+            18.528,
+            17.717,
+            17.745,
+            17.708,
+            17.735,
+            17.693,
+            18.332
+          ],
+          "median_ns": 17.735,
+          "checksum": 289373
+        },
+        "environment": {
+          "samples_ns": [
+            2738.916,
+            2514.588,
+            2426.5,
+            2446.775,
+            2337.349,
+            2325.952,
+            2333.109
+          ],
+          "median_ns": 2426.5,
+          "checksum": 63000
+        },
+        "cli": {
+          "samples_ns": [
+            2199.42,
+            2201.3,
+            2165.722,
+            2164.621,
+            2188.248,
+            2165.955,
+            2169.34
+          ],
+          "median_ns": 2169.34,
+          "checksum": 63000
+        }
+      }
+    },
+    {
+      "round": 0,
+      "caller": "reference-B",
+      "raw_stdout": "construct samples_ns=[17.728, 16.92, 16.94, 16.886, 16.927, 66.531, 16.883] checksum=289373\nenvironment samples_ns=[2509.733, 2374.786, 2346.732, 2333.209, 2237.848, 2262.805, 2236.215] checksum=63000\ncli samples_ns=[2182.423, 2142.392, 2146.235, 2176.533, 2115.889, 2079.172, 2102.721] checksum=63000\n",
+      "fixtures": {
+        "construct": {
+          "samples_ns": [
+            17.728,
+            16.92,
+            16.94,
+            16.886,
+            16.927,
+            66.531,
+            16.883
+          ],
+          "median_ns": 16.927,
+          "checksum": 289373
+        },
+        "environment": {
+          "samples_ns": [
+            2509.733,
+            2374.786,
+            2346.732,
+            2333.209,
+            2237.848,
+            2262.805,
+            2236.215
+          ],
+          "median_ns": 2333.209,
+          "checksum": 63000
+        },
+        "cli": {
+          "samples_ns": [
+            2182.423,
+            2142.392,
+            2146.235,
+            2176.533,
+            2115.889,
+            2079.172,
+            2102.721
+          ],
+          "median_ns": 2142.392,
+          "checksum": 63000
+        }
+      }
+    },
+    {
+      "round": 1,
+      "caller": "generated",
+      "raw_stdout": "construct samples_ns=[33.697, 17.453, 17.367, 16.894, 16.89, 16.903, 16.881] checksum=289373\nenvironment samples_ns=[2768.782, 2432.93, 2463.938, 2373.951, 2373.706, 2275.824, 2274.846] checksum=63000\ncli samples_ns=[2221.927, 2212.315, 2153.764, 2181.293, 2268.113, 2196.957, 2186.17] checksum=63000\n",
+      "fixtures": {
+        "construct": {
+          "samples_ns": [
+            33.697,
+            17.453,
+            17.367,
+            16.894,
+            16.89,
+            16.903,
+            16.881
+          ],
+          "median_ns": 16.903,
+          "checksum": 289373
+        },
+        "environment": {
+          "samples_ns": [
+            2768.782,
+            2432.93,
+            2463.938,
+            2373.951,
+            2373.706,
+            2275.824,
+            2274.846
+          ],
+          "median_ns": 2373.951,
+          "checksum": 63000
+        },
+        "cli": {
+          "samples_ns": [
+            2221.927,
+            2212.315,
+            2153.764,
+            2181.293,
+            2268.113,
+            2196.957,
+            2186.17
+          ],
+          "median_ns": 2196.957,
+          "checksum": 63000
+        }
+      }
+    },
+    {
+      "round": 1,
+      "caller": "reference-B",
+      "raw_stdout": "construct samples_ns=[18.492, 17.728, 17.734, 17.697, 17.73, 17.682, 17.714] checksum=289373\nenvironment samples_ns=[2648.571, 2494.994, 2523.837, 2482.413, 2542.733, 2595.962, 2619.437] checksum=63000\ncli samples_ns=[2536.957, 2431.539, 2361.1, 2385.722, 2291.204, 2266.091, 2280.368] checksum=63000\n",
+      "fixtures": {
+        "construct": {
+          "samples_ns": [
+            18.492,
+            17.728,
+            17.734,
+            17.697,
+            17.73,
+            17.682,
+            17.714
+          ],
+          "median_ns": 17.728,
+          "checksum": 289373
+        },
+        "environment": {
+          "samples_ns": [
+            2648.571,
+            2494.994,
+            2523.837,
+            2482.413,
+            2542.733,
+            2595.962,
+            2619.437
+          ],
+          "median_ns": 2542.733,
+          "checksum": 63000
+        },
+        "cli": {
+          "samples_ns": [
+            2536.957,
+            2431.539,
+            2361.1,
+            2385.722,
+            2291.204,
+            2266.091,
+            2280.368
+          ],
+          "median_ns": 2361.1,
+          "checksum": 63000
+        }
+      }
+    },
+    {
+      "round": 1,
+      "caller": "reference-A",
+      "raw_stdout": "construct samples_ns=[18.507, 17.725, 17.741, 17.692, 17.719, 17.688, 17.709] checksum=289373\nenvironment samples_ns=[2739.825, 2553.35, 2430.605, 2487.463, 2376.182, 2314.406, 2322.529] checksum=63000\ncli samples_ns=[2260.588, 2218.1, 2248.082, 2292.296, 2266.66, 2248.24, 2165.054] checksum=63000\n",
+      "fixtures": {
+        "construct": {
+          "samples_ns": [
+            18.507,
+            17.725,
+            17.741,
+            17.692,
+            17.719,
+            17.688,
+            17.709
+          ],
+          "median_ns": 17.719,
+          "checksum": 289373
+        },
+        "environment": {
+          "samples_ns": [
+            2739.825,
+            2553.35,
+            2430.605,
+            2487.463,
+            2376.182,
+            2314.406,
+            2322.529
+          ],
+          "median_ns": 2430.605,
+          "checksum": 63000
+        },
+        "cli": {
+          "samples_ns": [
+            2260.588,
+            2218.1,
+            2248.082,
+            2292.296,
+            2266.66,
+            2248.24,
+            2165.054
+          ],
+          "median_ns": 2248.24,
+          "checksum": 63000
+        }
+      }
+    },
+    {
+      "round": 2,
+      "caller": "generated",
+      "raw_stdout": "construct samples_ns=[19.432, 18.617, 18.594, 18.626, 18.572, 18.593, 18.589] checksum=289373\nenvironment samples_ns=[2981.834, 2850.104, 2846.124, 2839.411, 2883.176, 2895.318, 2832.903] checksum=63000\ncli samples_ns=[2692.195, 2542.551, 2540.432, 2541.89, 2511.69, 2458.317, 2415.697] checksum=63000\n",
+      "fixtures": {
+        "construct": {
+          "samples_ns": [
+            19.432,
+            18.617,
+            18.594,
+            18.626,
+            18.572,
+            18.593,
+            18.589
+          ],
+          "median_ns": 18.594,
+          "checksum": 289373
+        },
+        "environment": {
+          "samples_ns": [
+            2981.834,
+            2850.104,
+            2846.124,
+            2839.411,
+            2883.176,
+            2895.318,
+            2832.903
+          ],
+          "median_ns": 2850.104,
+          "checksum": 63000
+        },
+        "cli": {
+          "samples_ns": [
+            2692.195,
+            2542.551,
+            2540.432,
+            2541.89,
+            2511.69,
+            2458.317,
+            2415.697
+          ],
+          "median_ns": 2540.432,
+          "checksum": 63000
+        }
+      }
+    },
+    {
+      "round": 2,
+      "caller": "reference-A",
+      "raw_stdout": "construct samples_ns=[21.067, 22.147, 18.718, 18.674, 18.7, 18.692, 18.652] checksum=289373\nenvironment samples_ns=[2818.133, 2586.856, 2612.889, 2552.206, 2474.53, 2441.789, 2418.125] checksum=63000\ncli samples_ns=[2257.836, 2277.631, 2246.08, 2197.239, 2149.618, 2145.045, 2167.818] checksum=63000\n",
+      "fixtures": {
+        "construct": {
+          "samples_ns": [
+            21.067,
+            22.147,
+            18.718,
+            18.674,
+            18.7,
+            18.692,
+            18.652
+          ],
+          "median_ns": 18.7,
+          "checksum": 289373
+        },
+        "environment": {
+          "samples_ns": [
+            2818.133,
+            2586.856,
+            2612.889,
+            2552.206,
+            2474.53,
+            2441.789,
+            2418.125
+          ],
+          "median_ns": 2552.206,
+          "checksum": 63000
+        },
+        "cli": {
+          "samples_ns": [
+            2257.836,
+            2277.631,
+            2246.08,
+            2197.239,
+            2149.618,
+            2145.045,
+            2167.818
+          ],
+          "median_ns": 2197.239,
+          "checksum": 63000
+        }
+      }
+    },
+    {
+      "round": 2,
+      "caller": "reference-B",
+      "raw_stdout": "construct samples_ns=[17.728, 16.951, 16.896, 16.913, 16.88, 16.913, 16.876] checksum=289373\nenvironment samples_ns=[2624.678, 2439.8, 2325.361, 2341.993, 2323.833, 2250.764, 2230.959] checksum=63000\ncli samples_ns=[2184.682, 2169.33, 2111.744, 2075.083, 2072.03, 2068.987, 2071.134] checksum=63000\n",
+      "fixtures": {
+        "construct": {
+          "samples_ns": [
+            17.728,
+            16.951,
+            16.896,
+            16.913,
+            16.88,
+            16.913,
+            16.876
+          ],
+          "median_ns": 16.913,
+          "checksum": 289373
+        },
+        "environment": {
+          "samples_ns": [
+            2624.678,
+            2439.8,
+            2325.361,
+            2341.993,
+            2323.833,
+            2250.764,
+            2230.959
+          ],
+          "median_ns": 2325.361,
+          "checksum": 63000
+        },
+        "cli": {
+          "samples_ns": [
+            2184.682,
+            2169.33,
+            2111.744,
+            2075.083,
+            2072.03,
+            2068.987,
+            2071.134
+          ],
+          "median_ns": 2075.083,
+          "checksum": 63000
+        }
+      }
+    },
+    {
+      "round": 3,
+      "caller": "reference-B",
+      "raw_stdout": "construct samples_ns=[16.897, 16.184, 16.186, 16.172, 16.179, 16.178, 16.177] checksum=289373\nenvironment samples_ns=[2397.471, 2256.984, 2230.498, 2266.626, 2258.872, 2235.417, 2148.082] checksum=63000\ncli samples_ns=[2160.852, 2148.941, 2143.389, 2080.406, 2050.991, 2053.415, 2049.806] checksum=63000\n",
+      "fixtures": {
+        "construct": {
+          "samples_ns": [
+            16.897,
+            16.184,
+            16.186,
+            16.172,
+            16.179,
+            16.178,
+            16.177
+          ],
+          "median_ns": 16.179,
+          "checksum": 289373
+        },
+        "environment": {
+          "samples_ns": [
+            2397.471,
+            2256.984,
+            2230.498,
+            2266.626,
+            2258.872,
+            2235.417,
+            2148.082
+          ],
+          "median_ns": 2256.984,
+          "checksum": 63000
+        },
+        "cli": {
+          "samples_ns": [
+            2160.852,
+            2148.941,
+            2143.389,
+            2080.406,
+            2050.991,
+            2053.415,
+            2049.806
+          ],
+          "median_ns": 2080.406,
+          "checksum": 63000
+        }
+      }
+    },
+    {
+      "round": 3,
+      "caller": "reference-A",
+      "raw_stdout": "construct samples_ns=[16.979, 16.211, 16.165, 16.202, 16.165, 16.177, 16.145] checksum=289373\nenvironment samples_ns=[2426.562, 2263.635, 2244.386, 2190.089, 2150.38, 2196.793, 2222.166] checksum=63000\ncli samples_ns=[2198.675, 2184.094, 2147.289, 2103.283, 2109.714, 2117.92, 2096.386] checksum=63000\n",
+      "fixtures": {
+        "construct": {
+          "samples_ns": [
+            16.979,
+            16.211,
+            16.165,
+            16.202,
+            16.165,
+            16.177,
+            16.145
+          ],
+          "median_ns": 16.177,
+          "checksum": 289373
+        },
+        "environment": {
+          "samples_ns": [
+            2426.562,
+            2263.635,
+            2244.386,
+            2190.089,
+            2150.38,
+            2196.793,
+            2222.166
+          ],
+          "median_ns": 2222.166,
+          "checksum": 63000
+        },
+        "cli": {
+          "samples_ns": [
+            2198.675,
+            2184.094,
+            2147.289,
+            2103.283,
+            2109.714,
+            2117.92,
+            2096.386
+          ],
+          "median_ns": 2117.92,
+          "checksum": 63000
+        }
+      }
+    },
+    {
+      "round": 3,
+      "caller": "generated",
+      "raw_stdout": "construct samples_ns=[18.189, 16.936, 16.922, 16.896, 16.928, 16.892, 16.909] checksum=289373\nenvironment samples_ns=[2493.352, 2321.775, 2335.938, 2218.154, 2249.047, 2213.243, 2249.987] checksum=63000\ncli samples_ns=[2207.153, 2195.056, 2196.755, 2115.786, 2106.204, 2114.316, 2129.315] checksum=63000\n",
+      "fixtures": {
+        "construct": {
+          "samples_ns": [
+            18.189,
+            16.936,
+            16.922,
+            16.896,
+            16.928,
+            16.892,
+            16.909
+          ],
+          "median_ns": 16.922,
+          "checksum": 289373
+        },
+        "environment": {
+          "samples_ns": [
+            2493.352,
+            2321.775,
+            2335.938,
+            2218.154,
+            2249.047,
+            2213.243,
+            2249.987
+          ],
+          "median_ns": 2249.987,
+          "checksum": 63000
+        },
+        "cli": {
+          "samples_ns": [
+            2207.153,
+            2195.056,
+            2196.755,
+            2115.786,
+            2106.204,
+            2114.316,
+            2129.315
+          ],
+          "median_ns": 2129.315,
+          "checksum": 63000
+        }
+      }
+    },
+    {
+      "round": 4,
+      "caller": "generated",
+      "raw_stdout": "construct samples_ns=[19.175, 16.91, 16.93, 16.91, 16.904, 16.895, 16.89] checksum=289373\nenvironment samples_ns=[2581.256, 2336.602, 2348.837, 2294.627, 2224.08, 2285.572, 2251.338] checksum=63000\ncli samples_ns=[2175.306, 2117.651, 2084.463, 2077.146, 2066.884, 2024.408, 1999.697] checksum=63000\n",
+      "fixtures": {
+        "construct": {
+          "samples_ns": [
+            19.175,
+            16.91,
+            16.93,
+            16.91,
+            16.904,
+            16.895,
+            16.89
+          ],
+          "median_ns": 16.91,
+          "checksum": 289373
+        },
+        "environment": {
+          "samples_ns": [
+            2581.256,
+            2336.602,
+            2348.837,
+            2294.627,
+            2224.08,
+            2285.572,
+            2251.338
+          ],
+          "median_ns": 2294.627,
+          "checksum": 63000
+        },
+        "cli": {
+          "samples_ns": [
+            2175.306,
+            2117.651,
+            2084.463,
+            2077.146,
+            2066.884,
+            2024.408,
+            1999.697
+          ],
+          "median_ns": 2077.146,
+          "checksum": 63000
+        }
+      }
+    },
+    {
+      "round": 4,
+      "caller": "reference-B",
+      "raw_stdout": "construct samples_ns=[17.119, 16.189, 16.193, 16.164, 16.184, 16.149, 16.177] checksum=289373\nenvironment samples_ns=[2467.381, 2330.227, 2347.5, 2319.005, 2338.307, 2247.292, 2238.076] checksum=63000\ncli samples_ns=[2120.147, 2114.044, 2104.733, 2103.038, 2112.265, 2075.094, 2030.502] checksum=63000\n",
+      "fixtures": {
+        "construct": {
+          "samples_ns": [
+            17.119,
+            16.189,
+            16.193,
+            16.164,
+            16.184,
+            16.149,
+            16.177
+          ],
+          "median_ns": 16.184,
+          "checksum": 289373
+        },
+        "environment": {
+          "samples_ns": [
+            2467.381,
+            2330.227,
+            2347.5,
+            2319.005,
+            2338.307,
+            2247.292,
+            2238.076
+          ],
+          "median_ns": 2330.227,
+          "checksum": 63000
+        },
+        "cli": {
+          "samples_ns": [
+            2120.147,
+            2114.044,
+            2104.733,
+            2103.038,
+            2112.265,
+            2075.094,
+            2030.502
+          ],
+          "median_ns": 2104.733,
+          "checksum": 63000
+        }
+      }
+    },
+    {
+      "round": 4,
+      "caller": "reference-A",
+      "raw_stdout": "construct samples_ns=[16.917, 16.176, 16.204, 16.157, 16.182, 16.144, 16.179] checksum=289373\nenvironment samples_ns=[2481.75, 2276.457, 2233.507, 2226.694, 2241.679, 2231.941, 2167.184] checksum=63000\ncli samples_ns=[2087.268, 2109.171, 2103.352, 2069.548, 2069.296, 2066.964, 2071.259] checksum=63000\n",
+      "fixtures": {
+        "construct": {
+          "samples_ns": [
+            16.917,
+            16.176,
+            16.204,
+            16.157,
+            16.182,
+            16.144,
+            16.179
+          ],
+          "median_ns": 16.179,
+          "checksum": 289373
+        },
+        "environment": {
+          "samples_ns": [
+            2481.75,
+            2276.457,
+            2233.507,
+            2226.694,
+            2241.679,
+            2231.941,
+            2167.184
+          ],
+          "median_ns": 2233.507,
+          "checksum": 63000
+        },
+        "cli": {
+          "samples_ns": [
+            2087.268,
+            2109.171,
+            2103.352,
+            2069.548,
+            2069.296,
+            2066.964,
+            2071.259
+          ],
+          "median_ns": 2071.259,
+          "checksum": 63000
+        }
+      }
+    },
+    {
+      "round": 5,
+      "caller": "reference-A",
+      "raw_stdout": "construct samples_ns=[17.008, 16.207, 16.17, 16.196, 16.175, 16.166, 16.155] checksum=289373\nenvironment samples_ns=[2463.324, 2292.203, 2268.135, 2257.327, 2254.403, 2229.807, 2165.353] checksum=63000\ncli samples_ns=[2160.561, 2112.452, 2110.966, 2112.131, 2100.263, 2033.814, 2019.356] checksum=63000\n",
+      "fixtures": {
+        "construct": {
+          "samples_ns": [
+            17.008,
+            16.207,
+            16.17,
+            16.196,
+            16.175,
+            16.166,
+            16.155
+          ],
+          "median_ns": 16.175,
+          "checksum": 289373
+        },
+        "environment": {
+          "samples_ns": [
+            2463.324,
+            2292.203,
+            2268.135,
+            2257.327,
+            2254.403,
+            2229.807,
+            2165.353
+          ],
+          "median_ns": 2257.327,
+          "checksum": 63000
+        },
+        "cli": {
+          "samples_ns": [
+            2160.561,
+            2112.452,
+            2110.966,
+            2112.131,
+            2100.263,
+            2033.814,
+            2019.356
+          ],
+          "median_ns": 2110.966,
+          "checksum": 63000
+        }
+      }
+    },
+    {
+      "round": 5,
+      "caller": "reference-B",
+      "raw_stdout": "construct samples_ns=[16.919, 16.184, 16.194, 16.167, 16.178, 16.147, 16.178] checksum=289373\nenvironment samples_ns=[2413.908, 2279.034, 2252.638, 2252.379, 2246.391, 2177.999, 2184.268] checksum=63000\ncli samples_ns=[2093.095, 2102.692, 2075.55, 2031.111, 2003.411, 1991.839, 2009.181] checksum=63000\n",
+      "fixtures": {
+        "construct": {
+          "samples_ns": [
+            16.919,
+            16.184,
+            16.194,
+            16.167,
+            16.178,
+            16.147,
+            16.178
+          ],
+          "median_ns": 16.178,
+          "checksum": 289373
+        },
+        "environment": {
+          "samples_ns": [
+            2413.908,
+            2279.034,
+            2252.638,
+            2252.379,
+            2246.391,
+            2177.999,
+            2184.268
+          ],
+          "median_ns": 2252.379,
+          "checksum": 63000
+        },
+        "cli": {
+          "samples_ns": [
+            2093.095,
+            2102.692,
+            2075.55,
+            2031.111,
+            2003.411,
+            1991.839,
+            2009.181
+          ],
+          "median_ns": 2031.111,
+          "checksum": 63000
+        }
+      }
+    },
+    {
+      "round": 5,
+      "caller": "generated",
+      "raw_stdout": "construct samples_ns=[17.056, 16.21, 16.162, 16.203, 16.144, 16.181, 16.141] checksum=289373\nenvironment samples_ns=[2415.001, 2268.9, 2278.662, 2261.461, 2285.326, 2255.341, 2189.387] checksum=63000\ncli samples_ns=[2100.463, 2089.085, 2091.243, 2084.159, 2012.259, 2005.183, 2006.41] checksum=63000\n",
+      "fixtures": {
+        "construct": {
+          "samples_ns": [
+            17.056,
+            16.21,
+            16.162,
+            16.203,
+            16.144,
+            16.181,
+            16.141
+          ],
+          "median_ns": 16.181,
+          "checksum": 289373
+        },
+        "environment": {
+          "samples_ns": [
+            2415.001,
+            2268.9,
+            2278.662,
+            2261.461,
+            2285.326,
+            2255.341,
+            2189.387
+          ],
+          "median_ns": 2268.9,
+          "checksum": 63000
+        },
+        "cli": {
+          "samples_ns": [
+            2100.463,
+            2089.085,
+            2091.243,
+            2084.159,
+            2012.259,
+            2005.183,
+            2006.41
+          ],
+          "median_ns": 2084.159,
+          "checksum": 63000
+        }
+      }
+    },
+    {
+      "round": 6,
+      "caller": "generated",
+      "raw_stdout": "construct samples_ns=[17.096, 16.283, 16.238, 16.268, 16.218, 16.242, 16.218] checksum=289373\nenvironment samples_ns=[2447.083, 2277.59, 2293.846, 2272.352, 2321.566, 2274.491, 2311.04] checksum=63000\ncli samples_ns=[2305.376, 2312.48, 2379.427, 2320.961, 2348.384, 2373.428, 2389.468] checksum=63000\n",
+      "fixtures": {
+        "construct": {
+          "samples_ns": [
+            17.096,
+            16.283,
+            16.238,
+            16.268,
+            16.218,
+            16.242,
+            16.218
+          ],
+          "median_ns": 16.242,
+          "checksum": 289373
+        },
+        "environment": {
+          "samples_ns": [
+            2447.083,
+            2277.59,
+            2293.846,
+            2272.352,
+            2321.566,
+            2274.491,
+            2311.04
+          ],
+          "median_ns": 2293.846,
+          "checksum": 63000
+        },
+        "cli": {
+          "samples_ns": [
+            2305.376,
+            2312.48,
+            2379.427,
+            2320.961,
+            2348.384,
+            2373.428,
+            2389.468
+          ],
+          "median_ns": 2348.384,
+          "checksum": 63000
+        }
+      }
+    },
+    {
+      "round": 6,
+      "caller": "reference-A",
+      "raw_stdout": "construct samples_ns=[18.156, 17.696, 17.736, 17.719, 17.718, 17.716, 17.684] checksum=289373\nenvironment samples_ns=[2674.892, 2530.391, 2487.5, 2495.901, 2395.151, 2336.118, 2370.205] checksum=63000\ncli samples_ns=[2270.909, 2173.492, 2169.567, 2178.844, 2161.682, 2173.044, 2120.938] checksum=63000\n",
+      "fixtures": {
+        "construct": {
+          "samples_ns": [
+            18.156,
+            17.696,
+            17.736,
+            17.719,
+            17.718,
+            17.716,
+            17.684
+          ],
+          "median_ns": 17.718,
+          "checksum": 289373
+        },
+        "environment": {
+          "samples_ns": [
+            2674.892,
+            2530.391,
+            2487.5,
+            2495.901,
+            2395.151,
+            2336.118,
+            2370.205
+          ],
+          "median_ns": 2487.5,
+          "checksum": 63000
+        },
+        "cli": {
+          "samples_ns": [
+            2270.909,
+            2173.492,
+            2169.567,
+            2178.844,
+            2161.682,
+            2173.044,
+            2120.938
+          ],
+          "median_ns": 2173.044,
+          "checksum": 63000
+        }
+      }
+    },
+    {
+      "round": 6,
+      "caller": "reference-B",
+      "raw_stdout": "construct samples_ns=[17.319, 16.916, 16.942, 16.888, 16.925, 16.883, 27.878] checksum=289373\nenvironment samples_ns=[2557.657, 2319.458, 2312.695, 2227.607, 2251.064, 2203.241, 2225.69] checksum=63000\ncli samples_ns=[2198.249, 2082.783, 2065.818, 2064.133, 2075.542, 2057.931, 1986.586] checksum=63000\n",
+      "fixtures": {
+        "construct": {
+          "samples_ns": [
+            17.319,
+            16.916,
+            16.942,
+            16.888,
+            16.925,
+            16.883,
+            27.878
+          ],
+          "median_ns": 16.925,
+          "checksum": 289373
+        },
+        "environment": {
+          "samples_ns": [
+            2557.657,
+            2319.458,
+            2312.695,
+            2227.607,
+            2251.064,
+            2203.241,
+            2225.69
+          ],
+          "median_ns": 2251.064,
+          "checksum": 63000
+        },
+        "cli": {
+          "samples_ns": [
+            2198.249,
+            2082.783,
+            2065.818,
+            2064.133,
+            2075.542,
+            2057.931,
+            1986.586
+          ],
+          "median_ns": 2065.818,
+          "checksum": 63000
+        }
+      }
+    },
+    {
+      "round": 7,
+      "caller": "reference-B",
+      "raw_stdout": "construct samples_ns=[16.821, 16.186, 16.186, 16.163, 16.172, 16.174, 16.298] checksum=289373\nenvironment samples_ns=[2384.653, 2257.514, 2220.279, 2248.9, 2209.872, 2240.592, 2200.288] checksum=63000\ncli samples_ns=[2217.349, 2131.612, 2148.969, 2154.317, 2158.861, 2144.645, 2152.527] checksum=63000\n",
+      "fixtures": {
+        "construct": {
+          "samples_ns": [
+            16.821,
+            16.186,
+            16.186,
+            16.163,
+            16.172,
+            16.174,
+            16.298
+          ],
+          "median_ns": 16.186,
+          "checksum": 289373
+        },
+        "environment": {
+          "samples_ns": [
+            2384.653,
+            2257.514,
+            2220.279,
+            2248.9,
+            2209.872,
+            2240.592,
+            2200.288
+          ],
+          "median_ns": 2240.592,
+          "checksum": 63000
+        },
+        "cli": {
+          "samples_ns": [
+            2217.349,
+            2131.612,
+            2148.969,
+            2154.317,
+            2158.861,
+            2144.645,
+            2152.527
+          ],
+          "median_ns": 2152.527,
+          "checksum": 63000
+        }
+      }
+    },
+    {
+      "round": 7,
+      "caller": "reference-A",
+      "raw_stdout": "construct samples_ns=[16.394, 16.205, 16.16, 16.185, 16.163, 16.17, 16.229] checksum=289373\nenvironment samples_ns=[2610.51, 2468.211, 2489.659, 2611.138, 2652.095, 2718.269, 2792.819] checksum=63000\ncli samples_ns=[2846.19, 2731.527, 2614.894, 2637.429, 2508.533, 2554.398, 2486.311] checksum=63000\n",
+      "fixtures": {
+        "construct": {
+          "samples_ns": [
+            16.394,
+            16.205,
+            16.16,
+            16.185,
+            16.163,
+            16.17,
+            16.229
+          ],
+          "median_ns": 16.185,
+          "checksum": 289373
+        },
+        "environment": {
+          "samples_ns": [
+            2610.51,
+            2468.211,
+            2489.659,
+            2611.138,
+            2652.095,
+            2718.269,
+            2792.819
+          ],
+          "median_ns": 2611.138,
+          "checksum": 63000
+        },
+        "cli": {
+          "samples_ns": [
+            2846.19,
+            2731.527,
+            2614.894,
+            2637.429,
+            2508.533,
+            2554.398,
+            2486.311
+          ],
+          "median_ns": 2614.894,
+          "checksum": 63000
+        }
+      }
+    },
+    {
+      "round": 7,
+      "caller": "generated",
+      "raw_stdout": "construct samples_ns=[20.303, 19.606, 19.598, 19.573, 19.602, 19.559, 19.552] checksum=289373\nenvironment samples_ns=[2992.558, 2743.369, 2753.126, 2751.863, 2709.814, 2660.851, 2667.915] checksum=63000\ncli samples_ns=[2538.642, 2523.057, 2413.264, 2399.283, 2385.539, 2376.612, 2281.103] checksum=63000\n",
+      "fixtures": {
+        "construct": {
+          "samples_ns": [
+            20.303,
+            19.606,
+            19.598,
+            19.573,
+            19.602,
+            19.559,
+            19.552
+          ],
+          "median_ns": 19.598,
+          "checksum": 289373
+        },
+        "environment": {
+          "samples_ns": [
+            2992.558,
+            2743.369,
+            2753.126,
+            2751.863,
+            2709.814,
+            2660.851,
+            2667.915
+          ],
+          "median_ns": 2743.369,
+          "checksum": 63000
+        },
+        "cli": {
+          "samples_ns": [
+            2538.642,
+            2523.057,
+            2413.264,
+            2399.283,
+            2385.539,
+            2376.612,
+            2281.103
+          ],
+          "median_ns": 2399.283,
+          "checksum": 63000
+        }
+      }
+    },
+    {
+      "round": 8,
+      "caller": "generated",
+      "raw_stdout": "construct samples_ns=[18.607, 17.742, 17.721, 17.716, 17.715, 17.681, 17.718] checksum=289373\nenvironment samples_ns=[2644.421, 2444.857, 2449.123, 2388.208, 2343.086, 2405.993, 2267.216] checksum=63000\ncli samples_ns=[2296.13, 2268.799, 2265.301, 2255.563, 2176.134, 2179.08, 2190.604] checksum=63000\n",
+      "fixtures": {
+        "construct": {
+          "samples_ns": [
+            18.607,
+            17.742,
+            17.721,
+            17.716,
+            17.715,
+            17.681,
+            17.718
+          ],
+          "median_ns": 17.718,
+          "checksum": 289373
+        },
+        "environment": {
+          "samples_ns": [
+            2644.421,
+            2444.857,
+            2449.123,
+            2388.208,
+            2343.086,
+            2405.993,
+            2267.216
+          ],
+          "median_ns": 2405.993,
+          "checksum": 63000
+        },
+        "cli": {
+          "samples_ns": [
+            2296.13,
+            2268.799,
+            2265.301,
+            2255.563,
+            2176.134,
+            2179.08,
+            2190.604
+          ],
+          "median_ns": 2255.563,
+          "checksum": 63000
+        }
+      }
+    },
+    {
+      "round": 8,
+      "caller": "reference-B",
+      "raw_stdout": "construct samples_ns=[17.818, 17.008, 16.971, 17.012, 16.948, 16.988, 16.953] checksum=289373\nenvironment samples_ns=[2497.34, 2322.564, 2296.872, 2209.158, 2244.063, 2215.597, 2169.386] checksum=63000\ncli samples_ns=[2098.41, 2076.79, 2072.562, 2070.998, 2001.665, 1984.014, 1989.976] checksum=63000\n",
+      "fixtures": {
+        "construct": {
+          "samples_ns": [
+            17.818,
+            17.008,
+            16.971,
+            17.012,
+            16.948,
+            16.988,
+            16.953
+          ],
+          "median_ns": 16.988,
+          "checksum": 289373
+        },
+        "environment": {
+          "samples_ns": [
+            2497.34,
+            2322.564,
+            2296.872,
+            2209.158,
+            2244.063,
+            2215.597,
+            2169.386
+          ],
+          "median_ns": 2244.063,
+          "checksum": 63000
+        },
+        "cli": {
+          "samples_ns": [
+            2098.41,
+            2076.79,
+            2072.562,
+            2070.998,
+            2001.665,
+            1984.014,
+            1989.976
+          ],
+          "median_ns": 2070.998,
+          "checksum": 63000
+        }
+      }
+    },
+    {
+      "round": 8,
+      "caller": "reference-A",
+      "raw_stdout": "construct samples_ns=[16.245, 15.528, 15.497, 15.504, 15.472, 15.507, 15.472] checksum=289373\nenvironment samples_ns=[2425.401, 2241.868, 2185.414, 2137.636, 2162.844, 2139.839, 2125.537] checksum=63000\ncli samples_ns=[2113.856, 2076.157, 1994.727, 2010.549, 2005.791, 2043.43, 2029.676] checksum=63000\n",
+      "fixtures": {
+        "construct": {
+          "samples_ns": [
+            16.245,
+            15.528,
+            15.497,
+            15.504,
+            15.472,
+            15.507,
+            15.472
+          ],
+          "median_ns": 15.504,
+          "checksum": 289373
+        },
+        "environment": {
+          "samples_ns": [
+            2425.401,
+            2241.868,
+            2185.414,
+            2137.636,
+            2162.844,
+            2139.839,
+            2125.537
+          ],
+          "median_ns": 2162.844,
+          "checksum": 63000
+        },
+        "cli": {
+          "samples_ns": [
+            2113.856,
+            2076.157,
+            1994.727,
+            2010.549,
+            2005.791,
+            2043.43,
+            2029.676
+          ],
+          "median_ns": 2029.676,
+          "checksum": 63000
+        }
+      }
+    }
+  ],
+  "binary_sha256": "6ddd09fd042582f0eb2be74d792b783feb9e564536a6788bed038d3ade0fcc1b",
+  "native_disassembly_sha256": "99fbb283e9c90dda6c1a1287837a43e6829509e3d47c18891500ebda45a9853d",
+  "utc_start": "2026-11-05T18:25:08.350638+00:00",
+  "median_of_run_medians_ns": {
+    "generated": {
+      "construct": 16.922,
+      "environment": 2373.951,
+      "cli": 2196.957
+    },
+    "reference-A": {
+      "construct": 16.185,
+      "environment": 2430.605,
+      "cli": 2173.044
+    },
+    "reference-B": {
+      "construct": 16.913,
+      "environment": 2256.984,
+      "cli": 2080.406
+    }
+  },
+  "recorded_utc": "2026-11-05T18:25:09.462922+00:00"
+}

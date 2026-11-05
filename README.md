@@ -26,7 +26,7 @@ compiler locally; see the development requirements below.
 For another project, declare a full-commit dependency in its root Goose file:
 
 ```goose
-import config from "carabistouflette/goose-config@e5d077db98fe42cf1008721124aba886747f5c7e";
+import config from "carabistouflette/goose-config@d8b4ddabf3ac694f56f850f655f0869ebde6558e";
 import config.toml; // optional; omit for key/value-only applications
 import std;
 
@@ -318,7 +318,7 @@ every seeded value and source. AddressSanitizer/UndefinedBehaviorSanitizer cover
 behavior, ownership, independent-model and hostile-input suites. CI runs both
 optimized compilers and optimized GCC/Clang sanitizer builds, and smoke-runs
 benchmarks without timing thresholds, including a native memory-protocol smoke.
-Fifty-six Python regressions cover corrupt benchmark records, immutable source
+Python regressions cover corrupt benchmark records, immutable source
 provenance, memory checkpoint/reaping/timeout handling, and diagnostic counter
 coverage, artifact validation, atomic output failures and worker-harness
 partial-write/deadline handling, plus consumer-startup provenance and process

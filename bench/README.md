@@ -201,3 +201,7 @@ relabel these source revisions.
 | `init-wide` | 62,340.9 | 27,342.6 | 0.44 |
 | `init-wide-long-prefix` | 375,715.2 | 129,677.5 | 0.35 |
 | `toml-small` | 433.5 | 469.1 | 1.08 |
+
+The [generated-binding adoption audit](../docs/generated-bindings-validation.md)
+compares fixed generated descriptors with the former manual worker mappings,
+including identical-reference controls and retained slower observations.
