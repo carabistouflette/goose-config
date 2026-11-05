@@ -3,6 +3,7 @@
 // Normalized schema SHA256: 3b5fc65ee33683a20ec6fb33c491f016af431054a6bbb8acfc8865f6502dd83e
 import config from "..";
 import config.typed;
+import config.bindings;
 import std;
 namespace typed_fixture;
 
@@ -49,6 +50,16 @@ fn aliases() -> config::Alias[>..] {
     [
         config::Alias { "old.label", "label" },
         config::Alias { "old.count", "count" },
+    ]
+}
+
+inline fn env_bindings() -> config::Binding[0] {
+    [
+    ]
+}
+
+inline fn cli_bindings() -> config::Binding[0] {
+    [
     ]
 }
 

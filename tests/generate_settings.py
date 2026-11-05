@@ -94,6 +94,33 @@ class SchemaTests(unittest.TestCase):
         for name in ('..', '../../goose-config', 'owner/repo@'+'a'*40):
             self.assertEqual(gen.render(parsed, name), gen.render(reordered, name))
 
+class BindingMetadataTests(unittest.TestCase):
+    def test_valid_byte_boundaries_and_cross_source_names(self):
+        document=schema();f=document['fields'][0];f.update(env='é'*128,cli='x'*254)
+        gen.parse_schema(encoded(document))
+        f.update(env='SAME',cli='SAME');gen.parse_schema(encoded(document))
+        f.update(kind='TextList',separator='é'*128);gen.parse_schema(encoded(document))
+    def test_invalid_binding_types_and_byte_limits(self):
+        for option,values in [('env',[None,False,1,[],{},'', 'x'*257,'é'*129,'a=b','a\x00b','\ud800']),('cli',[None,False,1,[],{},'', 'x'*255,'-bad','a.b','é','a b']),('separator',[None,False,1,[],{},'', 'x'*257,'é'*129,'\x00','\ud800'])]:
+            for value in values:
+                document=schema();f=document['fields'][0];f.update(kind='TextList',env='ENV');f[option]=value
+                with self.assertRaises(gen.SchemaError):gen.parse_schema(encoded(document))
+    def test_duplicates_and_invalid_separator_context(self):
+        for option in ('env','cli'):
+            document=schema();document['fields'][0][option]='SAME'
+            document['fields'].append({'member':'other','key':'other','kind':'Text',option:'SAME'})
+            with self.assertRaises(gen.SchemaError):gen.parse_schema(encoded(document))
+        for extra in ({'separator':','},{'env':'ENV','separator':','}):
+            document=schema();document['fields'][0].update(extra)
+            with self.assertRaises(gen.SchemaError):gen.parse_schema(encoded(document))
+    def test_byte_escaping_and_empty_binding_functions(self):
+        document=schema();document['fields'][0]['env']='Eé"\\\n'
+        source=gen.render(gen.parse_schema(encoded(document)),'..')
+        self.assertNotIn('\\u',source);self.assertIn('\\xc3\\xa9',source)
+        self.assertIn('fn env_bindings()',source);self.assertIn('fn cli_bindings()',source)
+        source=gen.render(gen.parse_schema(encoded(schema())),'..')
+        self.assertIn('fn env_bindings()',source);self.assertIn('fn cli_bindings()',source)
+
 class OutputTests(unittest.TestCase):
     def setUp(self):
         self.directory = tempfile.TemporaryDirectory(); self.addCleanup(self.directory.cleanup)

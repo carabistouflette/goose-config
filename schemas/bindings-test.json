@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "namespace": "generated_bindings",
+  "fields": [
+    {
+      "member": "text",
+      "key": "text",
+      "kind": "Text",
+      "env": "E\u00e9\"\\\n",
+      "cli": "text",
+      "source": true
+    },
+    {
+      "member": "tags",
+      "key": "tags",
+      "kind": "TextList",
+      "env": "TAGS",
+      "cli": "tag",
+      "separator": "\u00e9",
+      "source": true
+    },
+    {
+      "member": "count",
+      "key": "count",
+      "kind": "Integer",
+      "env": "COUNT",
+      "cli": "count",
+      "int_min": 0,
+      "int_max": 9
+    }
+  ]
+}

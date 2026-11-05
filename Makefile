@@ -3,7 +3,7 @@ BENCH_ITERATIONS ?= 1000
 RELEASE_CC ?= gcc
 SANITIZER_OPT ?= -O2
 export SANITIZER_OPT
-TESTS = config behavior toml overloads index ownership schema lists toml-lists json-layer bindings reload durations aliases typed-settings
+TESTS = config behavior toml overloads index ownership schema lists toml-lists json-layer bindings reload durations aliases typed-settings generated-bindings
 SOURCES = config.goose toml.goose vendor.goose json_layer.goose bindings.goose reload.goose typed.goose
 
 .PHONY: setup format check test integration property security sanitize sanitizer-config release conformance bench worker generated generated-check typed-limit
@@ -12,10 +12,12 @@ setup:
 format:
 	$(GOOSE) format $(SOURCES) examples tests bench
 generated:
+	python3 tools/generate_settings.py schemas/bindings-test.json --output tests/generated_bindings.goose --goose $(GOOSE)
 	python3 tools/generate_settings.py schemas/worker.json --output examples/worker_settings.goose --goose $(GOOSE)
 	python3 tools/generate_settings.py schemas/typed-test.json --output tests/typed_fixture.goose --goose $(GOOSE)
 	python3 tools/generate_settings.py schemas/typed-test.json --output bench/typed_fixture.goose --goose $(GOOSE)
 generated-check:
+	python3 tools/generate_settings.py schemas/bindings-test.json --output tests/generated_bindings.goose --goose $(GOOSE) --check
 	python3 tools/generate_settings.py schemas/worker.json --output examples/worker_settings.goose --goose $(GOOSE) --check
 	python3 tools/generate_settings.py schemas/typed-test.json --output tests/typed_fixture.goose --goose $(GOOSE) --check
 	python3 tools/generate_settings.py schemas/typed-test.json --output bench/typed_fixture.goose --goose $(GOOSE) --check

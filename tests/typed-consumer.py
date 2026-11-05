@@ -17,7 +17,7 @@ document={'version':1,'namespace':'app_settings','fields':[{'member':'port','key
 with tempfile.TemporaryDirectory(prefix='typed consumers ',dir=ROOT/'.build') as tmp:
     base=Path(tmp);library=base/'goose-config';library.mkdir()
     # This is a consumer snapshot, not a checkout or shared-source mutation.
-    for name in ('config.goose','typed.goose'):shutil.copyfile(ROOT/name,library/name)
+    for name in ('config.goose','typed.goose','bindings.goose'):shutil.copyfile(ROOT/name,library/name)
     env={key:os.environ[key] for key in ('PATH','HOME') if key in os.environ};env.update(GOOSE_HOME=str(base/'goose-home'),LANG='C',TZ='UTC')
     for nested in (False,True):
         app=base/('nested app' if nested else 'sibling app');app.mkdir();generated=app/'generated' if nested else app;generated.mkdir(exist_ok=True)

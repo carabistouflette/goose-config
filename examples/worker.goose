@@ -36,18 +36,8 @@ fn refresh(toml_path: const u8[:], json_path: const u8[:], arguments: const (con
                     config::Override { "worker.enabled", "true", "defaults" }];
     let queues = ["default"];
     let list_defaults = [config::ListOverride { "worker.queues", queues, "defaults" }];
-    let environment = [config::Binding { key: "worker.name", name: "GOOSE_WORKER_NAME" },
-                       config::Binding { key: "worker.prefix", name: "GOOSE_WORKER_PREFIX" },
-                       config::Binding { key: "worker.queues", name: "GOOSE_WORKER_QUEUES", separator: "," },
-                       config::Binding { key: "worker.min_bytes", name: "GOOSE_WORKER_MIN_BYTES" },
-                       config::Binding { key: "worker.max_bytes", name: "GOOSE_WORKER_MAX_BYTES" },
-                       config::Binding { key: "worker.enabled", name: "GOOSE_WORKER_ENABLED" }];
-    let cli = [config::Binding { key: "worker.name", name: "name" },
-               config::Binding { key: "worker.prefix", name: "prefix" },
-               config::Binding { key: "worker.queues", name: "queue" },
-               config::Binding { key: "worker.min_bytes", name: "min-bytes" },
-               config::Binding { key: "worker.max_bytes", name: "max-bytes" },
-               config::Binding { key: "worker.enabled", name: "enabled" }];
+    let environment = worker_settings::env_bindings();
+    let cli = worker_settings::cli_bindings();
     var layers: config::Layer[>..] = [];
     layers.push(config::Layer { kind: config::LayerKind.Values, overrides: defaults, .. });
     layers.push(config::Layer { kind: config::LayerKind.Lists, lists: list_defaults, .. });
