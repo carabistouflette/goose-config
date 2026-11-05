@@ -77,6 +77,7 @@ currently target a Linux development environment.
 [Generated typed settings](docs/typed-settings.md) turn a declarative schema into
 an owned Settings struct and a checked loader, with optional presence flags and
 application validation before publication. The worker uses this optional adapter.
+See [validation](docs/typed-validation.md) and [measured costs and controls](docs/typed-performance.md).
 
 [Key aliases](docs/aliases.md) support declared setting renames across every
 input layer and getter, with canonical duplicate detection and atomic failures.

@@ -1,0 +1,3776 @@
+{
+  "completed": true,
+  "smoke_only": false,
+  "revision": "5c4803b1bca5c0217d17e0db9c4669c31f17b61a",
+  "compiler_revision": "eadca409f68210893f366e60d0c2f0dc29a339be",
+  "compiler_version": "goose eadca40 (runtime 3025e5810379)",
+  "compiler_sha256": "3f7a34dda0d8fd3e7df27e7ccce09c0844eabc041fc8caa37a362e0ed68b2f07",
+  "source_sha256": {
+    "config.goose": "a3665f71528d2bd2806fa43c3442defe8bafcd13a275aab650fdd213c49ce9cc",
+    "toml.goose": "5ef319b83d8b8318ccb4c9aa22cbbe9ce9bf4f1b530977ed1e324017ad37505e",
+    "vendor.goose": "c4b021a0928444a5f049a99eb7a542689ea6803d0d2e845c86ba43a0fc6c31c1",
+    "json_layer.goose": "ce60981ebf0e3b97608e0bcdc6bb7ce07d83884983e863addcb6548e3a74f772",
+    "bindings.goose": "2ced04c7bd849b0713e07105f2c1cf443a244345eb9e801c31910e0e69b6449c",
+    "reload.goose": "6ebf1a704c516f80a1b0899e2a02865e5072195e77d4abaa34fae54929661fb7",
+    "typed.goose": "777570240df56b55f19344c58b9a45e9bc6e785129c8ecb651ac318fe11681e7",
+    "GOOSE_REVISION": "64e14b181dfe96743211738fb0f1b1f7798ea940da2ca50ff122e6f028c24e15",
+    "bench/typed_settings.goose": "8e123f4be82e06892be994ed9d369aff35f7ec2c077350e2df609f07d27e324a",
+    "bench/typed_reference.goose": "0a96948c189e6e1e9ffe27a75b2564c4f6763acaf24c2417c3e52e7b5828795d",
+    "bench/typed_fixture.goose": "3bfe75afd96491536abc59434e4bfeecd9535205c7ae03ca50c287c45c81748c",
+    "schemas/typed-test.json": "3d250fd0ed991740717ba01c59539fff8e5efdf4bb26b6d24ac7a9ded39804ca"
+  },
+  "toolchain_input_sha256": {
+    "gcc": "8aac907d6fbf40394b424b5fa4a2ad1aa291dac7d3a0315c5b415c1f5ace1287",
+    "bench/measure.py": "92119796bb747a9a04482620598e24486b50709ef15f3b62a2002b368c252762",
+    "bench/measure_typed.py": "60276ee4f76e1a2cd15d80284cd632d73de7a580d064d217b09c9934d7f237f0",
+    "cc1": "49a325fc4c6c5aa5a8f9ea8c828e37f3900a757c6be48d997ff4af0b51ee8315",
+    "as": "3dfdf6007545ea36176c350eef201d1ece55c347a182697bb5f9bac815a1f34b",
+    "ld": "4d83828f709f0eade25bcae2f4a2508c47db2f01b58daaca5c1c4cefce897847",
+    "src/runtime_inline.h": "94e4e6299a9662052375074e18092e73e8193ce7db3c760a2a087af36b265a53",
+    "stdlib/base64.goose": "fa1111ce46e9534311f825880dbd2988953430aeb3f1f52d8f0eaecbbc298a61",
+    "stdlib/binary.goose": "24f3f09192738f42dfc0cb08b7447bbdc38009f7fec2567cae932b3022455631",
+    "stdlib/csv.goose": "a49b0647f4a2f8ca36170e5a184ab6c6e505492434d0a10a5e05127e96da61ba",
+    "stdlib/dictionary.goose": "fb39f896731faf3799e81727f7261849a62bdfbdc92d5fdbc36405a85830f322",
+    "stdlib/exception.goose": "093863eda5433176750182b597aa6760a93808d86b0c9b713681443d2fb29160",
+    "stdlib/ffi.goose": "e092b245fbe13ee2fdc71599b7b8eb44198e5261cad9600b7681e13ad75a6c2e",
+    "stdlib/json.goose": "81595baa298b9b0deb271297c971166fd084c13b128bba2a7f7486191ea0de4e",
+    "stdlib/math.goose": "b20bd3f78cd1ca291fdbc65df85d9aeaa77054cdf601b5adecfdd4f9db9f0d6e",
+    "stdlib/os.goose": "2193f394d44469daffd993ed204a91b068084fd8db13e261e11156b40c66e934",
+    "stdlib/regex.goose": "1ea3fc0a38402f29193777478b793b4a74a3074da0e3baf96f0b54eea1a84a95",
+    "stdlib/slice_pool.goose": "e15aa757be8edea4b367ac0b2cb8cce48df9f4f249f5002a9393475cc89404f0",
+    "stdlib/slice_pool_internal.goose": "488048c4e67754c878aa24ae25a941833a4a1a36ba679a2444b13806e7d42e15",
+    "stdlib/slot_pool.goose": "e83b975bfff2806df0401afc3e37e147618c5673a9c98690007e6beb3bd51745",
+    "stdlib/std.goose": "2bff7f6748300396e4c048bbf072f798566fadfe6b05d4256052d32c93e6d5d2",
+    "stdlib/vec.goose": "2cac168c72047834433bfb419734c38455c9429ea045b1273898031c53faa82e",
+    "src/runtime/goose.h": "51234daf2f8fb52d4a18158175ed517ab5bfeeb5473c5448babf19f94ffbeccf",
+    "src/runtime/jit_c.h": "d4c8f0d2e577982f68fdabeaa32f58698ddbafcbb19ca3c9952103725dd8e371",
+    "src/runtime/runtime.h": "5e744690e69fd4b365adbe24b1eea86cefd0d1789b38216c1d7c62e117021521",
+    "src/runtime/runtime_ext.h": "d50f3c7eacbff5969aa1af513938db0e444240efaf44cb97373bec49abb01d9e",
+    "src/runtime/runtime_impl.h": "f95d3d3360614853e4abdbd39a45cfcbbd1aad0136eeffb8c02af371f7676680",
+    "src/runtime/runtime_os.h": "196308b80c7fbc34eb45fcc3e4231b02bb1c5a2e99ca7ebe109f4e2301de21ab",
+    "src/runtime/runtime_threads.h": "f7540e51cedccf3c6302531541a035ebbf3c68a047ba04b2a66ba3ada5e620e7"
+  },
+  "platform": "Linux-7.2.11-arch1-1-x86_64-with-glibc2.44",
+  "cpu": "Intel(R) Core(TM) Ultra 7 258V",
+  "cpu_affinity": [
+    6
+  ],
+  "gcc": "gcc (GCC) 16.2.1 20260810",
+  "flags": "GCC -O2",
+  "iterations": 1000,
+  "rounds": 9,
+  "seed": 606,
+  "limitations": [
+    "Shared host, no exclusive isolation or control correction.",
+    "Fixed case order within each process; caller process order reproducibly shuffled.",
+    "Reference uses metadata preflight before staging; generated loader interleaves it.",
+    "Reference fuses numeric-list check/copy; generated code uses separate loops.",
+    "Cold means fresh logical destination in a warmed process, not cold pages or startup.",
+    "Reads measure optimized workload throughput, not nominal per-read latency.",
+    "Ten-kind fixtures only, not wide-schema or compile-time performance; no RSS/allocation claim."
+  ],
+  "warmup": "Counts1/2/3 per caller preflighted; first timed batch retained.",
+  "preflights": [
+    {
+      "count": 1,
+      "caller": "generated",
+      "raw_stdout": "load-small samples_ns=[4444.0, 3178.0, 2088.0, 1937.0, 1740.0, 1786.0, 1657.0] checksum=10250000864\nmedian=1937.0 min=1657.0 max=4444.0\nload-owned samples_ns=[3423.0, 3378.0, 3168.0, 3185.0, 3144.0, 3000.0, 3059.0] checksum=10250028871\nmedian=3168.0 min=3000.0 max=3423.0\ncold-owned samples_ns=[4320.0, 3732.0, 3163.0, 3169.0, 3152.0, 3313.0, 2949.0] checksum=10250028871\nmedian=3169.0 min=2949.0 max=4320.0\noptional-removal samples_ns=[1850.0, 1533.0, 2108.0, 1018.0, 1611.0, 669.0, 1618.0] checksum=5000000543\nmedian=1611.0 min=669.0 max=2108.0\nrefresh-owned samples_ns=[56299.0, 24020.0, 22719.0, 22733.0, 22012.0, 21965.0, 63130.0] checksum=10250028871\nmedian=22733.0 min=21965.0 max=63130.0\nreject-validator samples_ns=[3268.0, 2451.0, 2148.0, 2170.0, 2132.0, 2188.0, 2169.0] checksum=105\nmedian=2170.0 min=2132.0 max=3268.0\nreject-schema samples_ns=[2795.0, 1443.0, 1384.0, 1279.0, 1173.0, 1210.0, 1202.0] checksum=315\nmedian=1279.0 min=1173.0 max=2795.0\napplication-read samples_ns=[180.0, 60.0, 61.0, 48.0, 50.0, 51.0, 51.0] checksum=750000004\nmedian=51.0 min=48.0 max=180.0\n",
+      "fixtures": {
+        "load-small": {
+          "samples_ns": [
+            4444.0,
+            3178.0,
+            2088.0,
+            1937.0,
+            1740.0,
+            1786.0,
+            1657.0
+          ],
+          "median_ns": 1937.0,
+          "checksum": 10250000864
+        },
+        "load-owned": {
+          "samples_ns": [
+            3423.0,
+            3378.0,
+            3168.0,
+            3185.0,
+            3144.0,
+            3000.0,
+            3059.0
+          ],
+          "median_ns": 3168.0,
+          "checksum": 10250028871
+        },
+        "cold-owned": {
+          "samples_ns": [
+            4320.0,
+            3732.0,
+            3163.0,
+            3169.0,
+            3152.0,
+            3313.0,
+            2949.0
+          ],
+          "median_ns": 3169.0,
+          "checksum": 10250028871
+        },
+        "optional-removal": {
+          "samples_ns": [
+            1850.0,
+            1533.0,
+            2108.0,
+            1018.0,
+            1611.0,
+            669.0,
+            1618.0
+          ],
+          "median_ns": 1611.0,
+          "checksum": 5000000543
+        },
+        "refresh-owned": {
+          "samples_ns": [
+            56299.0,
+            24020.0,
+            22719.0,
+            22733.0,
+            22012.0,
+            21965.0,
+            63130.0
+          ],
+          "median_ns": 22733.0,
+          "checksum": 10250028871
+        },
+        "reject-validator": {
+          "samples_ns": [
+            3268.0,
+            2451.0,
+            2148.0,
+            2170.0,
+            2132.0,
+            2188.0,
+            2169.0
+          ],
+          "median_ns": 2170.0,
+          "checksum": 105
+        },
+        "reject-schema": {
+          "samples_ns": [
+            2795.0,
+            1443.0,
+            1384.0,
+            1279.0,
+            1173.0,
+            1210.0,
+            1202.0
+          ],
+          "median_ns": 1279.0,
+          "checksum": 315
+        },
+        "application-read": {
+          "samples_ns": [
+            180.0,
+            60.0,
+            61.0,
+            48.0,
+            50.0,
+            51.0,
+            51.0
+          ],
+          "median_ns": 51.0,
+          "checksum": 750000004
+        }
+      }
+    },
+    {
+      "count": 1,
+      "caller": "reference",
+      "raw_stdout": "load-small samples_ns=[4504.0, 3184.0, 1946.0, 2060.0, 1740.0, 1716.0, 1615.0] checksum=10250000864\nmedian=1946.0 min=1615.0 max=4504.0\nload-owned samples_ns=[3584.0, 3610.0, 3155.0, 3094.0, 3050.0, 3103.0, 2986.0] checksum=10250028871\nmedian=3103.0 min=2986.0 max=3610.0\ncold-owned samples_ns=[4880.0, 3380.0, 2964.0, 2941.0, 3055.0, 2996.0, 2949.0] checksum=10250028871\nmedian=2996.0 min=2941.0 max=4880.0\noptional-removal samples_ns=[1875.0, 1226.0, 1650.0, 845.0, 1536.0, 630.0, 1428.0] checksum=5000000543\nmedian=1428.0 min=630.0 max=1875.0\nrefresh-owned samples_ns=[61362.0, 23839.0, 22703.0, 22317.0, 22270.0, 21925.0, 22541.0] checksum=10250028871\nmedian=22541.0 min=21925.0 max=61362.0\nreject-validator samples_ns=[5118.0, 2637.0, 2235.0, 2225.0, 2240.0, 2174.0, 2116.0] checksum=105\nmedian=2235.0 min=2116.0 max=5118.0\nreject-schema samples_ns=[1892.0, 691.0, 438.0, 438.0, 440.0, 440.0, 431.0] checksum=315\nmedian=440.0 min=431.0 max=1892.0\napplication-read samples_ns=[443.0, 220.0, 142.0, 146.0, 99.0, 105.0, 98.0] checksum=750000004\nmedian=142.0 min=98.0 max=443.0\n",
+      "fixtures": {
+        "load-small": {
+          "samples_ns": [
+            4504.0,
+            3184.0,
+            1946.0,
+            2060.0,
+            1740.0,
+            1716.0,
+            1615.0
+          ],
+          "median_ns": 1946.0,
+          "checksum": 10250000864
+        },
+        "load-owned": {
+          "samples_ns": [
+            3584.0,
+            3610.0,
+            3155.0,
+            3094.0,
+            3050.0,
+            3103.0,
+            2986.0
+          ],
+          "median_ns": 3103.0,
+          "checksum": 10250028871
+        },
+        "cold-owned": {
+          "samples_ns": [
+            4880.0,
+            3380.0,
+            2964.0,
+            2941.0,
+            3055.0,
+            2996.0,
+            2949.0
+          ],
+          "median_ns": 2996.0,
+          "checksum": 10250028871
+        },
+        "optional-removal": {
+          "samples_ns": [
+            1875.0,
+            1226.0,
+            1650.0,
+            845.0,
+            1536.0,
+            630.0,
+            1428.0
+          ],
+          "median_ns": 1428.0,
+          "checksum": 5000000543
+        },
+        "refresh-owned": {
+          "samples_ns": [
+            61362.0,
+            23839.0,
+            22703.0,
+            22317.0,
+            22270.0,
+            21925.0,
+            22541.0
+          ],
+          "median_ns": 22541.0,
+          "checksum": 10250028871
+        },
+        "reject-validator": {
+          "samples_ns": [
+            5118.0,
+            2637.0,
+            2235.0,
+            2225.0,
+            2240.0,
+            2174.0,
+            2116.0
+          ],
+          "median_ns": 2235.0,
+          "checksum": 105
+        },
+        "reject-schema": {
+          "samples_ns": [
+            1892.0,
+            691.0,
+            438.0,
+            438.0,
+            440.0,
+            440.0,
+            431.0
+          ],
+          "median_ns": 440.0,
+          "checksum": 315
+        },
+        "application-read": {
+          "samples_ns": [
+            443.0,
+            220.0,
+            142.0,
+            146.0,
+            99.0,
+            105.0,
+            98.0
+          ],
+          "median_ns": 142.0,
+          "checksum": 750000004
+        }
+      }
+    },
+    {
+      "count": 2,
+      "caller": "generated",
+      "raw_stdout": "load-small samples_ns=[3639.5, 1655.0, 1408.0, 1274.5, 1271.5, 1270.5, 1260.5] checksum=21000001729\nmedian=1274.5 min=1260.5 max=3639.5\nload-owned samples_ns=[3303.5, 2772.0, 2733.5, 2604.5, 2725.5, 2725.5, 2629.5] checksum=21000057708\nmedian=2725.5 min=2604.5 max=3303.5\ncold-owned samples_ns=[3561.0, 2708.0, 2647.5, 2686.5, 2570.0, 2626.0, 2612.0] checksum=21000057708\nmedian=2647.5 min=2570.0 max=3561.0\noptional-removal samples_ns=[1445.0, 1246.5, 960.0, 843.0, 855.0, 822.0, 984.0] checksum=8750000980\nmedian=960.0 min=822.0 max=1445.0\nrefresh-owned samples_ns=[45514.5, 28582.5, 36292.0, 28325.0, 29496.0, 29274.0, 28956.5] checksum=21000057708\nmedian=29274.0 min=28325.0 max=45514.5\nreject-validator samples_ns=[2509.0, 1950.5, 1916.5, 1873.5, 1838.5, 1883.0, 1963.5] checksum=210\nmedian=1916.5 min=1838.5 max=2509.0\nreject-schema samples_ns=[2363.5, 1114.0, 1034.5, 1071.5, 1046.0, 1041.0, 1001.5] checksum=630\nmedian=1046.0 min=1001.5 max=2363.5\napplication-read samples_ns=[69.5, 45.5, 29.0, 28.5, 30.5, 29.0, 29.0] checksum=1750000007\nmedian=29.0 min=28.5 max=69.5\n",
+      "fixtures": {
+        "load-small": {
+          "samples_ns": [
+            3639.5,
+            1655.0,
+            1408.0,
+            1274.5,
+            1271.5,
+            1270.5,
+            1260.5
+          ],
+          "median_ns": 1274.5,
+          "checksum": 21000001729
+        },
+        "load-owned": {
+          "samples_ns": [
+            3303.5,
+            2772.0,
+            2733.5,
+            2604.5,
+            2725.5,
+            2725.5,
+            2629.5
+          ],
+          "median_ns": 2725.5,
+          "checksum": 21000057708
+        },
+        "cold-owned": {
+          "samples_ns": [
+            3561.0,
+            2708.0,
+            2647.5,
+            2686.5,
+            2570.0,
+            2626.0,
+            2612.0
+          ],
+          "median_ns": 2647.5,
+          "checksum": 21000057708
+        },
+        "optional-removal": {
+          "samples_ns": [
+            1445.0,
+            1246.5,
+            960.0,
+            843.0,
+            855.0,
+            822.0,
+            984.0
+          ],
+          "median_ns": 960.0,
+          "checksum": 8750000980
+        },
+        "refresh-owned": {
+          "samples_ns": [
+            45514.5,
+            28582.5,
+            36292.0,
+            28325.0,
+            29496.0,
+            29274.0,
+            28956.5
+          ],
+          "median_ns": 29274.0,
+          "checksum": 21000057708
+        },
+        "reject-validator": {
+          "samples_ns": [
+            2509.0,
+            1950.5,
+            1916.5,
+            1873.5,
+            1838.5,
+            1883.0,
+            1963.5
+          ],
+          "median_ns": 1916.5,
+          "checksum": 210
+        },
+        "reject-schema": {
+          "samples_ns": [
+            2363.5,
+            1114.0,
+            1034.5,
+            1071.5,
+            1046.0,
+            1041.0,
+            1001.5
+          ],
+          "median_ns": 1046.0,
+          "checksum": 630
+        },
+        "application-read": {
+          "samples_ns": [
+            69.5,
+            45.5,
+            29.0,
+            28.5,
+            30.5,
+            29.0,
+            29.0
+          ],
+          "median_ns": 29.0,
+          "checksum": 1750000007
+        }
+      }
+    },
+    {
+      "count": 2,
+      "caller": "reference",
+      "raw_stdout": "load-small samples_ns=[3737.0, 1773.0, 1506.5, 1412.0, 1444.5, 1327.0, 1386.5] checksum=21000001729\nmedian=1444.5 min=1327.0 max=3737.0\nload-owned samples_ns=[3243.5, 2704.0, 2754.5, 2591.0, 2644.0, 2685.0, 2686.5] checksum=21000057708\nmedian=2686.5 min=2591.0 max=3243.5\ncold-owned samples_ns=[3797.5, 2991.5, 2700.5, 2798.0, 2763.0, 2649.0, 2771.5] checksum=21000057708\nmedian=2771.5 min=2649.0 max=3797.5\noptional-removal samples_ns=[1355.0, 1129.0, 978.5, 962.5, 989.0, 927.5, 963.0] checksum=8750000980\nmedian=978.5 min=927.5 max=1355.0\nrefresh-owned samples_ns=[39006.0, 21089.5, 20463.5, 20329.0, 22732.0, 20772.0, 20237.0] checksum=21000057708\nmedian=20772.0 min=20237.0 max=39006.0\nreject-validator samples_ns=[3463.5, 2102.5, 1967.5, 1936.5, 2038.0, 1955.0, 1914.0] checksum=210\nmedian=1967.5 min=1914.0 max=3463.5\nreject-schema samples_ns=[1010.0, 448.0, 407.0, 406.0, 405.5, 404.5, 406.5] checksum=630\nmedian=406.5 min=404.5 max=1010.0\napplication-read samples_ns=[203.0, 89.5, 72.0, 67.5, 68.5, 69.0, 68.0] checksum=1750000007\nmedian=69.0 min=67.5 max=203.0\n",
+      "fixtures": {
+        "load-small": {
+          "samples_ns": [
+            3737.0,
+            1773.0,
+            1506.5,
+            1412.0,
+            1444.5,
+            1327.0,
+            1386.5
+          ],
+          "median_ns": 1444.5,
+          "checksum": 21000001729
+        },
+        "load-owned": {
+          "samples_ns": [
+            3243.5,
+            2704.0,
+            2754.5,
+            2591.0,
+            2644.0,
+            2685.0,
+            2686.5
+          ],
+          "median_ns": 2686.5,
+          "checksum": 21000057708
+        },
+        "cold-owned": {
+          "samples_ns": [
+            3797.5,
+            2991.5,
+            2700.5,
+            2798.0,
+            2763.0,
+            2649.0,
+            2771.5
+          ],
+          "median_ns": 2771.5,
+          "checksum": 21000057708
+        },
+        "optional-removal": {
+          "samples_ns": [
+            1355.0,
+            1129.0,
+            978.5,
+            962.5,
+            989.0,
+            927.5,
+            963.0
+          ],
+          "median_ns": 978.5,
+          "checksum": 8750000980
+        },
+        "refresh-owned": {
+          "samples_ns": [
+            39006.0,
+            21089.5,
+            20463.5,
+            20329.0,
+            22732.0,
+            20772.0,
+            20237.0
+          ],
+          "median_ns": 20772.0,
+          "checksum": 21000057708
+        },
+        "reject-validator": {
+          "samples_ns": [
+            3463.5,
+            2102.5,
+            1967.5,
+            1936.5,
+            2038.0,
+            1955.0,
+            1914.0
+          ],
+          "median_ns": 1967.5,
+          "checksum": 210
+        },
+        "reject-schema": {
+          "samples_ns": [
+            1010.0,
+            448.0,
+            407.0,
+            406.0,
+            405.5,
+            404.5,
+            406.5
+          ],
+          "median_ns": 406.5,
+          "checksum": 630
+        },
+        "application-read": {
+          "samples_ns": [
+            203.0,
+            89.5,
+            72.0,
+            67.5,
+            68.5,
+            69.0,
+            68.0
+          ],
+          "median_ns": 69.0,
+          "checksum": 1750000007
+        }
+      }
+    },
+    {
+      "count": 3,
+      "caller": "generated",
+      "raw_stdout": "load-small samples_ns=[3272.3333333333335, 1635.0, 1484.3333333333333, 1379.6666666666667, 1739.6666666666667, 1477.3333333333333, 1418.0] checksum=31250002593\nmedian=1484.3333333333333 min=1379.6666666666667 max=3272.3333333333335\nload-owned samples_ns=[3102.0, 2781.3333333333335, 2782.0, 2715.0, 2712.0, 2689.3333333333335, 2719.6666666666665] checksum=31250086579\nmedian=2719.6666666666665 min=2689.3333333333335 max=3102.0\ncold-owned samples_ns=[3349.0, 2807.3333333333335, 2763.0, 2738.6666666666665, 2662.6666666666665, 2670.6666666666665, 2657.3333333333335] checksum=31250086579\nmedian=2738.6666666666665 min=2657.3333333333335 max=3349.0\noptional-removal samples_ns=[1647.3333333333333, 958.3333333333334, 1173.0, 845.0, 1074.6666666666667, 829.6666666666666, 1048.6666666666667] checksum=13750001523\nmedian=1048.6666666666667 min=829.6666666666666 max=1647.3333333333333\nrefresh-owned samples_ns=[41075.333333333336, 28944.0, 29158.666666666668, 26637.0, 20982.0, 20816.0, 23875.666666666668] checksum=31250086579\nmedian=26637.0 min=20816.0 max=41075.333333333336\nreject-validator samples_ns=[2553.3333333333335, 1983.6666666666667, 1938.6666666666667, 1942.0, 1936.0, 1934.6666666666667, 1917.0] checksum=315\nmedian=1938.6666666666667 min=1917.0 max=2553.3333333333335\nreject-schema samples_ns=[1934.0, 1320.6666666666667, 1146.6666666666667, 1112.0, 1082.6666666666667, 1066.3333333333333, 1052.0] checksum=945\nmedian=1112.0 min=1052.0 max=1934.0\napplication-read samples_ns=[47.666666666666664, 15.333333333333334, 15.666666666666666, 16.0, 16.333333333333332, 16.333333333333332, 15.333333333333334] checksum=2500000011\nmedian=16.0 min=15.333333333333334 max=47.666666666666664\n",
+      "fixtures": {
+        "load-small": {
+          "samples_ns": [
+            3272.3333333333335,
+            1635.0,
+            1484.3333333333333,
+            1379.6666666666667,
+            1739.6666666666667,
+            1477.3333333333333,
+            1418.0
+          ],
+          "median_ns": 1484.3333333333333,
+          "checksum": 31250002593
+        },
+        "load-owned": {
+          "samples_ns": [
+            3102.0,
+            2781.3333333333335,
+            2782.0,
+            2715.0,
+            2712.0,
+            2689.3333333333335,
+            2719.6666666666665
+          ],
+          "median_ns": 2719.6666666666665,
+          "checksum": 31250086579
+        },
+        "cold-owned": {
+          "samples_ns": [
+            3349.0,
+            2807.3333333333335,
+            2763.0,
+            2738.6666666666665,
+            2662.6666666666665,
+            2670.6666666666665,
+            2657.3333333333335
+          ],
+          "median_ns": 2738.6666666666665,
+          "checksum": 31250086579
+        },
+        "optional-removal": {
+          "samples_ns": [
+            1647.3333333333333,
+            958.3333333333334,
+            1173.0,
+            845.0,
+            1074.6666666666667,
+            829.6666666666666,
+            1048.6666666666667
+          ],
+          "median_ns": 1048.6666666666667,
+          "checksum": 13750001523
+        },
+        "refresh-owned": {
+          "samples_ns": [
+            41075.333333333336,
+            28944.0,
+            29158.666666666668,
+            26637.0,
+            20982.0,
+            20816.0,
+            23875.666666666668
+          ],
+          "median_ns": 26637.0,
+          "checksum": 31250086579
+        },
+        "reject-validator": {
+          "samples_ns": [
+            2553.3333333333335,
+            1983.6666666666667,
+            1938.6666666666667,
+            1942.0,
+            1936.0,
+            1934.6666666666667,
+            1917.0
+          ],
+          "median_ns": 1938.6666666666667,
+          "checksum": 315
+        },
+        "reject-schema": {
+          "samples_ns": [
+            1934.0,
+            1320.6666666666667,
+            1146.6666666666667,
+            1112.0,
+            1082.6666666666667,
+            1066.3333333333333,
+            1052.0
+          ],
+          "median_ns": 1112.0,
+          "checksum": 945
+        },
+        "application-read": {
+          "samples_ns": [
+            47.666666666666664,
+            15.333333333333334,
+            15.666666666666666,
+            16.0,
+            16.333333333333332,
+            16.333333333333332,
+            15.333333333333334
+          ],
+          "median_ns": 16.0,
+          "checksum": 2500000011
+        }
+      }
+    },
+    {
+      "count": 3,
+      "caller": "reference",
+      "raw_stdout": "load-small samples_ns=[2996.0, 1487.6666666666667, 1436.0, 1448.0, 1396.0, 1400.6666666666667, 1365.6666666666667] checksum=31250002593\nmedian=1436.0 min=1365.6666666666667 max=2996.0\nload-owned samples_ns=[2924.0, 2732.0, 2748.3333333333335, 2729.0, 2729.3333333333335, 2739.0, 2613.0] checksum=31250086579\nmedian=2732.0 min=2613.0 max=2924.0\ncold-owned samples_ns=[3462.3333333333335, 2881.6666666666665, 2769.3333333333335, 2774.0, 2721.0, 2832.0, 2675.0] checksum=31250086579\nmedian=2774.0 min=2675.0 max=3462.3333333333335\noptional-removal samples_ns=[1442.0, 993.0, 1197.0, 900.6666666666666, 1165.6666666666667, 935.6666666666666, 1187.0] checksum=13750001523\nmedian=1165.6666666666667 min=900.6666666666666 max=1442.0\nrefresh-owned samples_ns=[41587.666666666664, 28818.0, 28743.666666666668, 28803.333333333332, 28589.666666666668, 29022.666666666668, 29343.333333333332] checksum=31250086579\nmedian=28818.0 min=28589.666666666668 max=41587.666666666664\nreject-validator samples_ns=[3073.3333333333335, 2006.6666666666667, 1964.0, 1959.3333333333333, 2015.0, 1973.6666666666667, 1989.0] checksum=315\nmedian=1989.0 min=1959.3333333333333 max=3073.3333333333335\nreject-schema samples_ns=[1088.6666666666667, 554.3333333333334, 528.3333333333334, 477.3333333333333, 434.6666666666667, 454.0, 472.6666666666667] checksum=945\nmedian=477.3333333333333 min=434.6666666666667 max=1088.6666666666667\napplication-read samples_ns=[227.66666666666666, 99.0, 83.33333333333333, 80.66666666666667, 74.0, 63.666666666666664, 60.333333333333336] checksum=2500000011\nmedian=80.66666666666667 min=60.333333333333336 max=227.66666666666666\n",
+      "fixtures": {
+        "load-small": {
+          "samples_ns": [
+            2996.0,
+            1487.6666666666667,
+            1436.0,
+            1448.0,
+            1396.0,
+            1400.6666666666667,
+            1365.6666666666667
+          ],
+          "median_ns": 1436.0,
+          "checksum": 31250002593
+        },
+        "load-owned": {
+          "samples_ns": [
+            2924.0,
+            2732.0,
+            2748.3333333333335,
+            2729.0,
+            2729.3333333333335,
+            2739.0,
+            2613.0
+          ],
+          "median_ns": 2732.0,
+          "checksum": 31250086579
+        },
+        "cold-owned": {
+          "samples_ns": [
+            3462.3333333333335,
+            2881.6666666666665,
+            2769.3333333333335,
+            2774.0,
+            2721.0,
+            2832.0,
+            2675.0
+          ],
+          "median_ns": 2774.0,
+          "checksum": 31250086579
+        },
+        "optional-removal": {
+          "samples_ns": [
+            1442.0,
+            993.0,
+            1197.0,
+            900.6666666666666,
+            1165.6666666666667,
+            935.6666666666666,
+            1187.0
+          ],
+          "median_ns": 1165.6666666666667,
+          "checksum": 13750001523
+        },
+        "refresh-owned": {
+          "samples_ns": [
+            41587.666666666664,
+            28818.0,
+            28743.666666666668,
+            28803.333333333332,
+            28589.666666666668,
+            29022.666666666668,
+            29343.333333333332
+          ],
+          "median_ns": 28818.0,
+          "checksum": 31250086579
+        },
+        "reject-validator": {
+          "samples_ns": [
+            3073.3333333333335,
+            2006.6666666666667,
+            1964.0,
+            1959.3333333333333,
+            2015.0,
+            1973.6666666666667,
+            1989.0
+          ],
+          "median_ns": 1989.0,
+          "checksum": 315
+        },
+        "reject-schema": {
+          "samples_ns": [
+            1088.6666666666667,
+            554.3333333333334,
+            528.3333333333334,
+            477.3333333333333,
+            434.6666666666667,
+            454.0,
+            472.6666666666667
+          ],
+          "median_ns": 477.3333333333333,
+          "checksum": 945
+        },
+        "application-read": {
+          "samples_ns": [
+            227.66666666666666,
+            99.0,
+            83.33333333333333,
+            80.66666666666667,
+            74.0,
+            63.666666666666664,
+            60.333333333333336
+          ],
+          "median_ns": 80.66666666666667,
+          "checksum": 2500000011
+        }
+      }
+    }
+  ],
+  "measurements": [
+    {
+      "round": 0,
+      "caller": "reference-A",
+      "raw_stdout": "load-small samples_ns=[1304.61, 1369.27, 1285.272, 1294.684, 1371.184, 1284.575, 1225.911] checksum=10500000864500\nmedian=1294.684 min=1225.911 max=1371.184\nload-owned samples_ns=[2545.063, 2611.917, 2716.565, 2661.196, 2567.221, 2441.084, 2337.642] checksum=10500028854000\nmedian=2567.221 min=2337.642 max=2716.565\ncold-owned samples_ns=[2335.02, 2353.098, 2366.263, 2303.409, 2271.822, 2301.039, 2206.914] checksum=10500028854000\nmedian=2303.409 min=2206.914 max=2366.263\noptional-removal samples_ns=[802.126, 737.042, 749.685, 755.474, 770.991, 741.837, 758.378] checksum=4375000490000\nmedian=755.474 min=737.042 max=802.126\nrefresh-owned samples_ns=[24082.41, 24402.53, 24121.531, 24612.456, 28198.279, 21485.709, 27192.109] checksum=10500028854000\nmedian=24402.53 min=21485.709 max=28198.279\nreject-validator samples_ns=[1807.284, 1819.034, 1836.279, 1836.512, 1825.428, 1820.405, 1800.437] checksum=105000\nmedian=1820.405 min=1800.437 max=1836.512\nreject-schema samples_ns=[344.255, 343.118, 353.435, 343.473, 343.173, 352.837, 341.867] checksum=315000\nmedian=343.473 min=341.867 max=353.435\napplication-read samples_ns=[41.484, 40.915, 40.864, 40.928, 40.865, 40.805, 42.737] checksum=875000003500\nmedian=40.915 min=40.805 max=42.737\n",
+      "fixtures": {
+        "load-small": {
+          "samples_ns": [
+            1304.61,
+            1369.27,
+            1285.272,
+            1294.684,
+            1371.184,
+            1284.575,
+            1225.911
+          ],
+          "median_ns": 1294.684,
+          "checksum": 10500000864500
+        },
+        "load-owned": {
+          "samples_ns": [
+            2545.063,
+            2611.917,
+            2716.565,
+            2661.196,
+            2567.221,
+            2441.084,
+            2337.642
+          ],
+          "median_ns": 2567.221,
+          "checksum": 10500028854000
+        },
+        "cold-owned": {
+          "samples_ns": [
+            2335.02,
+            2353.098,
+            2366.263,
+            2303.409,
+            2271.822,
+            2301.039,
+            2206.914
+          ],
+          "median_ns": 2303.409,
+          "checksum": 10500028854000
+        },
+        "optional-removal": {
+          "samples_ns": [
+            802.126,
+            737.042,
+            749.685,
+            755.474,
+            770.991,
+            741.837,
+            758.378
+          ],
+          "median_ns": 755.474,
+          "checksum": 4375000490000
+        },
+        "refresh-owned": {
+          "samples_ns": [
+            24082.41,
+            24402.53,
+            24121.531,
+            24612.456,
+            28198.279,
+            21485.709,
+            27192.109
+          ],
+          "median_ns": 24402.53,
+          "checksum": 10500028854000
+        },
+        "reject-validator": {
+          "samples_ns": [
+            1807.284,
+            1819.034,
+            1836.279,
+            1836.512,
+            1825.428,
+            1820.405,
+            1800.437
+          ],
+          "median_ns": 1820.405,
+          "checksum": 105000
+        },
+        "reject-schema": {
+          "samples_ns": [
+            344.255,
+            343.118,
+            353.435,
+            343.473,
+            343.173,
+            352.837,
+            341.867
+          ],
+          "median_ns": 343.473,
+          "checksum": 315000
+        },
+        "application-read": {
+          "samples_ns": [
+            41.484,
+            40.915,
+            40.864,
+            40.928,
+            40.865,
+            40.805,
+            42.737
+          ],
+          "median_ns": 40.915,
+          "checksum": 875000003500
+        }
+      }
+    },
+    {
+      "round": 0,
+      "caller": "generated",
+      "raw_stdout": "load-small samples_ns=[1312.168, 1402.383, 1298.314, 1304.49, 1368.021, 1320.299, 1320.449] checksum=10500000864500\nmedian=1320.299 min=1298.314 max=1402.383\nload-owned samples_ns=[2745.312, 2718.244, 2637.344, 2563.103, 2609.827, 2722.017, 2541.832] checksum=10500028854000\nmedian=2637.344 min=2541.832 max=2745.312\ncold-owned samples_ns=[2543.68, 2529.246, 2400.539, 2394.524, 2400.306, 2256.324, 2249.893] checksum=10500028854000\nmedian=2400.306 min=2249.893 max=2543.68\noptional-removal samples_ns=[762.14, 768.33, 774.917, 762.265, 778.714, 771.757, 780.791] checksum=4375000490000\nmedian=771.757 min=762.14 max=780.791\nrefresh-owned samples_ns=[21114.748, 21294.813, 15849.202, 18900.142, 18562.691, 17273.416, 16276.602] checksum=10500028854000\nmedian=18562.691 min=15849.202 max=21294.813\nreject-validator samples_ns=[1057.115, 1055.847, 1058.365, 1056.303, 1063.138, 1066.721, 1054.239] checksum=105000\nmedian=1057.115 min=1054.239 max=1066.721\nreject-schema samples_ns=[577.333, 578.334, 574.744, 576.74, 580.749, 575.095, 578.18] checksum=315000\nmedian=577.333 min=574.744 max=580.749\napplication-read samples_ns=[0.748, 0.722, 0.711, 0.701, 0.681, 0.691, 0.687] checksum=875000003500\nmedian=0.701 min=0.681 max=0.748\n",
+      "fixtures": {
+        "load-small": {
+          "samples_ns": [
+            1312.168,
+            1402.383,
+            1298.314,
+            1304.49,
+            1368.021,
+            1320.299,
+            1320.449
+          ],
+          "median_ns": 1320.299,
+          "checksum": 10500000864500
+        },
+        "load-owned": {
+          "samples_ns": [
+            2745.312,
+            2718.244,
+            2637.344,
+            2563.103,
+            2609.827,
+            2722.017,
+            2541.832
+          ],
+          "median_ns": 2637.344,
+          "checksum": 10500028854000
+        },
+        "cold-owned": {
+          "samples_ns": [
+            2543.68,
+            2529.246,
+            2400.539,
+            2394.524,
+            2400.306,
+            2256.324,
+            2249.893
+          ],
+          "median_ns": 2400.306,
+          "checksum": 10500028854000
+        },
+        "optional-removal": {
+          "samples_ns": [
+            762.14,
+            768.33,
+            774.917,
+            762.265,
+            778.714,
+            771.757,
+            780.791
+          ],
+          "median_ns": 771.757,
+          "checksum": 4375000490000
+        },
+        "refresh-owned": {
+          "samples_ns": [
+            21114.748,
+            21294.813,
+            15849.202,
+            18900.142,
+            18562.691,
+            17273.416,
+            16276.602
+          ],
+          "median_ns": 18562.691,
+          "checksum": 10500028854000
+        },
+        "reject-validator": {
+          "samples_ns": [
+            1057.115,
+            1055.847,
+            1058.365,
+            1056.303,
+            1063.138,
+            1066.721,
+            1054.239
+          ],
+          "median_ns": 1057.115,
+          "checksum": 105000
+        },
+        "reject-schema": {
+          "samples_ns": [
+            577.333,
+            578.334,
+            574.744,
+            576.74,
+            580.749,
+            575.095,
+            578.18
+          ],
+          "median_ns": 577.333,
+          "checksum": 315000
+        },
+        "application-read": {
+          "samples_ns": [
+            0.748,
+            0.722,
+            0.711,
+            0.701,
+            0.681,
+            0.691,
+            0.687
+          ],
+          "median_ns": 0.701,
+          "checksum": 875000003500
+        }
+      }
+    },
+    {
+      "round": 0,
+      "caller": "reference-B",
+      "raw_stdout": "load-small samples_ns=[831.588, 868.797, 890.216, 881.525, 866.617, 861.482, 944.023] checksum=10500000864500\nmedian=868.797 min=831.588 max=944.023\nload-owned samples_ns=[1742.782, 1736.104, 1704.341, 1676.877, 1706.178, 1704.631, 1692.263] checksum=10500028854000\nmedian=1704.631 min=1676.877 max=1742.782\ncold-owned samples_ns=[1667.041, 1672.701, 1677.53, 1674.301, 1659.972, 1672.178, 1612.482] checksum=10500028854000\nmedian=1672.178 min=1612.482 max=1677.53\noptional-removal samples_ns=[546.219, 562.812, 555.872, 583.532, 559.302, 552.383, 551.017] checksum=4375000490000\nmedian=555.872 min=546.219 max=583.532\nrefresh-owned samples_ns=[16344.196, 16257.484, 15819.021, 16650.851, 16801.637, 16177.671, 15825.747] checksum=10500028854000\nmedian=16257.484 min=15819.021 max=16801.637\nreject-validator samples_ns=[1043.105, 1062.086, 1079.562, 1111.354, 1110.64, 1092.919, 1098.727] checksum=105000\nmedian=1092.919 min=1043.105 max=1111.354\nreject-schema samples_ns=[218.681, 216.189, 216.047, 215.875, 225.089, 216.679, 217.023] checksum=315000\nmedian=216.679 min=215.875 max=225.089\napplication-read samples_ns=[26.406, 25.571, 25.735, 25.829, 25.524, 25.712, 25.887] checksum=875000003500\nmedian=25.735 min=25.524 max=26.406\n",
+      "fixtures": {
+        "load-small": {
+          "samples_ns": [
+            831.588,
+            868.797,
+            890.216,
+            881.525,
+            866.617,
+            861.482,
+            944.023
+          ],
+          "median_ns": 868.797,
+          "checksum": 10500000864500
+        },
+        "load-owned": {
+          "samples_ns": [
+            1742.782,
+            1736.104,
+            1704.341,
+            1676.877,
+            1706.178,
+            1704.631,
+            1692.263
+          ],
+          "median_ns": 1704.631,
+          "checksum": 10500028854000
+        },
+        "cold-owned": {
+          "samples_ns": [
+            1667.041,
+            1672.701,
+            1677.53,
+            1674.301,
+            1659.972,
+            1672.178,
+            1612.482
+          ],
+          "median_ns": 1672.178,
+          "checksum": 10500028854000
+        },
+        "optional-removal": {
+          "samples_ns": [
+            546.219,
+            562.812,
+            555.872,
+            583.532,
+            559.302,
+            552.383,
+            551.017
+          ],
+          "median_ns": 555.872,
+          "checksum": 4375000490000
+        },
+        "refresh-owned": {
+          "samples_ns": [
+            16344.196,
+            16257.484,
+            15819.021,
+            16650.851,
+            16801.637,
+            16177.671,
+            15825.747
+          ],
+          "median_ns": 16257.484,
+          "checksum": 10500028854000
+        },
+        "reject-validator": {
+          "samples_ns": [
+            1043.105,
+            1062.086,
+            1079.562,
+            1111.354,
+            1110.64,
+            1092.919,
+            1098.727
+          ],
+          "median_ns": 1092.919,
+          "checksum": 105000
+        },
+        "reject-schema": {
+          "samples_ns": [
+            218.681,
+            216.189,
+            216.047,
+            215.875,
+            225.089,
+            216.679,
+            217.023
+          ],
+          "median_ns": 216.679,
+          "checksum": 315000
+        },
+        "application-read": {
+          "samples_ns": [
+            26.406,
+            25.571,
+            25.735,
+            25.829,
+            25.524,
+            25.712,
+            25.887
+          ],
+          "median_ns": 25.735,
+          "checksum": 875000003500
+        }
+      }
+    },
+    {
+      "round": 1,
+      "caller": "generated",
+      "raw_stdout": "load-small samples_ns=[859.977, 861.188, 855.609, 857.302, 921.156, 925.318, 862.755] checksum=10500000864500\nmedian=861.188 min=855.609 max=925.318\nload-owned samples_ns=[1818.399, 1752.585, 1676.448, 1715.317, 1757.992, 1752.814, 1813.341] checksum=10500028854000\nmedian=1752.814 min=1676.448 max=1818.399\ncold-owned samples_ns=[1916.418, 2000.274, 2100.056, 2085.178, 2114.914, 2144.643, 2110.289] checksum=10500028854000\nmedian=2100.056 min=1916.418 max=2144.643\noptional-removal samples_ns=[714.787, 694.045, 701.763, 705.709, 717.631, 744.785, 749.57] checksum=4375000490000\nmedian=714.787 min=694.045 max=749.57\nrefresh-owned samples_ns=[20190.79, 20682.881, 20046.674, 23203.784, 22145.44, 22942.786, 19047.341] checksum=10500028854000\nmedian=20682.881 min=19047.341 max=23203.784\nreject-validator samples_ns=[1495.934, 1489.119, 1473.929, 1480.196, 1474.961, 1477.176, 1527.975] checksum=105000\nmedian=1480.196 min=1473.929 max=1527.975\nreject-schema samples_ns=[816.662, 815.641, 775.849, 770.688, 783.566, 802.058, 795.922] checksum=315000\nmedian=795.922 min=770.688 max=816.662\napplication-read samples_ns=[1.231, 0.952, 0.934, 0.929, 0.92, 0.886, 0.885] checksum=875000003500\nmedian=0.929 min=0.885 max=1.231\n",
+      "fixtures": {
+        "load-small": {
+          "samples_ns": [
+            859.977,
+            861.188,
+            855.609,
+            857.302,
+            921.156,
+            925.318,
+            862.755
+          ],
+          "median_ns": 861.188,
+          "checksum": 10500000864500
+        },
+        "load-owned": {
+          "samples_ns": [
+            1818.399,
+            1752.585,
+            1676.448,
+            1715.317,
+            1757.992,
+            1752.814,
+            1813.341
+          ],
+          "median_ns": 1752.814,
+          "checksum": 10500028854000
+        },
+        "cold-owned": {
+          "samples_ns": [
+            1916.418,
+            2000.274,
+            2100.056,
+            2085.178,
+            2114.914,
+            2144.643,
+            2110.289
+          ],
+          "median_ns": 2100.056,
+          "checksum": 10500028854000
+        },
+        "optional-removal": {
+          "samples_ns": [
+            714.787,
+            694.045,
+            701.763,
+            705.709,
+            717.631,
+            744.785,
+            749.57
+          ],
+          "median_ns": 714.787,
+          "checksum": 4375000490000
+        },
+        "refresh-owned": {
+          "samples_ns": [
+            20190.79,
+            20682.881,
+            20046.674,
+            23203.784,
+            22145.44,
+            22942.786,
+            19047.341
+          ],
+          "median_ns": 20682.881,
+          "checksum": 10500028854000
+        },
+        "reject-validator": {
+          "samples_ns": [
+            1495.934,
+            1489.119,
+            1473.929,
+            1480.196,
+            1474.961,
+            1477.176,
+            1527.975
+          ],
+          "median_ns": 1480.196,
+          "checksum": 105000
+        },
+        "reject-schema": {
+          "samples_ns": [
+            816.662,
+            815.641,
+            775.849,
+            770.688,
+            783.566,
+            802.058,
+            795.922
+          ],
+          "median_ns": 795.922,
+          "checksum": 315000
+        },
+        "application-read": {
+          "samples_ns": [
+            1.231,
+            0.952,
+            0.934,
+            0.929,
+            0.92,
+            0.886,
+            0.885
+          ],
+          "median_ns": 0.929,
+          "checksum": 875000003500
+        }
+      }
+    },
+    {
+      "round": 1,
+      "caller": "reference-B",
+      "raw_stdout": "load-small samples_ns=[1011.155, 1009.988, 999.001, 1022.331, 984.972, 984.0, 997.011] checksum=10500000864500\nmedian=999.001 min=984.0 max=1022.331\nload-owned samples_ns=[1923.68, 1957.548, 1939.95, 1827.955, 1828.905, 1825.436, 1831.489] checksum=10500028854000\nmedian=1831.489 min=1825.436 max=1957.548\ncold-owned samples_ns=[1760.458, 1726.99, 1738.416, 1741.45, 1732.055, 1735.981, 1724.636] checksum=10500028854000\nmedian=1735.981 min=1724.636 max=1760.458\noptional-removal samples_ns=[578.232, 566.047, 596.972, 574.696, 579.645, 603.388, 593.2] checksum=4375000490000\nmedian=579.645 min=566.047 max=603.388\nrefresh-owned samples_ns=[19099.515, 17549.448, 13475.709, 17044.236, 16385.882, 15973.266, 18813.419] checksum=10500028854000\nmedian=17044.236 min=13475.709 max=19099.515\nreject-validator samples_ns=[1350.689, 1354.845, 1344.968, 1359.117, 1451.144, 1383.3, 1463.872] checksum=105000\nmedian=1359.117 min=1344.968 max=1463.872\nreject-schema samples_ns=[272.839, 270.913, 272.65, 282.933, 271.145, 274.477, 285.106] checksum=315000\nmedian=272.839 min=270.913 max=285.106\napplication-read samples_ns=[32.934, 32.297, 32.294, 32.263, 32.258, 32.453, 32.435] checksum=875000003500\nmedian=32.297 min=32.258 max=32.934\n",
+      "fixtures": {
+        "load-small": {
+          "samples_ns": [
+            1011.155,
+            1009.988,
+            999.001,
+            1022.331,
+            984.972,
+            984.0,
+            997.011
+          ],
+          "median_ns": 999.001,
+          "checksum": 10500000864500
+        },
+        "load-owned": {
+          "samples_ns": [
+            1923.68,
+            1957.548,
+            1939.95,
+            1827.955,
+            1828.905,
+            1825.436,
+            1831.489
+          ],
+          "median_ns": 1831.489,
+          "checksum": 10500028854000
+        },
+        "cold-owned": {
+          "samples_ns": [
+            1760.458,
+            1726.99,
+            1738.416,
+            1741.45,
+            1732.055,
+            1735.981,
+            1724.636
+          ],
+          "median_ns": 1735.981,
+          "checksum": 10500028854000
+        },
+        "optional-removal": {
+          "samples_ns": [
+            578.232,
+            566.047,
+            596.972,
+            574.696,
+            579.645,
+            603.388,
+            593.2
+          ],
+          "median_ns": 579.645,
+          "checksum": 4375000490000
+        },
+        "refresh-owned": {
+          "samples_ns": [
+            19099.515,
+            17549.448,
+            13475.709,
+            17044.236,
+            16385.882,
+            15973.266,
+            18813.419
+          ],
+          "median_ns": 17044.236,
+          "checksum": 10500028854000
+        },
+        "reject-validator": {
+          "samples_ns": [
+            1350.689,
+            1354.845,
+            1344.968,
+            1359.117,
+            1451.144,
+            1383.3,
+            1463.872
+          ],
+          "median_ns": 1359.117,
+          "checksum": 105000
+        },
+        "reject-schema": {
+          "samples_ns": [
+            272.839,
+            270.913,
+            272.65,
+            282.933,
+            271.145,
+            274.477,
+            285.106
+          ],
+          "median_ns": 272.839,
+          "checksum": 315000
+        },
+        "application-read": {
+          "samples_ns": [
+            32.934,
+            32.297,
+            32.294,
+            32.263,
+            32.258,
+            32.453,
+            32.435
+          ],
+          "median_ns": 32.297,
+          "checksum": 875000003500
+        }
+      }
+    },
+    {
+      "round": 1,
+      "caller": "reference-A",
+      "raw_stdout": "load-small samples_ns=[1044.186, 1016.107, 1022.277, 1019.539, 1042.522, 1030.613, 1025.928] checksum=10500000864500\nmedian=1025.928 min=1016.107 max=1044.186\nload-owned samples_ns=[2143.53, 2034.862, 2066.782, 2037.254, 2012.832, 2018.205, 1960.123] checksum=10500028854000\nmedian=2034.862 min=1960.123 max=2143.53\ncold-owned samples_ns=[1906.418, 1907.609, 1877.994, 1880.168, 1896.601, 1965.569, 1989.441] checksum=10500028854000\nmedian=1906.418 min=1877.994 max=1989.441\noptional-removal samples_ns=[686.175, 678.24, 695.25, 720.347, 703.344, 718.714, 724.075] checksum=4375000490000\nmedian=703.344 min=678.24 max=724.075\nrefresh-owned samples_ns=[16809.138, 21322.201, 21862.136, 22106.844, 22658.054, 22097.457, 19475.532] checksum=10500028854000\nmedian=21862.136 min=16809.138 max=22658.054\nreject-validator samples_ns=[1317.107, 1283.685, 1243.342, 1246.389, 1243.156, 1240.501, 1221.883] checksum=105000\nmedian=1243.342 min=1221.883 max=1317.107\nreject-schema samples_ns=[243.792, 233.333, 233.402, 233.771, 233.594, 248.133, 244.402] checksum=315000\nmedian=233.771 min=233.333 max=248.133\napplication-read samples_ns=[30.16, 29.212, 29.163, 29.218, 29.173, 29.168, 29.171] checksum=875000003500\nmedian=29.173 min=29.163 max=30.16\n",
+      "fixtures": {
+        "load-small": {
+          "samples_ns": [
+            1044.186,
+            1016.107,
+            1022.277,
+            1019.539,
+            1042.522,
+            1030.613,
+            1025.928
+          ],
+          "median_ns": 1025.928,
+          "checksum": 10500000864500
+        },
+        "load-owned": {
+          "samples_ns": [
+            2143.53,
+            2034.862,
+            2066.782,
+            2037.254,
+            2012.832,
+            2018.205,
+            1960.123
+          ],
+          "median_ns": 2034.862,
+          "checksum": 10500028854000
+        },
+        "cold-owned": {
+          "samples_ns": [
+            1906.418,
+            1907.609,
+            1877.994,
+            1880.168,
+            1896.601,
+            1965.569,
+            1989.441
+          ],
+          "median_ns": 1906.418,
+          "checksum": 10500028854000
+        },
+        "optional-removal": {
+          "samples_ns": [
+            686.175,
+            678.24,
+            695.25,
+            720.347,
+            703.344,
+            718.714,
+            724.075
+          ],
+          "median_ns": 703.344,
+          "checksum": 4375000490000
+        },
+        "refresh-owned": {
+          "samples_ns": [
+            16809.138,
+            21322.201,
+            21862.136,
+            22106.844,
+            22658.054,
+            22097.457,
+            19475.532
+          ],
+          "median_ns": 21862.136,
+          "checksum": 10500028854000
+        },
+        "reject-validator": {
+          "samples_ns": [
+            1317.107,
+            1283.685,
+            1243.342,
+            1246.389,
+            1243.156,
+            1240.501,
+            1221.883
+          ],
+          "median_ns": 1243.342,
+          "checksum": 105000
+        },
+        "reject-schema": {
+          "samples_ns": [
+            243.792,
+            233.333,
+            233.402,
+            233.771,
+            233.594,
+            248.133,
+            244.402
+          ],
+          "median_ns": 233.771,
+          "checksum": 315000
+        },
+        "application-read": {
+          "samples_ns": [
+            30.16,
+            29.212,
+            29.163,
+            29.218,
+            29.173,
+            29.168,
+            29.171
+          ],
+          "median_ns": 29.173,
+          "checksum": 875000003500
+        }
+      }
+    },
+    {
+      "round": 2,
+      "caller": "generated",
+      "raw_stdout": "load-small samples_ns=[952.194, 945.641, 904.002, 897.688, 904.108, 916.339, 927.22] checksum=10500000864500\nmedian=916.339 min=897.688 max=952.194\nload-owned samples_ns=[1870.909, 1913.936, 1755.194, 1761.44, 1753.908, 1676.812, 1680.892] checksum=10500028854000\nmedian=1755.194 min=1676.812 max=1913.936\ncold-owned samples_ns=[1676.368, 1683.9, 1615.092, 1598.609, 1601.785, 1615.464, 1599.969] checksum=10500028854000\nmedian=1615.092 min=1598.609 max=1683.9\noptional-removal samples_ns=[547.332, 553.093, 518.201, 523.199, 516.305, 524.164, 516.13] checksum=4375000490000\nmedian=523.199 min=516.13 max=553.093\nrefresh-owned samples_ns=[16829.566, 15094.225, 15930.294, 15541.366, 16555.083, 17991.733, 19234.857] checksum=10500028854000\nmedian=16555.083 min=15094.225 max=19234.857\nreject-validator samples_ns=[1295.248, 1308.496, 1280.799, 1312.464, 1273.807, 1313.559, 1274.814] checksum=105000\nmedian=1295.248 min=1273.807 max=1313.559\nreject-schema samples_ns=[693.808, 699.855, 697.032, 697.99, 687.615, 693.657, 691.256] checksum=315000\nmedian=693.808 min=687.615 max=699.855\napplication-read samples_ns=[1.173, 0.843, 0.851, 0.824, 0.801, 0.823, 0.808] checksum=875000003500\nmedian=0.824 min=0.801 max=1.173\n",
+      "fixtures": {
+        "load-small": {
+          "samples_ns": [
+            952.194,
+            945.641,
+            904.002,
+            897.688,
+            904.108,
+            916.339,
+            927.22
+          ],
+          "median_ns": 916.339,
+          "checksum": 10500000864500
+        },
+        "load-owned": {
+          "samples_ns": [
+            1870.909,
+            1913.936,
+            1755.194,
+            1761.44,
+            1753.908,
+            1676.812,
+            1680.892
+          ],
+          "median_ns": 1755.194,
+          "checksum": 10500028854000
+        },
+        "cold-owned": {
+          "samples_ns": [
+            1676.368,
+            1683.9,
+            1615.092,
+            1598.609,
+            1601.785,
+            1615.464,
+            1599.969
+          ],
+          "median_ns": 1615.092,
+          "checksum": 10500028854000
+        },
+        "optional-removal": {
+          "samples_ns": [
+            547.332,
+            553.093,
+            518.201,
+            523.199,
+            516.305,
+            524.164,
+            516.13
+          ],
+          "median_ns": 523.199,
+          "checksum": 4375000490000
+        },
+        "refresh-owned": {
+          "samples_ns": [
+            16829.566,
+            15094.225,
+            15930.294,
+            15541.366,
+            16555.083,
+            17991.733,
+            19234.857
+          ],
+          "median_ns": 16555.083,
+          "checksum": 10500028854000
+        },
+        "reject-validator": {
+          "samples_ns": [
+            1295.248,
+            1308.496,
+            1280.799,
+            1312.464,
+            1273.807,
+            1313.559,
+            1274.814
+          ],
+          "median_ns": 1295.248,
+          "checksum": 105000
+        },
+        "reject-schema": {
+          "samples_ns": [
+            693.808,
+            699.855,
+            697.032,
+            697.99,
+            687.615,
+            693.657,
+            691.256
+          ],
+          "median_ns": 693.808,
+          "checksum": 315000
+        },
+        "application-read": {
+          "samples_ns": [
+            1.173,
+            0.843,
+            0.851,
+            0.824,
+            0.801,
+            0.823,
+            0.808
+          ],
+          "median_ns": 0.824,
+          "checksum": 875000003500
+        }
+      }
+    },
+    {
+      "round": 2,
+      "caller": "reference-A",
+      "raw_stdout": "load-small samples_ns=[881.927, 889.954, 877.003, 881.408, 945.647, 876.726, 881.968] checksum=10500000864500\nmedian=881.927 min=876.726 max=945.647\nload-owned samples_ns=[1829.751, 1725.552, 1717.615, 1755.11, 1750.789, 1806.566, 1826.969] checksum=10500028854000\nmedian=1755.11 min=1717.615 max=1829.751\ncold-owned samples_ns=[1811.033, 1812.622, 1770.989, 1759.591, 1749.304, 1725.623, 1769.011] checksum=10500028854000\nmedian=1769.011 min=1725.623 max=1812.622\noptional-removal samples_ns=[614.33, 599.074, 602.681, 600.261, 619.246, 626.033, 603.81] checksum=4375000490000\nmedian=603.81 min=599.074 max=626.033\nrefresh-owned samples_ns=[18969.827, 17540.394, 16805.23, 16678.18, 21282.921, 23662.802, 23656.027] checksum=10500028854000\nmedian=18969.827 min=16678.18 max=23662.802\nreject-validator samples_ns=[1499.678, 1528.656, 1573.857, 1545.331, 1612.385, 1597.812, 1612.17] checksum=105000\nmedian=1573.857 min=1499.678 max=1612.385\nreject-schema samples_ns=[307.051, 303.184, 302.786, 318.407, 304.755, 308.792, 322.148] checksum=315000\nmedian=307.051 min=302.786 max=322.148\napplication-read samples_ns=[37.167, 36.771, 36.249, 36.31, 36.345, 36.557, 36.292] checksum=875000003500\nmedian=36.345 min=36.249 max=37.167\n",
+      "fixtures": {
+        "load-small": {
+          "samples_ns": [
+            881.927,
+            889.954,
+            877.003,
+            881.408,
+            945.647,
+            876.726,
+            881.968
+          ],
+          "median_ns": 881.927,
+          "checksum": 10500000864500
+        },
+        "load-owned": {
+          "samples_ns": [
+            1829.751,
+            1725.552,
+            1717.615,
+            1755.11,
+            1750.789,
+            1806.566,
+            1826.969
+          ],
+          "median_ns": 1755.11,
+          "checksum": 10500028854000
+        },
+        "cold-owned": {
+          "samples_ns": [
+            1811.033,
+            1812.622,
+            1770.989,
+            1759.591,
+            1749.304,
+            1725.623,
+            1769.011
+          ],
+          "median_ns": 1769.011,
+          "checksum": 10500028854000
+        },
+        "optional-removal": {
+          "samples_ns": [
+            614.33,
+            599.074,
+            602.681,
+            600.261,
+            619.246,
+            626.033,
+            603.81
+          ],
+          "median_ns": 603.81,
+          "checksum": 4375000490000
+        },
+        "refresh-owned": {
+          "samples_ns": [
+            18969.827,
+            17540.394,
+            16805.23,
+            16678.18,
+            21282.921,
+            23662.802,
+            23656.027
+          ],
+          "median_ns": 18969.827,
+          "checksum": 10500028854000
+        },
+        "reject-validator": {
+          "samples_ns": [
+            1499.678,
+            1528.656,
+            1573.857,
+            1545.331,
+            1612.385,
+            1597.812,
+            1612.17
+          ],
+          "median_ns": 1573.857,
+          "checksum": 105000
+        },
+        "reject-schema": {
+          "samples_ns": [
+            307.051,
+            303.184,
+            302.786,
+            318.407,
+            304.755,
+            308.792,
+            322.148
+          ],
+          "median_ns": 307.051,
+          "checksum": 315000
+        },
+        "application-read": {
+          "samples_ns": [
+            37.167,
+            36.771,
+            36.249,
+            36.31,
+            36.345,
+            36.557,
+            36.292
+          ],
+          "median_ns": 36.345,
+          "checksum": 875000003500
+        }
+      }
+    },
+    {
+      "round": 2,
+      "caller": "reference-B",
+      "raw_stdout": "load-small samples_ns=[1114.817, 1099.44, 1118.136, 1084.67, 1086.015, 1153.249, 1090.983] checksum=10500000864500\nmedian=1099.44 min=1084.67 max=1153.249\nload-owned samples_ns=[2208.162, 2193.924, 2191.383, 2164.824, 2171.779, 2223.128, 2279.965] checksum=10500028854000\nmedian=2193.924 min=2164.824 max=2279.965\ncold-owned samples_ns=[2152.496, 2191.154, 2191.229, 2218.371, 2161.995, 2162.418, 2062.381] checksum=10500028854000\nmedian=2162.418 min=2062.381 max=2218.371\noptional-removal samples_ns=[710.728, 731.343, 708.58, 714.593, 703.819, 694.131, 707.565] checksum=4375000490000\nmedian=708.58 min=694.131 max=731.343\nrefresh-owned samples_ns=[22541.671, 23298.781, 21540.878, 21597.998, 23383.442, 23695.55, 23144.975] checksum=10500028854000\nmedian=23144.975 min=21540.878 max=23695.55\nreject-validator samples_ns=[1458.407, 1607.464, 1482.97, 1463.188, 1455.475, 1473.976, 1515.461] checksum=105000\nmedian=1473.976 min=1455.475 max=1607.464\nreject-schema samples_ns=[288.333, 292.967, 285.27, 285.451, 290.794, 285.661, 286.4] checksum=315000\nmedian=286.4 min=285.27 max=292.967\napplication-read samples_ns=[35.111, 34.261, 34.432, 34.465, 34.016, 34.45, 34.528] checksum=875000003500\nmedian=34.45 min=34.016 max=35.111\n",
+      "fixtures": {
+        "load-small": {
+          "samples_ns": [
+            1114.817,
+            1099.44,
+            1118.136,
+            1084.67,
+            1086.015,
+            1153.249,
+            1090.983
+          ],
+          "median_ns": 1099.44,
+          "checksum": 10500000864500
+        },
+        "load-owned": {
+          "samples_ns": [
+            2208.162,
+            2193.924,
+            2191.383,
+            2164.824,
+            2171.779,
+            2223.128,
+            2279.965
+          ],
+          "median_ns": 2193.924,
+          "checksum": 10500028854000
+        },
+        "cold-owned": {
+          "samples_ns": [
+            2152.496,
+            2191.154,
+            2191.229,
+            2218.371,
+            2161.995,
+            2162.418,
+            2062.381
+          ],
+          "median_ns": 2162.418,
+          "checksum": 10500028854000
+        },
+        "optional-removal": {
+          "samples_ns": [
+            710.728,
+            731.343,
+            708.58,
+            714.593,
+            703.819,
+            694.131,
+            707.565
+          ],
+          "median_ns": 708.58,
+          "checksum": 4375000490000
+        },
+        "refresh-owned": {
+          "samples_ns": [
+            22541.671,
+            23298.781,
+            21540.878,
+            21597.998,
+            23383.442,
+            23695.55,
+            23144.975
+          ],
+          "median_ns": 23144.975,
+          "checksum": 10500028854000
+        },
+        "reject-validator": {
+          "samples_ns": [
+            1458.407,
+            1607.464,
+            1482.97,
+            1463.188,
+            1455.475,
+            1473.976,
+            1515.461
+          ],
+          "median_ns": 1473.976,
+          "checksum": 105000
+        },
+        "reject-schema": {
+          "samples_ns": [
+            288.333,
+            292.967,
+            285.27,
+            285.451,
+            290.794,
+            285.661,
+            286.4
+          ],
+          "median_ns": 286.4,
+          "checksum": 315000
+        },
+        "application-read": {
+          "samples_ns": [
+            35.111,
+            34.261,
+            34.432,
+            34.465,
+            34.016,
+            34.45,
+            34.528
+          ],
+          "median_ns": 34.45,
+          "checksum": 875000003500
+        }
+      }
+    },
+    {
+      "round": 3,
+      "caller": "reference-B",
+      "raw_stdout": "load-small samples_ns=[1004.406, 992.973, 1002.432, 990.06, 1022.019, 999.156, 992.407] checksum=10500000864500\nmedian=999.156 min=990.06 max=1022.019\nload-owned samples_ns=[2110.118, 2025.392, 2027.582, 2022.234, 1917.167, 1901.591, 1919.035] checksum=10500028854000\nmedian=2022.234 min=1901.591 max=2110.118\ncold-owned samples_ns=[1810.864, 1830.74, 1808.776, 1717.254, 1715.067, 1727.153, 1716.359] checksum=10500028854000\nmedian=1727.153 min=1715.067 max=1830.74\noptional-removal samples_ns=[564.239, 569.457, 563.515, 569.843, 575.669, 559.068, 564.517] checksum=4375000490000\nmedian=564.517 min=559.068 max=575.669\nrefresh-owned samples_ns=[16598.935, 14739.612, 13549.34, 11607.42, 13100.742, 15560.034, 15861.431] checksum=10500028854000\nmedian=14739.612 min=11607.42 max=16598.935\nreject-validator samples_ns=[1059.76, 1058.328, 1060.84, 1067.866, 1124.117, 1143.074, 1122.616] checksum=105000\nmedian=1067.866 min=1058.328 max=1143.074\nreject-schema samples_ns=[224.628, 222.784, 224.202, 226.279, 223.538, 226.102, 223.239] checksum=315000\nmedian=224.202 min=222.784 max=226.279\napplication-read samples_ns=[27.184, 26.674, 26.81, 26.89, 26.632, 26.789, 26.853] checksum=875000003500\nmedian=26.81 min=26.632 max=27.184\n",
+      "fixtures": {
+        "load-small": {
+          "samples_ns": [
+            1004.406,
+            992.973,
+            1002.432,
+            990.06,
+            1022.019,
+            999.156,
+            992.407
+          ],
+          "median_ns": 999.156,
+          "checksum": 10500000864500
+        },
+        "load-owned": {
+          "samples_ns": [
+            2110.118,
+            2025.392,
+            2027.582,
+            2022.234,
+            1917.167,
+            1901.591,
+            1919.035
+          ],
+          "median_ns": 2022.234,
+          "checksum": 10500028854000
+        },
+        "cold-owned": {
+          "samples_ns": [
+            1810.864,
+            1830.74,
+            1808.776,
+            1717.254,
+            1715.067,
+            1727.153,
+            1716.359
+          ],
+          "median_ns": 1727.153,
+          "checksum": 10500028854000
+        },
+        "optional-removal": {
+          "samples_ns": [
+            564.239,
+            569.457,
+            563.515,
+            569.843,
+            575.669,
+            559.068,
+            564.517
+          ],
+          "median_ns": 564.517,
+          "checksum": 4375000490000
+        },
+        "refresh-owned": {
+          "samples_ns": [
+            16598.935,
+            14739.612,
+            13549.34,
+            11607.42,
+            13100.742,
+            15560.034,
+            15861.431
+          ],
+          "median_ns": 14739.612,
+          "checksum": 10500028854000
+        },
+        "reject-validator": {
+          "samples_ns": [
+            1059.76,
+            1058.328,
+            1060.84,
+            1067.866,
+            1124.117,
+            1143.074,
+            1122.616
+          ],
+          "median_ns": 1067.866,
+          "checksum": 105000
+        },
+        "reject-schema": {
+          "samples_ns": [
+            224.628,
+            222.784,
+            224.202,
+            226.279,
+            223.538,
+            226.102,
+            223.239
+          ],
+          "median_ns": 224.202,
+          "checksum": 315000
+        },
+        "application-read": {
+          "samples_ns": [
+            27.184,
+            26.674,
+            26.81,
+            26.89,
+            26.632,
+            26.789,
+            26.853
+          ],
+          "median_ns": 26.81,
+          "checksum": 875000003500
+        }
+      }
+    },
+    {
+      "round": 3,
+      "caller": "reference-A",
+      "raw_stdout": "load-small samples_ns=[820.542, 849.134, 839.119, 802.896, 884.407, 840.786, 808.4] checksum=10500000864500\nmedian=839.119 min=802.896 max=884.407\nload-owned samples_ns=[1687.823, 1692.245, 1753.876, 1733.115, 1635.177, 1635.968, 1684.729] checksum=10500028854000\nmedian=1687.823 min=1635.177 max=1753.876\ncold-owned samples_ns=[1661.472, 1632.029, 1596.601, 1584.24, 1606.887, 1633.943, 1643.915] checksum=10500028854000\nmedian=1632.029 min=1584.24 max=1661.472\noptional-removal samples_ns=[552.289, 596.579, 590.292, 597.897, 610.131, 599.384, 602.304] checksum=4375000490000\nmedian=597.897 min=552.289 max=610.131\nrefresh-owned samples_ns=[20284.089, 21147.322, 20866.788, 21386.925, 19079.222, 17377.549, 16184.14] checksum=10500028854000\nmedian=20284.089 min=16184.14 max=21386.925\nreject-validator samples_ns=[1053.121, 1049.97, 1060.221, 1080.13, 1068.53, 1060.505, 1056.278] checksum=105000\nmedian=1060.221 min=1049.97 max=1080.13\nreject-schema samples_ns=[207.61, 204.534, 215.266, 219.518, 223.427, 234.182, 226.543] checksum=315000\nmedian=219.518 min=204.534 max=234.182\napplication-read samples_ns=[30.091, 24.554, 24.552, 24.513, 24.51, 24.513, 24.53] checksum=875000003500\nmedian=24.53 min=24.51 max=30.091\n",
+      "fixtures": {
+        "load-small": {
+          "samples_ns": [
+            820.542,
+            849.134,
+            839.119,
+            802.896,
+            884.407,
+            840.786,
+            808.4
+          ],
+          "median_ns": 839.119,
+          "checksum": 10500000864500
+        },
+        "load-owned": {
+          "samples_ns": [
+            1687.823,
+            1692.245,
+            1753.876,
+            1733.115,
+            1635.177,
+            1635.968,
+            1684.729
+          ],
+          "median_ns": 1687.823,
+          "checksum": 10500028854000
+        },
+        "cold-owned": {
+          "samples_ns": [
+            1661.472,
+            1632.029,
+            1596.601,
+            1584.24,
+            1606.887,
+            1633.943,
+            1643.915
+          ],
+          "median_ns": 1632.029,
+          "checksum": 10500028854000
+        },
+        "optional-removal": {
+          "samples_ns": [
+            552.289,
+            596.579,
+            590.292,
+            597.897,
+            610.131,
+            599.384,
+            602.304
+          ],
+          "median_ns": 597.897,
+          "checksum": 4375000490000
+        },
+        "refresh-owned": {
+          "samples_ns": [
+            20284.089,
+            21147.322,
+            20866.788,
+            21386.925,
+            19079.222,
+            17377.549,
+            16184.14
+          ],
+          "median_ns": 20284.089,
+          "checksum": 10500028854000
+        },
+        "reject-validator": {
+          "samples_ns": [
+            1053.121,
+            1049.97,
+            1060.221,
+            1080.13,
+            1068.53,
+            1060.505,
+            1056.278
+          ],
+          "median_ns": 1060.221,
+          "checksum": 105000
+        },
+        "reject-schema": {
+          "samples_ns": [
+            207.61,
+            204.534,
+            215.266,
+            219.518,
+            223.427,
+            234.182,
+            226.543
+          ],
+          "median_ns": 219.518,
+          "checksum": 315000
+        },
+        "application-read": {
+          "samples_ns": [
+            30.091,
+            24.554,
+            24.552,
+            24.513,
+            24.51,
+            24.513,
+            24.53
+          ],
+          "median_ns": 24.53,
+          "checksum": 875000003500
+        }
+      }
+    },
+    {
+      "round": 3,
+      "caller": "generated",
+      "raw_stdout": "load-small samples_ns=[840.531, 809.303, 829.322, 828.545, 827.478, 825.442, 887.85] checksum=10500000864500\nmedian=828.545 min=809.303 max=887.85\nload-owned samples_ns=[1690.811, 1658.121, 1676.956, 1654.587, 1620.455, 1642.4, 1600.346] checksum=10500028854000\nmedian=1654.587 min=1600.346 max=1690.811\ncold-owned samples_ns=[1609.177, 1614.03, 1604.898, 1609.896, 1598.849, 1592.46, 1602.592] checksum=10500028854000\nmedian=1604.898 min=1592.46 max=1614.03\noptional-removal samples_ns=[531.031, 531.235, 528.888, 533.561, 530.915, 537.293, 537.889] checksum=4375000490000\nmedian=531.235 min=528.888 max=537.889\nrefresh-owned samples_ns=[14907.596, 15032.936, 15076.092, 15505.922, 15098.746, 14340.381, 11748.443] checksum=10500028854000\nmedian=15032.936 min=11748.443 max=15505.922\nreject-validator samples_ns=[995.166, 996.551, 1001.331, 1008.392, 1005.89, 1016.697, 1024.861] checksum=105000\nmedian=1005.89 min=995.166 max=1024.861\nreject-schema samples_ns=[565.23, 620.931, 571.291, 585.899, 565.03, 573.077, 586.262] checksum=315000\nmedian=573.077 min=565.03 max=620.931\napplication-read samples_ns=[0.97, 0.715, 0.715, 0.718, 0.707, 0.67, 0.687] checksum=875000003500\nmedian=0.715 min=0.67 max=0.97\n",
+      "fixtures": {
+        "load-small": {
+          "samples_ns": [
+            840.531,
+            809.303,
+            829.322,
+            828.545,
+            827.478,
+            825.442,
+            887.85
+          ],
+          "median_ns": 828.545,
+          "checksum": 10500000864500
+        },
+        "load-owned": {
+          "samples_ns": [
+            1690.811,
+            1658.121,
+            1676.956,
+            1654.587,
+            1620.455,
+            1642.4,
+            1600.346
+          ],
+          "median_ns": 1654.587,
+          "checksum": 10500028854000
+        },
+        "cold-owned": {
+          "samples_ns": [
+            1609.177,
+            1614.03,
+            1604.898,
+            1609.896,
+            1598.849,
+            1592.46,
+            1602.592
+          ],
+          "median_ns": 1604.898,
+          "checksum": 10500028854000
+        },
+        "optional-removal": {
+          "samples_ns": [
+            531.031,
+            531.235,
+            528.888,
+            533.561,
+            530.915,
+            537.293,
+            537.889
+          ],
+          "median_ns": 531.235,
+          "checksum": 4375000490000
+        },
+        "refresh-owned": {
+          "samples_ns": [
+            14907.596,
+            15032.936,
+            15076.092,
+            15505.922,
+            15098.746,
+            14340.381,
+            11748.443
+          ],
+          "median_ns": 15032.936,
+          "checksum": 10500028854000
+        },
+        "reject-validator": {
+          "samples_ns": [
+            995.166,
+            996.551,
+            1001.331,
+            1008.392,
+            1005.89,
+            1016.697,
+            1024.861
+          ],
+          "median_ns": 1005.89,
+          "checksum": 105000
+        },
+        "reject-schema": {
+          "samples_ns": [
+            565.23,
+            620.931,
+            571.291,
+            585.899,
+            565.03,
+            573.077,
+            586.262
+          ],
+          "median_ns": 573.077,
+          "checksum": 315000
+        },
+        "application-read": {
+          "samples_ns": [
+            0.97,
+            0.715,
+            0.715,
+            0.718,
+            0.707,
+            0.67,
+            0.687
+          ],
+          "median_ns": 0.715,
+          "checksum": 875000003500
+        }
+      }
+    },
+    {
+      "round": 4,
+      "caller": "generated",
+      "raw_stdout": "load-small samples_ns=[809.887, 801.89, 803.355, 813.527, 801.079, 829.701, 791.583] checksum=10500000864500\nmedian=803.355 min=791.583 max=829.701\nload-owned samples_ns=[1674.603, 1706.895, 1653.309, 1866.596, 1785.344, 1786.561, 1880.987] checksum=10500028854000\nmedian=1785.344 min=1653.309 max=1880.987\ncold-owned samples_ns=[1825.589, 1816.868, 1812.404, 1838.581, 1724.694, 1720.69, 1714.364] checksum=10500028854000\nmedian=1812.404 min=1714.364 max=1838.581\noptional-removal samples_ns=[588.108, 595.008, 593.727, 577.092, 603.53, 557.947, 572.808] checksum=4375000490000\nmedian=588.108 min=557.947 max=603.53\nrefresh-owned samples_ns=[17133.322, 19956.897, 20234.29, 18519.054, 19480.514, 21985.594, 22558.822] checksum=10500028854000\nmedian=19956.897 min=17133.322 max=22558.822\nreject-validator samples_ns=[1554.277, 1503.416, 1511.674, 1550.206, 1422.874, 1454.089, 1469.329] checksum=105000\nmedian=1503.416 min=1422.874 max=1554.277\nreject-schema samples_ns=[771.264, 772.099, 769.76, 1034.36, 796.197, 779.753, 778.39] checksum=315000\nmedian=778.39 min=769.76 max=1034.36\napplication-read samples_ns=[1.512, 1.001, 0.966, 0.952, 0.941, 0.948, 0.95] checksum=875000003500\nmedian=0.952 min=0.941 max=1.512\n",
+      "fixtures": {
+        "load-small": {
+          "samples_ns": [
+            809.887,
+            801.89,
+            803.355,
+            813.527,
+            801.079,
+            829.701,
+            791.583
+          ],
+          "median_ns": 803.355,
+          "checksum": 10500000864500
+        },
+        "load-owned": {
+          "samples_ns": [
+            1674.603,
+            1706.895,
+            1653.309,
+            1866.596,
+            1785.344,
+            1786.561,
+            1880.987
+          ],
+          "median_ns": 1785.344,
+          "checksum": 10500028854000
+        },
+        "cold-owned": {
+          "samples_ns": [
+            1825.589,
+            1816.868,
+            1812.404,
+            1838.581,
+            1724.694,
+            1720.69,
+            1714.364
+          ],
+          "median_ns": 1812.404,
+          "checksum": 10500028854000
+        },
+        "optional-removal": {
+          "samples_ns": [
+            588.108,
+            595.008,
+            593.727,
+            577.092,
+            603.53,
+            557.947,
+            572.808
+          ],
+          "median_ns": 588.108,
+          "checksum": 4375000490000
+        },
+        "refresh-owned": {
+          "samples_ns": [
+            17133.322,
+            19956.897,
+            20234.29,
+            18519.054,
+            19480.514,
+            21985.594,
+            22558.822
+          ],
+          "median_ns": 19956.897,
+          "checksum": 10500028854000
+        },
+        "reject-validator": {
+          "samples_ns": [
+            1554.277,
+            1503.416,
+            1511.674,
+            1550.206,
+            1422.874,
+            1454.089,
+            1469.329
+          ],
+          "median_ns": 1503.416,
+          "checksum": 105000
+        },
+        "reject-schema": {
+          "samples_ns": [
+            771.264,
+            772.099,
+            769.76,
+            1034.36,
+            796.197,
+            779.753,
+            778.39
+          ],
+          "median_ns": 778.39,
+          "checksum": 315000
+        },
+        "application-read": {
+          "samples_ns": [
+            1.512,
+            1.001,
+            0.966,
+            0.952,
+            0.941,
+            0.948,
+            0.95
+          ],
+          "median_ns": 0.952,
+          "checksum": 875000003500
+        }
+      }
+    },
+    {
+      "round": 4,
+      "caller": "reference-B",
+      "raw_stdout": "load-small samples_ns=[1048.955, 1065.382, 1059.142, 1048.993, 1068.301, 1077.639, 1046.992] checksum=10500000864500\nmedian=1059.142 min=1046.992 max=1077.639\nload-owned samples_ns=[2253.158, 2176.842, 2146.287, 2160.441, 2141.231, 2239.94, 2166.103] checksum=10500028854000\nmedian=2166.103 min=2141.231 max=2253.158\ncold-owned samples_ns=[2176.643, 2127.212, 2032.626, 2316.141, 2102.113, 2026.643, 2051.566] checksum=10500028854000\nmedian=2102.113 min=2026.643 max=2316.141\noptional-removal samples_ns=[696.549, 765.864, 710.086, 683.214, 689.552, 698.077, 683.899] checksum=4375000490000\nmedian=696.549 min=683.214 max=765.864\nrefresh-owned samples_ns=[16938.293, 16911.048, 15235.647, 14792.834, 15512.461, 14545.277, 13032.495] checksum=10500028854000\nmedian=15235.647 min=13032.495 max=16938.293\nreject-validator samples_ns=[1160.9, 1140.988, 1166.783, 1193.126, 1207.962, 1175.814, 1163.857] checksum=105000\nmedian=1166.783 min=1140.988 max=1207.962\nreject-schema samples_ns=[236.983, 241.821, 233.195, 233.237, 233.244, 249.611, 239.635] checksum=315000\nmedian=236.983 min=233.195 max=249.611\napplication-read samples_ns=[28.607, 27.866, 27.86, 27.841, 27.847, 27.859, 27.856] checksum=875000003500\nmedian=27.859 min=27.841 max=28.607\n",
+      "fixtures": {
+        "load-small": {
+          "samples_ns": [
+            1048.955,
+            1065.382,
+            1059.142,
+            1048.993,
+            1068.301,
+            1077.639,
+            1046.992
+          ],
+          "median_ns": 1059.142,
+          "checksum": 10500000864500
+        },
+        "load-owned": {
+          "samples_ns": [
+            2253.158,
+            2176.842,
+            2146.287,
+            2160.441,
+            2141.231,
+            2239.94,
+            2166.103
+          ],
+          "median_ns": 2166.103,
+          "checksum": 10500028854000
+        },
+        "cold-owned": {
+          "samples_ns": [
+            2176.643,
+            2127.212,
+            2032.626,
+            2316.141,
+            2102.113,
+            2026.643,
+            2051.566
+          ],
+          "median_ns": 2102.113,
+          "checksum": 10500028854000
+        },
+        "optional-removal": {
+          "samples_ns": [
+            696.549,
+            765.864,
+            710.086,
+            683.214,
+            689.552,
+            698.077,
+            683.899
+          ],
+          "median_ns": 696.549,
+          "checksum": 4375000490000
+        },
+        "refresh-owned": {
+          "samples_ns": [
+            16938.293,
+            16911.048,
+            15235.647,
+            14792.834,
+            15512.461,
+            14545.277,
+            13032.495
+          ],
+          "median_ns": 15235.647,
+          "checksum": 10500028854000
+        },
+        "reject-validator": {
+          "samples_ns": [
+            1160.9,
+            1140.988,
+            1166.783,
+            1193.126,
+            1207.962,
+            1175.814,
+            1163.857
+          ],
+          "median_ns": 1166.783,
+          "checksum": 105000
+        },
+        "reject-schema": {
+          "samples_ns": [
+            236.983,
+            241.821,
+            233.195,
+            233.237,
+            233.244,
+            249.611,
+            239.635
+          ],
+          "median_ns": 236.983,
+          "checksum": 315000
+        },
+        "application-read": {
+          "samples_ns": [
+            28.607,
+            27.866,
+            27.86,
+            27.841,
+            27.847,
+            27.859,
+            27.856
+          ],
+          "median_ns": 27.859,
+          "checksum": 875000003500
+        }
+      }
+    },
+    {
+      "round": 4,
+      "caller": "reference-A",
+      "raw_stdout": "load-small samples_ns=[913.422, 905.568, 892.175, 931.038, 966.909, 891.132, 888.499] checksum=10500000864500\nmedian=905.568 min=888.499 max=966.909\nload-owned samples_ns=[1807.812, 1733.122, 1726.641, 1837.371, 1734.139, 1730.382, 1694.869] checksum=10500028854000\nmedian=1733.122 min=1694.869 max=1837.371\ncold-owned samples_ns=[1654.35, 1664.598, 1653.441, 1634.187, 1577.663, 1582.209, 1606.004] checksum=10500028854000\nmedian=1634.187 min=1577.663 max=1664.598\noptional-removal samples_ns=[539.376, 545.324, 539.334, 547.271, 542.501, 542.291, 541.229] checksum=4375000490000\nmedian=542.291 min=539.334 max=547.271\nrefresh-owned samples_ns=[16448.305, 18194.812, 18531.924, 19750.116, 23180.266, 23569.965, 24331.298] checksum=10500028854000\nmedian=19750.116 min=16448.305 max=24331.298\nreject-validator samples_ns=[1580.813, 1591.281, 1595.615, 1592.646, 1603.234, 1588.001, 1610.617] checksum=105000\nmedian=1592.646 min=1580.813 max=1610.617\nreject-schema samples_ns=[313.932, 301.258, 302.19, 300.876, 310.253, 301.129, 300.77] checksum=315000\nmedian=301.258 min=300.77 max=313.932\napplication-read samples_ns=[37.203, 36.292, 45.455, 36.723, 36.734, 36.287, 36.704] checksum=875000003500\nmedian=36.723 min=36.287 max=45.455\n",
+      "fixtures": {
+        "load-small": {
+          "samples_ns": [
+            913.422,
+            905.568,
+            892.175,
+            931.038,
+            966.909,
+            891.132,
+            888.499
+          ],
+          "median_ns": 905.568,
+          "checksum": 10500000864500
+        },
+        "load-owned": {
+          "samples_ns": [
+            1807.812,
+            1733.122,
+            1726.641,
+            1837.371,
+            1734.139,
+            1730.382,
+            1694.869
+          ],
+          "median_ns": 1733.122,
+          "checksum": 10500028854000
+        },
+        "cold-owned": {
+          "samples_ns": [
+            1654.35,
+            1664.598,
+            1653.441,
+            1634.187,
+            1577.663,
+            1582.209,
+            1606.004
+          ],
+          "median_ns": 1634.187,
+          "checksum": 10500028854000
+        },
+        "optional-removal": {
+          "samples_ns": [
+            539.376,
+            545.324,
+            539.334,
+            547.271,
+            542.501,
+            542.291,
+            541.229
+          ],
+          "median_ns": 542.291,
+          "checksum": 4375000490000
+        },
+        "refresh-owned": {
+          "samples_ns": [
+            16448.305,
+            18194.812,
+            18531.924,
+            19750.116,
+            23180.266,
+            23569.965,
+            24331.298
+          ],
+          "median_ns": 19750.116,
+          "checksum": 10500028854000
+        },
+        "reject-validator": {
+          "samples_ns": [
+            1580.813,
+            1591.281,
+            1595.615,
+            1592.646,
+            1603.234,
+            1588.001,
+            1610.617
+          ],
+          "median_ns": 1592.646,
+          "checksum": 105000
+        },
+        "reject-schema": {
+          "samples_ns": [
+            313.932,
+            301.258,
+            302.19,
+            300.876,
+            310.253,
+            301.129,
+            300.77
+          ],
+          "median_ns": 301.258,
+          "checksum": 315000
+        },
+        "application-read": {
+          "samples_ns": [
+            37.203,
+            36.292,
+            45.455,
+            36.723,
+            36.734,
+            36.287,
+            36.704
+          ],
+          "median_ns": 36.723,
+          "checksum": 875000003500
+        }
+      }
+    },
+    {
+      "round": 5,
+      "caller": "reference-A",
+      "raw_stdout": "load-small samples_ns=[1266.638, 1256.501, 1114.468, 1093.106, 1131.908, 1100.599, 1101.91] checksum=10500000864500\nmedian=1114.468 min=1093.106 max=1266.638\nload-owned samples_ns=[2284.541, 2274.014, 2204.74, 2153.897, 2199.096, 2108.211, 2046.133] checksum=10500028854000\nmedian=2199.096 min=2046.133 max=2284.541\ncold-owned samples_ns=[2060.682, 2118.449, 2114.633, 2140.382, 2135.939, 2182.103, 2181.151] checksum=10500028854000\nmedian=2135.939 min=2060.682 max=2182.103\noptional-removal samples_ns=[723.753, 725.078, 714.598, 736.422, 733.353, 725.454, 729.385] checksum=4375000490000\nmedian=725.454 min=714.598 max=736.422\nrefresh-owned samples_ns=[25022.937, 23653.974, 23207.786, 23265.558, 23057.379, 22480.581, 24389.122] checksum=10500028854000\nmedian=23265.558 min=22480.581 max=25022.937\nreject-validator samples_ns=[1560.03, 1563.281, 1541.679, 1532.746, 1458.849, 1501.054, 1466.463] checksum=105000\nmedian=1532.746 min=1458.849 max=1563.281\nreject-schema samples_ns=[294.833, 286.781, 285.875, 295.767, 283.964, 284.051, 283.904] checksum=315000\nmedian=285.875 min=283.904 max=295.767\napplication-read samples_ns=[34.951, 34.511, 34.246, 34.44, 34.456, 34.016, 34.436] checksum=875000003500\nmedian=34.44 min=34.016 max=34.951\n",
+      "fixtures": {
+        "load-small": {
+          "samples_ns": [
+            1266.638,
+            1256.501,
+            1114.468,
+            1093.106,
+            1131.908,
+            1100.599,
+            1101.91
+          ],
+          "median_ns": 1114.468,
+          "checksum": 10500000864500
+        },
+        "load-owned": {
+          "samples_ns": [
+            2284.541,
+            2274.014,
+            2204.74,
+            2153.897,
+            2199.096,
+            2108.211,
+            2046.133
+          ],
+          "median_ns": 2199.096,
+          "checksum": 10500028854000
+        },
+        "cold-owned": {
+          "samples_ns": [
+            2060.682,
+            2118.449,
+            2114.633,
+            2140.382,
+            2135.939,
+            2182.103,
+            2181.151
+          ],
+          "median_ns": 2135.939,
+          "checksum": 10500028854000
+        },
+        "optional-removal": {
+          "samples_ns": [
+            723.753,
+            725.078,
+            714.598,
+            736.422,
+            733.353,
+            725.454,
+            729.385
+          ],
+          "median_ns": 725.454,
+          "checksum": 4375000490000
+        },
+        "refresh-owned": {
+          "samples_ns": [
+            25022.937,
+            23653.974,
+            23207.786,
+            23265.558,
+            23057.379,
+            22480.581,
+            24389.122
+          ],
+          "median_ns": 23265.558,
+          "checksum": 10500028854000
+        },
+        "reject-validator": {
+          "samples_ns": [
+            1560.03,
+            1563.281,
+            1541.679,
+            1532.746,
+            1458.849,
+            1501.054,
+            1466.463
+          ],
+          "median_ns": 1532.746,
+          "checksum": 105000
+        },
+        "reject-schema": {
+          "samples_ns": [
+            294.833,
+            286.781,
+            285.875,
+            295.767,
+            283.964,
+            284.051,
+            283.904
+          ],
+          "median_ns": 285.875,
+          "checksum": 315000
+        },
+        "application-read": {
+          "samples_ns": [
+            34.951,
+            34.511,
+            34.246,
+            34.44,
+            34.456,
+            34.016,
+            34.436
+          ],
+          "median_ns": 34.44,
+          "checksum": 875000003500
+        }
+      }
+    },
+    {
+      "round": 5,
+      "caller": "reference-B",
+      "raw_stdout": "load-small samples_ns=[1030.77, 1008.002, 1070.504, 1000.539, 1025.579, 1031.752, 998.567] checksum=10500000864500\nmedian=1025.579 min=998.567 max=1070.504\nload-owned samples_ns=[2079.598, 2053.561, 2083.186, 2066.566, 2107.086, 2115.663, 2179.951] checksum=10500028854000\nmedian=2083.186 min=2053.561 max=2179.951\ncold-owned samples_ns=[2078.638, 2104.51, 2130.657, 2246.736, 2043.566, 2040.105, 2023.777] checksum=10500028854000\nmedian=2078.638 min=2023.777 max=2246.736\noptional-removal samples_ns=[711.2, 701.319, 705.487, 691.079, 692.997, 699.595, 691.071] checksum=4375000490000\nmedian=699.595 min=691.071 max=711.2\nrefresh-owned samples_ns=[22949.56, 23156.737, 20261.305, 21221.356, 21104.848, 19870.603, 17990.713] checksum=10500028854000\nmedian=21104.848 min=17990.713 max=23156.737\nreject-validator samples_ns=[1165.544, 1158.057, 1175.763, 1160.233, 1157.193, 1158.306, 1159.427] checksum=105000\nmedian=1159.427 min=1157.193 max=1175.763\nreject-schema samples_ns=[238.02, 216.646, 214.462, 215.028, 213.842, 220.079, 232.685] checksum=315000\nmedian=216.646 min=213.842 max=238.02\napplication-read samples_ns=[28.544, 27.99, 27.552, 26.662, 26.517, 27.44, 26.352] checksum=875000003500\nmedian=27.44 min=26.352 max=28.544\n",
+      "fixtures": {
+        "load-small": {
+          "samples_ns": [
+            1030.77,
+            1008.002,
+            1070.504,
+            1000.539,
+            1025.579,
+            1031.752,
+            998.567
+          ],
+          "median_ns": 1025.579,
+          "checksum": 10500000864500
+        },
+        "load-owned": {
+          "samples_ns": [
+            2079.598,
+            2053.561,
+            2083.186,
+            2066.566,
+            2107.086,
+            2115.663,
+            2179.951
+          ],
+          "median_ns": 2083.186,
+          "checksum": 10500028854000
+        },
+        "cold-owned": {
+          "samples_ns": [
+            2078.638,
+            2104.51,
+            2130.657,
+            2246.736,
+            2043.566,
+            2040.105,
+            2023.777
+          ],
+          "median_ns": 2078.638,
+          "checksum": 10500028854000
+        },
+        "optional-removal": {
+          "samples_ns": [
+            711.2,
+            701.319,
+            705.487,
+            691.079,
+            692.997,
+            699.595,
+            691.071
+          ],
+          "median_ns": 699.595,
+          "checksum": 4375000490000
+        },
+        "refresh-owned": {
+          "samples_ns": [
+            22949.56,
+            23156.737,
+            20261.305,
+            21221.356,
+            21104.848,
+            19870.603,
+            17990.713
+          ],
+          "median_ns": 21104.848,
+          "checksum": 10500028854000
+        },
+        "reject-validator": {
+          "samples_ns": [
+            1165.544,
+            1158.057,
+            1175.763,
+            1160.233,
+            1157.193,
+            1158.306,
+            1159.427
+          ],
+          "median_ns": 1159.427,
+          "checksum": 105000
+        },
+        "reject-schema": {
+          "samples_ns": [
+            238.02,
+            216.646,
+            214.462,
+            215.028,
+            213.842,
+            220.079,
+            232.685
+          ],
+          "median_ns": 216.646,
+          "checksum": 315000
+        },
+        "application-read": {
+          "samples_ns": [
+            28.544,
+            27.99,
+            27.552,
+            26.662,
+            26.517,
+            27.44,
+            26.352
+          ],
+          "median_ns": 27.44,
+          "checksum": 875000003500
+        }
+      }
+    },
+    {
+      "round": 5,
+      "caller": "generated",
+      "raw_stdout": "load-small samples_ns=[921.707, 902.12, 905.91, 907.819, 900.104, 899.477, 901.389] checksum=10500000864500\nmedian=902.12 min=899.477 max=921.707\nload-owned samples_ns=[1950.382, 1813.013, 1789.097, 1795.928, 1801.312, 1829.817, 1784.625] checksum=10500028854000\nmedian=1801.312 min=1784.625 max=1950.382\ncold-owned samples_ns=[1683.628, 1682.927, 1677.909, 1677.971, 1658.925, 1609.985, 1602.253] checksum=10500028854000\nmedian=1677.909 min=1602.253 max=1683.628\noptional-removal samples_ns=[540.594, 534.682, 541.41, 545.696, 557.08, 544.458, 545.194] checksum=4375000490000\nmedian=544.458 min=534.682 max=557.08\nrefresh-owned samples_ns=[16661.231, 16959.571, 17517.205, 16539.792, 16115.89, 14240.583, 15446.24] checksum=10500028854000\nmedian=16539.792 min=14240.583 max=17517.205\nreject-validator samples_ns=[1101.079, 1100.57, 1099.883, 1107.22, 1106.346, 1102.986, 1129.694] checksum=105000\nmedian=1102.986 min=1099.883 max=1129.694\nreject-schema samples_ns=[605.703, 607.977, 619.497, 626.333, 608.645, 600.197, 609.261] checksum=315000\nmedian=608.645 min=600.197 max=626.333\napplication-read samples_ns=[0.754, 0.745, 0.736, 0.748, 0.728, 0.706, 0.712] checksum=875000003500\nmedian=0.736 min=0.706 max=0.754\n",
+      "fixtures": {
+        "load-small": {
+          "samples_ns": [
+            921.707,
+            902.12,
+            905.91,
+            907.819,
+            900.104,
+            899.477,
+            901.389
+          ],
+          "median_ns": 902.12,
+          "checksum": 10500000864500
+        },
+        "load-owned": {
+          "samples_ns": [
+            1950.382,
+            1813.013,
+            1789.097,
+            1795.928,
+            1801.312,
+            1829.817,
+            1784.625
+          ],
+          "median_ns": 1801.312,
+          "checksum": 10500028854000
+        },
+        "cold-owned": {
+          "samples_ns": [
+            1683.628,
+            1682.927,
+            1677.909,
+            1677.971,
+            1658.925,
+            1609.985,
+            1602.253
+          ],
+          "median_ns": 1677.909,
+          "checksum": 10500028854000
+        },
+        "optional-removal": {
+          "samples_ns": [
+            540.594,
+            534.682,
+            541.41,
+            545.696,
+            557.08,
+            544.458,
+            545.194
+          ],
+          "median_ns": 544.458,
+          "checksum": 4375000490000
+        },
+        "refresh-owned": {
+          "samples_ns": [
+            16661.231,
+            16959.571,
+            17517.205,
+            16539.792,
+            16115.89,
+            14240.583,
+            15446.24
+          ],
+          "median_ns": 16539.792,
+          "checksum": 10500028854000
+        },
+        "reject-validator": {
+          "samples_ns": [
+            1101.079,
+            1100.57,
+            1099.883,
+            1107.22,
+            1106.346,
+            1102.986,
+            1129.694
+          ],
+          "median_ns": 1102.986,
+          "checksum": 105000
+        },
+        "reject-schema": {
+          "samples_ns": [
+            605.703,
+            607.977,
+            619.497,
+            626.333,
+            608.645,
+            600.197,
+            609.261
+          ],
+          "median_ns": 608.645,
+          "checksum": 315000
+        },
+        "application-read": {
+          "samples_ns": [
+            0.754,
+            0.745,
+            0.736,
+            0.748,
+            0.728,
+            0.706,
+            0.712
+          ],
+          "median_ns": 0.736,
+          "checksum": 875000003500
+        }
+      }
+    },
+    {
+      "round": 6,
+      "caller": "generated",
+      "raw_stdout": "load-small samples_ns=[839.456, 837.546, 855.363, 843.417, 891.78, 853.693, 847.023] checksum=10500000864500\nmedian=847.023 min=837.546 max=891.78\nload-owned samples_ns=[1731.538, 1682.098, 1625.332, 1662.851, 1616.652, 1661.482, 1602.711] checksum=10500028854000\nmedian=1661.482 min=1602.711 max=1731.538\ncold-owned samples_ns=[1569.591, 1572.523, 1646.423, 1610.351, 1553.379, 1555.498, 1558.323] checksum=10500028854000\nmedian=1569.591 min=1553.379 max=1646.423\noptional-removal samples_ns=[534.576, 534.88, 533.603, 527.994, 532.953, 531.944, 533.299] checksum=4375000490000\nmedian=533.299 min=527.994 max=534.88\nrefresh-owned samples_ns=[15175.25, 16691.758, 18528.023, 17543.901, 16814.6, 17242.885, 17100.044] checksum=10500028854000\nmedian=17100.044 min=15175.25 max=18528.023\nreject-validator samples_ns=[1102.444, 1098.905, 1097.969, 1107.239, 1097.293, 1094.062, 1100.051] checksum=105000\nmedian=1098.905 min=1094.062 max=1107.239\nreject-schema samples_ns=[600.795, 601.765, 602.632, 597.633, 601.459, 596.75, 599.229] checksum=315000\nmedian=600.795 min=596.75 max=602.632\napplication-read samples_ns=[0.773, 0.753, 0.75, 0.732, 0.7, 0.709, 0.71] checksum=875000003500\nmedian=0.732 min=0.7 max=0.773\n",
+      "fixtures": {
+        "load-small": {
+          "samples_ns": [
+            839.456,
+            837.546,
+            855.363,
+            843.417,
+            891.78,
+            853.693,
+            847.023
+          ],
+          "median_ns": 847.023,
+          "checksum": 10500000864500
+        },
+        "load-owned": {
+          "samples_ns": [
+            1731.538,
+            1682.098,
+            1625.332,
+            1662.851,
+            1616.652,
+            1661.482,
+            1602.711
+          ],
+          "median_ns": 1661.482,
+          "checksum": 10500028854000
+        },
+        "cold-owned": {
+          "samples_ns": [
+            1569.591,
+            1572.523,
+            1646.423,
+            1610.351,
+            1553.379,
+            1555.498,
+            1558.323
+          ],
+          "median_ns": 1569.591,
+          "checksum": 10500028854000
+        },
+        "optional-removal": {
+          "samples_ns": [
+            534.576,
+            534.88,
+            533.603,
+            527.994,
+            532.953,
+            531.944,
+            533.299
+          ],
+          "median_ns": 533.299,
+          "checksum": 4375000490000
+        },
+        "refresh-owned": {
+          "samples_ns": [
+            15175.25,
+            16691.758,
+            18528.023,
+            17543.901,
+            16814.6,
+            17242.885,
+            17100.044
+          ],
+          "median_ns": 17100.044,
+          "checksum": 10500028854000
+        },
+        "reject-validator": {
+          "samples_ns": [
+            1102.444,
+            1098.905,
+            1097.969,
+            1107.239,
+            1097.293,
+            1094.062,
+            1100.051
+          ],
+          "median_ns": 1098.905,
+          "checksum": 105000
+        },
+        "reject-schema": {
+          "samples_ns": [
+            600.795,
+            601.765,
+            602.632,
+            597.633,
+            601.459,
+            596.75,
+            599.229
+          ],
+          "median_ns": 600.795,
+          "checksum": 315000
+        },
+        "application-read": {
+          "samples_ns": [
+            0.773,
+            0.753,
+            0.75,
+            0.732,
+            0.7,
+            0.709,
+            0.71
+          ],
+          "median_ns": 0.732,
+          "checksum": 875000003500
+        }
+      }
+    },
+    {
+      "round": 6,
+      "caller": "reference-A",
+      "raw_stdout": "load-small samples_ns=[859.636, 825.906, 858.989, 819.565, 817.271, 821.63, 828.611] checksum=10500000864500\nmedian=825.906 min=817.271 max=859.636\nload-owned samples_ns=[1656.301, 1621.671, 1623.336, 1591.207, 1649.402, 1734.684, 1647.428] checksum=10500028854000\nmedian=1647.428 min=1591.207 max=1734.684\ncold-owned samples_ns=[1681.031, 1681.991, 1677.616, 1674.382, 1666.136, 1656.904, 1722.473] checksum=10500028854000\nmedian=1677.616 min=1656.904 max=1722.473\noptional-removal samples_ns=[558.835, 552.326, 576.691, 573.384, 579.982, 579.218, 570.253] checksum=4375000490000\nmedian=573.384 min=552.326 max=579.982\nrefresh-owned samples_ns=[13528.622, 11774.242, 15657.952, 16144.979, 16407.212, 17396.998, 17324.055] checksum=10500028854000\nmedian=16144.979 min=11774.242 max=17396.998\nreject-validator samples_ns=[1150.174, 1141.454, 1148.215, 1163.609, 1160.804, 1143.241, 1140.727] checksum=105000\nmedian=1148.215 min=1140.727 max=1163.609\nreject-schema samples_ns=[224.687, 222.626, 229.157, 226.903, 222.304, 222.312, 222.324] checksum=315000\nmedian=222.626 min=222.304 max=229.157\napplication-read samples_ns=[31.38, 27.269, 27.416, 26.621, 26.796, 26.935, 26.597] checksum=875000003500\nmedian=26.935 min=26.597 max=31.38\n",
+      "fixtures": {
+        "load-small": {
+          "samples_ns": [
+            859.636,
+            825.906,
+            858.989,
+            819.565,
+            817.271,
+            821.63,
+            828.611
+          ],
+          "median_ns": 825.906,
+          "checksum": 10500000864500
+        },
+        "load-owned": {
+          "samples_ns": [
+            1656.301,
+            1621.671,
+            1623.336,
+            1591.207,
+            1649.402,
+            1734.684,
+            1647.428
+          ],
+          "median_ns": 1647.428,
+          "checksum": 10500028854000
+        },
+        "cold-owned": {
+          "samples_ns": [
+            1681.031,
+            1681.991,
+            1677.616,
+            1674.382,
+            1666.136,
+            1656.904,
+            1722.473
+          ],
+          "median_ns": 1677.616,
+          "checksum": 10500028854000
+        },
+        "optional-removal": {
+          "samples_ns": [
+            558.835,
+            552.326,
+            576.691,
+            573.384,
+            579.982,
+            579.218,
+            570.253
+          ],
+          "median_ns": 573.384,
+          "checksum": 4375000490000
+        },
+        "refresh-owned": {
+          "samples_ns": [
+            13528.622,
+            11774.242,
+            15657.952,
+            16144.979,
+            16407.212,
+            17396.998,
+            17324.055
+          ],
+          "median_ns": 16144.979,
+          "checksum": 10500028854000
+        },
+        "reject-validator": {
+          "samples_ns": [
+            1150.174,
+            1141.454,
+            1148.215,
+            1163.609,
+            1160.804,
+            1143.241,
+            1140.727
+          ],
+          "median_ns": 1148.215,
+          "checksum": 105000
+        },
+        "reject-schema": {
+          "samples_ns": [
+            224.687,
+            222.626,
+            229.157,
+            226.903,
+            222.304,
+            222.312,
+            222.324
+          ],
+          "median_ns": 222.626,
+          "checksum": 315000
+        },
+        "application-read": {
+          "samples_ns": [
+            31.38,
+            27.269,
+            27.416,
+            26.621,
+            26.796,
+            26.935,
+            26.597
+          ],
+          "median_ns": 26.935,
+          "checksum": 875000003500
+        }
+      }
+    },
+    {
+      "round": 6,
+      "caller": "reference-B",
+      "raw_stdout": "load-small samples_ns=[883.853, 865.154, 860.934, 924.203, 886.289, 863.123, 877.105] checksum=10500000864500\nmedian=877.105 min=860.934 max=924.203\nload-owned samples_ns=[1838.674, 1755.707, 1828.944, 1804.635, 1767.055, 1720.172, 1784.245] checksum=10500028854000\nmedian=1784.245 min=1720.172 max=1838.674\ncold-owned samples_ns=[1749.907, 1734.953, 1719.17, 1718.488, 1694.923, 1641.976, 1648.159] checksum=10500028854000\nmedian=1718.488 min=1641.976 max=1749.907\noptional-removal samples_ns=[572.478, 564.465, 572.935, 563.025, 572.299, 569.624, 552.001] checksum=4375000490000\nmedian=569.624 min=552.001 max=572.935\nrefresh-owned samples_ns=[16734.453, 16000.579, 15391.264, 15946.05, 15980.603, 16228.48, 16638.784] checksum=10500028854000\nmedian=16000.579 min=15391.264 max=16734.453\nreject-validator samples_ns=[1085.131, 1084.849, 1095.017, 1075.075, 1134.832, 1115.717, 1137.165] checksum=105000\nmedian=1095.017 min=1075.075 max=1137.165\nreject-schema samples_ns=[231.579, 245.469, 269.188, 239.813, 225.12, 226.791, 234.972] checksum=315000\nmedian=234.972 min=225.12 max=269.188\napplication-read samples_ns=[27.062, 26.743, 26.871, 26.625, 26.725, 26.929, 26.628] checksum=875000003500\nmedian=26.743 min=26.625 max=27.062\n",
+      "fixtures": {
+        "load-small": {
+          "samples_ns": [
+            883.853,
+            865.154,
+            860.934,
+            924.203,
+            886.289,
+            863.123,
+            877.105
+          ],
+          "median_ns": 877.105,
+          "checksum": 10500000864500
+        },
+        "load-owned": {
+          "samples_ns": [
+            1838.674,
+            1755.707,
+            1828.944,
+            1804.635,
+            1767.055,
+            1720.172,
+            1784.245
+          ],
+          "median_ns": 1784.245,
+          "checksum": 10500028854000
+        },
+        "cold-owned": {
+          "samples_ns": [
+            1749.907,
+            1734.953,
+            1719.17,
+            1718.488,
+            1694.923,
+            1641.976,
+            1648.159
+          ],
+          "median_ns": 1718.488,
+          "checksum": 10500028854000
+        },
+        "optional-removal": {
+          "samples_ns": [
+            572.478,
+            564.465,
+            572.935,
+            563.025,
+            572.299,
+            569.624,
+            552.001
+          ],
+          "median_ns": 569.624,
+          "checksum": 4375000490000
+        },
+        "refresh-owned": {
+          "samples_ns": [
+            16734.453,
+            16000.579,
+            15391.264,
+            15946.05,
+            15980.603,
+            16228.48,
+            16638.784
+          ],
+          "median_ns": 16000.579,
+          "checksum": 10500028854000
+        },
+        "reject-validator": {
+          "samples_ns": [
+            1085.131,
+            1084.849,
+            1095.017,
+            1075.075,
+            1134.832,
+            1115.717,
+            1137.165
+          ],
+          "median_ns": 1095.017,
+          "checksum": 105000
+        },
+        "reject-schema": {
+          "samples_ns": [
+            231.579,
+            245.469,
+            269.188,
+            239.813,
+            225.12,
+            226.791,
+            234.972
+          ],
+          "median_ns": 234.972,
+          "checksum": 315000
+        },
+        "application-read": {
+          "samples_ns": [
+            27.062,
+            26.743,
+            26.871,
+            26.625,
+            26.725,
+            26.929,
+            26.628
+          ],
+          "median_ns": 26.743,
+          "checksum": 875000003500
+        }
+      }
+    },
+    {
+      "round": 7,
+      "caller": "reference-B",
+      "raw_stdout": "load-small samples_ns=[864.398, 854.997, 858.832, 873.417, 855.732, 939.361, 853.025] checksum=10500000864500\nmedian=858.832 min=853.025 max=939.361\nload-owned samples_ns=[1732.87, 1824.737, 1779.642, 1720.585, 1713.378, 1688.217, 1649.654] checksum=10500028854000\nmedian=1720.585 min=1649.654 max=1824.737\ncold-owned samples_ns=[1700.982, 1652.205, 1650.143, 1641.333, 1639.381, 1580.466, 1618.688] checksum=10500028854000\nmedian=1641.333 min=1580.466 max=1700.982\noptional-removal samples_ns=[547.308, 536.695, 540.988, 540.598, 545.658, 544.053, 546.629] checksum=4375000490000\nmedian=544.053 min=536.695 max=547.308\nrefresh-owned samples_ns=[13247.552, 16074.421, 16348.177, 15749.847, 15662.688, 15033.622, 15551.333] checksum=10500028854000\nmedian=15662.688 min=13247.552 max=16348.177\nreject-validator samples_ns=[1100.116, 1094.433, 1093.802, 1094.439, 1092.761, 1095.529, 1095.73] checksum=105000\nmedian=1094.439 min=1092.761 max=1100.116\nreject-schema samples_ns=[227.137, 219.601, 216.343, 220.924, 218.555, 213.049, 212.96] checksum=315000\nmedian=218.555 min=212.96 max=227.137\napplication-read samples_ns=[26.395, 25.815, 25.897, 25.877, 25.836, 25.877, 25.854] checksum=875000003500\nmedian=25.877 min=25.815 max=26.395\n",
+      "fixtures": {
+        "load-small": {
+          "samples_ns": [
+            864.398,
+            854.997,
+            858.832,
+            873.417,
+            855.732,
+            939.361,
+            853.025
+          ],
+          "median_ns": 858.832,
+          "checksum": 10500000864500
+        },
+        "load-owned": {
+          "samples_ns": [
+            1732.87,
+            1824.737,
+            1779.642,
+            1720.585,
+            1713.378,
+            1688.217,
+            1649.654
+          ],
+          "median_ns": 1720.585,
+          "checksum": 10500028854000
+        },
+        "cold-owned": {
+          "samples_ns": [
+            1700.982,
+            1652.205,
+            1650.143,
+            1641.333,
+            1639.381,
+            1580.466,
+            1618.688
+          ],
+          "median_ns": 1641.333,
+          "checksum": 10500028854000
+        },
+        "optional-removal": {
+          "samples_ns": [
+            547.308,
+            536.695,
+            540.988,
+            540.598,
+            545.658,
+            544.053,
+            546.629
+          ],
+          "median_ns": 544.053,
+          "checksum": 4375000490000
+        },
+        "refresh-owned": {
+          "samples_ns": [
+            13247.552,
+            16074.421,
+            16348.177,
+            15749.847,
+            15662.688,
+            15033.622,
+            15551.333
+          ],
+          "median_ns": 15662.688,
+          "checksum": 10500028854000
+        },
+        "reject-validator": {
+          "samples_ns": [
+            1100.116,
+            1094.433,
+            1093.802,
+            1094.439,
+            1092.761,
+            1095.529,
+            1095.73
+          ],
+          "median_ns": 1094.439,
+          "checksum": 105000
+        },
+        "reject-schema": {
+          "samples_ns": [
+            227.137,
+            219.601,
+            216.343,
+            220.924,
+            218.555,
+            213.049,
+            212.96
+          ],
+          "median_ns": 218.555,
+          "checksum": 315000
+        },
+        "application-read": {
+          "samples_ns": [
+            26.395,
+            25.815,
+            25.897,
+            25.877,
+            25.836,
+            25.877,
+            25.854
+          ],
+          "median_ns": 25.877,
+          "checksum": 875000003500
+        }
+      }
+    },
+    {
+      "round": 7,
+      "caller": "reference-A",
+      "raw_stdout": "load-small samples_ns=[841.168, 766.425, 792.844, 793.214, 805.013, 779.194, 781.776] checksum=10500000864500\nmedian=792.844 min=766.425 max=841.168\nload-owned samples_ns=[1584.923, 1557.362, 1523.46, 1541.399, 1641.534, 1627.611, 1634.969] checksum=10500028854000\nmedian=1584.923 min=1523.46 max=1641.534\ncold-owned samples_ns=[1641.751, 1676.499, 1689.581, 1639.01, 1607.662, 1649.03, 1640.696] checksum=10500028854000\nmedian=1641.751 min=1607.662 max=1689.581\noptional-removal samples_ns=[570.048, 581.011, 558.835, 601.671, 579.146, 577.533, 561.558] checksum=4375000490000\nmedian=577.533 min=558.835 max=601.671\nrefresh-owned samples_ns=[13958.416, 15126.668, 14070.733, 13316.441, 14297.726, 14268.174, 11561.054] checksum=10500028854000\nmedian=14070.733 min=11561.054 max=15126.668\nreject-validator samples_ns=[1057.531, 1171.502, 1105.005, 1120.515, 1141.136, 1138.092, 1145.728] checksum=105000\nmedian=1138.092 min=1057.531 max=1171.502\nreject-schema samples_ns=[231.494, 221.819, 222.939, 223.0, 222.991, 230.731, 221.69] checksum=315000\nmedian=222.991 min=221.69 max=231.494\napplication-read samples_ns=[27.911, 26.688, 26.649, 26.671, 26.678, 26.611, 26.65] checksum=875000003500\nmedian=26.671 min=26.611 max=27.911\n",
+      "fixtures": {
+        "load-small": {
+          "samples_ns": [
+            841.168,
+            766.425,
+            792.844,
+            793.214,
+            805.013,
+            779.194,
+            781.776
+          ],
+          "median_ns": 792.844,
+          "checksum": 10500000864500
+        },
+        "load-owned": {
+          "samples_ns": [
+            1584.923,
+            1557.362,
+            1523.46,
+            1541.399,
+            1641.534,
+            1627.611,
+            1634.969
+          ],
+          "median_ns": 1584.923,
+          "checksum": 10500028854000
+        },
+        "cold-owned": {
+          "samples_ns": [
+            1641.751,
+            1676.499,
+            1689.581,
+            1639.01,
+            1607.662,
+            1649.03,
+            1640.696
+          ],
+          "median_ns": 1641.751,
+          "checksum": 10500028854000
+        },
+        "optional-removal": {
+          "samples_ns": [
+            570.048,
+            581.011,
+            558.835,
+            601.671,
+            579.146,
+            577.533,
+            561.558
+          ],
+          "median_ns": 577.533,
+          "checksum": 4375000490000
+        },
+        "refresh-owned": {
+          "samples_ns": [
+            13958.416,
+            15126.668,
+            14070.733,
+            13316.441,
+            14297.726,
+            14268.174,
+            11561.054
+          ],
+          "median_ns": 14070.733,
+          "checksum": 10500028854000
+        },
+        "reject-validator": {
+          "samples_ns": [
+            1057.531,
+            1171.502,
+            1105.005,
+            1120.515,
+            1141.136,
+            1138.092,
+            1145.728
+          ],
+          "median_ns": 1138.092,
+          "checksum": 105000
+        },
+        "reject-schema": {
+          "samples_ns": [
+            231.494,
+            221.819,
+            222.939,
+            223.0,
+            222.991,
+            230.731,
+            221.69
+          ],
+          "median_ns": 222.991,
+          "checksum": 315000
+        },
+        "application-read": {
+          "samples_ns": [
+            27.911,
+            26.688,
+            26.649,
+            26.671,
+            26.678,
+            26.611,
+            26.65
+          ],
+          "median_ns": 26.671,
+          "checksum": 875000003500
+        }
+      }
+    },
+    {
+      "round": 7,
+      "caller": "generated",
+      "raw_stdout": "load-small samples_ns=[913.674, 991.568, 915.142, 948.417, 898.786, 912.584, 909.309] checksum=10500000864500\nmedian=913.674 min=898.786 max=991.568\nload-owned samples_ns=[1783.162, 1772.215, 1725.919, 1703.351, 1704.592, 1700.713, 1704.203] checksum=10500028854000\nmedian=1704.592 min=1700.713 max=1783.162\ncold-owned samples_ns=[1716.547, 1645.705, 1633.168, 1637.663, 1649.624, 1650.27, 1687.935] checksum=10500028854000\nmedian=1649.624 min=1633.168 max=1716.547\noptional-removal samples_ns=[562.518, 550.784, 569.72, 562.621, 607.511, 575.92, 563.916] checksum=4375000490000\nmedian=563.916 min=550.784 max=607.511\nrefresh-owned samples_ns=[17667.255, 17634.377, 16456.808, 16538.001, 12790.683, 14566.593, 15304.219] checksum=10500028854000\nmedian=16456.808 min=12790.683 max=17667.255\nreject-validator samples_ns=[1055.951, 1055.539, 1096.478, 1044.826, 1046.706, 1049.522, 1061.501] checksum=105000\nmedian=1055.539 min=1044.826 max=1096.478\nreject-schema samples_ns=[592.874, 598.734, 593.584, 590.633, 596.518, 590.779, 592.577] checksum=315000\nmedian=592.874 min=590.633 max=598.734\napplication-read samples_ns=[0.731, 0.733, 0.702, 0.718, 0.717, 0.694, 0.69] checksum=875000003500\nmedian=0.717 min=0.69 max=0.733\n",
+      "fixtures": {
+        "load-small": {
+          "samples_ns": [
+            913.674,
+            991.568,
+            915.142,
+            948.417,
+            898.786,
+            912.584,
+            909.309
+          ],
+          "median_ns": 913.674,
+          "checksum": 10500000864500
+        },
+        "load-owned": {
+          "samples_ns": [
+            1783.162,
+            1772.215,
+            1725.919,
+            1703.351,
+            1704.592,
+            1700.713,
+            1704.203
+          ],
+          "median_ns": 1704.592,
+          "checksum": 10500028854000
+        },
+        "cold-owned": {
+          "samples_ns": [
+            1716.547,
+            1645.705,
+            1633.168,
+            1637.663,
+            1649.624,
+            1650.27,
+            1687.935
+          ],
+          "median_ns": 1649.624,
+          "checksum": 10500028854000
+        },
+        "optional-removal": {
+          "samples_ns": [
+            562.518,
+            550.784,
+            569.72,
+            562.621,
+            607.511,
+            575.92,
+            563.916
+          ],
+          "median_ns": 563.916,
+          "checksum": 4375000490000
+        },
+        "refresh-owned": {
+          "samples_ns": [
+            17667.255,
+            17634.377,
+            16456.808,
+            16538.001,
+            12790.683,
+            14566.593,
+            15304.219
+          ],
+          "median_ns": 16456.808,
+          "checksum": 10500028854000
+        },
+        "reject-validator": {
+          "samples_ns": [
+            1055.951,
+            1055.539,
+            1096.478,
+            1044.826,
+            1046.706,
+            1049.522,
+            1061.501
+          ],
+          "median_ns": 1055.539,
+          "checksum": 105000
+        },
+        "reject-schema": {
+          "samples_ns": [
+            592.874,
+            598.734,
+            593.584,
+            590.633,
+            596.518,
+            590.779,
+            592.577
+          ],
+          "median_ns": 592.874,
+          "checksum": 315000
+        },
+        "application-read": {
+          "samples_ns": [
+            0.731,
+            0.733,
+            0.702,
+            0.718,
+            0.717,
+            0.694,
+            0.69
+          ],
+          "median_ns": 0.717,
+          "checksum": 875000003500
+        }
+      }
+    },
+    {
+      "round": 8,
+      "caller": "generated",
+      "raw_stdout": "load-small samples_ns=[781.391, 780.279, 803.404, 767.029, 773.57, 773.148, 777.534] checksum=10500000864500\nmedian=777.534 min=767.029 max=803.404\nload-owned samples_ns=[1626.053, 1581.599, 1570.515, 1544.262, 1571.205, 1559.909, 1637.254] checksum=10500028854000\nmedian=1571.205 min=1544.262 max=1637.254\ncold-owned samples_ns=[1636.149, 1577.535, 1619.806, 1546.595, 1557.037, 1549.514, 1549.302] checksum=10500028854000\nmedian=1557.037 min=1546.595 max=1636.149\noptional-removal samples_ns=[528.486, 538.873, 539.529, 546.499, 548.167, 527.094, 523.418] checksum=4375000490000\nmedian=538.873 min=523.418 max=548.167\nrefresh-owned samples_ns=[14696.801, 15780.139, 14014.937, 15280.467, 16006.932, 13160.637, 12621.899] checksum=10500028854000\nmedian=14696.801 min=12621.899 max=16006.932\nreject-validator samples_ns=[1102.611, 1101.121, 1108.337, 1102.259, 1098.543, 1179.27, 1096.354] checksum=105000\nmedian=1102.259 min=1096.354 max=1179.27\nreject-schema samples_ns=[599.445, 600.983, 597.192, 602.235, 603.349, 595.948, 611.127] checksum=315000\nmedian=600.983 min=595.948 max=611.127\napplication-read samples_ns=[0.78, 0.744, 0.747, 0.744, 0.73, 0.702, 0.701] checksum=875000003500\nmedian=0.744 min=0.701 max=0.78\n",
+      "fixtures": {
+        "load-small": {
+          "samples_ns": [
+            781.391,
+            780.279,
+            803.404,
+            767.029,
+            773.57,
+            773.148,
+            777.534
+          ],
+          "median_ns": 777.534,
+          "checksum": 10500000864500
+        },
+        "load-owned": {
+          "samples_ns": [
+            1626.053,
+            1581.599,
+            1570.515,
+            1544.262,
+            1571.205,
+            1559.909,
+            1637.254
+          ],
+          "median_ns": 1571.205,
+          "checksum": 10500028854000
+        },
+        "cold-owned": {
+          "samples_ns": [
+            1636.149,
+            1577.535,
+            1619.806,
+            1546.595,
+            1557.037,
+            1549.514,
+            1549.302
+          ],
+          "median_ns": 1557.037,
+          "checksum": 10500028854000
+        },
+        "optional-removal": {
+          "samples_ns": [
+            528.486,
+            538.873,
+            539.529,
+            546.499,
+            548.167,
+            527.094,
+            523.418
+          ],
+          "median_ns": 538.873,
+          "checksum": 4375000490000
+        },
+        "refresh-owned": {
+          "samples_ns": [
+            14696.801,
+            15780.139,
+            14014.937,
+            15280.467,
+            16006.932,
+            13160.637,
+            12621.899
+          ],
+          "median_ns": 14696.801,
+          "checksum": 10500028854000
+        },
+        "reject-validator": {
+          "samples_ns": [
+            1102.611,
+            1101.121,
+            1108.337,
+            1102.259,
+            1098.543,
+            1179.27,
+            1096.354
+          ],
+          "median_ns": 1102.259,
+          "checksum": 105000
+        },
+        "reject-schema": {
+          "samples_ns": [
+            599.445,
+            600.983,
+            597.192,
+            602.235,
+            603.349,
+            595.948,
+            611.127
+          ],
+          "median_ns": 600.983,
+          "checksum": 315000
+        },
+        "application-read": {
+          "samples_ns": [
+            0.78,
+            0.744,
+            0.747,
+            0.744,
+            0.73,
+            0.702,
+            0.701
+          ],
+          "median_ns": 0.744,
+          "checksum": 875000003500
+        }
+      }
+    },
+    {
+      "round": 8,
+      "caller": "reference-B",
+      "raw_stdout": "load-small samples_ns=[791.123, 789.491, 788.93, 801.379, 783.999, 780.08, 775.824] checksum=10500000864500\nmedian=788.93 min=775.824 max=801.379\nload-owned samples_ns=[1609.215, 1558.542, 1521.249, 1550.091, 1517.446, 1530.861, 1518.61] checksum=10500028854000\nmedian=1530.861 min=1517.446 max=1609.215\ncold-owned samples_ns=[1537.873, 1522.316, 1522.011, 1530.245, 1471.082, 1481.287, 1464.921] checksum=10500028854000\nmedian=1522.011 min=1464.921 max=1537.873\noptional-removal samples_ns=[536.0, 502.636, 552.153, 530.785, 510.49, 508.705, 522.157] checksum=4375000490000\nmedian=522.157 min=502.636 max=552.153\nrefresh-owned samples_ns=[18368.391, 17935.9, 17008.156, 16242.809, 15959.743, 15795.956, 15674.412] checksum=10500028854000\nmedian=16242.809 min=15674.412 max=18368.391\nreject-validator samples_ns=[1053.528, 1049.913, 1046.887, 1043.783, 1043.956, 1050.799, 1048.172] checksum=105000\nmedian=1048.172 min=1043.783 max=1053.528\nreject-schema samples_ns=[211.362, 204.625, 204.353, 204.346, 204.382, 209.922, 205.88] checksum=315000\nmedian=204.625 min=204.346 max=211.362\napplication-read samples_ns=[25.308, 24.799, 24.489, 24.514, 24.78, 24.459, 24.479] checksum=875000003500\nmedian=24.514 min=24.459 max=25.308\n",
+      "fixtures": {
+        "load-small": {
+          "samples_ns": [
+            791.123,
+            789.491,
+            788.93,
+            801.379,
+            783.999,
+            780.08,
+            775.824
+          ],
+          "median_ns": 788.93,
+          "checksum": 10500000864500
+        },
+        "load-owned": {
+          "samples_ns": [
+            1609.215,
+            1558.542,
+            1521.249,
+            1550.091,
+            1517.446,
+            1530.861,
+            1518.61
+          ],
+          "median_ns": 1530.861,
+          "checksum": 10500028854000
+        },
+        "cold-owned": {
+          "samples_ns": [
+            1537.873,
+            1522.316,
+            1522.011,
+            1530.245,
+            1471.082,
+            1481.287,
+            1464.921
+          ],
+          "median_ns": 1522.011,
+          "checksum": 10500028854000
+        },
+        "optional-removal": {
+          "samples_ns": [
+            536.0,
+            502.636,
+            552.153,
+            530.785,
+            510.49,
+            508.705,
+            522.157
+          ],
+          "median_ns": 522.157,
+          "checksum": 4375000490000
+        },
+        "refresh-owned": {
+          "samples_ns": [
+            18368.391,
+            17935.9,
+            17008.156,
+            16242.809,
+            15959.743,
+            15795.956,
+            15674.412
+          ],
+          "median_ns": 16242.809,
+          "checksum": 10500028854000
+        },
+        "reject-validator": {
+          "samples_ns": [
+            1053.528,
+            1049.913,
+            1046.887,
+            1043.783,
+            1043.956,
+            1050.799,
+            1048.172
+          ],
+          "median_ns": 1048.172,
+          "checksum": 105000
+        },
+        "reject-schema": {
+          "samples_ns": [
+            211.362,
+            204.625,
+            204.353,
+            204.346,
+            204.382,
+            209.922,
+            205.88
+          ],
+          "median_ns": 204.625,
+          "checksum": 315000
+        },
+        "application-read": {
+          "samples_ns": [
+            25.308,
+            24.799,
+            24.489,
+            24.514,
+            24.78,
+            24.459,
+            24.479
+          ],
+          "median_ns": 24.514,
+          "checksum": 875000003500
+        }
+      }
+    },
+    {
+      "round": 8,
+      "caller": "reference-A",
+      "raw_stdout": "load-small samples_ns=[810.191, 831.751, 822.297, 819.399, 781.588, 792.255, 781.888] checksum=10500000864500\nmedian=810.191 min=781.588 max=831.751\nload-owned samples_ns=[1582.051, 1642.527, 1589.595, 1630.708, 1574.001, 1577.102, 1515.156] checksum=10500028854000\nmedian=1582.051 min=1515.156 max=1642.527\ncold-owned samples_ns=[1529.668, 1507.199, 1503.468, 1501.422, 1517.519, 1474.798, 1485.135] checksum=10500028854000\nmedian=1503.468 min=1474.798 max=1529.668\noptional-removal samples_ns=[519.649, 520.353, 519.241, 513.55, 519.987, 516.944, 506.199] checksum=4375000490000\nmedian=519.241 min=506.199 max=520.353\nrefresh-owned samples_ns=[11466.331, 10866.508, 10897.984, 10823.118, 11052.358, 11315.844, 10795.801] checksum=10500028854000\nmedian=10897.984 min=10795.801 max=11466.331\nreject-validator samples_ns=[1019.234, 1010.536, 1010.279, 1007.514, 1003.824, 1003.072, 1001.722] checksum=105000\nmedian=1007.514 min=1001.722 max=1019.234\nreject-schema samples_ns=[198.792, 197.725, 199.666, 197.526, 197.526, 197.453, 197.518] checksum=315000\nmedian=197.526 min=197.453 max=199.666\napplication-read samples_ns=[26.221, 23.855, 23.581, 23.89, 23.836, 23.548, 23.896] checksum=875000003500\nmedian=23.855 min=23.548 max=26.221\n",
+      "fixtures": {
+        "load-small": {
+          "samples_ns": [
+            810.191,
+            831.751,
+            822.297,
+            819.399,
+            781.588,
+            792.255,
+            781.888
+          ],
+          "median_ns": 810.191,
+          "checksum": 10500000864500
+        },
+        "load-owned": {
+          "samples_ns": [
+            1582.051,
+            1642.527,
+            1589.595,
+            1630.708,
+            1574.001,
+            1577.102,
+            1515.156
+          ],
+          "median_ns": 1582.051,
+          "checksum": 10500028854000
+        },
+        "cold-owned": {
+          "samples_ns": [
+            1529.668,
+            1507.199,
+            1503.468,
+            1501.422,
+            1517.519,
+            1474.798,
+            1485.135
+          ],
+          "median_ns": 1503.468,
+          "checksum": 10500028854000
+        },
+        "optional-removal": {
+          "samples_ns": [
+            519.649,
+            520.353,
+            519.241,
+            513.55,
+            519.987,
+            516.944,
+            506.199
+          ],
+          "median_ns": 519.241,
+          "checksum": 4375000490000
+        },
+        "refresh-owned": {
+          "samples_ns": [
+            11466.331,
+            10866.508,
+            10897.984,
+            10823.118,
+            11052.358,
+            11315.844,
+            10795.801
+          ],
+          "median_ns": 10897.984,
+          "checksum": 10500028854000
+        },
+        "reject-validator": {
+          "samples_ns": [
+            1019.234,
+            1010.536,
+            1010.279,
+            1007.514,
+            1003.824,
+            1003.072,
+            1001.722
+          ],
+          "median_ns": 1007.514,
+          "checksum": 105000
+        },
+        "reject-schema": {
+          "samples_ns": [
+            198.792,
+            197.725,
+            199.666,
+            197.526,
+            197.526,
+            197.453,
+            197.518
+          ],
+          "median_ns": 197.526,
+          "checksum": 315000
+        },
+        "application-read": {
+          "samples_ns": [
+            26.221,
+            23.855,
+            23.581,
+            23.89,
+            23.836,
+            23.548,
+            23.896
+          ],
+          "median_ns": 23.855,
+          "checksum": 875000003500
+        }
+      }
+    }
+  ],
+  "binary_sha256": "fe26a1b2055dfc5685909875c3a522e71ba2fb8c6f09d1ad16b13704c55985b8",
+  "native_disassembly_sha256": "98b4d5de68288ca596dccee800f864b739f2c9cc6534a6217a0ed1fbd79ea49f",
+  "utc_start": "2026-11-05T13:51:57.655235+00:00",
+  "median_of_run_medians_ns": {
+    "generated": {
+      "load-small": 861.188,
+      "load-owned": 1752.814,
+      "cold-owned": 1649.624,
+      "optional-removal": 544.458,
+      "refresh-owned": 16555.083,
+      "reject-validator": 1102.259,
+      "reject-schema": 600.983,
+      "application-read": 0.736
+    },
+    "reference-A": {
+      "load-small": 881.927,
+      "load-owned": 1733.122,
+      "cold-owned": 1677.616,
+      "optional-removal": 597.897,
+      "refresh-owned": 19750.116,
+      "reject-validator": 1243.342,
+      "reject-schema": 233.771,
+      "application-read": 29.173
+    },
+    "reference-B": {
+      "load-small": 999.001,
+      "load-owned": 1831.489,
+      "cold-owned": 1727.153,
+      "optional-removal": 569.624,
+      "refresh-owned": 16242.809,
+      "reject-validator": 1095.017,
+      "reject-schema": 224.202,
+      "application-read": 26.81
+    }
+  },
+  "recorded_utc": "2026-11-05T13:52:02.607848+00:00"
+}

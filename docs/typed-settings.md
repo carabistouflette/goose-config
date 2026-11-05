@@ -67,7 +67,8 @@ fn main() {
 
 Paths resolve relative to each importing file. If this module is instead under
 `app/generated/` beside `app/main.goose`, generation uses
-`--config-import ../../goose-config`, while the root still uses `../goose-config`.
+`--config-import ../../goose-config`, while the root still uses `../goose-config`
+and imports `generated.app_settings`.
 The default `..` is convenient for this repository's `examples` and `tests`
 directories; it is not a portable default for arbitrary outputs.
 
@@ -164,3 +165,6 @@ The [worker](worker.md) demonstrates actual files, native environment and CLI
 settings followed by validated typed publication. Its existing filesystem,
 process, signal and trusted-input limits remain in effect. This feature does
 not complete the sustained-fuzz release gate or imply a release tag.
+
+See [validation and maximum native qualification](typed-validation.md) and
+[measured workload costs and controls](typed-performance.md).
