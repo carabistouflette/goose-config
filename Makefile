@@ -141,5 +141,5 @@ worker:
 	python3 tests/worker.py $(GOOSE) --cc clang --sanitize
 
 typed-limit:
-	python3 tests/typed-limit.py $(GOOSE) --cc gcc
-	python3 tests/typed-limit.py $(GOOSE) --cc clang
+	python3 tests/typed-limit.py $(GOOSE) --cc gcc --bindings
+	python3 tests/typed-limit.py $(GOOSE) --cc clang --bindings

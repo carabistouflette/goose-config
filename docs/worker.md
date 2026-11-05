@@ -8,7 +8,8 @@ serial stdin worker, with no network listener or background file watcher.
 
 Its schema is [declarative JSON](../schemas/worker.json), compiled into
 [owned typed settings](../examples/worker_settings.goose) by the optional
-[generator](typed-settings.md). The worker passes its readonly business validator
+[generator](typed-settings.md). Env and CLI mappings come from that same schema
+through its [generated binding helpers](generated-bindings.md). The worker passes its readonly business validator
 to the generated loader, which stages and publishes the complete policy.
 `make generated-check` verifies the committed source; `make generated` updates it.
 

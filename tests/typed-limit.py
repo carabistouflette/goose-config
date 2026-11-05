@@ -19,16 +19,21 @@ def run(command,env,timeout):
 
 p=argparse.ArgumentParser(description=__doc__)
 p.add_argument('goose',type=Path);p.add_argument('--cc',choices=('gcc','clang'),default='gcc');p.add_argument('--report',type=Path)
+p.add_argument('--bindings',action='store_true',help='also exercise maximum generated binding arrays and metadata')
 a=p.parse_args();compiler=a.goose.resolve(strict=True)
 if a.report and a.report.exists():p.error('choose a fresh report path')
 (ROOT/'.build').mkdir(exist_ok=True)
 record={'completed':False,'fields':256,'aliases':256,'kinds':10,'max_key_bytes':256,'flags':'-O2','cc':a.cc,'native_deadline_seconds':300}
+record['generated_bindings']=a.bindings
 try:
  with tempfile.TemporaryDirectory(prefix='typed limit ',dir=ROOT/'.build') as tmp:
     work=Path(tmp);fields=[];aliases=[];values={};checks=[]
     for i in range(256):
      kind=list(KINDS)[i%10];member=f'v_{i}';key=f'field_{i}' if i<255 else 'p'*256
      fields.append({'member':member,'key':key,'kind':kind,'required':True,'source':i in (0,255)})
+     if a.bindings:
+      fields[-1].update(env=f'E{i:03d}'+('e'*252),cli=f'c{i:03d}'+('c'*250))
+      if kind.endswith('List'):fields[-1]['separator']='é'*128
      aliases.append({'key':f'old_{i}','target':key})
      if kind=='Text': value=f'text{i}';check=f'settings.{member} == "text{i}"'
      elif kind=='Integer':value=i+1;check=f'settings.{member} == {i+1}'
@@ -45,6 +50,9 @@ try:
     doc={'version':1,'namespace':'typed_limit','fields':fields,'aliases':aliases}
     (work/'typed_limit.goose').write_bytes(generate(json.dumps(doc).encode(),'../..',compiler))
     source='import config from "../..";\nimport config.json_layer;\nimport typed_limit;\nimport std;\nfn main(){var store=config::Store{..};var settings=typed_limit::Settings{..};let schema=typed_limit::schema();let aliases=typed_limit::aliases();assert(config::init(schema,store,aliases).len==0);assert(config::apply_json(store,'+json.dumps(json.dumps(values))+',"limit.json").len==0);assert(typed_limit::load(store,settings).len==0);assert(config::init([],store).len==0);\n'+'\n'.join(checks)+'\nprint("256fields/256aliases/all kinds/256byte key passed");}\n'
+    if a.bindings:
+     binding_checks='let environment=typed_limit::env_bindings();let cli=typed_limit::cli_bindings();assert(environment.len==256 && cli.len==256);for item,i in environment {assert(item.key==schema[i].key && item.name.len==256);assert(cli[i].key==schema[i].key && cli[i].name.len==254 && cli[i].separator==",");assert(item.separator.len==(if i%10>=5 {256} else {1}));}\n'
+     source=source.replace('let schema=typed_limit::schema();','let schema=typed_limit::schema();'+binding_checks)
     (work/'main.goose').write_text(source)
     env={k:os.environ[k] for k in ('PATH','HOME') if k in os.environ};env.update(GOOSE_HOME=str(work/'goose-home'),LANG='C',TZ='UTC')
     record.update(compiler_version=run([compiler,'--version'],env,15)[0].strip(),compiler_sha256=hashlib.sha256(compiler.read_bytes()).hexdigest(),generated_sha256=hashlib.sha256((work/'typed_limit.goose').read_bytes()).hexdigest(),harness_sha256=hashlib.sha256((work/'main.goose').read_bytes()).hexdigest())
