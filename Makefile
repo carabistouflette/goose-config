@@ -14,9 +14,11 @@ format:
 generated:
 	python3 tools/generate_settings.py schemas/worker.json --output examples/worker_settings.goose --goose $(GOOSE)
 	python3 tools/generate_settings.py schemas/typed-test.json --output tests/typed_fixture.goose --goose $(GOOSE)
+	python3 tools/generate_settings.py schemas/typed-test.json --output bench/typed_fixture.goose --goose $(GOOSE)
 generated-check:
 	python3 tools/generate_settings.py schemas/worker.json --output examples/worker_settings.goose --goose $(GOOSE) --check
 	python3 tools/generate_settings.py schemas/typed-test.json --output tests/typed_fixture.goose --goose $(GOOSE) --check
+	python3 tools/generate_settings.py schemas/typed-test.json --output bench/typed_fixture.goose --goose $(GOOSE) --check
 check: generated-check
 	$(GOOSE) format --check $(SOURCES) examples tests bench
 	@set -e; for name in $(TESTS) property nested common-model security toml-decoder duration-model; do $(GOOSE) check tests/$$name.goose; done
@@ -34,6 +36,7 @@ test: integration
 	python3 tests/generate_settings.py
 	python3 -O tests/generate_settings.py
 	python3 tests/typed-ownership.py $(GOOSE)
+	python3 tests/typed-codegen.py $(GOOSE)
 	python3 tests/benchmark_aliases.py
 	python3 tests/benchmark_duration.py
 	python3 tests/benchmark_measure.py

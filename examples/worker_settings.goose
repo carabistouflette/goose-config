@@ -36,66 +36,84 @@ fn aliases() -> config::Alias[>..] {
 fn own_text(input: const u8[:]) -> u8[>..] {
     var output: u8[>..] = []; output.append(input); output
 }
+fn stage(store: config::Store&, candidate: Settings&) -> u8[>..] {
+    {
+        let present_0, state_error_0 = config::has_value(store, "worker.name", config::Kind.Text);
+        if state_error_0.len > 0 { return state_error_0; }
+        if !present_0 { return own_text("config typed: required value is missing [key=worker.name]"); }
+        if present_0 {
+            let value, error = config::get_text(store, "worker.name");
+            if error.len > 0 { return error; }
+            candidate.name.append(value);
+        }
+    }
+    {
+        let present_1, state_error_1 = config::has_value(store, "worker.prefix", config::Kind.Text);
+        if state_error_1.len > 0 { return state_error_1; }
+        if !present_1 { return own_text("config typed: required value is missing [key=worker.prefix]"); }
+        if present_1 {
+            let value, error = config::get_text(store, "worker.prefix");
+            if error.len > 0 { return error; }
+            candidate.prefix.append(value);
+            let origin, source_error = config::source(store, "worker.prefix");
+            if source_error.len > 0 { return source_error; }
+            candidate.prefix_source.append(origin);
+        }
+    }
+    {
+        let present_2, state_error_2 = config::has_value(store, "worker.queues", config::Kind.TextList);
+        if state_error_2.len > 0 { return state_error_2; }
+        if !present_2 { return own_text("config typed: required value is missing [key=worker.queues]"); }
+        if present_2 {
+            let value, error = config::get_text_list(store, "worker.queues");
+            if error.len > 0 { return error; }
+            for item in value { candidate.queues.push(own_text(item)); }
+        }
+    }
+    {
+        let present_3, state_error_3 = config::has_value(store, "worker.min_bytes", config::Kind.Integer);
+        if state_error_3.len > 0 { return state_error_3; }
+        if !present_3 { return own_text("config typed: required value is missing [key=worker.min_bytes]"); }
+        if present_3 {
+            let value, error = config::get_integer(store, "worker.min_bytes");
+            if error.len > 0 { return error; }
+            if value < 1 || value > 4096 { return own_text("config typed: value outside generated range [key=worker.min_bytes]"); }
+            candidate.minimum = value;
+        }
+    }
+    {
+        let present_4, state_error_4 = config::has_value(store, "worker.max_bytes", config::Kind.Integer);
+        if state_error_4.len > 0 { return state_error_4; }
+        if !present_4 { return own_text("config typed: required value is missing [key=worker.max_bytes]"); }
+        if present_4 {
+            let value, error = config::get_integer(store, "worker.max_bytes");
+            if error.len > 0 { return error; }
+            if value < 1 || value > 4096 { return own_text("config typed: value outside generated range [key=worker.max_bytes]"); }
+            candidate.maximum = value;
+            let origin, source_error = config::source(store, "worker.max_bytes");
+            if source_error.len > 0 { return source_error; }
+            candidate.maximum_source.append(origin);
+        }
+    }
+    {
+        let present_5, state_error_5 = config::has_value(store, "worker.enabled", config::Kind.Boolean);
+        if state_error_5.len > 0 { return state_error_5; }
+        if !present_5 { return own_text("config typed: required value is missing [key=worker.enabled]"); }
+        if present_5 {
+            let value, error = config::get_boolean(store, "worker.enabled");
+            if error.len > 0 { return error; }
+            candidate.enabled = value;
+        }
+    }
+    []
+}
+
 fn accept(candidate: const Settings&) -> u8[>..] { [] }
 fn load(store: config::Store&, destination: Settings&) -> u8[>..] { load(store, destination, accept) }
 fn load<Validate: fn(const Settings&) -> u8[>..]>(store: config::Store&, destination: Settings&) -> u8[>..] {
     var candidate = Settings { .. };
-    let present_0, state_error_0 = config::has_value(store, "worker.name", config::Kind.Text);
-    if state_error_0.len > 0 { return state_error_0; }
-    if !present_0 { return own_text("config typed: required value is missing [key=worker.name]"); }
-    if present_0 {
-        let value, error = config::get_text(store, "worker.name");
-        if error.len > 0 { return error; }
-        candidate.name.append(value);
-    }
-    let present_1, state_error_1 = config::has_value(store, "worker.prefix", config::Kind.Text);
-    if state_error_1.len > 0 { return state_error_1; }
-    if !present_1 { return own_text("config typed: required value is missing [key=worker.prefix]"); }
-    if present_1 {
-        let value, error = config::get_text(store, "worker.prefix");
-        if error.len > 0 { return error; }
-        candidate.prefix.append(value);
-        let origin, source_error = config::source(store, "worker.prefix");
-        if source_error.len > 0 { return source_error; }
-        candidate.prefix_source.append(origin);
-    }
-    let present_2, state_error_2 = config::has_value(store, "worker.queues", config::Kind.TextList);
-    if state_error_2.len > 0 { return state_error_2; }
-    if !present_2 { return own_text("config typed: required value is missing [key=worker.queues]"); }
-    if present_2 {
-        let value, error = config::get_text_list(store, "worker.queues");
-        if error.len > 0 { return error; }
-        for item in value { candidate.queues.push(own_text(item)); }
-    }
-    let present_3, state_error_3 = config::has_value(store, "worker.min_bytes", config::Kind.Integer);
-    if state_error_3.len > 0 { return state_error_3; }
-    if !present_3 { return own_text("config typed: required value is missing [key=worker.min_bytes]"); }
-    if present_3 {
-        let value, error = config::get_integer(store, "worker.min_bytes");
-        if error.len > 0 { return error; }
-        if value < 1 || value > 4096 { return own_text("config typed: value outside generated range [key=worker.min_bytes]"); }
-        candidate.minimum = value;
-    }
-    let present_4, state_error_4 = config::has_value(store, "worker.max_bytes", config::Kind.Integer);
-    if state_error_4.len > 0 { return state_error_4; }
-    if !present_4 { return own_text("config typed: required value is missing [key=worker.max_bytes]"); }
-    if present_4 {
-        let value, error = config::get_integer(store, "worker.max_bytes");
-        if error.len > 0 { return error; }
-        if value < 1 || value > 4096 { return own_text("config typed: value outside generated range [key=worker.max_bytes]"); }
-        candidate.maximum = value;
-        let origin, source_error = config::source(store, "worker.max_bytes");
-        if source_error.len > 0 { return source_error; }
-        candidate.maximum_source.append(origin);
-    }
-    let present_5, state_error_5 = config::has_value(store, "worker.enabled", config::Kind.Boolean);
-    if state_error_5.len > 0 { return state_error_5; }
-    if !present_5 { return own_text("config typed: required value is missing [key=worker.enabled]"); }
-    if present_5 {
-        let value, error = config::get_boolean(store, "worker.enabled");
-        if error.len > 0 { return error; }
-        candidate.enabled = value;
-    }
+    let stage_error = stage(store, candidate);
+    if stage_error.len > 0 { return own_text(stage_error); }
     let readonly: const Settings& = candidate;
     let error = Validate(readonly);
     if error.len > 0 { return error; }

@@ -29,7 +29,7 @@ INTEGER_KINDS = {'Integer', 'IntegerList', 'Duration', 'DurationList'}
 FLOAT_KINDS = {'Float', 'FloatList'}
 # Metadata never supplies code fragments, function bodies or type expressions.
 RESERVED = set('alias and as assert auto bitcast block bool break case cast const continue defer do else enum export extern f16 f32 f64 false fn for guard i8 i16 i32 i64 if import in inline is let loop match namespace never null or return root size sizeof static str struct switch true type u8 u16 u32 u64 union var void while with config std os json math schema aliases load accept publish settings'.split())
-RESERVED.update('thread_fn simd recursive pad reusable self varint own_text'.split())
+RESERVED.update('thread_fn simd recursive pad reusable self varint own_text stage'.split())
 IDENTIFIER = re.compile(r'[a-z][a-z0-9_]{0,63}\Z', re.ASCII)
 KEY = re.compile(r'[A-Za-z0-9_-]+(?:\.[A-Za-z0-9_-]+)*\Z', re.ASCII)
 LOCAL_IMPORT = re.compile(r'(?:\.{1,2}|[A-Za-z0-9_-]+)(?:/(?:\.{1,2}|[A-Za-z0-9_-]+))*\Z', re.ASCII)
@@ -152,13 +152,13 @@ def render(document, config_import):
     lines += [f'        config::Alias {{ {quote(a["key"])}, {quote(a["target"])} }},' for a in document['aliases']]
     lines += ['    ]', '}', '', 'fn own_text(input: const u8[:]) -> u8[>..] {',
               '    var output: u8[>..] = []; output.append(input); output', '}',
-              'fn accept(candidate: const Settings&) -> u8[>..] { [] }',
-              'fn load(store: config::Store&, destination: Settings&) -> u8[>..] { load(store, destination, accept) }',
-              'fn load<Validate: fn(const Settings&) -> u8[>..]>(store: config::Store&, destination: Settings&) -> u8[>..] {',
-              '    var candidate = Settings { .. };']
+              'fn stage(store: config::Store&, candidate: Settings&) -> u8[>..] {']
     for i, field in enumerate(fields):
         member = field['member']; kind = field['kind']; key_text = quote(field['key'])
-        lines += [f'    let present_{i}, state_error_{i} = config::has_value(store, {key_text}, config::Kind.{kind});',
+        # Short scopes prevent empty owned error builders from accumulating.
+        # The helper borrows candidate so early returns do not expand cleanup
+        # for every candidate owner at every field.
+        lines += ['    {', f'    let present_{i}, state_error_{i} = config::has_value(store, {key_text}, config::Kind.{kind});',
                   f'    if state_error_{i}.len > 0 {{ return state_error_{i}; }}']
         if field.get('required', False):
             lines.append(f'    if !present_{i} {{ return own_text({quote("config typed: required value is missing [key=" + field["key"] + "]")}); }}')
@@ -179,7 +179,12 @@ def render(document, config_import):
         if field.get('source', False):
             lines += [f'        let origin, source_error = config::source(store, {key_text});',
                       '        if source_error.len > 0 { return source_error; }', f'        candidate.{member}_source.append(origin);']
-        lines.append('    }')
+        lines += ['    }', '    }']
+    lines += ['    []', '}', '', 'fn accept(candidate: const Settings&) -> u8[>..] { [] }',
+              'fn load(store: config::Store&, destination: Settings&) -> u8[>..] { load(store, destination, accept) }',
+              'fn load<Validate: fn(const Settings&) -> u8[>..]>(store: config::Store&, destination: Settings&) -> u8[>..] {',
+              '    var candidate = Settings { .. };', '    let stage_error = stage(store, candidate);',
+              '    if stage_error.len > 0 { return own_text(stage_error); }']
     # The static function bound alone is documentation in pinned Goose. Pass an
     # actual const reference so a mutable callback cannot bypass range checks.
     lines += ['    let readonly: const Settings& = candidate;',
