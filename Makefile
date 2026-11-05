@@ -44,6 +44,8 @@ test: integration
 	python3 tests/typed-ownership.py $(GOOSE)
 	python3 tests/typed-codegen.py $(GOOSE)
 	python3 tests/typed-consumer.py $(GOOSE)
+	python3 tests/benchmark_generated_bindings.py
+	python3 -O tests/benchmark_generated_bindings.py
 	python3 tests/benchmark_typed.py
 	python3 -O tests/benchmark_typed.py
 	python3 tests/benchmark_aliases.py
