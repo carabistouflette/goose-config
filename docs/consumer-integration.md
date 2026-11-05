@@ -71,3 +71,6 @@ blocker. No file is read or parsed without `--config`; linked parser code can
 still affect binary size/layout/startup. No latency or throughput improvement is
 claimed. These functional consumer checks do not complete the existing
 [sustained-fuzz release gate](release.md); goose-config remains untagged.
+
+The [startup follow-up](consumer-startup.md) records complete invocation costs,
+identical-binary controls and the pinned compiler's upfront stack reservations.

@@ -2,6 +2,11 @@
 
 ## Unreleased — v0.1.0 preparation
 
+- Record the existing consumer's startup costs, identical-binary controls and
+  generated reservation structure. Retain both runs and all samples; no fixed
+  latency penalty or supported runtime optimization is established.
+- Add bounded, provenance-checked startup measurement and ten tool regressions.
+
 - Document integration into the existing goose-check application: opt-in
   JSON/TOML numeric defaults, legacy CLI precedence/grammar, bounded reads,
   strict prelaunch failures and real compiler acceptance checks.

@@ -1,0 +1,26 @@
+{
+  "consumer-startup-first.json": {
+    "sha256": "734ee31bc7e56d5f480d3b886b1637d033555296c2dd6c0ef4881a4104891a07",
+    "bytes": 108174
+  },
+  "consumer-startup-repeat.json": {
+    "sha256": "1149180a8d4680feace7a8f3b124ac720b1730fbfd787f9379b210d8a3a2d096",
+    "bytes": 108146
+  },
+  "../consumer_startup.py": {
+    "sha256": "92786d99cb811d10f1fc171f027c85180aa7a5347a7a52fe50b5c9bf35af7d0e",
+    "bytes": 18806
+  },
+  "../measure.py": {
+    "sha256": "92119796bb747a9a04482620598e24486b50709ef15f3b62a2002b368c252762",
+    "bytes": 8888
+  },
+  "../../tests/benchmark_startup.py": {
+    "sha256": "6a9bd539a86f15ea540345c17188ac83f780026a311caa8a0e082de5b9d7086e",
+    "bytes": 6888
+  },
+  "../../docs/consumer-startup.md": {
+    "sha256": "041ac34fe2f1fa6f1441f5ceb2570a93d2e54e6b031aaacf9504e73c1f4bd0ae",
+    "bytes": 8590
+  }
+}

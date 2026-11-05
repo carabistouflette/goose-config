@@ -1,5 +1,11 @@
 # Configuration benchmarks
 
+The [consumer startup audit](../docs/consumer-startup.md) measures frozen
+goose-check before/after invocations with matching effective settings, help
+controls and identical-binary A/A labels. It retains all 7,040 samples across
+two runs and the unconditional startup reservation structure. It does not
+establish a fixed latency penalty, parser-only cost or portable speed claim.
+
 The [memory and fallback audit](../docs/memory-and-fallback-audit.md) records
 100-cycle grow/shrink/reload tests, same-binary timing controls and
 coverage-checked copy/PMU diagnostics. It supports retaining the current runtime;

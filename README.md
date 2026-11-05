@@ -296,10 +296,11 @@ every seeded value and source. AddressSanitizer/UndefinedBehaviorSanitizer cover
 behavior, ownership, independent-model and hostile-input suites. CI runs both
 optimized compilers and optimized GCC/Clang sanitizer builds, and smoke-runs
 benchmarks without timing thresholds, including a native memory-protocol smoke.
-Forty-six Python regressions cover corrupt benchmark records, immutable source
+Fifty-six Python regressions cover corrupt benchmark records, immutable source
 provenance, memory checkpoint/reaping/timeout handling, and diagnostic counter
 coverage, artifact validation, atomic output failures and worker-harness
-partial-write/deadline handling. The optional worker acceptance suite also runs
+partial-write/deadline handling, plus consumer-startup provenance and process
+cleanup. The optional worker acceptance suite also runs
 in CI; see its [application and I/O contracts](docs/worker.md).
 
 `make conformance` checks the vendored parser against all 208 valid and 509
