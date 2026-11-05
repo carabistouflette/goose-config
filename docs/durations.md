@@ -90,7 +90,5 @@ layer before publication. A malformed/overflowing/out-of-range late value leaves
 all previous values and sources intact. Replacement reload validates all layers
 and required fields before publishing the new snapshot.
 
-The previous selected common-application scope remains supported. Duration is an
-additive extension; it does not establish complete Viper/Koanf feature parity.
-The [sustained-fuzz release gate](release.md) remains incomplete and no v0.1.0
-release is implied by this feature.
+Duration is an additive feature; it does not provide full Viper or Koanf feature
+parity. The project has no release tag; see [release status](release.md).

@@ -33,17 +33,14 @@ and isolated caches, with source hashes checked against the frozen export;
 GCC ran in the clean source checkout and Clang in its frozen standalone export.
 The eight runtime/test source identities were checked again after both finished.
 The sanitizer binaries' compiler sections independently identify GCC and Clang.
-All owned heavy local validation finished before the measured comparisons.
-
-Independent design, implementation/security and performance/evidence reviewers
-found no remaining blocker. Their findings strengthened full-state rollback
-checks, list/grammar docs, benchmark key variation, native-loop inspection,
-compiler input identities and clean build-environment controls. See the
+Validation strengthened full-state rollback checks, list/grammar docs, benchmark
+key variation, native-loop inspection, compiler input identities and clean
+build-environment controls. See the
 [grammar/API contract](durations.md) and [all measured results](duration-performance.md).
 
 These checks are targeted feature qualification plus existing regression suites.
 They do not establish Windows/macOS support, allocation recovery, concurrency
 safety, full Viper/Koanf feature parity or a universal performance ranking.
-The sustained coverage-guided JSON/TOML/list/reload campaign remains incomplete;
-these bounded oracle/model/sanitizer tests are not its substitute. No v0.1.0 tag
-or sustained-fuzz completion is claimed. See [release preparation](release.md).
+Sustained coverage-guided JSON/TOML/list/reload testing remains incomplete;
+bounded oracle/model/sanitizer tests do not replace it. No v0.1.0 release tag is
+available. See [release status](release.md).

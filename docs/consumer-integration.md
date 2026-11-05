@@ -66,11 +66,12 @@ compiler invocations use file-supplied settings too. The fixture readiness marke
 is published atomically, avoiding an empty-file observation race found in a
 local rerun. Native caller, signal, process and filesystem contracts are retained.
 
-Independent design, contract and security/standards reviews found no integration
-blocker. No file is read or parsed without `--config`; linked parser code can
+Validation found no integration issue. No file is read or parsed without
+`--config`; linked parser code can
 still affect binary size/layout/startup. No latency or throughput improvement is
-claimed. These functional consumer checks do not complete the existing
-[sustained-fuzz release gate](release.md); goose-config remains untagged.
+claimed. These functional consumer checks do not replace the required sustained
+fuzzing, which remains incomplete; goose-config has no release tag. See
+[release status](release.md).
 
 The [startup follow-up](consumer-startup.md) records complete invocation costs,
 identical-binary controls and the pinned compiler's upfront stack reservations.

@@ -1,5 +1,9 @@
 # Typed settings measurements
 
+**Historical:** runtime revision `5c4803b` and the measured fixture do not match
+current main. These values do not measure current loading performance; see the
+[performance status](performance-status.md).
+
 Typed generation removes repetitive declaration, ownership and loading code.
 These measurements do not establish a general loading speedup, full Viper/Koanf
 decoding parity or zero overhead. The baseline is an explicit reference loader
@@ -20,8 +24,8 @@ shuffled rounds run generated, reference-A and reference-B. The latter two use
 identical executable bytes and argv. Cases run in fixed order within processes.
 Each process emits seven batches per case, 1,000 operations per batch. First
 batches are retained; counts 1/2/3 for both callers are preflighted separately.
-All owned heavy checks finished before timing. This is a shared host without
-exclusive isolation, frequency control or control correction. Partial failed
+The host was shared, with no exclusive isolation, frequency control or control
+correction. Partial failed
 process output/context is retained if a managed run or protocol check fails;
 this series completed successfully.
 
@@ -57,8 +61,8 @@ separate untimed probes. Independent Python arithmetic checks odd/even counts
 and every case. Corrupt/incomplete/nonfinite records, wrong checksums, stderr and
 changed binaries/toolchain inputs are rejected.
 
-Independent review checked native assembly from the exact timed binary against
-its recorded SHA256. Loading loops retain staging/getters/copying and digest work
+The native assembly from the exact timed binary was checked against its recorded
+SHA256. Loading loops retain staging/getters/copying and digest work
 inside timed iterations; refresh retains reload plus load. Application-read
 uses cached fields/registers and arithmetic, while its reference invokes checked
 access each iteration. Its sub-nanosecond observation is optimized application

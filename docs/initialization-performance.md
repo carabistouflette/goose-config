@@ -1,5 +1,9 @@
 # Long-prefix initialization follow-up
 
+**Historical:** this comparison ends at `6ad00fb`; current runtime modules have
+changed since. See the [performance status](performance-status.md) before using
+these values to describe the current implementation.
+
 This follow-up retains the [earlier mixed loading results](v010-results.md)
 and targets schema initialization. It does not claim a general loading speedup.
 
@@ -35,9 +39,9 @@ Host: Intel(R) Core(TM) Ultra 7 258V; `Linux-7.2.11-arch1-1-x86_64-with-glibc2.4
 Each invocation takes four alternating before/after pairs, seven batches per
 fixture and 1,000 operations per batch. The second invocation is an independent
 repeat with freshly built private snapshots. Both ran between
-2026-11-04T17:24:23Z and 17:25:39Z. A best-effort timing courtesy was announced;
-no exclusive isolation, frequency control, thermal control or dedicated warmup
-is claimed. Other host activity remained uncontrolled.
+2026-11-04T17:24:23Z and 17:25:39Z. The host was shared, with no exclusive
+isolation, frequency or thermal control, or dedicated warmup. Other activity
+remained uncontrolled.
 
 Values are median process medians in ns/operation. Each ratio is the after
 median divided by the before median; lower is faster. Every fixture and every
@@ -86,17 +90,16 @@ python3 bench/measure.py --goose /absolute/path/to/pinned/goose \
 ```
 
 Use an available CPU and separate output names for independent runs. The script
-exports immutable runtime snapshots and uses the same current sixteen-fixture
+exports immutable runtime snapshots and uses the same sixteen-fixture
 harness for both. Do not compare timing ratios across different historical
 hosts, affinities or harness hashes.
 
 ## Contracts and verification
 
 The supported API, limits, error selection, hash/index layout, ownership and
-atomic publication are unchanged. Independent runtime and security reviews
-checked grammar equivalence, lexicographic ordering, checked-slice bounds,
-overflow and alignment safety, and consumer-overload behavior. No outstanding
-concrete finding remained after review.
+atomic publication are unchanged. Validation checked grammar equivalence,
+lexicographic ordering, checked-slice bounds, overflow, alignment safety and
+consumer-overload behavior.
 
 An independent bytewise reference checks 132,612 comparator calls, covering
 lengths 0–256, every first-mismatch position, equal/prefix cases, both directions
@@ -106,5 +109,6 @@ GCC/Clang optimized builds and GCC/Clang ASan/UBSan passed, including all three
 independent models, 331 hostile-input cases per build, ownership, import and
 consumer-overload regressions.
 
-The sustained coverage-guided campaign remains incomplete. This follow-up
-does not close that [release gate](release.md), and v0.1.0 remains untagged.
+The required sustained coverage-guided fuzzing remains incomplete. These
+bounded checks do not replace it; no v0.1.0 tag is available. See
+[release status](release.md).

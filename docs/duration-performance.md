@@ -1,5 +1,9 @@
 # Duration workload measurements
 
+**Historical:** these results use runtime revision `f8ae9b2`. Later alias work
+changed the measured core modules. They describe that recorded revision, not
+the current main branch; see the [performance status](performance-status.md).
+
 Duration performance is measured separately from the pre-existing scalar/list
 workloads. A getter-only comparison does not include the cost of initially
 parsing and validating a value. These are successful shared subsets, not full
@@ -59,8 +63,8 @@ The six runtime files have not changed since the duration implementation commit
 `1deea72`. Benchmarks used the pinned Goose `eadca409f68210893f366e60d0c2f0dc29a339be`,
 GCC 16.2.1 and Go 1.27.3-X:nodwarf5, Intel Core Ultra 7 258V, Linux x86-64,
 affinity CPU 6. Full compiler/runtime settings and dependency versions are in the
-raw records. All owned heavy validation finished before timing; this was a
-shared host without exclusive isolation. No sample was deleted or normalized.
+raw records. The host was shared; unrelated processes, frequency and thermal
+state were not controlled. No sample was deleted or normalized.
 
 Nine reproducibly shuffled rounds × three callers × four cases × seven batches
 retain 756 finite timings, 10,000 operations per batch. Values below are medians
