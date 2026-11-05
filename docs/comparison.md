@@ -28,7 +28,7 @@ The executable comparison pins Viper 1.21.0 and Koanf 2.4.1; see
 | Source reload | Fresh-store replay and required validation | Supported | Provider callbacks |
 | File watching | Missing | File watching | Provider callbacks |
 | Remote configuration | Missing | Remote integration | Optional providers |
-| Struct decoding | Missing | Unmarshal | Unmarshal |
+| Struct decoding | Generated owned typed Settings for declared scalar/list schemas | Unmarshal | Unmarshal |
 | Serialization / writeback | Missing | Write APIs | Marshal; caller writes |
 | Extension interfaces | Callers can produce overrides | Codec registry/hooks | Provider/parser interfaces |
 
@@ -36,8 +36,10 @@ Absence of a documented/bundled API is not a claim that no third-party
 implementation exists. The selected common-application scope now ships:
 JSON/TOML, homogeneous primitive lists, registered env/CLI bindings, validation,
 and explicit replacement reload. See [the exact contracts](common-features.md).
-[Duration settings](durations.md) extend that scope. YAML/INI, remote providers, watching, struct decoding
-and writeback remain outside that selected scope.
+[Duration settings](durations.md), [aliases](aliases.md) and optional
+[typed settings generation](typed-settings.md) extend that scope. Arbitrary
+struct reflection, YAML/INI, remote providers, watching and writeback remain
+outside that selected scope.
 
 ## Contract choices
 

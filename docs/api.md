@@ -3,7 +3,7 @@
 This contract is being prepared for v0.1.0; it does not mean the tag exists.
 See [release preparation](release.md). All names use namespace `config`.
 Optional imports: `config.toml`, `config.json_layer`, `config.bindings`,
-`config.reload`. Use the compiler pinned by `GOOSE_REVISION`.
+`config.reload`, `config.typed`. Use the compiler pinned by `GOOSE_REVISION`.
 
 ## Supported types
 
@@ -44,6 +44,7 @@ get_float(store: Store&, key: const u8[:]) -> f64, error
 get_boolean(store: Store&, key: const u8[:]) -> bool, error
 get_text(store: Store&, key: const u8[:]) -> const u8[:], error
 source(store: Store&, key: const u8[:]) -> const u8[:], error
+has_value(store: Store&, key: const u8[:], expected: Kind) -> bool, error
 get_text_list(store: Store&, key: const u8[:]) -> u8[][>..], error
 get_integer_list(store: Store&, key: const u8[:]) -> i64[>..], error
 get_float_list(store: Store&, key: const u8[:]) -> f64[>..], error
@@ -107,3 +108,8 @@ stores and is not a public clone API.
 Duration grammar, exact fractional truncation and layer rules: [duration settings](durations.md).
 
 [Alias identity and reload contracts](aliases.md) apply to every input layer and getter.
+
+`has_value` requires `config.typed` and checks kind even when absent. Unknown
+keys and uninitialized stores are errors; discard its boolean on error.
+[Generated settings](typed-settings.md) document the optional build tool,
+ownership, projection, validator and atomic-destination contracts.

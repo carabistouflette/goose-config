@@ -58,6 +58,26 @@ fn main() {
     assert(config::apply(other, values[..1]).len > 0); // alias not declared
     assert(config::apply(other, [config::Override { "label", "changed", "other" }]).len == 0);
     assert(typed_fixture::load(other, destination, accept).len > 0 && validations == 2); populated(destination);
+    // Every numeric scalar/list kind rechecks its own bounds even when the
+    // input Store was initialized with looser bounds.
+    let indexes = [1, 2, 4, 6, 7];
+    let invalid_values = ["5", "3.0", "2s", "5", "3.0"];
+    for index, i in indexes {
+        alternate.clear(); alternate.append(fields);
+        if index == 2 || index == 7 { alternate[index].float_max = 10.0; }
+        else { alternate[index].int_max = 2000000000; }
+        assert(config::init(alternate, other).len == 0);
+        assert(config::apply(other, [config::Override { "label", "changed", "other" }]).len == 0);
+        if index < 5 {
+            let invalid = [config::Override { alternate[index].key, invalid_values[i], "other" }];
+            assert(config::apply(other, invalid).len == 0);
+        } else {
+            let elements = [invalid_values[i]];
+            let invalid = [config::ListOverride { alternate[index].key, elements, "other" }];
+            assert(config::apply_lists(other, invalid).len == 0);
+        }
+        assert(typed_fixture::load(other, destination, accept).len > 0 && validations == 2); populated(destination);
+    }
     // The Store's looser ranges do not bypass generated rules.
     alternate.clear(); alternate.append(fields); alternate[9].int_max = 2000000000;
     assert(config::init(alternate, other).len == 0);
@@ -76,6 +96,7 @@ fn main() {
     let empty_lists = [config::ListOverride { "tags", empty, "empty-list" }];
     let layers = [config::Layer { kind: config::LayerKind.Values, overrides: minimal, .. }, config::Layer { kind: config::LayerKind.Lists, lists: empty_lists, .. }];
     assert(config::reload(fields, layers, store, aliases).len == 0);
+    populated(destination); // all old owned values survive source replacement
     assert(typed_fixture::load(store, destination).len == 0);
     assert(destination.label.len == 0 && destination.label_source == "empty");
     assert(destination.count_present && destination.count == 0 && destination.enabled_present && !destination.enabled);
@@ -90,5 +111,21 @@ fn main() {
     // Destruction/reinitialization of source storage cannot affect owned output.
     assert(config::init([], store).len == 0);
     assert(destination.label == "retained" && destination.label_source == "last");
+    {
+        var ephemeral = config::Store { .. };
+        assert(config::init(fields, ephemeral).len == 0);
+        var binary: u8[>..] = []; binary.push(0); binary.push(0xff); binary.push('A');
+        let bytes = [config::Override { "label", binary, "binary" }];
+        let elements: const u8[:][2] = [binary[..], ""];
+        let binary_lists = [config::ListOverride { "tags", elements, "binary-lists" }];
+        assert(config::apply(ephemeral, bytes).len == 0 && config::apply_lists(ephemeral, binary_lists).len == 0);
+        assert(typed_fixture::load(ephemeral, destination).len == 0);
+    }
+    assert(destination.label.len == 3 && destination.label[0] == 0 && destination.label[1] == 0xff && destination.label[2] == 'A');
+    assert(destination.label_source == "binary" && destination.tags_source == "binary-lists" && destination.tags.len == 2);
+    for value, i in destination.tags {
+        if i == 0 { assert(value.len == 3 && value[0] == 0 && value[1] == 0xff && value[2] == 'A'); }
+        else { assert(value.len == 0); }
+    }
     print("generated settings ownership, presence, ranges, aliases and atomic publication passed");
 }

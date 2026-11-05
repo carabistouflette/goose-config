@@ -39,6 +39,7 @@ with tempfile.TemporaryDirectory(prefix='typed ownership ', dir=ROOT/'.build') a
 '''+setup+'''assert(typed_fixture::load(store, destination).len == 0); return destination.label;
     }
     fn main() { print(escape()); }''', ('dies with this function',))
+    cases['escape-validator'] = ('var escaped: const u8[:] = "";\nfn validate(candidate: const typed_fixture::Settings&) -> u8[>..] { escaped = candidate.label; [] }\nfn main() {\n'+setup+' typed_fixture::load(store, destination, validate); print(escaped);\n}', ('does not outlive',))
     control = 'fn validate(candidate: const typed_fixture::Settings&) -> u8[>..] { assert(candidate.label == "original"); [] }\nfn main() {\n'+setup+'''
         assert(typed_fixture::load(store, destination, validate).len == 0);
         assert(config::init([], store).len == 0);

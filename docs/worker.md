@@ -6,6 +6,12 @@ and CLI options, then turns validated settings into an owned application policy.
 Each job uses that policy without configuration parsing or getters. This is a
 serial stdin worker, with no network listener or background file watcher.
 
+Its schema is [declarative JSON](../schemas/worker.json), compiled into
+[owned typed settings](../examples/worker_settings.goose) by the optional
+[generator](typed-settings.md). The worker passes its readonly business validator
+to the generated loader, which stages and publishes the complete policy.
+`make generated-check` verifies the committed source; `make generated` updates it.
+
 ## Build and run
 
 The optional example adds a pinned Apache-2.0
