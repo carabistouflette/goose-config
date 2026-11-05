@@ -46,6 +46,7 @@ def main():
     p.add_argument('--seed', type=int, default=606)
     p.add_argument('--cpu', type=int, required=True)
     p.add_argument('--output', type=Path, required=True)
+    p.add_argument('--disassembly-output', type=Path, help='retain native assembly from the exact measured Goose binary')
     a = p.parse_args()
     if not 1 <= a.iterations <= 100000 or not 1 <= a.rounds <= 12: p.error('iterations1..100000; rounds1..12')
     if a.cpu not in os.sched_getaffinity(0): p.error('CPU outside affinity')
@@ -81,6 +82,12 @@ def main():
         run([compiler, 'build', source/'bench/durations.goose', '--cc', 'gcc', '-O2', '-o', goose], cwd=ROOT, env=env)
         run(['go', 'build', '-mod=readonly', '-trimpath', '-buildvcs=false', '-o', competitor, '.'], cwd=adapters, env=dict(os.environ, GOWORK='off', GOFLAGS=''))
         metadata = json.loads(run([competitor, 'metadata'], env=RUNTIME_ENV))
+        assembly_hash = None
+        if a.disassembly_output is not None:
+            assembly = run(['objdump', '-d', goose])
+            a.disassembly_output.parent.mkdir(parents=True, exist_ok=True)
+            a.disassembly_output.write_text(assembly)
+            assembly_hash = sha(assembly.encode())
         binary_hashes = {'compiler': sha(compiler.read_bytes()), 'goose_benchmark': sha(goose.read_bytes()), 'competitors': sha(competitor.read_bytes())}
         labels = ('goose-config', 'viper', 'koanf'); runs = []; rng = random.Random(a.seed)
         for count in (1, 2, 3):
@@ -101,6 +108,7 @@ def main():
         summary = {label: {key: statistics.median(r['fixtures'][key]['median_ns'] for r in runs if r['library']==label) for key in FIXTURES} for label in labels}
         cpu = next((line.split(':',1)[1].strip() for line in Path('/proc/cpuinfo').read_text().splitlines() if line.startswith('model name')), 'unknown')
         result = {
+            'native_disassembly_sha256': assembly_hash,
             'utc_start': started,
             'recorded_utc': datetime.now(timezone.utc).isoformat(),
             'revision': revision,

@@ -42,7 +42,8 @@ Reproduce on Linux with an available CPU index:
 ```sh
 python3 bench/compare_durations.py --goose /absolute/path/to/pinned/goose \
   --revision FULL_CONFIG_COMMIT --iterations 10000 --rounds 9 --seed 606 \
-  --cpu CPU --output .build/duration-comparison.json
+  --cpu CPU --output .build/duration-comparison.json \
+  --disassembly-output .build/duration-native.asm
 ```
 
 Use `bench/measure.py` against the prior exact revision for existing core and
