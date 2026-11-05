@@ -5,6 +5,11 @@ import config.reload;
 import typed_fixture;
 import std;
 
+// Consumer overloads cannot replace generated ownership or diagnostics.
+fn str(input: const u8[:]) -> u8[>..] { [] }
+fn own_text(input: const u8[:]) -> u8[>..] { [] }
+fn copy(input: u8[>..]&) -> u8[>..] { [] }
+
 var validations: i64 = 0;
 fn reject(candidate: const typed_fixture::Settings&) -> u8[>..] {
     validations++; assert(candidate.label.len > 0);

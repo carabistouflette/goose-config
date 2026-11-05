@@ -96,7 +96,8 @@ fn load<Validate: fn(const Settings&) -> u8[>..]>(store: config::Store&, destina
         if error.len > 0 { return error; }
         candidate.enabled = value;
     }
-    let error = Validate(candidate);
+    let readonly: const Settings& = candidate;
+    let error = Validate(readonly);
     if error.len > 0 { return error; }
     destination.name.clear(); destination.name.append(candidate.name);
     destination.prefix.clear(); destination.prefix.append(candidate.prefix);

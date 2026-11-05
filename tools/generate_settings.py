@@ -16,6 +16,7 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
 MAX_INPUT_BYTES = 1048576
+MAX_NUMBER_BYTES = 128
 KINDS = {
     'Text': ('u8[>..]', 'text'), 'Integer': ('i64', 'integer'),
     'Float': ('f64', 'float'), 'Boolean': ('bool', 'boolean'),
@@ -51,6 +52,16 @@ def object_pairs(pairs):
 def reject_constant(_):
     raise SchemaError('nonfinite JSON number')
 
+def parse_integer(token):
+    require(len(token) <= MAX_NUMBER_BYTES, 'schema number exceeds token limit')
+    return int(token)
+
+def parse_number(token):
+    require(len(token) <= MAX_NUMBER_BYTES, 'schema number exceeds token limit')
+    value = float(token)
+    require(math.isfinite(value), 'nonfinite JSON number')
+    return value
+
 def identifier(value):
     return type(value) is str and IDENTIFIER.fullmatch(value) and value not in RESERVED
 
@@ -64,7 +75,8 @@ def parse_schema(data):
     require(len(data) <= MAX_INPUT_BYTES, 'schema exceeds byte limit')
     try:
         document = json.loads(data.decode('utf-8'), object_pairs_hook=object_pairs,
-                              parse_constant=reject_constant)
+                              parse_constant=reject_constant, parse_int=parse_integer,
+                              parse_float=parse_number)
     except (UnicodeError, ValueError, RecursionError):
         raise SchemaError('invalid schema JSON') from None
     require(type(document) is dict and set(document) <= {'version', 'namespace', 'fields', 'aliases'}, 'invalid schema properties')
@@ -168,7 +180,10 @@ def render(document, config_import):
             lines += [f'        let origin, source_error = config::source(store, {key_text});',
                       '        if source_error.len > 0 { return source_error; }', f'        candidate.{member}_source.append(origin);']
         lines.append('    }')
-    lines += ['    let error = Validate(candidate);', '    if error.len > 0 { return error; }']
+    # The static function bound alone is documentation in pinned Goose. Pass an
+    # actual const reference so a mutable callback cannot bypass range checks.
+    lines += ['    let readonly: const Settings& = candidate;',
+              '    let error = Validate(readonly);', '    if error.len > 0 { return error; }']
     for field in fields:
         member = field['member']; kind = field['kind']
         if kind == 'TextList':
@@ -210,7 +225,7 @@ def main():
         else:
             require(args.schema.resolve() != args.output.resolve(), 'schema and output must differ')
             require(not args.output.is_symlink(), 'output may not be a symbolic link')
-            mode = stat.S_IMODE(args.output.stat().st_mode) & 0o777 if args.output.exists() else 0o644
+            mode = stat.S_IMODE(args.output.stat().st_mode) & 0o777 if args.output.exists() else 0o600
             args.output.parent.mkdir(parents=True, exist_ok=True)
             with tempfile.NamedTemporaryFile(dir=args.output.parent, prefix='.'+args.output.name+'.', delete=False) as stream:
                 temporary = Path(stream.name); stream.write(result)

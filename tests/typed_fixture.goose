@@ -151,7 +151,8 @@ fn load<Validate: fn(const Settings&) -> u8[>..]>(store: config::Store&, destina
         for item in value { if item.nanoseconds < 0 || item.nanoseconds > 1000000000 { return own_text("config typed: value outside generated range [key=delays]"); } }
         for item in value { candidate.delays.push(item); }
     }
-    let error = Validate(candidate);
+    let readonly: const Settings& = candidate;
+    let error = Validate(readonly);
     if error.len > 0 { return error; }
     destination.label.clear(); destination.label.append(candidate.label);
     destination.label_source.clear(); destination.label_source.append(candidate.label_source);

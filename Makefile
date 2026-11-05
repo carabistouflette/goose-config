@@ -3,15 +3,21 @@ BENCH_ITERATIONS ?= 1000
 RELEASE_CC ?= gcc
 SANITIZER_OPT ?= -O2
 export SANITIZER_OPT
-TESTS = config behavior toml overloads index ownership schema lists toml-lists json-layer bindings reload durations aliases
-SOURCES = config.goose toml.goose vendor.goose json_layer.goose bindings.goose reload.goose
+TESTS = config behavior toml overloads index ownership schema lists toml-lists json-layer bindings reload durations aliases typed-settings
+SOURCES = config.goose toml.goose vendor.goose json_layer.goose bindings.goose reload.goose typed.goose
 
-.PHONY: setup format check test integration property security sanitize sanitizer-config release conformance bench worker
+.PHONY: setup format check test integration property security sanitize sanitizer-config release conformance bench worker generated generated-check
 setup:
 	./scripts/setup-goose.sh
 format:
 	$(GOOSE) format $(SOURCES) examples tests bench
-check:
+generated:
+	python3 tools/generate_settings.py schemas/worker.json --output examples/worker_settings.goose --goose $(GOOSE)
+	python3 tools/generate_settings.py schemas/typed-test.json --output tests/typed_fixture.goose --goose $(GOOSE)
+generated-check:
+	python3 tools/generate_settings.py schemas/worker.json --output examples/worker_settings.goose --goose $(GOOSE) --check
+	python3 tools/generate_settings.py schemas/typed-test.json --output tests/typed_fixture.goose --goose $(GOOSE) --check
+check: generated-check
 	$(GOOSE) format --check $(SOURCES) examples tests bench
 	@set -e; for name in $(TESTS) property nested common-model security toml-decoder duration-model; do $(GOOSE) check tests/$$name.goose; done
 	$(GOOSE) check examples/durations.goose
@@ -25,6 +31,9 @@ check:
 	$(GOOSE) check bench/durations.goose
 	$(GOOSE) check bench/aliases.goose
 test: integration
+	python3 tests/generate_settings.py
+	python3 -O tests/generate_settings.py
+	python3 tests/typed-ownership.py $(GOOSE)
 	python3 tests/benchmark_aliases.py
 	python3 tests/benchmark_duration.py
 	python3 tests/benchmark_measure.py
