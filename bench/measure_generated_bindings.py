@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: Apache-2.0
-"""Measure frozen typed loads/reference loads and identical-binary controls."""
+"""Measure frozen generated/manual binding adoption with identical-binary controls."""
 import argparse
 from datetime import datetime, timezone
 import hashlib

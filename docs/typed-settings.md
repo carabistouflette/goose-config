@@ -2,7 +2,7 @@
 
 The optional build tool turns one bounded declarative JSON schema into a Goose
 module. Applications get an owned `Settings` struct, `schema()`, `aliases()` and
-checked `load` overloads. Generated modules import `config.typed`; applications
+checked `load` overloads. Generated modules import `config.typed` and `config.bindings`; applications
 that use only the original Store/getter interface do not need this adapter.
 The original six runtime modules, Store layout and compiler pin are unchanged.
 Generated `stage`, `accept` and `own_text` functions are unsupported internal
@@ -75,8 +75,8 @@ directories; it is not a portable default for arbitrary outputs.
 Applications should handle initialization/layer errors rather than using the
 example's assertions. `schema()` and `aliases()` return fresh metadata arrays
 with literal key storage; the normal `init`/`reload` APIs own their copies.
-Source ordering, defaults, binding names and reload triggers remain explicit
-application choices. Aliases must be resupplied on replacement reload.
+Source ordering, defaults and reload triggers remain explicit application choices.
+Binding names may be declared as optional schema metadata; see [generated bindings](generated-bindings.md). Aliases must be resupplied on replacement reload.
 
 ## Owned values and optional presence
 
