@@ -23,7 +23,7 @@ control. Separate series and executable build paths are not interchangeable.
 
 Alias lookups use 9 processes, 10,000 operations per batch, seven batches per case.
 Schema/store initialization is outside the timer. Each of 12 cases selects mixed
-canonical, alias or missing keys in 8/256-field stores with 8/256 aliases; long
+canonical/alias hits or a fixed missing key in 8/256-field stores with 8/256 aliases; long
 cases share 230 prefix bytes. Values are distinct by target, and each getter must
 return the selected target's value. Long misses retain the long prefix. Setup,
 full final values, small odd/even preflights, exact checksums and finite complete
@@ -138,7 +138,7 @@ them. Original diagnostic experiments remain retained locally.
 
 These are the existing successful env/CLI/current-source replay subsets, without
 registered aliases. They do not compare Viper's alias API or Koanf alias behavior.
-Each series has three shuffled rounds × three callers × three cases × seven batches
+Each series has three deterministically rotating rounds × three callers × three cases × seven batches
 = 189 timings, 1,000 operations per batch. Times are nanoseconds per operation.
 All three observations are retained; alternatives also shifted between series.
 

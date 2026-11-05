@@ -41,8 +41,8 @@ Independent design, implementation/security and performance/evidence reviewers
 checked the feature and subsequent changes. Their findings strengthened staged
 schema identity, ownership/rollback tests, binding lookup reuse, target-distinct
 benchmark values, native calling-convention diagnosis, toolchain hashes and the
-cached diagnostic protocol. Final review conclusions are recorded with the
-publication handoff; performance costs remain visible in the
+cached diagnostic protocol. All three final reviewers found no remaining
+blocker after these fixes; performance costs remain visible in the
 [complete measurement report](alias-performance.md).
 
 Reproduce with `make check test property security`, `SANITIZER_CC=gcc make sanitize`,
