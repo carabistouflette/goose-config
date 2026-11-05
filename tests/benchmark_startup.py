@@ -95,6 +95,13 @@ class StartupTests(unittest.TestCase):
         startup.export(repo, "HEAD", self.root / "snapshot")
         self.assertEqual((self.root / "snapshot/source").read_bytes(), b"frozen")
 
+    def test_export_caps_tree_and_blob_sizes(self):
+        repo = self.repository()
+        with patch.object(startup, "MAX_EXPORT_FILES", 0), self.assertRaisesRegex(ValueError, "file count"):
+            startup.export(repo, "HEAD", self.root / "too-many")
+        with patch.object(startup, "MAX_BLOB_BYTES", 3), self.assertRaisesRegex(ValueError, "output budget"):
+            startup.export(repo, "HEAD", self.root / "too-large")
+
     def test_mismatched_vendor_inventory_is_rejected(self):
         (self.root / "vendor").mkdir()
         (self.root / "vendor/lib").mkdir()

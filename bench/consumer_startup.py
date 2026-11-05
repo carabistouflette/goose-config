@@ -24,6 +24,9 @@ ROOT = Path(__file__).resolve().parents[1]
 BEFORE = "3dae6984941ed2ba97817d34c17722a03de6d62f"
 AFTER = "32de6c4783bf8d3242e042993dadd160a98b2945"
 LIMITS = {"expect_exit": 0, "timeout_ms": 30000, "output_limit": 65536}
+MAX_EXPORT_FILES = 256
+MAX_BLOB_BYTES = 2 * 1024 * 1024
+MAX_EXPORT_BYTES = 16 * 1024 * 1024
 
 
 def sha(data):
@@ -74,8 +77,8 @@ def execute(command, *, cwd, env, timeout=120, budget=65536):
         child.stderr.close()
 
 
-def checked(command, *, cwd, env):
-    code, out, error, _ = execute(command, cwd=cwd, env=env)
+def checked(command, *, cwd, env, timeout=120, budget=65536):
+    code, out, error, _ = execute(command, cwd=cwd, env=env, timeout=timeout, budget=budget)
     if code:
         raise RuntimeError(f"build/provenance command failed: {error.decode(errors='replace')}")
     return out
@@ -84,21 +87,26 @@ def checked(command, *, cwd, env):
 def export(consumer, ref, destination):
     git_env = {"PATH": os.environ.get("PATH", "/usr/bin:/bin"), "LANG": "C",
                "GIT_NO_REPLACE_OBJECTS": "1", "GIT_CONFIG_NOSYSTEM": "1", "GIT_CONFIG_GLOBAL": os.devnull}
-    revision = subprocess.check_output(
-        ["git", "rev-parse", "--verify", "--end-of-options", f"{ref}^{{commit}}"], cwd=consumer,
-        timeout=30, stderr=subprocess.PIPE, env=git_env).decode().strip()
-    entries = subprocess.check_output(["git", "ls-tree", "-rz", revision],
-                                      cwd=consumer, timeout=30, env=git_env).split(b"\0")
+    revision = checked(["git", "rev-parse", "--verify", "--end-of-options", f"{ref}^{{commit}}"],
+                       cwd=consumer, timeout=30, env=git_env).decode().strip()
+    if not re.fullmatch(r"[0-9a-f]{40}", revision):
+        raise ValueError("invalid resolved Git revision")
+    entries = list(filter(None, checked(["git", "ls-tree", "-rz", revision], cwd=consumer,
+                                       timeout=30, env=git_env, budget=1024 * 1024).split(b"\0")))
+    if len(entries) > MAX_EXPORT_FILES:
+        raise ValueError("consumer export file count exceeded")
     hashes = {}
+    total = 0
     destination.mkdir()
-    for entry in filter(None, entries):
+    for entry in entries:
         metadata, raw_name = entry.split(b"\t", 1)
         mode, kind, object_id = metadata.split()
         name = Path(raw_name.decode("utf-8"))
         if kind != b"blob" or mode not in (b"100644", b"100755") or name.is_absolute() or ".." in name.parts:
             raise ValueError("unsupported or unsafe consumer Git tree entry")
-        data = subprocess.check_output(["git", "cat-file", "blob", object_id.decode()],
-                                       cwd=consumer, timeout=30, env=git_env)
+        data = checked(["git", "cat-file", "blob", object_id.decode()], cwd=consumer,
+                       timeout=30, env=git_env, budget=min(MAX_BLOB_BYTES, MAX_EXPORT_BYTES - total))
+        total += len(data)
         target = destination / name
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_bytes(data)
@@ -184,6 +192,8 @@ def main():
     consumer = args.consumer.resolve(strict=True)
     gcc = Path(shutil.which("gcc") or "gcc").resolve(strict=True)
     compiler_hash, gcc_hash = sha(compiler.read_bytes()), sha(gcc.read_bytes())
+    true_path = Path("/bin/true").resolve(strict=True)
+    true_hash = sha(true_path.read_bytes())
     driver_hash = sha(Path(__file__).read_bytes())
     writer_hash = sha((ROOT / "bench/measure.py").read_bytes())
     parent = ROOT / ".build/consumer-startup"
@@ -227,7 +237,8 @@ def main():
                 raise ValueError("unrecognized runtime initialization")
             snapshots[label] = {"revision": revision, "source_sha256": hashes,
                                 "binary_sha256": sha(binary.read_bytes()), "binary_bytes": binary.stat().st_size,
-                                "generated_c_sha256": sha(generated_bytes), "runtime_init_counts": list(map(int, calls[0])),
+                                "generated_c_sha256": sha(generated_bytes),
+                                "runtime_init": dict(zip(("main_stack_count", "main_region_bound", "worker_region_bound"), map(int, calls[0]))),
                                 "build_command": command, "build_stdout": out.decode(), "build_stderr": error.decode(),
                                 "build_diagnostics_raw_sha256": {"stdout": sha(out), "stderr": sha(error)},
                                 "compiler_wrapper_sha256": sha(Path(wrapper).read_bytes())}
@@ -272,6 +283,8 @@ def main():
                 raise ValueError("measured fixture changed")
         if sha(compiler.read_bytes()) != compiler_hash or sha(gcc.read_bytes()) != gcc_hash:
             raise ValueError("compiler changed")
+        if Path("/bin/true").resolve(strict=True) != true_path or sha(true_path.read_bytes()) != true_hash:
+            raise ValueError("invoked /bin/true changed")
         if {p.relative_to(stdlib).as_posix(): sha(p.read_bytes()) for p in stdlib.rglob("*.goose")} != toolchain_inputs:
             raise ValueError("compiler standard library changed")
         if sha(Path(__file__).read_bytes()) != driver_hash or sha((ROOT / "bench/measure.py").read_bytes()) != writer_hash:
@@ -290,6 +303,7 @@ def main():
                   "compiler_revision": pins[0], "compiler_version": compiler_version, "compiler_sha256": compiler_hash,
                   "gcc_version": checked([str(gcc), "--version"], cwd=workspace, env=env).decode().splitlines()[0], "gcc_sha256": gcc_hash,
                   "toolchain_input_sha256": toolchain_inputs,
+                  "true_executable": {"path": str(true_path), "sha256": true_hash},
                   "driver_sha256": driver_hash, "record_writer_sha256": writer_hash,
                   "rounds": args.rounds, "samples_per_case": args.samples, "seed": args.seed, "warmups_per_case": 3,
                   "snapshots": snapshots, "matched_native_profile": profiles[0], "fixtures": fixtures,
@@ -300,6 +314,8 @@ def main():
                   "limitations": ["whole Python-controller invocation, including process creation, pipe collection and reaping",
                                   "warm filesystem cache; shared host; no exclusive isolation, frequency or thermal control",
                                   "A/A labels use exactly the same binary; ratios do not isolate loader, mapping or parser costs",
+                                  "dynamic libraries and GCC subprograms are not hashed; the complete host is not frozen",
+                                  "successful cases rely on the pinned program's direct-child cleanup; failure paths kill the runner's private group",
                                   "runtime counts are virtual data-stack regions, not resident RAM or allocations"]}
         # Replace only known local path prefixes; keep all hashes and numbers.
         replacements = ((str(compiler), "<GOOSE>"), (str(gcc), "<GCC>"), (str(workspace), "<ARTIFACTS>"))
