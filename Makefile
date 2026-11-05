@@ -12,11 +12,13 @@ setup:
 format:
 	$(GOOSE) format $(SOURCES) examples tests bench
 generated:
+	python3 tools/generate_settings.py schemas/worker.json --output bench/worker_settings.goose --goose $(GOOSE)
 	python3 tools/generate_settings.py schemas/bindings-test.json --output tests/generated_bindings.goose --goose $(GOOSE)
 	python3 tools/generate_settings.py schemas/worker.json --output examples/worker_settings.goose --goose $(GOOSE)
 	python3 tools/generate_settings.py schemas/typed-test.json --output tests/typed_fixture.goose --goose $(GOOSE)
 	python3 tools/generate_settings.py schemas/typed-test.json --output bench/typed_fixture.goose --goose $(GOOSE)
 generated-check:
+	python3 tools/generate_settings.py schemas/worker.json --output bench/worker_settings.goose --goose $(GOOSE) --check
 	python3 tools/generate_settings.py schemas/bindings-test.json --output tests/generated_bindings.goose --goose $(GOOSE) --check
 	python3 tools/generate_settings.py schemas/worker.json --output examples/worker_settings.goose --goose $(GOOSE) --check
 	python3 tools/generate_settings.py schemas/typed-test.json --output tests/typed_fixture.goose --goose $(GOOSE) --check
@@ -35,6 +37,7 @@ check: generated-check
 	$(GOOSE) check bench/durations.goose
 	$(GOOSE) check bench/aliases.goose
 	$(GOOSE) check bench/typed_settings.goose
+	$(GOOSE) check bench/generated_bindings.goose
 test: integration
 	python3 tests/generate_settings.py
 	python3 -O tests/generate_settings.py
