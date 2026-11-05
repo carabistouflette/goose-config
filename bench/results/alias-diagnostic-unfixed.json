@@ -1,0 +1,519 @@
+{
+  "utc_start": "2026-11-05T10:17:43.662600+00:00",
+  "recorded_utc": "2026-11-05T10:17:44.018912+00:00",
+  "revisions": {
+    "before": "498124392f224b31f2ea2fa8489ee28f80b9f288",
+    "after": "a5e4ba34f8a0549bdfe1d11982599710a8298913"
+  },
+  "source_sha256": {
+    "before": {
+      "config.goose": "a601132b62fc35ffc1bd02c66f6447e85896ec67d6247ae8f77108ab6327fcb9",
+      "toml.goose": "7fc7ee80ef1bc1d707987db67af31189ba5c9786b66e0fe2a92fcb4941b5c7b1",
+      "vendor.goose": "c4b021a0928444a5f049a99eb7a542689ea6803d0d2e845c86ba43a0fc6c31c1",
+      "json_layer.goose": "f2b2eb103f5f785f14009791bb3b64e0fd7b788fe8e0611d51a4ba3380b6efaf",
+      "bindings.goose": "92d9371a5937101d624cfdd3806a495e284d5ccceb6d9d2ca1852d136ee3eb06",
+      "reload.goose": "55d2a1ad3c014cb7ec3b5b6fc04521dade728ed1dac99ed2e57c5ed60fd9a77f"
+    },
+    "after": {
+      "config.goose": "52d1da23aa807f63f37d297f1cd281bf22a2277497462de32fcfa004932aafb3",
+      "toml.goose": "5ef319b83d8b8318ccb4c9aa22cbbe9ce9bf4f1b530977ed1e324017ad37505e",
+      "vendor.goose": "c4b021a0928444a5f049a99eb7a542689ea6803d0d2e845c86ba43a0fc6c31c1",
+      "json_layer.goose": "ce60981ebf0e3b97608e0bcdc6bb7ce07d83884983e863addcb6548e3a74f772",
+      "bindings.goose": "2ced04c7bd849b0713e07105f2c1cf443a244345eb9e801c31910e0e69b6449c",
+      "reload.goose": "6ebf1a704c516f80a1b0899e2a02865e5072195e77d4abaa34fae54929661fb7"
+    }
+  },
+  "compiler_version": "goose eadca40 (runtime 3025e5810379)",
+  "compiler_sha256": "3f7a34dda0d8fd3e7df27e7ccce09c0844eabc041fc8caa37a362e0ed68b2f07",
+  "toolchain_input_sha256": {
+    "gcc": "8aac907d6fbf40394b424b5fa4a2ad1aa291dac7d3a0315c5b415c1f5ace1287",
+    "bench/measure.py": "92119796bb747a9a04482620598e24486b50709ef15f3b62a2002b368c252762",
+    "stdlib/base64.goose": "fa1111ce46e9534311f825880dbd2988953430aeb3f1f52d8f0eaecbbc298a61",
+    "stdlib/binary.goose": "24f3f09192738f42dfc0cb08b7447bbdc38009f7fec2567cae932b3022455631",
+    "stdlib/csv.goose": "a49b0647f4a2f8ca36170e5a184ab6c6e505492434d0a10a5e05127e96da61ba",
+    "stdlib/dictionary.goose": "fb39f896731faf3799e81727f7261849a62bdfbdc92d5fdbc36405a85830f322",
+    "stdlib/exception.goose": "093863eda5433176750182b597aa6760a93808d86b0c9b713681443d2fb29160",
+    "stdlib/ffi.goose": "e092b245fbe13ee2fdc71599b7b8eb44198e5261cad9600b7681e13ad75a6c2e",
+    "stdlib/json.goose": "81595baa298b9b0deb271297c971166fd084c13b128bba2a7f7486191ea0de4e",
+    "stdlib/math.goose": "b20bd3f78cd1ca291fdbc65df85d9aeaa77054cdf601b5adecfdd4f9db9f0d6e",
+    "stdlib/os.goose": "2193f394d44469daffd993ed204a91b068084fd8db13e261e11156b40c66e934",
+    "stdlib/regex.goose": "1ea3fc0a38402f29193777478b793b4a74a3074da0e3baf96f0b54eea1a84a95",
+    "stdlib/slice_pool.goose": "e15aa757be8edea4b367ac0b2cb8cce48df9f4f249f5002a9393475cc89404f0",
+    "stdlib/slice_pool_internal.goose": "488048c4e67754c878aa24ae25a941833a4a1a36ba679a2444b13806e7d42e15",
+    "stdlib/slot_pool.goose": "e83b975bfff2806df0401afc3e37e147618c5673a9c98690007e6beb3bd51745",
+    "stdlib/std.goose": "2bff7f6748300396e4c048bbf072f798566fadfe6b05d4256052d32c93e6d5d2",
+    "stdlib/vec.goose": "2cac168c72047834433bfb419734c38455c9429ea045b1273898031c53faa82e",
+    "src/runtime/goose.h": "51234daf2f8fb52d4a18158175ed517ab5bfeeb5473c5448babf19f94ffbeccf",
+    "src/runtime/jit_c.h": "d4c8f0d2e577982f68fdabeaa32f58698ddbafcbb19ca3c9952103725dd8e371",
+    "src/runtime/runtime.h": "5e744690e69fd4b365adbe24b1eea86cefd0d1789b38216c1d7c62e117021521",
+    "src/runtime/runtime_ext.h": "d50f3c7eacbff5969aa1af513938db0e444240efaf44cb97373bec49abb01d9e",
+    "src/runtime/runtime_impl.h": "f95d3d3360614853e4abdbd39a45cfcbbd1aad0136eeffb8c02af371f7676680",
+    "src/runtime/runtime_os.h": "196308b80c7fbc34eb45fcc3e4231b02bb1c5a2e99ca7ebe109f4e2301de21ab",
+    "src/runtime/runtime_threads.h": "f7540e51cedccf3c6302531541a035ebbf3c68a047ba04b2a66ba3ada5e620e7"
+  },
+  "binary_sha256": {
+    "before": "0f8f830b8a499377f0ccc9a4c09fee3d61be5beeffefd98527a7e782d307b4d9",
+    "after": "1af799cf9c54abcc72fdc1b6db65528bc2e61c582b1bb6379a21709d299c64d5"
+  },
+  "harness_ref": "498124392f224b31f2ea2fa8489ee28f80b9f288",
+  "harness_sha256": "d98d94969b1581e0987b09ee7ed06f3f0814225419ef851ead806e6bca6616ba",
+  "fields": 1,
+  "value_bytes": 1,
+  "iterations": 100000,
+  "rounds": 9,
+  "seed": 606,
+  "cpu_affinity": [
+    6
+  ],
+  "flags": "GCC -O2",
+  "shared_host": true,
+  "max_ratio": 1.15,
+  "control_tolerance": 0.1,
+  "rows": [
+    {
+      "round": 0,
+      "label": "before-B",
+      "raw_stdout": "lookup-first-wide samples_ns=[14.96565, 14.42978, 14.29278, 14.22914, 13.58756, 13.88438, 13.55901] checksum=700000\nmedian=14.22914 min=13.55901 max=14.96565\n",
+      "samples_ns": [
+        14.96565,
+        14.42978,
+        14.29278,
+        14.22914,
+        13.58756,
+        13.88438,
+        13.55901
+      ],
+      "median_ns": 14.22914,
+      "checksum": 700000
+    },
+    {
+      "round": 0,
+      "label": "before-A",
+      "raw_stdout": "lookup-first-wide samples_ns=[13.84413, 13.57923, 13.97246, 13.63237, 13.5537, 13.97611, 12.88251] checksum=700000\nmedian=13.63237 min=12.88251 max=13.97611\n",
+      "samples_ns": [
+        13.84413,
+        13.57923,
+        13.97246,
+        13.63237,
+        13.5537,
+        13.97611,
+        12.88251
+      ],
+      "median_ns": 13.63237,
+      "checksum": 700000
+    },
+    {
+      "round": 0,
+      "label": "after",
+      "raw_stdout": "lookup-first-wide samples_ns=[16.5058, 16.5734, 16.6042, 15.6378, 15.71001, 15.78713, 15.55946] checksum=700000\nmedian=15.78713 min=15.55946 max=16.6042\n",
+      "samples_ns": [
+        16.5058,
+        16.5734,
+        16.6042,
+        15.6378,
+        15.71001,
+        15.78713,
+        15.55946
+      ],
+      "median_ns": 15.78713,
+      "checksum": 700000
+    },
+    {
+      "round": 1,
+      "label": "before-A",
+      "raw_stdout": "lookup-first-wide samples_ns=[12.99381, 13.24525, 12.87884, 13.04832, 12.87659, 12.37354, 12.25057] checksum=700000\nmedian=12.87884 min=12.25057 max=13.24525\n",
+      "samples_ns": [
+        12.99381,
+        13.24525,
+        12.87884,
+        13.04832,
+        12.87659,
+        12.37354,
+        12.25057
+      ],
+      "median_ns": 12.87884,
+      "checksum": 700000
+    },
+    {
+      "round": 1,
+      "label": "after",
+      "raw_stdout": "lookup-first-wide samples_ns=[16.37155, 15.10327, 15.07943, 14.93445, 14.85377, 15.1217, 14.19764] checksum=700000\nmedian=15.07943 min=14.19764 max=16.37155\n",
+      "samples_ns": [
+        16.37155,
+        15.10327,
+        15.07943,
+        14.93445,
+        14.85377,
+        15.1217,
+        14.19764
+      ],
+      "median_ns": 15.07943,
+      "checksum": 700000
+    },
+    {
+      "round": 1,
+      "label": "before-B",
+      "raw_stdout": "lookup-first-wide samples_ns=[12.30764, 12.5508, 12.69887, 12.25885, 12.1283, 11.9632, 11.73263] checksum=700000\nmedian=12.25885 min=11.73263 max=12.69887\n",
+      "samples_ns": [
+        12.30764,
+        12.5508,
+        12.69887,
+        12.25885,
+        12.1283,
+        11.9632,
+        11.73263
+      ],
+      "median_ns": 12.25885,
+      "checksum": 700000
+    },
+    {
+      "round": 2,
+      "label": "before-A",
+      "raw_stdout": "lookup-first-wide samples_ns=[13.45034, 11.65613, 11.80049, 11.73084, 11.64928, 12.50765, 11.70052] checksum=700000\nmedian=11.73084 min=11.64928 max=13.45034\n",
+      "samples_ns": [
+        13.45034,
+        11.65613,
+        11.80049,
+        11.73084,
+        11.64928,
+        12.50765,
+        11.70052
+      ],
+      "median_ns": 11.73084,
+      "checksum": 700000
+    },
+    {
+      "round": 2,
+      "label": "before-B",
+      "raw_stdout": "lookup-first-wide samples_ns=[12.96799, 11.70977, 11.79417, 11.45327, 11.20123, 11.19446, 11.15064] checksum=700000\nmedian=11.45327 min=11.15064 max=12.96799\n",
+      "samples_ns": [
+        12.96799,
+        11.70977,
+        11.79417,
+        11.45327,
+        11.20123,
+        11.19446,
+        11.15064
+      ],
+      "median_ns": 11.45327,
+      "checksum": 700000
+    },
+    {
+      "round": 2,
+      "label": "after",
+      "raw_stdout": "lookup-first-wide samples_ns=[15.0438, 13.69502, 13.60573, 13.77124, 13.57962, 13.555, 13.87842] checksum=700000\nmedian=13.69502 min=13.555 max=15.0438\n",
+      "samples_ns": [
+        15.0438,
+        13.69502,
+        13.60573,
+        13.77124,
+        13.57962,
+        13.555,
+        13.87842
+      ],
+      "median_ns": 13.69502,
+      "checksum": 700000
+    },
+    {
+      "round": 3,
+      "label": "after",
+      "raw_stdout": "lookup-first-wide samples_ns=[14.88198, 13.6137, 13.58843, 13.55849, 13.90587, 13.59781, 13.86451] checksum=700000\nmedian=13.6137 min=13.55849 max=14.88198\n",
+      "samples_ns": [
+        14.88198,
+        13.6137,
+        13.58843,
+        13.55849,
+        13.90587,
+        13.59781,
+        13.86451
+      ],
+      "median_ns": 13.6137,
+      "checksum": 700000
+    },
+    {
+      "round": 3,
+      "label": "before-B",
+      "raw_stdout": "lookup-first-wide samples_ns=[12.72569, 11.66581, 11.74404, 11.66491, 11.66213, 11.77974, 12.00294] checksum=700000\nmedian=11.74404 min=11.66213 max=12.72569\n",
+      "samples_ns": [
+        12.72569,
+        11.66581,
+        11.74404,
+        11.66491,
+        11.66213,
+        11.77974,
+        12.00294
+      ],
+      "median_ns": 11.74404,
+      "checksum": 700000
+    },
+    {
+      "round": 3,
+      "label": "before-A",
+      "raw_stdout": "lookup-first-wide samples_ns=[12.48311, 12.27177, 12.25822, 12.52605, 12.17014, 11.75664, 11.68837] checksum=700000\nmedian=12.25822 min=11.68837 max=12.52605\n",
+      "samples_ns": [
+        12.48311,
+        12.27177,
+        12.25822,
+        12.52605,
+        12.17014,
+        11.75664,
+        11.68837
+      ],
+      "median_ns": 12.25822,
+      "checksum": 700000
+    },
+    {
+      "round": 4,
+      "label": "before-A",
+      "raw_stdout": "lookup-first-wide samples_ns=[13.29498, 12.24613, 12.13129, 11.65663, 11.96159, 11.70961, 11.66932] checksum=700000\nmedian=11.96159 min=11.65663 max=13.29498\n",
+      "samples_ns": [
+        13.29498,
+        12.24613,
+        12.13129,
+        11.65663,
+        11.96159,
+        11.70961,
+        11.66932
+      ],
+      "median_ns": 11.96159,
+      "checksum": 700000
+    },
+    {
+      "round": 4,
+      "label": "after",
+      "raw_stdout": "lookup-first-wide samples_ns=[15.36681, 14.33685, 14.2272, 14.32351, 13.58127, 13.58866, 13.95965] checksum=700000\nmedian=14.2272 min=13.58127 max=15.36681\n",
+      "samples_ns": [
+        15.36681,
+        14.33685,
+        14.2272,
+        14.32351,
+        13.58127,
+        13.58866,
+        13.95965
+      ],
+      "median_ns": 14.2272,
+      "checksum": 700000
+    },
+    {
+      "round": 4,
+      "label": "before-B",
+      "raw_stdout": "lookup-first-wide samples_ns=[13.14805, 11.78419, 11.84573, 11.91755, 12.17, 12.21156, 12.48904] checksum=700000\nmedian=12.17 min=11.78419 max=13.14805\n",
+      "samples_ns": [
+        13.14805,
+        11.78419,
+        11.84573,
+        11.91755,
+        12.17,
+        12.21156,
+        12.48904
+      ],
+      "median_ns": 12.17,
+      "checksum": 700000
+    },
+    {
+      "round": 5,
+      "label": "before-B",
+      "raw_stdout": "lookup-first-wide samples_ns=[14.67766, 13.54843, 13.64594, 13.8614, 13.18275, 12.8975, 13.00297] checksum=700000\nmedian=13.54843 min=12.8975 max=14.67766\n",
+      "samples_ns": [
+        14.67766,
+        13.54843,
+        13.64594,
+        13.8614,
+        13.18275,
+        12.8975,
+        13.00297
+      ],
+      "median_ns": 13.54843,
+      "checksum": 700000
+    },
+    {
+      "round": 5,
+      "label": "after",
+      "raw_stdout": "lookup-first-wide samples_ns=[16.94833, 15.66218, 15.77644, 15.65331, 14.92214, 15.054, 14.8818] checksum=700000\nmedian=15.65331 min=14.8818 max=16.94833\n",
+      "samples_ns": [
+        16.94833,
+        15.66218,
+        15.77644,
+        15.65331,
+        14.92214,
+        15.054,
+        14.8818
+      ],
+      "median_ns": 15.65331,
+      "checksum": 700000
+    },
+    {
+      "round": 5,
+      "label": "before-A",
+      "raw_stdout": "lookup-first-wide samples_ns=[12.98312, 13.12378, 12.2531, 12.26832, 12.98506, 12.33482, 12.358] checksum=700000\nmedian=12.358 min=12.2531 max=13.12378\n",
+      "samples_ns": [
+        12.98312,
+        13.12378,
+        12.2531,
+        12.26832,
+        12.98506,
+        12.33482,
+        12.358
+      ],
+      "median_ns": 12.358,
+      "checksum": 700000
+    },
+    {
+      "round": 6,
+      "label": "before-A",
+      "raw_stdout": "lookup-first-wide samples_ns=[12.94549, 13.22864, 12.36183, 12.62218, 12.39108, 12.29414, 12.25698] checksum=700000\nmedian=12.39108 min=12.25698 max=13.22864\n",
+      "samples_ns": [
+        12.94549,
+        13.22864,
+        12.36183,
+        12.62218,
+        12.39108,
+        12.29414,
+        12.25698
+      ],
+      "median_ns": 12.39108,
+      "checksum": 700000
+    },
+    {
+      "round": 6,
+      "label": "before-B",
+      "raw_stdout": "lookup-first-wide samples_ns=[13.37014, 12.8972, 12.63871, 12.22111, 12.6643, 12.35945, 12.2323] checksum=700000\nmedian=12.63871 min=12.22111 max=13.37014\n",
+      "samples_ns": [
+        13.37014,
+        12.8972,
+        12.63871,
+        12.22111,
+        12.6643,
+        12.35945,
+        12.2323
+      ],
+      "median_ns": 12.63871,
+      "checksum": 700000
+    },
+    {
+      "round": 6,
+      "label": "after",
+      "raw_stdout": "lookup-first-wide samples_ns=[16.50171, 15.0417, 14.84306, 14.85692, 14.7471, 14.17599, 14.38076] checksum=700000\nmedian=14.84306 min=14.17599 max=16.50171\n",
+      "samples_ns": [
+        16.50171,
+        15.0417,
+        14.84306,
+        14.85692,
+        14.7471,
+        14.17599,
+        14.38076
+      ],
+      "median_ns": 14.84306,
+      "checksum": 700000
+    },
+    {
+      "round": 7,
+      "label": "after",
+      "raw_stdout": "lookup-first-wide samples_ns=[15.8958, 14.21596, 14.32289, 14.22771, 14.17247, 14.18759, 13.95797] checksum=700000\nmedian=14.21596 min=13.95797 max=15.8958\n",
+      "samples_ns": [
+        15.8958,
+        14.21596,
+        14.32289,
+        14.22771,
+        14.17247,
+        14.18759,
+        13.95797
+      ],
+      "median_ns": 14.21596,
+      "checksum": 700000
+    },
+    {
+      "round": 7,
+      "label": "before-B",
+      "raw_stdout": "lookup-first-wide samples_ns=[11.91335, 11.69683, 11.87625, 11.6564, 11.67679, 11.67339, 11.67833] checksum=700000\nmedian=11.67833 min=11.6564 max=11.91335\n",
+      "samples_ns": [
+        11.91335,
+        11.69683,
+        11.87625,
+        11.6564,
+        11.67679,
+        11.67339,
+        11.67833
+      ],
+      "median_ns": 11.67833,
+      "checksum": 700000
+    },
+    {
+      "round": 7,
+      "label": "before-A",
+      "raw_stdout": "lookup-first-wide samples_ns=[11.72316, 12.05786, 13.21937, 11.9247, 11.82819, 11.69875, 11.6858] checksum=700000\nmedian=11.82819 min=11.6858 max=13.21937\n",
+      "samples_ns": [
+        11.72316,
+        12.05786,
+        13.21937,
+        11.9247,
+        11.82819,
+        11.69875,
+        11.6858
+      ],
+      "median_ns": 11.82819,
+      "checksum": 700000
+    },
+    {
+      "round": 8,
+      "label": "before-A",
+      "raw_stdout": "lookup-first-wide samples_ns=[14.13397, 12.27824, 12.7755, 12.27256, 12.60083, 12.11991, 11.70588] checksum=700000\nmedian=12.27824 min=11.70588 max=14.13397\n",
+      "samples_ns": [
+        14.13397,
+        12.27824,
+        12.7755,
+        12.27256,
+        12.60083,
+        12.11991,
+        11.70588
+      ],
+      "median_ns": 12.27824,
+      "checksum": 700000
+    },
+    {
+      "round": 8,
+      "label": "after",
+      "raw_stdout": "lookup-first-wide samples_ns=[16.00205, 15.00889, 14.86788, 14.90424, 14.18995, 14.5533, 14.45619] checksum=700000\nmedian=14.86788 min=14.18995 max=16.00205\n",
+      "samples_ns": [
+        16.00205,
+        15.00889,
+        14.86788,
+        14.90424,
+        14.18995,
+        14.5533,
+        14.45619
+      ],
+      "median_ns": 14.86788,
+      "checksum": 700000
+    },
+    {
+      "round": 8,
+      "label": "before-B",
+      "raw_stdout": "lookup-first-wide samples_ns=[12.58261, 12.39841, 12.26135, 12.28605, 12.89731, 12.26412, 12.26318] checksum=700000\nmedian=12.28605 min=12.26135 max=12.89731\n",
+      "samples_ns": [
+        12.58261,
+        12.39841,
+        12.26135,
+        12.28605,
+        12.89731,
+        12.26412,
+        12.26318
+      ],
+      "median_ns": 12.28605,
+      "checksum": 700000
+    }
+  ],
+  "medians_ns": {
+    "before-A": 12.27824,
+    "before-B": 12.25885,
+    "after": 14.84306
+  },
+  "after_before": 1.2088915023651599,
+  "identical_binary_control": 0.9984207834347594,
+  "verdict": "regression",
+  "limitations": [
+    "Fixed frozen core harness; fixture label retained despite minimized dimensions.",
+    "Ratio budget is a diagnostic signal, not a causal percentage or CI performance guarantee.",
+    "Identical binary is reused only for before-A/B within this invocation."
+  ]
+}

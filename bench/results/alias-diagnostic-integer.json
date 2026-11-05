@@ -1,0 +1,523 @@
+{
+  "utc_start": "2026-11-05T10:21:01.373209+00:00",
+  "recorded_utc": "2026-11-05T10:21:01.759570+00:00",
+  "revisions": {
+    "before": "498124392f224b31f2ea2fa8489ee28f80b9f288",
+    "after": "d654a6eb6138e676dfb6e49037c707cbf954a41d"
+  },
+  "source_sha256": {
+    "before": {
+      "config.goose": "a601132b62fc35ffc1bd02c66f6447e85896ec67d6247ae8f77108ab6327fcb9",
+      "toml.goose": "7fc7ee80ef1bc1d707987db67af31189ba5c9786b66e0fe2a92fcb4941b5c7b1",
+      "vendor.goose": "c4b021a0928444a5f049a99eb7a542689ea6803d0d2e845c86ba43a0fc6c31c1",
+      "json_layer.goose": "f2b2eb103f5f785f14009791bb3b64e0fd7b788fe8e0611d51a4ba3380b6efaf",
+      "bindings.goose": "92d9371a5937101d624cfdd3806a495e284d5ccceb6d9d2ca1852d136ee3eb06",
+      "reload.goose": "55d2a1ad3c014cb7ec3b5b6fc04521dade728ed1dac99ed2e57c5ed60fd9a77f"
+    },
+    "after": {
+      "config.goose": "a3665f71528d2bd2806fa43c3442defe8bafcd13a275aab650fdd213c49ce9cc",
+      "toml.goose": "5ef319b83d8b8318ccb4c9aa22cbbe9ce9bf4f1b530977ed1e324017ad37505e",
+      "vendor.goose": "c4b021a0928444a5f049a99eb7a542689ea6803d0d2e845c86ba43a0fc6c31c1",
+      "json_layer.goose": "ce60981ebf0e3b97608e0bcdc6bb7ce07d83884983e863addcb6548e3a74f772",
+      "bindings.goose": "2ced04c7bd849b0713e07105f2c1cf443a244345eb9e801c31910e0e69b6449c",
+      "reload.goose": "6ebf1a704c516f80a1b0899e2a02865e5072195e77d4abaa34fae54929661fb7"
+    }
+  },
+  "compiler_version": "goose eadca40 (runtime 3025e5810379)",
+  "compiler_sha256": "3f7a34dda0d8fd3e7df27e7ccce09c0844eabc041fc8caa37a362e0ed68b2f07",
+  "toolchain_input_sha256": {
+    "gcc": "8aac907d6fbf40394b424b5fa4a2ad1aa291dac7d3a0315c5b415c1f5ace1287",
+    "bench/measure.py": "92119796bb747a9a04482620598e24486b50709ef15f3b62a2002b368c252762",
+    "src/runtime_inline.h": "94e4e6299a9662052375074e18092e73e8193ce7db3c760a2a087af36b265a53",
+    "stdlib/base64.goose": "fa1111ce46e9534311f825880dbd2988953430aeb3f1f52d8f0eaecbbc298a61",
+    "stdlib/binary.goose": "24f3f09192738f42dfc0cb08b7447bbdc38009f7fec2567cae932b3022455631",
+    "stdlib/csv.goose": "a49b0647f4a2f8ca36170e5a184ab6c6e505492434d0a10a5e05127e96da61ba",
+    "stdlib/dictionary.goose": "fb39f896731faf3799e81727f7261849a62bdfbdc92d5fdbc36405a85830f322",
+    "stdlib/exception.goose": "093863eda5433176750182b597aa6760a93808d86b0c9b713681443d2fb29160",
+    "stdlib/ffi.goose": "e092b245fbe13ee2fdc71599b7b8eb44198e5261cad9600b7681e13ad75a6c2e",
+    "stdlib/json.goose": "81595baa298b9b0deb271297c971166fd084c13b128bba2a7f7486191ea0de4e",
+    "stdlib/math.goose": "b20bd3f78cd1ca291fdbc65df85d9aeaa77054cdf601b5adecfdd4f9db9f0d6e",
+    "stdlib/os.goose": "2193f394d44469daffd993ed204a91b068084fd8db13e261e11156b40c66e934",
+    "stdlib/regex.goose": "1ea3fc0a38402f29193777478b793b4a74a3074da0e3baf96f0b54eea1a84a95",
+    "stdlib/slice_pool.goose": "e15aa757be8edea4b367ac0b2cb8cce48df9f4f249f5002a9393475cc89404f0",
+    "stdlib/slice_pool_internal.goose": "488048c4e67754c878aa24ae25a941833a4a1a36ba679a2444b13806e7d42e15",
+    "stdlib/slot_pool.goose": "e83b975bfff2806df0401afc3e37e147618c5673a9c98690007e6beb3bd51745",
+    "stdlib/std.goose": "2bff7f6748300396e4c048bbf072f798566fadfe6b05d4256052d32c93e6d5d2",
+    "stdlib/vec.goose": "2cac168c72047834433bfb419734c38455c9429ea045b1273898031c53faa82e",
+    "src/runtime/goose.h": "51234daf2f8fb52d4a18158175ed517ab5bfeeb5473c5448babf19f94ffbeccf",
+    "src/runtime/jit_c.h": "d4c8f0d2e577982f68fdabeaa32f58698ddbafcbb19ca3c9952103725dd8e371",
+    "src/runtime/runtime.h": "5e744690e69fd4b365adbe24b1eea86cefd0d1789b38216c1d7c62e117021521",
+    "src/runtime/runtime_ext.h": "d50f3c7eacbff5969aa1af513938db0e444240efaf44cb97373bec49abb01d9e",
+    "src/runtime/runtime_impl.h": "f95d3d3360614853e4abdbd39a45cfcbbd1aad0136eeffb8c02af371f7676680",
+    "src/runtime/runtime_os.h": "196308b80c7fbc34eb45fcc3e4231b02bb1c5a2e99ca7ebe109f4e2301de21ab",
+    "src/runtime/runtime_threads.h": "f7540e51cedccf3c6302531541a035ebbf3c68a047ba04b2a66ba3ada5e620e7"
+  },
+  "binary_sha256": {
+    "before": "8028a5160306b8701de8167a2921caebdd70ea6289060a5ae6a10e85a0031620",
+    "after": "a112f26424345ca59e4f79ec16c2d14483cdb5d9117355eabbdddcf6bd1991f4"
+  },
+  "harness_ref": "498124392f224b31f2ea2fa8489ee28f80b9f288",
+  "harness_sha256": "65c25d0551f7787ca81b30cce8c82968ed99849069ea11bbbde603e20fb9cd7d",
+  "recorder_sha256": "845b11de66954b37e5f936b016d74ae296df85455e901425af71a3164d96cde2",
+  "fixture": "update-integer-large",
+  "harness_path": "bench/updates.goose",
+  "fields": 256,
+  "value_bytes": 4096,
+  "iterations": 10000,
+  "rounds": 9,
+  "seed": 606,
+  "cpu_affinity": [
+    6
+  ],
+  "flags": "GCC -O2",
+  "shared_host": true,
+  "max_ratio": 1.15,
+  "control_tolerance": 0.1,
+  "rows": [
+    {
+      "round": 0,
+      "label": "before-B",
+      "raw_stdout": "update-integer-large samples_ns=[116.8996, 115.4045, 132.3629, 116.3768, 117.7658, 117.3169, 116.4292] checksum=1610000\nmedian=116.8996 min=115.4045 max=132.3629\n",
+      "samples_ns": [
+        116.8996,
+        115.4045,
+        132.3629,
+        116.3768,
+        117.7658,
+        117.3169,
+        116.4292
+      ],
+      "median_ns": 116.8996,
+      "checksum": 1610000
+    },
+    {
+      "round": 0,
+      "label": "before-A",
+      "raw_stdout": "update-integer-large samples_ns=[130.0668, 124.4174, 121.5871, 121.436, 121.859, 121.6368, 121.4266] checksum=1610000\nmedian=121.6368 min=121.4266 max=130.0668\n",
+      "samples_ns": [
+        130.0668,
+        124.4174,
+        121.5871,
+        121.436,
+        121.859,
+        121.6368,
+        121.4266
+      ],
+      "median_ns": 121.6368,
+      "checksum": 1610000
+    },
+    {
+      "round": 0,
+      "label": "after",
+      "raw_stdout": "update-integer-large samples_ns=[128.304, 127.4511, 134.8978, 127.8185, 127.9469, 131.2679, 125.6491] checksum=1610000\nmedian=127.9469 min=125.6491 max=134.8978\n",
+      "samples_ns": [
+        128.304,
+        127.4511,
+        134.8978,
+        127.8185,
+        127.9469,
+        131.2679,
+        125.6491
+      ],
+      "median_ns": 127.9469,
+      "checksum": 1610000
+    },
+    {
+      "round": 1,
+      "label": "before-A",
+      "raw_stdout": "update-integer-large samples_ns=[114.8459, 113.504, 115.612, 115.6918, 113.9828, 113.897, 121.6568] checksum=1610000\nmedian=114.8459 min=113.504 max=121.6568\n",
+      "samples_ns": [
+        114.8459,
+        113.504,
+        115.612,
+        115.6918,
+        113.9828,
+        113.897,
+        121.6568
+      ],
+      "median_ns": 114.8459,
+      "checksum": 1610000
+    },
+    {
+      "round": 1,
+      "label": "after",
+      "raw_stdout": "update-integer-large samples_ns=[118.3567, 116.127, 118.8406, 117.1738, 116.329, 123.9092, 116.4272] checksum=1610000\nmedian=117.1738 min=116.127 max=123.9092\n",
+      "samples_ns": [
+        118.3567,
+        116.127,
+        118.8406,
+        117.1738,
+        116.329,
+        123.9092,
+        116.4272
+      ],
+      "median_ns": 117.1738,
+      "checksum": 1610000
+    },
+    {
+      "round": 1,
+      "label": "before-B",
+      "raw_stdout": "update-integer-large samples_ns=[112.8666, 114.5197, 111.2397, 115.9441, 111.5939, 109.0534, 105.7392] checksum=1610000\nmedian=111.5939 min=105.7392 max=115.9441\n",
+      "samples_ns": [
+        112.8666,
+        114.5197,
+        111.2397,
+        115.9441,
+        111.5939,
+        109.0534,
+        105.7392
+      ],
+      "median_ns": 111.5939,
+      "checksum": 1610000
+    },
+    {
+      "round": 2,
+      "label": "before-A",
+      "raw_stdout": "update-integer-large samples_ns=[111.0651, 109.7171, 109.9857, 112.3847, 110.1852, 104.5372, 104.6786] checksum=1610000\nmedian=109.9857 min=104.5372 max=112.3847\n",
+      "samples_ns": [
+        111.0651,
+        109.7171,
+        109.9857,
+        112.3847,
+        110.1852,
+        104.5372,
+        104.6786
+      ],
+      "median_ns": 109.9857,
+      "checksum": 1610000
+    },
+    {
+      "round": 2,
+      "label": "before-B",
+      "raw_stdout": "update-integer-large samples_ns=[111.1594, 113.8829, 108.2053, 105.3951, 107.2965, 111.477, 105.2451] checksum=1610000\nmedian=108.2053 min=105.2451 max=113.8829\n",
+      "samples_ns": [
+        111.1594,
+        113.8829,
+        108.2053,
+        105.3951,
+        107.2965,
+        111.477,
+        105.2451
+      ],
+      "median_ns": 108.2053,
+      "checksum": 1610000
+    },
+    {
+      "round": 2,
+      "label": "after",
+      "raw_stdout": "update-integer-large samples_ns=[118.1024, 119.316, 116.4378, 123.3782, 115.8341, 115.8994, 115.887] checksum=1610000\nmedian=116.4378 min=115.8341 max=123.3782\n",
+      "samples_ns": [
+        118.1024,
+        119.316,
+        116.4378,
+        123.3782,
+        115.8341,
+        115.8994,
+        115.887
+      ],
+      "median_ns": 116.4378,
+      "checksum": 1610000
+    },
+    {
+      "round": 3,
+      "label": "after",
+      "raw_stdout": "update-integer-large samples_ns=[117.5537, 119.4089, 116.0805, 116.084, 113.4351, 110.888, 113.7913] checksum=1610000\nmedian=116.0805 min=110.888 max=119.4089\n",
+      "samples_ns": [
+        117.5537,
+        119.4089,
+        116.0805,
+        116.084,
+        113.4351,
+        110.888,
+        113.7913
+      ],
+      "median_ns": 116.0805,
+      "checksum": 1610000
+    },
+    {
+      "round": 3,
+      "label": "before-B",
+      "raw_stdout": "update-integer-large samples_ns=[105.704, 103.8928, 111.8202, 104.4093, 104.4719, 105.8752, 104.1335] checksum=1610000\nmedian=104.4719 min=103.8928 max=111.8202\n",
+      "samples_ns": [
+        105.704,
+        103.8928,
+        111.8202,
+        104.4093,
+        104.4719,
+        105.8752,
+        104.1335
+      ],
+      "median_ns": 104.4719,
+      "checksum": 1610000
+    },
+    {
+      "round": 3,
+      "label": "before-A",
+      "raw_stdout": "update-integer-large samples_ns=[111.5301, 110.4691, 109.2986, 106.6027, 109.7575, 105.2162, 104.6967] checksum=1610000\nmedian=109.2986 min=104.6967 max=111.5301\n",
+      "samples_ns": [
+        111.5301,
+        110.4691,
+        109.2986,
+        106.6027,
+        109.7575,
+        105.2162,
+        104.6967
+      ],
+      "median_ns": 109.2986,
+      "checksum": 1610000
+    },
+    {
+      "round": 4,
+      "label": "before-A",
+      "raw_stdout": "update-integer-large samples_ns=[110.9529, 112.6803, 108.5629, 108.6099, 105.2197, 107.7991, 103.928] checksum=1610000\nmedian=108.5629 min=103.928 max=112.6803\n",
+      "samples_ns": [
+        110.9529,
+        112.6803,
+        108.5629,
+        108.6099,
+        105.2197,
+        107.7991,
+        103.928
+      ],
+      "median_ns": 108.5629,
+      "checksum": 1610000
+    },
+    {
+      "round": 4,
+      "label": "after",
+      "raw_stdout": "update-integer-large samples_ns=[117.6665, 116.3996, 120.3382, 116.4047, 109.9095, 114.1322, 110.5397] checksum=1610000\nmedian=116.3996 min=109.9095 max=120.3382\n",
+      "samples_ns": [
+        117.6665,
+        116.3996,
+        120.3382,
+        116.4047,
+        109.9095,
+        114.1322,
+        110.5397
+      ],
+      "median_ns": 116.3996,
+      "checksum": 1610000
+    },
+    {
+      "round": 4,
+      "label": "before-B",
+      "raw_stdout": "update-integer-large samples_ns=[112.3583, 109.5861, 107.4489, 105.6217, 105.568, 105.3768, 111.5163] checksum=1610000\nmedian=107.4489 min=105.3768 max=112.3583\n",
+      "samples_ns": [
+        112.3583,
+        109.5861,
+        107.4489,
+        105.6217,
+        105.568,
+        105.3768,
+        111.5163
+      ],
+      "median_ns": 107.4489,
+      "checksum": 1610000
+    },
+    {
+      "round": 5,
+      "label": "before-B",
+      "raw_stdout": "update-integer-large samples_ns=[112.3491, 113.5634, 105.3559, 106.905, 104.9864, 105.4339, 109.9697] checksum=1610000\nmedian=106.905 min=104.9864 max=113.5634\n",
+      "samples_ns": [
+        112.3491,
+        113.5634,
+        105.3559,
+        106.905,
+        104.9864,
+        105.4339,
+        109.9697
+      ],
+      "median_ns": 106.905,
+      "checksum": 1610000
+    },
+    {
+      "round": 5,
+      "label": "after",
+      "raw_stdout": "update-integer-large samples_ns=[123.8017, 123.3253, 121.3913, 122.5707, 127.1708, 118.2315, 114.6576] checksum=1610000\nmedian=122.5707 min=114.6576 max=127.1708\n",
+      "samples_ns": [
+        123.8017,
+        123.3253,
+        121.3913,
+        122.5707,
+        127.1708,
+        118.2315,
+        114.6576
+      ],
+      "median_ns": 122.5707,
+      "checksum": 1610000
+    },
+    {
+      "round": 5,
+      "label": "before-A",
+      "raw_stdout": "update-integer-large samples_ns=[112.9349, 109.5993, 106.3626, 104.4148, 104.0816, 104.0744, 104.1835] checksum=1610000\nmedian=104.4148 min=104.0744 max=112.9349\n",
+      "samples_ns": [
+        112.9349,
+        109.5993,
+        106.3626,
+        104.4148,
+        104.0816,
+        104.0744,
+        104.1835
+      ],
+      "median_ns": 104.4148,
+      "checksum": 1610000
+    },
+    {
+      "round": 6,
+      "label": "before-A",
+      "raw_stdout": "update-integer-large samples_ns=[106.5447, 104.5567, 104.5961, 107.2443, 104.4166, 104.7996, 104.0629] checksum=1610000\nmedian=104.5961 min=104.0629 max=107.2443\n",
+      "samples_ns": [
+        106.5447,
+        104.5567,
+        104.5961,
+        107.2443,
+        104.4166,
+        104.7996,
+        104.0629
+      ],
+      "median_ns": 104.5961,
+      "checksum": 1610000
+    },
+    {
+      "round": 6,
+      "label": "before-B",
+      "raw_stdout": "update-integer-large samples_ns=[109.9569, 104.2518, 104.7304, 108.4484, 104.4585, 104.9215, 104.0022] checksum=1610000\nmedian=104.7304 min=104.0022 max=109.9569\n",
+      "samples_ns": [
+        109.9569,
+        104.2518,
+        104.7304,
+        108.4484,
+        104.4585,
+        104.9215,
+        104.0022
+      ],
+      "median_ns": 104.7304,
+      "checksum": 1610000
+    },
+    {
+      "round": 6,
+      "label": "after",
+      "raw_stdout": "update-integer-large samples_ns=[111.1075, 110.1594, 112.9849, 109.5565, 109.6691, 113.569, 110.205] checksum=1610000\nmedian=110.205 min=109.5565 max=113.569\n",
+      "samples_ns": [
+        111.1075,
+        110.1594,
+        112.9849,
+        109.5565,
+        109.6691,
+        113.569,
+        110.205
+      ],
+      "median_ns": 110.205,
+      "checksum": 1610000
+    },
+    {
+      "round": 7,
+      "label": "after",
+      "raw_stdout": "update-integer-large samples_ns=[117.9525, 124.0686, 110.3645, 110.6134, 112.4085, 110.8321, 110.0536] checksum=1610000\nmedian=110.8321 min=110.0536 max=124.0686\n",
+      "samples_ns": [
+        117.9525,
+        124.0686,
+        110.3645,
+        110.6134,
+        112.4085,
+        110.8321,
+        110.0536
+      ],
+      "median_ns": 110.8321,
+      "checksum": 1610000
+    },
+    {
+      "round": 7,
+      "label": "before-B",
+      "raw_stdout": "update-integer-large samples_ns=[106.0512, 108.525, 104.8231, 105.1035, 106.7699, 104.5778, 104.5278] checksum=1610000\nmedian=105.1035 min=104.5278 max=108.525\n",
+      "samples_ns": [
+        106.0512,
+        108.525,
+        104.8231,
+        105.1035,
+        106.7699,
+        104.5778,
+        104.5278
+      ],
+      "median_ns": 105.1035,
+      "checksum": 1610000
+    },
+    {
+      "round": 7,
+      "label": "before-A",
+      "raw_stdout": "update-integer-large samples_ns=[113.3009, 110.8196, 110.7919, 110.2316, 110.0584, 109.9028, 114.0613] checksum=1610000\nmedian=110.7919 min=109.9028 max=114.0613\n",
+      "samples_ns": [
+        113.3009,
+        110.8196,
+        110.7919,
+        110.2316,
+        110.0584,
+        109.9028,
+        114.0613
+      ],
+      "median_ns": 110.7919,
+      "checksum": 1610000
+    },
+    {
+      "round": 8,
+      "label": "before-A",
+      "raw_stdout": "update-integer-large samples_ns=[114.8844, 110.3872, 110.2503, 109.5302, 114.1028, 110.2075, 110.1814] checksum=1610000\nmedian=110.2503 min=109.5302 max=114.8844\n",
+      "samples_ns": [
+        114.8844,
+        110.3872,
+        110.2503,
+        109.5302,
+        114.1028,
+        110.2075,
+        110.1814
+      ],
+      "median_ns": 110.2503,
+      "checksum": 1610000
+    },
+    {
+      "round": 8,
+      "label": "after",
+      "raw_stdout": "update-integer-large samples_ns=[116.5026, 115.0872, 110.3517, 111.9441, 109.1005, 109.4442, 115.8403] checksum=1610000\nmedian=111.9441 min=109.1005 max=116.5026\n",
+      "samples_ns": [
+        116.5026,
+        115.0872,
+        110.3517,
+        111.9441,
+        109.1005,
+        109.4442,
+        115.8403
+      ],
+      "median_ns": 111.9441,
+      "checksum": 1610000
+    },
+    {
+      "round": 8,
+      "label": "before-B",
+      "raw_stdout": "update-integer-large samples_ns=[106.5793, 105.4759, 105.6501, 105.1564, 105.6077, 105.0502, 104.9806] checksum=1610000\nmedian=105.4759 min=104.9806 max=106.5793\n",
+      "samples_ns": [
+        106.5793,
+        105.4759,
+        105.6501,
+        105.1564,
+        105.6077,
+        105.0502,
+        104.9806
+      ],
+      "median_ns": 105.4759,
+      "checksum": 1610000
+    }
+  ],
+  "medians_ns": {
+    "before-A": 109.9857,
+    "before-B": 106.905,
+    "after": 116.3996
+  },
+  "after_before": 1.0583157628673547,
+  "identical_binary_control": 0.9719899950629947,
+  "verdict": "within-budget",
+  "limitations": [
+    "Fixed frozen core harness; fixture label retained despite minimized dimensions.",
+    "Ratio budget is a diagnostic signal, not a causal percentage or CI performance guarantee.",
+    "Identical binary is reused only for before-A/B within this invocation."
+  ]
+}

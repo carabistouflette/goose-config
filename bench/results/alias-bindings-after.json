@@ -1,0 +1,573 @@
+{
+  "recorded_utc": "2026-11-05T09:29:25.982882+00:00",
+  "revision": "a5e4ba34f8a0549bdfe1d11982599710a8298913",
+  "goose_revision": "eadca409f68210893f366e60d0c2f0dc29a339be",
+  "goose_version": "goose eadca40 (runtime 3025e5810379)",
+  "competitor_metadata": {
+    "build_settings": [
+      {
+        "Key": "-buildmode",
+        "Value": "exe"
+      },
+      {
+        "Key": "-compiler",
+        "Value": "gc"
+      },
+      {
+        "Key": "-trimpath",
+        "Value": "true"
+      },
+      {
+        "Key": "DefaultGODEBUG",
+        "Value": "containermaxprocs=0,cryptocustomrand=1,decoratemappings=0,gotestjsonbuildtext=1,httpcookiemaxnum=0,httpservecontentmaxranges=1,multipathtcp=0,randseednop=0,rsa1024min=0,tlsmlkem=0,tlssecpmlkem=0,tlssha1=1,tracebacklabels=0,updatemaxprocs=0,urlmaxqueryparams=0,urlstrictcolons=0,x509rsacrt=0,x509sha256skid=0,x509sslcertoverrideplatform=0,x509usepolicies=0"
+      },
+      {
+        "Key": "CGO_ENABLED",
+        "Value": "1"
+      },
+      {
+        "Key": "GOARCH",
+        "Value": "amd64"
+      },
+      {
+        "Key": "GOEXPERIMENT",
+        "Value": "nodwarf5"
+      },
+      {
+        "Key": "GOOS",
+        "Value": "linux"
+      },
+      {
+        "Key": "GOAMD64",
+        "Value": "v1"
+      }
+    ],
+    "dependencies": {
+      "github.com/fsnotify/fsnotify": "v1.9.0",
+      "github.com/go-viper/mapstructure/v2": "v2.4.0",
+      "github.com/knadh/koanf/maps": "v0.1.2",
+      "github.com/knadh/koanf/parsers/json": "v1.0.0",
+      "github.com/knadh/koanf/parsers/toml/v2": "v2.2.2",
+      "github.com/knadh/koanf/providers/env/v2": "v2.0.2",
+      "github.com/knadh/koanf/providers/posflag": "v1.0.2",
+      "github.com/knadh/koanf/providers/rawbytes": "v1.0.1",
+      "github.com/knadh/koanf/v2": "v2.4.1",
+      "github.com/mitchellh/copystructure": "v1.2.0",
+      "github.com/mitchellh/reflectwalk": "v1.0.2",
+      "github.com/pelletier/go-toml/v2": "v2.4.3",
+      "github.com/sagikazarmark/locafero": "v0.11.0",
+      "github.com/sourcegraph/conc": "v0.3.1-0.20240121214520-5f936abd7ae8",
+      "github.com/spf13/afero": "v1.15.0",
+      "github.com/spf13/cast": "v1.10.0",
+      "github.com/spf13/pflag": "v1.0.10",
+      "github.com/spf13/viper": "v1.21.0",
+      "github.com/subosito/gotenv": "v1.6.0",
+      "go.yaml.in/yaml/v3": "v3.0.4",
+      "golang.org/x/sys": "v0.29.0",
+      "golang.org/x/text": "v0.28.0"
+    },
+    "go_version": "go1.27.3-X:nodwarf5",
+    "goarch": "amd64",
+    "gomaxprocs": 1,
+    "goos": "linux",
+    "samples": 7,
+    "semantic_limitations": [
+      "Shared successful lookup, TOML, JSON/list replacement, and current-source replay subsets only; not feature equivalence.",
+      "No Goose schema declaration, strict kind errors, or atomic rejected-layer behavior is supplied by these adapter paths.",
+      "Typed getters have different conversion and missing-value behavior; fixtures use present values of matching types.",
+      "Final values are checked outside timing; source labels cannot be verified and are not reconstructed.",
+      "Bindings mode times fresh env/CLI snapshots, including Viper BindEnv/BindPFlags or Koanf env/v2/posflag loads, typed pflag registration/parse, and getters. Viper env getters resolve lazily; Koanf materializes a provider map.",
+      "Bindings reload-layers replays defaults plus three current JSON documents, replacing a 256-item list and exposing a lower document after middle port removal. Source labels remain unsupported.",
+      "Common list getters are Viper GetIntSlice and Koanf Int64s; their conversion and ownership contracts differ from Goose's strict independently owned i64 arrays.",
+      "Common reload-removal creates fresh Viper/Koanf instances and replays defaults plus current JSON per operation; it does not supply Goose's atomic validated reload or retain old snapshots.",
+      "Goose enforces integer range 1..65535 in common fixtures; adapters do not implement schema/range validation. All fixture numbers are small exact integers."
+    ],
+    "source_labels": "unsupported: neither adapter tracks Goose per-setting source labels"
+  },
+  "gcc": "gcc (GCC) 16.2.1 20260810",
+  "platform": "Linux-7.2.11-arch1-1-x86_64-with-glibc2.44",
+  "cpu": "Intel(R) Core(TM) Ultra 7 258V",
+  "cpu_affinity": 6,
+  "iterations": 1000,
+  "rounds": 3,
+  "samples_per_run": 7,
+  "source_sha256": {
+    "GOOSE_REVISION": "64e14b181dfe96743211738fb0f1b1f7798ea940da2ca50ff122e6f028c24e15",
+    "bench/compare_bindings.py": "30de893c4b3939a9981902e65e870f2690a49c0d0d07263fb0ea83f0761bdc88",
+    "bench/measure.py": "92119796bb747a9a04482620598e24486b50709ef15f3b62a2002b368c252762",
+    "bench/competitors/go.mod": "e32268f18c9c653622ceb2dfd58621655070074fdc1458499015b44f2f2072d1",
+    "bench/competitors/go.sum": "d0eb0480c6a3457317e19f34659dd9359696201ba89005bd1aad17f6732bf368",
+    "bench/competitors/main.go": "160b468716e04801172e157ebd5db6401dfe18e0b5488281a6b2ba0af53e4fa7",
+    "config.goose": "52d1da23aa807f63f37d297f1cd281bf22a2277497462de32fcfa004932aafb3",
+    "toml.goose": "5ef319b83d8b8318ccb4c9aa22cbbe9ce9bf4f1b530977ed1e324017ad37505e",
+    "vendor.goose": "c4b021a0928444a5f049a99eb7a542689ea6803d0d2e845c86ba43a0fc6c31c1",
+    "json_layer.goose": "ce60981ebf0e3b97608e0bcdc6bb7ce07d83884983e863addcb6548e3a74f772",
+    "bindings.goose": "2ced04c7bd849b0713e07105f2c1cf443a244345eb9e801c31910e0e69b6449c",
+    "reload.goose": "6ebf1a704c516f80a1b0899e2a02865e5072195e77d4abaa34fae54929661fb7",
+    "bench/bindings.goose": "5b45acc2a85ce0bebbb4c62039cf965c3f141c9d3474f342b8e6c529b8bd4a9c"
+  },
+  "binary_sha256": {
+    "compiler": "3f7a34dda0d8fd3e7df27e7ccce09c0844eabc041fc8caa37a362e0ed68b2f07",
+    "goose_benchmark": "b2d033ff18e33e816f76ccaf15acc2f464c77707c63b7d0eec62b270f28eeb9d",
+    "competitors": "d4c15b6990d39fca93d98739b20d2c394d19358855c62e5700a5d089c0abdb71"
+  },
+  "flags": {
+    "goose": "gcc -O2",
+    "go": "go build -mod=readonly -trimpath -buildvcs=false"
+  },
+  "runtime_environment": {
+    "GOOSE_BENCH_PORT": "9000",
+    "GOOSE_BENCH_NAME": "worker",
+    "GOOSE_BENCH_TAG": "a b c",
+    "GOMAXPROCS": "1",
+    "GOGC": "100",
+    "GOMEMLIMIT": "off",
+    "GODEBUG": ""
+  },
+  "smoke_only": false,
+  "limitations": [
+    "Cross-language/runtime successful shared subsets; not feature equivalence or a general performance ranking.",
+    "Native env/CLI fixtures create a fresh snapshot each operation; initialization, registration, parsing, provider loads and three typed getters are timed.",
+    "Environment is exactly three fixture variables plus the explicit Go runtime controls in runtime_environment; builds inherit the ordinary environment.",
+    "Viper BindEnv resolves values lazily through getters; Koanf env/v2 scans os.Environ and materializes a provider map; Goose apply_env eagerly validates declared bindings.",
+    "CLI uses repeated pflag StringArray values without comma splitting, Viper BindPFlags and official Koanf posflag; Goose validates its prepared schema and binding descriptors.",
+    "Reload replays defaults plus three current JSON documents into fresh state, with a 256-item IntegerList replaced in the upper document. Removing the middle port exposes the lower document.",
+    "Goose supplies schema/range/type checks, independently owned i64 lists, atomic validated reload and per-setting sources; adapter paths do not supply these contracts.",
+    "All inputs and layer descriptors are prepared before timing. Default registration and snapshot construction remain timed. No file I/O is timed.",
+    "Each operation checksums port plus list length plus name length. Full final values are checked outside timing; Goose also verifies sources. Checksums must match independently calculated expectations before publication.",
+    "Frequency, thermals and other system load uncontrolled; setup only, no dedicated warmup. One/two-operation records are smoke checks only."
+  ],
+  "runs": [
+    {
+      "round": 0,
+      "library": "goose-config",
+      "raw_stdout": "env-bindings samples_ns=[1944.77, 1563.643, 1592.93, 1620.775, 1589.597, 1775.905, 1595.418] checksum=63063000\ncli-lists samples_ns=[1610.264, 1511.709, 1470.909, 1489.069, 1489.295, 1477.432, 1516.742] checksum=63056000\nreload-layers samples_ns=[25107.644, 22778.229, 21596.918, 21048.181, 21355.135, 20641.136, 20468.209] checksum=61677000\n",
+      "fixtures": {
+        "env-bindings": {
+          "samples_ns": [
+            1944.77,
+            1563.643,
+            1592.93,
+            1620.775,
+            1589.597,
+            1775.905,
+            1595.418
+          ],
+          "median_ns": 1595.418,
+          "checksum": 63063000
+        },
+        "cli-lists": {
+          "samples_ns": [
+            1610.264,
+            1511.709,
+            1470.909,
+            1489.069,
+            1489.295,
+            1477.432,
+            1516.742
+          ],
+          "median_ns": 1489.295,
+          "checksum": 63056000
+        },
+        "reload-layers": {
+          "samples_ns": [
+            25107.644,
+            22778.229,
+            21596.918,
+            21048.181,
+            21355.135,
+            20641.136,
+            20468.209
+          ],
+          "median_ns": 21355.135,
+          "checksum": 61677000
+        }
+      }
+    },
+    {
+      "round": 0,
+      "library": "viper",
+      "raw_stdout": "env-bindings samples_ns=[1718.955,2015.381,2814.392,1825.487,2552.669,2108.605,2434.948] checksum=63063000\ncli-lists samples_ns=[13241.297,12671.668,13721.312,13695.938,19081.704,12669.88,13752.926] checksum=63056000\nreload-layers samples_ns=[173898.454,179353.139,158379.039,182181.218,166037.966,158525.707,160664.34] checksum=61677000\n",
+      "fixtures": {
+        "env-bindings": {
+          "samples_ns": [
+            1718.955,
+            2015.381,
+            2814.392,
+            1825.487,
+            2552.669,
+            2108.605,
+            2434.948
+          ],
+          "median_ns": 2108.605,
+          "checksum": 63063000
+        },
+        "cli-lists": {
+          "samples_ns": [
+            13241.297,
+            12671.668,
+            13721.312,
+            13695.938,
+            19081.704,
+            12669.88,
+            13752.926
+          ],
+          "median_ns": 13695.938,
+          "checksum": 63056000
+        },
+        "reload-layers": {
+          "samples_ns": [
+            173898.454,
+            179353.139,
+            158379.039,
+            182181.218,
+            166037.966,
+            158525.707,
+            160664.34
+          ],
+          "median_ns": 166037.966,
+          "checksum": 61677000
+        }
+      }
+    },
+    {
+      "round": 0,
+      "library": "koanf",
+      "raw_stdout": "env-bindings samples_ns=[10177.814,9369.111,9940.858,9861.52,9042.412,10896.06,9939.008] checksum=63063000\ncli-lists samples_ns=[19666.125,20493.54,19533.86,19123.64,18893.02,20057.795,19293.928] checksum=63056000\nreload-layers samples_ns=[340692.515,325914.315,331068.042,326835.016,383054.198,440872.566,432575.301] checksum=61677000\n",
+      "fixtures": {
+        "env-bindings": {
+          "samples_ns": [
+            10177.814,
+            9369.111,
+            9940.858,
+            9861.52,
+            9042.412,
+            10896.06,
+            9939.008
+          ],
+          "median_ns": 9939.008,
+          "checksum": 63063000
+        },
+        "cli-lists": {
+          "samples_ns": [
+            19666.125,
+            20493.54,
+            19533.86,
+            19123.64,
+            18893.02,
+            20057.795,
+            19293.928
+          ],
+          "median_ns": 19533.86,
+          "checksum": 63056000
+        },
+        "reload-layers": {
+          "samples_ns": [
+            340692.515,
+            325914.315,
+            331068.042,
+            326835.016,
+            383054.198,
+            440872.566,
+            432575.301
+          ],
+          "median_ns": 340692.515,
+          "checksum": 61677000
+        }
+      }
+    },
+    {
+      "round": 1,
+      "library": "viper",
+      "raw_stdout": "env-bindings samples_ns=[1915.052,2092.567,2768.585,1944.497,3415.09,2424.889,2807.372] checksum=63063000\ncli-lists samples_ns=[14148.836,12886.419,13917.818,13572.955,14333.76,13741.02,13830.304] checksum=63056000\nreload-layers samples_ns=[249249.122,221705.454,211478.541,220211.575,221154.22,222202.015,228935.036] checksum=61677000\n",
+      "fixtures": {
+        "env-bindings": {
+          "samples_ns": [
+            1915.052,
+            2092.567,
+            2768.585,
+            1944.497,
+            3415.09,
+            2424.889,
+            2807.372
+          ],
+          "median_ns": 2424.889,
+          "checksum": 63063000
+        },
+        "cli-lists": {
+          "samples_ns": [
+            14148.836,
+            12886.419,
+            13917.818,
+            13572.955,
+            14333.76,
+            13741.02,
+            13830.304
+          ],
+          "median_ns": 13830.304,
+          "checksum": 63056000
+        },
+        "reload-layers": {
+          "samples_ns": [
+            249249.122,
+            221705.454,
+            211478.541,
+            220211.575,
+            221154.22,
+            222202.015,
+            228935.036
+          ],
+          "median_ns": 221705.454,
+          "checksum": 61677000
+        }
+      }
+    },
+    {
+      "round": 1,
+      "library": "koanf",
+      "raw_stdout": "env-bindings samples_ns=[12023.472,10975.254,11282.781,11295.169,10744.184,12049.282,10609.651] checksum=63063000\ncli-lists samples_ns=[24462.481,21728.211,23865.865,22069.513,21126.063,21974.564,22993.683] checksum=63056000\nreload-layers samples_ns=[456191.808,422048.993,437589.412,407660.064,433601.096,429617.962,453201.037] checksum=61677000\n",
+      "fixtures": {
+        "env-bindings": {
+          "samples_ns": [
+            12023.472,
+            10975.254,
+            11282.781,
+            11295.169,
+            10744.184,
+            12049.282,
+            10609.651
+          ],
+          "median_ns": 11282.781,
+          "checksum": 63063000
+        },
+        "cli-lists": {
+          "samples_ns": [
+            24462.481,
+            21728.211,
+            23865.865,
+            22069.513,
+            21126.063,
+            21974.564,
+            22993.683
+          ],
+          "median_ns": 22069.513,
+          "checksum": 63056000
+        },
+        "reload-layers": {
+          "samples_ns": [
+            456191.808,
+            422048.993,
+            437589.412,
+            407660.064,
+            433601.096,
+            429617.962,
+            453201.037
+          ],
+          "median_ns": 433601.096,
+          "checksum": 61677000
+        }
+      }
+    },
+    {
+      "round": 1,
+      "library": "goose-config",
+      "raw_stdout": "env-bindings samples_ns=[1762.625, 1695.623, 1688.816, 1672.041, 1834.32, 1766.227, 1641.055] checksum=63063000\ncli-lists samples_ns=[1628.738, 1623.269, 1558.922, 1594.077, 1570.995, 1598.834, 1635.338] checksum=63056000\nreload-layers samples_ns=[27754.516, 27502.264, 27733.402, 28391.526, 27501.747, 26978.533, 26872.053] checksum=61677000\n",
+      "fixtures": {
+        "env-bindings": {
+          "samples_ns": [
+            1762.625,
+            1695.623,
+            1688.816,
+            1672.041,
+            1834.32,
+            1766.227,
+            1641.055
+          ],
+          "median_ns": 1695.623,
+          "checksum": 63063000
+        },
+        "cli-lists": {
+          "samples_ns": [
+            1628.738,
+            1623.269,
+            1558.922,
+            1594.077,
+            1570.995,
+            1598.834,
+            1635.338
+          ],
+          "median_ns": 1598.834,
+          "checksum": 63056000
+        },
+        "reload-layers": {
+          "samples_ns": [
+            27754.516,
+            27502.264,
+            27733.402,
+            28391.526,
+            27501.747,
+            26978.533,
+            26872.053
+          ],
+          "median_ns": 27502.264,
+          "checksum": 61677000
+        }
+      }
+    },
+    {
+      "round": 2,
+      "library": "koanf",
+      "raw_stdout": "env-bindings samples_ns=[9696.612,10026.469,10470.078,12111.356,10267.763,11876.113,10498.121] checksum=63063000\ncli-lists samples_ns=[21936.055,21894.692,20549.912,21133.577,23510.487,26962.052,23626.768] checksum=63056000\nreload-layers samples_ns=[388962.806,444314.312,443072.077,495587.264,404983.53,404439.754,375909.256] checksum=61677000\n",
+      "fixtures": {
+        "env-bindings": {
+          "samples_ns": [
+            9696.612,
+            10026.469,
+            10470.078,
+            12111.356,
+            10267.763,
+            11876.113,
+            10498.121
+          ],
+          "median_ns": 10470.078,
+          "checksum": 63063000
+        },
+        "cli-lists": {
+          "samples_ns": [
+            21936.055,
+            21894.692,
+            20549.912,
+            21133.577,
+            23510.487,
+            26962.052,
+            23626.768
+          ],
+          "median_ns": 21936.055,
+          "checksum": 63056000
+        },
+        "reload-layers": {
+          "samples_ns": [
+            388962.806,
+            444314.312,
+            443072.077,
+            495587.264,
+            404983.53,
+            404439.754,
+            375909.256
+          ],
+          "median_ns": 404983.53,
+          "checksum": 61677000
+        }
+      }
+    },
+    {
+      "round": 2,
+      "library": "goose-config",
+      "raw_stdout": "env-bindings samples_ns=[1790.957, 1531.557, 1540.563, 1615.615, 1507.392, 1531.873, 1503.098] checksum=63063000\ncli-lists samples_ns=[1479.651, 1477.942, 1440.264, 1620.899, 1510.695, 1459.475, 1440.579] checksum=63056000\nreload-layers samples_ns=[27259.57, 27600.898, 27395.556, 26400.483, 25655.661, 25826.912, 26733.797] checksum=61677000\n",
+      "fixtures": {
+        "env-bindings": {
+          "samples_ns": [
+            1790.957,
+            1531.557,
+            1540.563,
+            1615.615,
+            1507.392,
+            1531.873,
+            1503.098
+          ],
+          "median_ns": 1531.873,
+          "checksum": 63063000
+        },
+        "cli-lists": {
+          "samples_ns": [
+            1479.651,
+            1477.942,
+            1440.264,
+            1620.899,
+            1510.695,
+            1459.475,
+            1440.579
+          ],
+          "median_ns": 1477.942,
+          "checksum": 63056000
+        },
+        "reload-layers": {
+          "samples_ns": [
+            27259.57,
+            27600.898,
+            27395.556,
+            26400.483,
+            25655.661,
+            25826.912,
+            26733.797
+          ],
+          "median_ns": 26733.797,
+          "checksum": 61677000
+        }
+      }
+    },
+    {
+      "round": 2,
+      "library": "viper",
+      "raw_stdout": "env-bindings samples_ns=[1830.032,1770.134,3022.243,1722.093,3020.477,2317.288,2812.304] checksum=63063000\ncli-lists samples_ns=[14363.284,11789.786,13488.252,12141.148,10934.916,12083.699,12464.276] checksum=63056000\nreload-layers samples_ns=[177412.327,194802.953,154344.389,179192.848,201888.316,185282.412,182136.305] checksum=61677000\n",
+      "fixtures": {
+        "env-bindings": {
+          "samples_ns": [
+            1830.032,
+            1770.134,
+            3022.243,
+            1722.093,
+            3020.477,
+            2317.288,
+            2812.304
+          ],
+          "median_ns": 2317.288,
+          "checksum": 63063000
+        },
+        "cli-lists": {
+          "samples_ns": [
+            14363.284,
+            11789.786,
+            13488.252,
+            12141.148,
+            10934.916,
+            12083.699,
+            12464.276
+          ],
+          "median_ns": 12141.148,
+          "checksum": 63056000
+        },
+        "reload-layers": {
+          "samples_ns": [
+            177412.327,
+            194802.953,
+            154344.389,
+            179192.848,
+            201888.316,
+            185282.412,
+            182136.305
+          ],
+          "median_ns": 182136.305,
+          "checksum": 61677000
+        }
+      }
+    }
+  ],
+  "median_of_run_medians_ns": {
+    "goose-config": {
+      "env-bindings": 1595.418,
+      "cli-lists": 1489.295,
+      "reload-layers": 26733.797
+    },
+    "viper": {
+      "env-bindings": 2317.288,
+      "cli-lists": 13695.938,
+      "reload-layers": 182136.305
+    },
+    "koanf": {
+      "env-bindings": 10470.078,
+      "cli-lists": 21936.055,
+      "reload-layers": 404983.53
+    }
+  }
+}

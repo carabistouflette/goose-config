@@ -37,7 +37,7 @@ preserves them. Aliases are not dynamic registration or a deprecation-warning AP
 
 No compiler, native dependency or vendored parser change is required. The
 [sustained-fuzz release gate](release.md) remains open; no release tag is implied.
-
+See [validation](alias-validation.md) and [measured costs and controls](alias-performance.md).
 
 ```goose
 let schema = [config::Field { "server.timeout", config::Kind.Duration }];

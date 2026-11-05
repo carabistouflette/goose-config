@@ -100,7 +100,7 @@ Breaking changes require a new minor version before 1.0. Until v0.1.0 is tagged,
 this remains a release-candidate contract. No binary ABI is promised.
 
 All other visible symbols are internal: Store fields, Span/Item/Value/Candidate/
-OwnedField/BoundSpan/JsonReader, lookup constants, helpers, `config_toml`, and
+OwnedField/OwnedAlias/BoundSpan/JsonReader, lookup constants, helpers, `config_toml`, and
 storage/layout/algorithm/timing behavior. `publish_store` requires distinct
 stores and is not a public clone API.
 

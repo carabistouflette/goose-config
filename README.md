@@ -76,6 +76,7 @@ currently target a Linux development environment.
 
 [Key aliases](docs/aliases.md) support declared setting renames across every
 input layer and getter, with canonical duplicate detection and atomic failures.
+See [validation](docs/alias-validation.md) and [measured costs and controls](docs/alias-performance.md).
 
 [Duration settings](docs/durations.md) add typed nanoseconds and lists, checked
 compound-unit parsing, and consistent JSON/TOML/env/CLI/reload validation.
@@ -202,6 +203,7 @@ formatting, copy, sizing and growable-buffer parser overloads.
 ## Costs and limits
 
 - Schema and one override batch: at most **256** settings.
+- Aliases: at most **256**, each naming one canonical field.
 - Key and source label: at most **256 bytes** each.
 - Scalar Text or combined Text-list payload: at most **4096 bytes per value**.
 - Homogeneous lists: at most **256 elements per list**.
@@ -233,8 +235,10 @@ first declared field. Metadata and validation errors
 retain declaration order. Comparisons skip equal 16-byte blocks, then eight-byte blocks, using
 bounds-checked slices; no unaligned casts are involved. Full equality establishes
 key identity, and adversarial collisions retain a fixed probe bound plus the
-sorted fallback. Layer validation performs one bounded lookup per entry; TOML
-table-prefix validation remains linear in schema size. Commit uses a fixed
+sorted fallback. Aliases add a bounded binary search on canonical misses;
+registration checks field/name conflicts and sorts at most 256 owned entries.
+Alias-aware layers also check duplicate resolved targets. TOML table-prefix
+validation remains linear in schema plus alias count. Commit uses a fixed
 field-indexed replacement map and a staged live arena for the general case.
 A single present scalar with unchanged combined source/text byte length instead
 stages its replacement bytes and overwrites exactly its existing block, preserving
@@ -243,6 +247,8 @@ overloads. Length changes, missing values, lists and multi-key layers still use
 the general rebuild, copying all current text and source bytes.
 Persistent logical payload is bounded by
 256 × (4096 + 256) bytes plus at most 256 × 256 key bytes and fixed-size metadata.
+Aliases add at most 256 × 256 owned key bytes and 256 key-span/target records;
+initialization stages this metadata before replacing it.
 The wide-schema accelerator adds 512 machine integers (4 KiB logical payload);
 initialization stages another such index before replacing the current one.
 Lists add at most 65,536 fixed-size item records across the store.
