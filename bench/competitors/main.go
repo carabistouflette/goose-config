@@ -48,8 +48,8 @@ func run(args []string) error {
 	if len(args) == 1 && args[0] == "metadata" {
 		return metadata()
 	}
-	if len(args) < 1 || len(args) > 3 || (args[0] != "viper" && args[0] != "koanf") || (len(args) == 3 && args[2] != "common" && args[2] != "bindings") {
-		return fmt.Errorf("usage: competitors {viper|koanf} [count:1..100000] [common|bindings] | metadata")
+	if len(args) < 1 || len(args) > 3 || (args[0] != "viper" && args[0] != "koanf") || (len(args) == 3 && args[2] != "common" && args[2] != "bindings" && args[2] != "durations") {
+		return fmt.Errorf("usage: competitors {viper|koanf} [count:1..100000] [common|bindings|durations] | metadata")
 	}
 	count := 1000
 	if len(args) >= 2 {
@@ -58,6 +58,9 @@ func run(args []string) error {
 		if err != nil || count < 1 || count > 100000 {
 			return fmt.Errorf("count must be an integer from 1 through 100000")
 		}
+	}
+	if len(args) == 3 && args[2] == "durations" {
+		return durations(args[0], count)
 	}
 	if len(args) == 3 && args[2] == "bindings" {
 		if args[0] == "viper" {
@@ -672,4 +675,100 @@ func reloadLayersKoanf(count int) error {
 		return err
 	}
 	return report("reload-layers", times, checksum, reloadLayerChecksum(count))
+}
+
+// Valid shared inputs only. CONFIG performs schema/atomicity/provenance work
+// that these dynamic getters do not supply. Parsing occurs on different sides
+// of the write/get boundary; see docs/duration-performance.md.
+func durations(label string, count int) error {
+	texts := []string{"250ms", "1.5s"}
+	jsonDocuments := []string{`{"delay":"250ms"}`, `{"delay":"1.5s"}`}
+	tomlDocuments := []string{"delay='250ms'", "delay='1.5s'"}
+	for mode, name := range []string{"duration-get", "duration-override", "duration-json", "duration-toml"} {
+		v := viper.New()
+		k := koanf.New(".")
+		v.SetConfigType(map[bool]string{true: "toml", false: "json"}[mode == 3])
+		if label == "viper" {
+			v.Set("delay", "250ms")
+		} else if err := k.Set("delay", "250ms"); err != nil {
+			return err
+		}
+		// Viper Set overrides file data; clear that initial override for file cases.
+		if label == "viper" && mode >= 2 {
+			v = viper.New()
+			if mode == 2 {
+				v.SetConfigType("json")
+			} else {
+				v.SetConfigType("toml")
+			}
+		}
+		if mode == 0 {
+			if label == "viper" {
+				v.Set("other", "1.5s")
+			} else if err := k.Set("other", "1.5s"); err != nil {
+				return err
+			}
+		}
+		var times [samples]float64
+		var checksum int64
+		for sample := range times {
+			start := time.Now()
+			for i := 0; i < count; i++ {
+				key := "delay"
+				if mode == 0 && i%2 == 1 {
+					key = "other"
+				}
+				var err error
+				if label == "viper" {
+					switch mode {
+					case 1:
+						v.Set("delay", texts[i%2])
+					case 2:
+						err = v.ReadConfig(strings.NewReader(jsonDocuments[i%2]))
+					case 3:
+						err = v.ReadConfig(strings.NewReader(tomlDocuments[i%2]))
+					}
+					if err != nil {
+						return err
+					}
+					checksum += int64(v.GetDuration(key))
+				} else {
+					switch mode {
+					case 1:
+						err = k.Set("delay", texts[i%2])
+					case 2:
+						err = k.Load(rawbytes.Provider([]byte(jsonDocuments[i%2])), jsonparser.Parser())
+					case 3:
+						err = k.Load(rawbytes.Provider([]byte(tomlDocuments[i%2])), toml.Parser())
+					}
+					if err != nil {
+						return err
+					}
+					checksum += int64(k.Duration(key))
+				}
+			}
+			times[sample] = float64(time.Since(start).Nanoseconds()) / float64(count)
+		}
+		expected := int64(samples) * (int64((count+1)/2)*250000000 + int64(count/2)*1500000000)
+		final := time.Duration(250000000)
+		if mode != 0 && count%2 == 0 {
+			final = 1500000000
+		}
+		if label == "viper" {
+			if v.GetDuration("delay") != final || len(v.AllSettings()) != map[bool]int{true: 2, false: 1}[mode == 0] {
+				return fmt.Errorf("viper duration final mismatch")
+			}
+		} else {
+			if k.Duration("delay") != final || len(k.All()) != map[bool]int{true: 2, false: 1}[mode == 0] {
+				return fmt.Errorf("koanf duration final mismatch")
+			}
+		}
+		if mode == 0 && ((label == "viper" && v.GetDuration("other") != 1500000000) || (label == "koanf" && k.Duration("other") != 1500000000)) {
+			return fmt.Errorf("duration other final mismatch")
+		}
+		if err := report(name, times, checksum, expected); err != nil {
+			return err
+		}
+	}
+	return nil
 }

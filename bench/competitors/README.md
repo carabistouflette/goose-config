@@ -221,3 +221,10 @@ provenance, rotates the three-library order over three default rounds, and
 atomically publishes the complete record after all checks succeed.
 Counts 1 and 2 are marked `smoke_only` and verify both port-definition and
 removal branches; they are correctness checks, not performance evidence.
+
+Duration mode (`competitors viper|koanf COUNT durations`) compares a two-key
+mixed getter and one-key textual/JSON/TOML writes plus public duration getters.
+All values are exact250ms/1.5s. CONFIG eagerly validates/stores nanoseconds;
+dynamic getters interpret their stored values. See the full
+[measurement contracts](../../docs/duration-performance.md) before interpreting
+these successful-subset timings. No new dependency versions are introduced.
