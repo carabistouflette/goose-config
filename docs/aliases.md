@@ -2,10 +2,10 @@
 
 `Alias { key, target }` maps an additional setting name to a declared canonical
 schema field. Both strings use the ordinary bounded dotted-key grammar. Register
-aliases with the optional final parameter to `init(schema, store, aliases)` or
+aliases with the additional final argument to `init(schema, store, aliases)` or
 `reload(schema, layers, store, aliases)`. Existing calls remain valid.
 
-There are at most `MAX_ALIASES=256` aliases, with keys and targets at most256
+There are at most `MAX_ALIASES=256` aliases, with keys and targets at most 256
 bytes. Targets must exist in the new canonical schema. Alias chains, self-aliases,
 unknown targets, duplicate names and any leaf-prefix collision with another
 alias or canonical field are rejected. Multiple aliases may target one field.
@@ -37,3 +37,14 @@ preserves them. Aliases are not dynamic registration or a deprecation-warning AP
 
 No compiler, native dependency or vendored parser change is required. The
 [sustained-fuzz release gate](release.md) remains open; no release tag is implied.
+
+
+```goose
+let schema = [config::Field { "server.timeout", config::Kind.Duration }];
+let aliases = [config::Alias { "server.old_timeout", "server.timeout" }];
+var store = config::Store { .. };
+assert(config::init(schema, store, aliases).len == 0);
+assert(config::apply(store, [config::Override { "server.old_timeout", "1s", "cli" }]).len == 0);
+let timeout, error = config::get_duration(store, "server.timeout");
+assert(error.len == 0 && timeout.nanoseconds == 1000000000);
+```

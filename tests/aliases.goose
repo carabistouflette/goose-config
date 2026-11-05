@@ -65,7 +65,7 @@ fn main() {
     assert(config::reload(schema, canonical, store).len == 0);
     let missing, me = config::get_duration(store, "old.timeout"); assert(me.len > 0);
     for value, i in owned { assert(value == (if i == 0 { "one" } else { "two" })); }
-    limits_and_ownership(); reinitialize_targets(); metadata_boundaries(); print("alias tests passed");
+    limits_and_ownership(); reinitialize_targets(); metadata_boundaries(); maximum_bindings(); print("alias tests passed");
 }
 fn limits_and_ownership() {
     let schema = [config::Field { "value", config::Kind.Integer }];
@@ -129,4 +129,32 @@ fn native_alias() {
     let value, error = config::get_integer(store, "legacy"); assert(error.len == 0 && value == -9);
     let source, issue = config::source(store, "value"); assert(issue.len == 0 && source == "GOOSE_CONFIG_TEST_NUMBER");
     print("native alias environment test passed");
+}
+fn maximum_bindings() {
+    var keys: u8[][>..] = []; var old_keys: u8[][>..] = []; var env_names: u8[][>..] = [];
+    for i in config::MAX_FIELDS { keys.push(str("key", i)); old_keys.push(str("legacy", i)); env_names.push(str("ENV", i)); }
+    var key_views: const u8[:][>..] = []; var old_views: const u8[:][>..] = []; var env_views: const u8[:][>..] = [];
+    for key in keys { key_views.push(key); } for key in old_keys { old_views.push(key); } for name in env_names { env_views.push(name); }
+    var schema:   config::Field[>..]   = []; var aliases: config::Alias[>..] = [];
+    var bindings: config::Binding[>..] = []; var values: config::EnvValue[>..] = [];
+    for i in config::MAX_FIELDS {
+        schema.push(config::Field { key_views[i], config::Kind.Integer });
+        aliases.push(config::Alias { old_views[i], key_views[i] });
+        bindings.push(config::Binding { old_views[i], env_views[i] });
+        values.push(config::EnvValue { env_views[i], "42" });
+    }
+    var store = config::Store { .. }; assert(config::init(schema, store, aliases).len == 0);
+    assert(config::apply_env_values(store, bindings, values).len == 0);
+    for i in config::MAX_FIELDS {
+        let value, error = config::get_integer(store, key_views[i]);
+        let source, issue = config::source(store, old_views[i]);
+        assert(error.len == 0 && value == 42 && issue.len == 0 && source == env_views[i]);
+    }
+    assert(config::init(schema, store).len == 0);
+    var canonical_bindings: config::Binding[>..] = [];
+    for i in config::MAX_FIELDS { canonical_bindings.push(config::Binding { key_views[i], env_views[i] }); }
+    assert(config::apply_env_values(store, canonical_bindings, values).len == 0);
+    for i in config::MAX_FIELDS {
+        let value, error = config::get_integer(store, key_views[i]); assert(error.len == 0 && value == 42);
+    }
 }

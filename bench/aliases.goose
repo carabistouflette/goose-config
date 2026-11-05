@@ -4,9 +4,12 @@ import std;
 import os;
 const SAMPLES = 7;
 fn alias_scenario(count: i64, fields: i64, long_prefix: bool, mode: i64) {
-    var names:     u8[][>..] = [];
-    var old_names: u8[][>..] = [];
-    var prefix:    u8[>..]   = []; if long_prefix { for i in 230 { prefix.push('p'); } }
+    var names:       u8[][>..] = [];
+    var value_texts: u8[][>..] = [];
+    for i in fields { value_texts.push(str(i + 1)); }
+    var value_views: const u8[:][>..] = []; for text in value_texts { value_views.push(text); }
+    var old_names:   u8[][>..]        = [];
+    var prefix:      u8[>..]          = []; if long_prefix { for i in 230 { prefix.push('p'); } }
     for i in fields { names.push(str(prefix, "field", i)); old_names.push(str(prefix, "alias", i)); }
     var keys: const u8[:][>..] = []; var old_keys: const u8[:][>..] = [];
     for key in names { keys.push(key); } for key in old_names { old_keys.push(key); }
@@ -16,8 +19,9 @@ fn alias_scenario(count: i64, fields: i64, long_prefix: bool, mode: i64) {
     for key, i in keys {
         schema.push(config::Field { key, config::Kind.Integer });
         aliases.push(config::Alias { old_keys[i], key });
-        inputs.push(config::Override { key, "42", "seed" });
+        inputs.push(config::Override { key, value_views[i], "seed" });
     }
+    let missing = str(prefix, "missing");
     var store = config::Store { .. };
     assert(config::init(schema, store, aliases).len == 0);
     assert(config::apply(store, inputs).len == 0);
@@ -27,15 +31,15 @@ fn alias_scenario(count: i64, fields: i64, long_prefix: bool, mode: i64) {
         for i in count {
             let id = (i * 73) % fields;
             if mode == 2 {
-                let value, error = config::get_integer(store, "missing"); assert(error.len > 0); checksum += error.len;
+                let value, error = config::get_integer(store, missing); assert(error.len > 0); checksum += error.len;
             } else {
                 let value, error = config::get_integer(store, if mode == 0 { keys[id] } else { old_keys[id] });
-                assert(error.len == 0 && value == 42); checksum += value;
+                assert(error.len == 0 && value == id + 1); checksum += value;
             }
         }
         samples[sample] = (clock_ns() - start) / (count as f64);
     }
-    for key in old_names { let value, error = config::get_integer(store, key); assert(error.len == 0 && value == 42); }
+    for key, i in old_names { let value, error = config::get_integer(store, key); assert(error.len == 0 && value == i + 1); }
     let name = str(if mode == 0 { "canonical" } else if mode == 1 { "alias" } else { "missing" }, "-", fields, if long_prefix { "-long" } else { "" });
     print(name, " samples_ns=", samples, " checksum=", checksum);
 }
