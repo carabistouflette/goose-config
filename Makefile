@@ -25,6 +25,7 @@ check:
 	$(GOOSE) check bench/durations.goose
 	$(GOOSE) check bench/aliases.goose
 test: integration
+	python3 tests/benchmark_aliases.py
 	python3 tests/benchmark_duration.py
 	python3 tests/benchmark_measure.py
 	python3 tests/benchmark_memory.py

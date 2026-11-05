@@ -20,6 +20,14 @@ def run(command, **kwargs):
     p = subprocess.run(list(map(str,command)),capture_output=True,text=True,check=True,timeout=180,**kwargs)
     return p.stdout
 
+def parse_aliases(output, iterations):
+    fixtures = parse_fixtures(output, NAMES)
+    expected = {size: 7 * sum((i * 73) % size + 1 for i in range(iterations)) for size in (8, 256)}
+    for key, row in fixtures.items():
+        if not key.startswith('missing-') and row['checksum'] != expected[int(key.split('-')[1])]:
+            raise ValueError('wrong lookup checksum')
+    return fixtures
+
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--goose',type=Path,required=True); p.add_argument('--revision',default='HEAD')
@@ -54,22 +62,44 @@ def main():
         if a.disassembly_output is not None:
             assembly=run(['objdump','-d',binary]);a.disassembly_output.parent.mkdir(parents=True,exist_ok=True);a.disassembly_output.write_text(assembly);assembly_hash=sha(assembly.encode())
         identities={'compiler':sha(compiler.read_bytes()),'benchmark':sha(binary.read_bytes())}
+        for count in (1,2,3):
+            preflight=subprocess.run([str(binary),str(count)],env=env,capture_output=True,text=True,timeout=120,check=True)
+            if preflight.stderr:raise ValueError(preflight.stderr)
+            parse_aliases(preflight.stdout,count)
         measurements=[]; reference=None
         for i in range(a.runs):
             r=subprocess.run([str(binary),str(a.iterations)],env=env,capture_output=True,text=True,timeout=120,check=True)
             if r.stderr:raise ValueError(r.stderr)
-            fixtures=parse_fixtures(r.stdout,NAMES)
+            fixtures=parse_aliases(r.stdout,a.iterations)
             sums={key:row['checksum'] for key,row in fixtures.items()}
-            for key,checksum in sums.items():
-                if not key.startswith('missing-'):
-                    size=int(key.split('-')[1]); expected=7*sum((i*73)%size+1 for i in range(a.iterations))
-                    if checksum!=expected:raise ValueError('wrong lookup checksum')
             if reference is not None and sums!=reference:raise ValueError('unstable checksums')
             reference=sums
             measurements.append({'run':i,'raw_stdout':r.stdout,'fixtures':fixtures})
         if identity_inputs!={str(i):sha(i.read_bytes()) for i in inputs}:raise ValueError('toolchain input changed')
         if identities!={'compiler':sha(compiler.read_bytes()),'benchmark':sha(binary.read_bytes())}:raise ValueError('binary changed')
-        record={'recorded_utc':datetime.now(timezone.utc).isoformat(),'revision':rev,'compiler_revision':pin,'compiler_version':version,'platform':platform.platform(),'cpu':cpu,'warmup':'none; first batch included','native_disassembly_sha256':assembly_hash,'toolchain_input_sha256':{str(i.relative_to(compiler.parent.parent)) if i.is_relative_to(compiler.parent.parent) else ('gcc' if i==gcc else 'bench/measure.py'):v for i,v in ((Path(k),v) for k,v in identity_inputs.items())},'cpu_affinity':sorted(os.sched_getaffinity(0)),'gcc':run(['gcc','--version']).splitlines()[0],'flags':'GCC -O2','iterations':a.iterations,'runs':a.runs,'source_sha256':hashes,'binary_sha256':identities,'recorder_sha256':sha(Path(__file__).read_bytes()),'limitations':['Shared host; no isolation or causal ranking.','One caller; fixed fixture order, setup outside timed loops.','Canonical-hit cases still have aliases configured; use paired core results for ordinary stores.','Missing-key cases include owned diagnostics. No memory or initialization timings.'],'measurements':measurements,'median_of_run_medians_ns':{key:statistics.median(r['fixtures'][key]['median_ns'] for r in measurements) for key in NAMES}}
+        record = {
+            'smoke_only': a.iterations <= 2,
+            'recorded_utc': datetime.now(timezone.utc).isoformat(),
+            'revision': rev,
+            'compiler_revision': pin,
+            'compiler_version': version,
+            'platform': platform.platform(),
+            'cpu': cpu,
+            'warmup': 'none; first batch included',
+            'native_disassembly_sha256': assembly_hash,
+            'toolchain_input_sha256': {str(i.relative_to(compiler.parent.parent)) if i.is_relative_to(compiler.parent.parent) else ('gcc' if i==gcc else 'bench/measure.py'):v for i,v in ((Path(k),v) for k,v in identity_inputs.items())},
+            'cpu_affinity': sorted(os.sched_getaffinity(0)),
+            'gcc': run(['gcc','--version']).splitlines()[0],
+            'flags': 'GCC -O2',
+            'iterations': a.iterations,
+            'runs': a.runs,
+            'source_sha256': hashes,
+            'binary_sha256': identities,
+            'recorder_sha256': sha(Path(__file__).read_bytes()),
+            'limitations': ['Shared host; no isolation or causal ranking.','One caller; fixed fixture order, setup outside timed loops.','Canonical-hit cases still have aliases configured; use paired core results for ordinary stores.','Missing-key cases include owned diagnostics. No memory or initialization timings.'],
+            'measurements': measurements,
+            'median_of_run_medians_ns': {key:statistics.median(r['fixtures'][key]['median_ns'] for r in measurements) for key in NAMES},
+        }
         write_record(a.output,record)
         print(record['median_of_run_medians_ns'])
 if __name__=='__main__':main()
