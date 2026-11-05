@@ -30,6 +30,21 @@ def run(command, **kwargs):
 def sha(data):
     return hashlib.sha256(data).hexdigest()
 
+def verify_binaries(workspace, hashes):
+    if not isinstance(hashes, dict) or set(hashes) != {'before', 'after'}:
+        raise ValueError('cached binary inventory must contain before and after')
+    for label, digest in hashes.items():
+        if sha((workspace/label).read_bytes()) != digest:
+            raise ValueError('cached binary changed')
+
+def classify(medians, max_ratio, tolerance):
+    if medians['before-A'] <= 0:
+        return None, None, 'inconclusive'
+    ratio = medians['after']/medians['before-A']
+    control = medians['before-B']/medians['before-A']
+    verdict = 'inconclusive' if abs(control-1) > tolerance else 'regression' if ratio > max_ratio else 'within-budget'
+    return ratio, control, verdict
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--goose', type=Path, required=True)
@@ -43,6 +58,7 @@ def main():
     p.add_argument('--iterations', type=int, default=100000)
     p.add_argument('--fields', type=int, default=1)
     p.add_argument('--width', type=int, default=1)
+    p.add_argument('--case', choices=('lookup', 'integer-update'), default='lookup')
     p.add_argument('--seed', type=int, default=606)
     p.add_argument('--max-ratio', type=float, default=1.15)
     p.add_argument('--control-tolerance', type=float, default=.10)
@@ -61,18 +77,22 @@ def main():
     pins = [run(['git', 'show', f'{ref}:GOOSE_REVISION'], cwd=ROOT).strip() for ref in revisions.values()]
     version = run([compiler, '--version']).strip()
     if pins[0] != pins[1] or not version.startswith(f'goose {pins[0][:7]} '): p.error('compiler pin mismatch')
-    harness = run(['git', 'show', f'{HARNESS_REF}:bench/bench.goose'], cwd=ROOT)
-    marker = '    scenario("lookup-small"'
+    harness_path = 'bench/bench.goose' if a.case == 'lookup' else 'bench/updates.goose'
+    harness = run(['git', 'show', f'{HARNESS_REF}:{harness_path}'], cwd=ROOT)
+    marker = '    scenario("lookup-small"' if a.case == 'lookup' else '    scenario("update-text-boundary-large"'
     if harness.count(marker) != 1: raise ValueError('frozen harness marker changed')
-    harness = harness[:harness.index(marker)] + f'    scenario("lookup-first-wide", count, {a.fields}, {a.width}, 0);\n}}\n'
+    fixture = 'lookup-first-wide' if a.case == 'lookup' else 'update-integer-large'
+    call = f'    scenario("{fixture}", count, {a.fields}, {a.width}, 0);\n}}\n' if a.case == 'lookup' else f'    scenario("{fixture}", count, 2);\n}}\n'
+    harness = harness[:harness.index(marker)] + call
     source_hashes = {label: {name: sha(subprocess.check_output(['git','show',f'{ref}:{name}'], cwd=ROOT,timeout=30))
                              for name in MODULES} for label, ref in revisions.items()}
     gcc = Path(shutil.which('gcc')).resolve(strict=True)
-    inputs = [gcc, ROOT/'bench/measure.py', *sorted((compiler.parent.parent/'stdlib').rglob('*.goose')),
+    script_hash = sha(Path(__file__).read_bytes())
+    inputs = [gcc, ROOT/'bench/measure.py', compiler.parent.parent/'src/runtime_inline.h', *sorted((compiler.parent.parent/'stdlib').rglob('*.goose')),
               *sorted((compiler.parent.parent/'src/runtime').glob('*.h'))]
     input_hashes = {str(path): sha(path.read_bytes()) for path in inputs}
     expected = {'revisions': revisions, 'source_sha256': source_hashes, 'compiler_sha256': sha(compiler.read_bytes()),
-                'input_sha256': input_hashes, 'harness_sha256': sha(harness.encode()), 'flags': 'GCC -O2'}
+                'input_sha256': input_hashes, 'harness_sha256': sha(harness.encode()), 'recorder_sha256': script_hash, 'flags': 'GCC -O2'}
     workspace = a.workspace.resolve()
     manifest = workspace/'manifest.json'
     if a.reuse:
@@ -90,8 +110,7 @@ def main():
             run([compiler,'build',active/'bench/updates.goose','--cc','gcc','-O2','-o',workspace/label],env=env)
         cached = {'inputs': expected, 'binary_sha256': {label: sha((workspace/label).read_bytes()) for label in revisions}}
         manifest.write_text(json.dumps(cached,indent=2)+'\n')
-    for label, digest in cached['binary_sha256'].items():
-        if sha((workspace/label).read_bytes()) != digest: raise ValueError('cached binary changed')
+    verify_binaries(workspace, cached['binary_sha256'])
     rng = random.Random(a.seed); rows = []; started = datetime.now(timezone.utc).isoformat()
     for round_id in range(a.rounds):
         order = ['before-A','before-B','after']; rng.shuffle(order)
@@ -99,18 +118,18 @@ def main():
             binary = workspace/('after' if label == 'after' else 'before')
             result = subprocess.run([str(binary),str(a.iterations)],capture_output=True,text=True,check=True,timeout=120)
             if result.stderr: raise ValueError(result.stderr)
-            row = parse_fixtures(result.stdout,('lookup-first-wide',))['lookup-first-wide']
-            if row['checksum'] != 7*a.iterations*a.width: raise ValueError('incorrect lookup checksum')
+            row = parse_fixtures(result.stdout,(fixture,))[fixture]
+            total = 7*a.iterations
+            checksum = total*a.width if a.case == 'lookup' else 17*((total+1)//2)+29*(total//2)
+            if row['checksum'] != checksum: raise ValueError('incorrect fixture checksum')
             rows.append({'round':round_id,'label':label,'raw_stdout':result.stdout,**row})
     medians = {label: statistics.median(r['median_ns'] for r in rows if r['label']==label)
                for label in ('before-A','before-B','after')}
-    ratio = medians['after']/medians['before-A']; control = medians['before-B']/medians['before-A']
-    stable = abs(control-1) <= a.control_tolerance
-    verdict = 'inconclusive' if not stable else 'regression' if ratio > a.max_ratio else 'within-budget'
+    ratio, control, verdict = classify(medians, a.max_ratio, a.control_tolerance)
     if sha(compiler.read_bytes()) != expected['compiler_sha256'] or input_hashes != {str(path):sha(path.read_bytes()) for path in inputs}:
         raise ValueError('toolchain changed')
-    for label,digest in cached['binary_sha256'].items():
-        if sha((workspace/label).read_bytes()) != digest: raise ValueError('binary changed')
+    verify_binaries(workspace, cached['binary_sha256'])
+    if sha(Path(__file__).read_bytes()) != script_hash: raise ValueError('recorder changed')
     # The private cache manifest has exact local input paths. Public results use
     # only paths relative to the toolchain and generic GCC/helper labels.
     public_inputs = {str(path.relative_to(compiler.parent.parent)) if path.is_relative_to(compiler.parent.parent)
@@ -119,7 +138,8 @@ def main():
               'revisions':revisions,'source_sha256':source_hashes,'compiler_version':version,
               'compiler_sha256':expected['compiler_sha256'],'toolchain_input_sha256':public_inputs,
               'binary_sha256':cached['binary_sha256'],'harness_ref':HARNESS_REF,'harness_sha256':expected['harness_sha256'],
-              'fields':a.fields,'value_bytes':a.width,'iterations':a.iterations,'rounds':a.rounds,'seed':a.seed,
+              'recorder_sha256':script_hash,'fixture':fixture,'harness_path':harness_path,
+              'fields':a.fields if a.case == 'lookup' else 256,'value_bytes':a.width if a.case == 'lookup' else 4096,'iterations':a.iterations,'rounds':a.rounds,'seed':a.seed,
               'cpu_affinity':sorted(os.sched_getaffinity(0)),'flags':'GCC -O2','shared_host':True,
               'max_ratio':a.max_ratio,'control_tolerance':a.control_tolerance,'rows':rows,'medians_ns':medians,
               'after_before':ratio,'identical_binary_control':control,'verdict':verdict,
@@ -127,6 +147,6 @@ def main():
                              'Ratio budget is a diagnostic signal, not a causal percentage or CI performance guarantee.',
                              'Identical binary is reused only for before-A/B within this invocation.']}
     write_record(a.output,record)
-    print(f'{verdict}: after/before={ratio:.3f}, identical-binary control={control:.3f}')
-    return 2 if not stable else 1 if verdict=='regression' else 0
+    print(f'{verdict}: after/before={ratio}, identical-binary control={control}')
+    return 2 if verdict=='inconclusive' else 1 if verdict=='regression' else 0
 if __name__=='__main__':sys.exit(main())
