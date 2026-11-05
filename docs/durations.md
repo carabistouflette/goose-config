@@ -67,8 +67,8 @@ bindings use the same parser. Negative CLI values may use `--delay=-1s` or a
 separate `--delay -1s`; ordinary binding rules still apply. Duration lists use
 `ListOverride`, environment separators and repeated CLI flags just like other
 numeric lists. Empty environment text clears a list, whereas empty scalar text
-is invalid. Each list has at most256 items, each capped at128 bytes: at most
-32,768 decoded duration-token bytes. The4,096 aggregate retained-Text limit does
+is invalid. Each list has at most 256 items, each capped at 128 bytes: at most
+32,768 decoded duration-token bytes. The 4,096 aggregate retained-Text limit does
 not apply to numeric duration payloads. Environment/CLI value caps and the JSON/
 TOML document, work, depth and node limits still apply before/while parsing.
 

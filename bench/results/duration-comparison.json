@@ -1,0 +1,1778 @@
+{
+  "native_disassembly_sha256": "461b3ae446ae4e9cf94901189baa8468443f100827447079c24a544d51d8b282",
+  "utc_start": "2026-11-05T08:14:27.635905+00:00",
+  "recorded_utc": "2026-11-05T08:14:36.461431+00:00",
+  "revision": "f8ae9b25ed0e17f3020bb345a152190bb9a1c055",
+  "goose_revision": "eadca409f68210893f366e60d0c2f0dc29a339be",
+  "goose_version": "goose eadca40 (runtime 3025e5810379)",
+  "gcc": "gcc (GCC) 16.2.1 20260810",
+  "platform": "Linux-7.2.11-arch1-1-x86_64-with-glibc2.44",
+  "cpu": "Intel(R) Core(TM) Ultra 7 258V",
+  "actual_affinity": [
+    6
+  ],
+  "source_sha256": {
+    "bench/compare_durations.py": "65ff92c2030bacaaa9bd49331d91fcb0c8ed2b84cc42955b48e4d06c652c4bde",
+    "bench/measure.py": "92119796bb747a9a04482620598e24486b50709ef15f3b62a2002b368c252762",
+    "config.goose": "a601132b62fc35ffc1bd02c66f6447e85896ec67d6247ae8f77108ab6327fcb9",
+    "toml.goose": "7fc7ee80ef1bc1d707987db67af31189ba5c9786b66e0fe2a92fcb4941b5c7b1",
+    "vendor.goose": "c4b021a0928444a5f049a99eb7a542689ea6803d0d2e845c86ba43a0fc6c31c1",
+    "json_layer.goose": "f2b2eb103f5f785f14009791bb3b64e0fd7b788fe8e0611d51a4ba3380b6efaf",
+    "bindings.goose": "92d9371a5937101d624cfdd3806a495e284d5ccceb6d9d2ca1852d136ee3eb06",
+    "reload.goose": "55d2a1ad3c014cb7ec3b5b6fc04521dade728ed1dac99ed2e57c5ed60fd9a77f",
+    "bench/durations.goose": "db1c55e6de1b537de8d96a14287dfda6e392c091a3978a10f1fa81721d3c354f",
+    "bench/competitors/go.mod": "e32268f18c9c653622ceb2dfd58621655070074fdc1458499015b44f2f2072d1",
+    "bench/competitors/go.sum": "d0eb0480c6a3457317e19f34659dd9359696201ba89005bd1aad17f6732bf368",
+    "bench/competitors/main.go": "160b468716e04801172e157ebd5db6401dfe18e0b5488281a6b2ba0af53e4fa7"
+  },
+  "toolchain_source_sha256": {
+    "stdlib/base64.goose": "fa1111ce46e9534311f825880dbd2988953430aeb3f1f52d8f0eaecbbc298a61",
+    "stdlib/binary.goose": "24f3f09192738f42dfc0cb08b7447bbdc38009f7fec2567cae932b3022455631",
+    "stdlib/csv.goose": "a49b0647f4a2f8ca36170e5a184ab6c6e505492434d0a10a5e05127e96da61ba",
+    "stdlib/dictionary.goose": "fb39f896731faf3799e81727f7261849a62bdfbdc92d5fdbc36405a85830f322",
+    "stdlib/exception.goose": "093863eda5433176750182b597aa6760a93808d86b0c9b713681443d2fb29160",
+    "stdlib/ffi.goose": "e092b245fbe13ee2fdc71599b7b8eb44198e5261cad9600b7681e13ad75a6c2e",
+    "stdlib/json.goose": "81595baa298b9b0deb271297c971166fd084c13b128bba2a7f7486191ea0de4e",
+    "stdlib/math.goose": "b20bd3f78cd1ca291fdbc65df85d9aeaa77054cdf601b5adecfdd4f9db9f0d6e",
+    "stdlib/os.goose": "2193f394d44469daffd993ed204a91b068084fd8db13e261e11156b40c66e934",
+    "stdlib/regex.goose": "1ea3fc0a38402f29193777478b793b4a74a3074da0e3baf96f0b54eea1a84a95",
+    "stdlib/slice_pool.goose": "e15aa757be8edea4b367ac0b2cb8cce48df9f4f249f5002a9393475cc89404f0",
+    "stdlib/slice_pool_internal.goose": "488048c4e67754c878aa24ae25a941833a4a1a36ba679a2444b13806e7d42e15",
+    "stdlib/slot_pool.goose": "e83b975bfff2806df0401afc3e37e147618c5673a9c98690007e6beb3bd51745",
+    "stdlib/std.goose": "2bff7f6748300396e4c048bbf072f798566fadfe6b05d4256052d32c93e6d5d2",
+    "stdlib/vec.goose": "2cac168c72047834433bfb419734c38455c9429ea045b1273898031c53faa82e",
+    "src/runtime/goose.h": "51234daf2f8fb52d4a18158175ed517ab5bfeeb5473c5448babf19f94ffbeccf",
+    "src/runtime/jit_c.h": "d4c8f0d2e577982f68fdabeaa32f58698ddbafcbb19ca3c9952103725dd8e371",
+    "src/runtime/runtime.h": "5e744690e69fd4b365adbe24b1eea86cefd0d1789b38216c1d7c62e117021521",
+    "src/runtime/runtime_ext.h": "d50f3c7eacbff5969aa1af513938db0e444240efaf44cb97373bec49abb01d9e",
+    "src/runtime/runtime_impl.h": "f95d3d3360614853e4abdbd39a45cfcbbd1aad0136eeffb8c02af371f7676680",
+    "src/runtime/runtime_os.h": "196308b80c7fbc34eb45fcc3e4231b02bb1c5a2e99ca7ebe109f4e2301de21ab",
+    "src/runtime/runtime_threads.h": "f7540e51cedccf3c6302531541a035ebbf3c68a047ba04b2a66ba3ada5e620e7",
+    "src/runtime_inline.h": "94e4e6299a9662052375074e18092e73e8193ce7db3c760a2a087af36b265a53"
+  },
+  "gcc_sha256": "8aac907d6fbf40394b424b5fa4a2ad1aa291dac7d3a0315c5b415c1f5ace1287",
+  "binary_sha256": {
+    "compiler": "3f7a34dda0d8fd3e7df27e7ccce09c0844eabc041fc8caa37a362e0ed68b2f07",
+    "goose_benchmark": "e3e343b9a8c1a4f0c0528e1eb37be53d5d5fc3141196f0fe30e4368589e4a671",
+    "competitors": "d4c15b6990d39fca93d98739b20d2c394d19358855c62e5700a5d089c0abdb71"
+  },
+  "competitor_metadata": {
+    "build_settings": [
+      {
+        "Key": "-buildmode",
+        "Value": "exe"
+      },
+      {
+        "Key": "-compiler",
+        "Value": "gc"
+      },
+      {
+        "Key": "-trimpath",
+        "Value": "true"
+      },
+      {
+        "Key": "DefaultGODEBUG",
+        "Value": "containermaxprocs=0,cryptocustomrand=1,decoratemappings=0,gotestjsonbuildtext=1,httpcookiemaxnum=0,httpservecontentmaxranges=1,multipathtcp=0,randseednop=0,rsa1024min=0,tlsmlkem=0,tlssecpmlkem=0,tlssha1=1,tracebacklabels=0,updatemaxprocs=0,urlmaxqueryparams=0,urlstrictcolons=0,x509rsacrt=0,x509sha256skid=0,x509sslcertoverrideplatform=0,x509usepolicies=0"
+      },
+      {
+        "Key": "CGO_ENABLED",
+        "Value": "1"
+      },
+      {
+        "Key": "GOARCH",
+        "Value": "amd64"
+      },
+      {
+        "Key": "GOEXPERIMENT",
+        "Value": "nodwarf5"
+      },
+      {
+        "Key": "GOOS",
+        "Value": "linux"
+      },
+      {
+        "Key": "GOAMD64",
+        "Value": "v1"
+      }
+    ],
+    "dependencies": {
+      "github.com/fsnotify/fsnotify": "v1.9.0",
+      "github.com/go-viper/mapstructure/v2": "v2.4.0",
+      "github.com/knadh/koanf/maps": "v0.1.2",
+      "github.com/knadh/koanf/parsers/json": "v1.0.0",
+      "github.com/knadh/koanf/parsers/toml/v2": "v2.2.2",
+      "github.com/knadh/koanf/providers/env/v2": "v2.0.2",
+      "github.com/knadh/koanf/providers/posflag": "v1.0.2",
+      "github.com/knadh/koanf/providers/rawbytes": "v1.0.1",
+      "github.com/knadh/koanf/v2": "v2.4.1",
+      "github.com/mitchellh/copystructure": "v1.2.0",
+      "github.com/mitchellh/reflectwalk": "v1.0.2",
+      "github.com/pelletier/go-toml/v2": "v2.4.3",
+      "github.com/sagikazarmark/locafero": "v0.11.0",
+      "github.com/sourcegraph/conc": "v0.3.1-0.20240121214520-5f936abd7ae8",
+      "github.com/spf13/afero": "v1.15.0",
+      "github.com/spf13/cast": "v1.10.0",
+      "github.com/spf13/pflag": "v1.0.10",
+      "github.com/spf13/viper": "v1.21.0",
+      "github.com/subosito/gotenv": "v1.6.0",
+      "go.yaml.in/yaml/v3": "v3.0.4",
+      "golang.org/x/sys": "v0.29.0",
+      "golang.org/x/text": "v0.28.0"
+    },
+    "go_version": "go1.27.3-X:nodwarf5",
+    "goarch": "amd64",
+    "gomaxprocs": 1,
+    "goos": "linux",
+    "samples": 7,
+    "semantic_limitations": [
+      "Shared successful lookup, TOML, JSON/list replacement, and current-source replay subsets only; not feature equivalence.",
+      "No Goose schema declaration, strict kind errors, or atomic rejected-layer behavior is supplied by these adapter paths.",
+      "Typed getters have different conversion and missing-value behavior; fixtures use present values of matching types.",
+      "Final values are checked outside timing; source labels cannot be verified and are not reconstructed.",
+      "Bindings mode times fresh env/CLI snapshots, including Viper BindEnv/BindPFlags or Koanf env/v2/posflag loads, typed pflag registration/parse, and getters. Viper env getters resolve lazily; Koanf materializes a provider map.",
+      "Bindings reload-layers replays defaults plus three current JSON documents, replacing a 256-item list and exposing a lower document after middle port removal. Source labels remain unsupported.",
+      "Common list getters are Viper GetIntSlice and Koanf Int64s; their conversion and ownership contracts differ from Goose's strict independently owned i64 arrays.",
+      "Common reload-removal creates fresh Viper/Koanf instances and replays defaults plus current JSON per operation; it does not supply Goose's atomic validated reload or retain old snapshots.",
+      "Goose enforces integer range 1..65535 in common fixtures; adapters do not implement schema/range validation. All fixture numbers are small exact integers."
+    ],
+    "source_labels": "unsupported: neither adapter tracks Goose per-setting source labels"
+  },
+  "iterations": 10000,
+  "rounds": 9,
+  "seed": 606,
+  "samples_per_run": 7,
+  "runtime_environment": {
+    "GOMAXPROCS": "1",
+    "GOGC": "100",
+    "GOMEMLIMIT": "off",
+    "GODEBUG": ""
+  },
+  "flags": {
+    "goose": "GCC -O2",
+    "go": "go build -mod=readonly -trimpath -buildvcs=false"
+  },
+  "smoke_only": false,
+  "limitations": [
+    "Shared host, no exclusive isolation or causal speed claim.",
+    "Successful one-field writes and two-key mixed getter; full feature/error semantics are not equivalent.",
+    "Goose validates and parses at write time and retains nanoseconds/provenance; dynamic competitors parse through their duration getters.",
+    "Getter alternates two keys with distinct values; it excludes initial write/parse; override and JSON/TOML cases include write plus getter.",
+    "Schema/setup/fixtures are outside timers; no file IO, reload triggers, failures, list durations or memory are timed.",
+    "Positive250ms/1.5s tokens are exactly represented by all three parsers; precision/overflow behavior is checked separately by CONFIG model tests."
+  ],
+  "runs": [
+    {
+      "round": 0,
+      "library": "viper",
+      "raw_stdout": "duration-get samples_ns=[220.355,222.6262,211.5657,200.1741,266.833,203.8439,201.7142] checksum=61250000000000\nduration-override samples_ns=[327.2655,499.1835,311.9931,308.6364,302.8524,307.9766,341.8042] checksum=61250000000000\nduration-json samples_ns=[2771.2616,2616.7698,2547.6394,2336.8354,2901.8961,2987.3886,2593.6942] checksum=61250000000000\nduration-toml samples_ns=[1789.7216,1802.7226,1878.6912,2086.0898,1945.9675,1867.6143,1920.1944] checksum=61250000000000\n",
+      "fixtures": {
+        "duration-get": {
+          "samples_ns": [
+            220.355,
+            222.6262,
+            211.5657,
+            200.1741,
+            266.833,
+            203.8439,
+            201.7142
+          ],
+          "median_ns": 211.5657,
+          "checksum": 61250000000000
+        },
+        "duration-override": {
+          "samples_ns": [
+            327.2655,
+            499.1835,
+            311.9931,
+            308.6364,
+            302.8524,
+            307.9766,
+            341.8042
+          ],
+          "median_ns": 311.9931,
+          "checksum": 61250000000000
+        },
+        "duration-json": {
+          "samples_ns": [
+            2771.2616,
+            2616.7698,
+            2547.6394,
+            2336.8354,
+            2901.8961,
+            2987.3886,
+            2593.6942
+          ],
+          "median_ns": 2616.7698,
+          "checksum": 61250000000000
+        },
+        "duration-toml": {
+          "samples_ns": [
+            1789.7216,
+            1802.7226,
+            1878.6912,
+            2086.0898,
+            1945.9675,
+            1867.6143,
+            1920.1944
+          ],
+          "median_ns": 1878.6912,
+          "checksum": 61250000000000
+        }
+      }
+    },
+    {
+      "round": 0,
+      "library": "goose-config",
+      "raw_stdout": "duration-get samples_ns=[11.6866, 11.7909, 31.3577, 12.5633, 12.57, 12.5315, 13.4411] checksum=61250000000000\nduration-override samples_ns=[74.1516, 74.9241, 74.1965, 74.5893, 73.8384, 75.3068, 75.8536] checksum=61250000000000\nduration-json samples_ns=[338.6382, 345.2022, 353.456, 353.4807, 351.0275, 353.3269, 355.6487] checksum=61250000000000\nduration-toml samples_ns=[249.0085, 252.6571, 257.6726, 258.9296, 257.7658, 260.9864, 257.6149] checksum=61250000000000\n",
+      "fixtures": {
+        "duration-get": {
+          "samples_ns": [
+            11.6866,
+            11.7909,
+            31.3577,
+            12.5633,
+            12.57,
+            12.5315,
+            13.4411
+          ],
+          "median_ns": 12.5633,
+          "checksum": 61250000000000
+        },
+        "duration-override": {
+          "samples_ns": [
+            74.1516,
+            74.9241,
+            74.1965,
+            74.5893,
+            73.8384,
+            75.3068,
+            75.8536
+          ],
+          "median_ns": 74.5893,
+          "checksum": 61250000000000
+        },
+        "duration-json": {
+          "samples_ns": [
+            338.6382,
+            345.2022,
+            353.456,
+            353.4807,
+            351.0275,
+            353.3269,
+            355.6487
+          ],
+          "median_ns": 353.3269,
+          "checksum": 61250000000000
+        },
+        "duration-toml": {
+          "samples_ns": [
+            249.0085,
+            252.6571,
+            257.6726,
+            258.9296,
+            257.7658,
+            260.9864,
+            257.6149
+          ],
+          "median_ns": 257.6726,
+          "checksum": 61250000000000
+        }
+      }
+    },
+    {
+      "round": 0,
+      "library": "koanf",
+      "raw_stdout": "duration-get samples_ns=[508.9274,472.2974,542.6086,430.5729,559.4384,469.9085,514.6915] checksum=61250000000000\nduration-override samples_ns=[2552.4662,2679.0383,3426.5621,3140.9379,3012.8467,3170.6625,2409.0078] checksum=61250000000000\nduration-json samples_ns=[3282.3638,3132.5418,3283.2897,3272.0915,3674.5428,3817.2887,3525.2732] checksum=61250000000000\nduration-toml samples_ns=[2548.4995,2359.1313,2309.1989,2262.6345,2291.2377,2234.6327,2236.0043] checksum=61250000000000\n",
+      "fixtures": {
+        "duration-get": {
+          "samples_ns": [
+            508.9274,
+            472.2974,
+            542.6086,
+            430.5729,
+            559.4384,
+            469.9085,
+            514.6915
+          ],
+          "median_ns": 508.9274,
+          "checksum": 61250000000000
+        },
+        "duration-override": {
+          "samples_ns": [
+            2552.4662,
+            2679.0383,
+            3426.5621,
+            3140.9379,
+            3012.8467,
+            3170.6625,
+            2409.0078
+          ],
+          "median_ns": 3012.8467,
+          "checksum": 61250000000000
+        },
+        "duration-json": {
+          "samples_ns": [
+            3282.3638,
+            3132.5418,
+            3283.2897,
+            3272.0915,
+            3674.5428,
+            3817.2887,
+            3525.2732
+          ],
+          "median_ns": 3283.2897,
+          "checksum": 61250000000000
+        },
+        "duration-toml": {
+          "samples_ns": [
+            2548.4995,
+            2359.1313,
+            2309.1989,
+            2262.6345,
+            2291.2377,
+            2234.6327,
+            2236.0043
+          ],
+          "median_ns": 2291.2377,
+          "checksum": 61250000000000
+        }
+      }
+    },
+    {
+      "round": 1,
+      "library": "goose-config",
+      "raw_stdout": "duration-get samples_ns=[10.9823, 26.9455, 11.3943, 11.3957, 11.3949, 11.3923, 12.0491] checksum=61250000000000\nduration-override samples_ns=[67.7808, 68.2404, 67.539, 66.4298, 67.7976, 74.3664, 67.1864] checksum=61250000000000\nduration-json samples_ns=[296.649, 287.2814, 288.9356, 290.391, 287.9356, 287.3334, 286.9303] checksum=61250000000000\nduration-toml samples_ns=[203.2649, 195.0617, 196.9543, 195.1523, 193.2329, 186.4714, 185.385] checksum=61250000000000\n",
+      "fixtures": {
+        "duration-get": {
+          "samples_ns": [
+            10.9823,
+            26.9455,
+            11.3943,
+            11.3957,
+            11.3949,
+            11.3923,
+            12.0491
+          ],
+          "median_ns": 11.3949,
+          "checksum": 61250000000000
+        },
+        "duration-override": {
+          "samples_ns": [
+            67.7808,
+            68.2404,
+            67.539,
+            66.4298,
+            67.7976,
+            74.3664,
+            67.1864
+          ],
+          "median_ns": 67.7808,
+          "checksum": 61250000000000
+        },
+        "duration-json": {
+          "samples_ns": [
+            296.649,
+            287.2814,
+            288.9356,
+            290.391,
+            287.9356,
+            287.3334,
+            286.9303
+          ],
+          "median_ns": 287.9356,
+          "checksum": 61250000000000
+        },
+        "duration-toml": {
+          "samples_ns": [
+            203.2649,
+            195.0617,
+            196.9543,
+            195.1523,
+            193.2329,
+            186.4714,
+            185.385
+          ],
+          "median_ns": 195.0617,
+          "checksum": 61250000000000
+        }
+      }
+    },
+    {
+      "round": 1,
+      "library": "koanf",
+      "raw_stdout": "duration-get samples_ns=[414.4202,347.0768,504.4093,378.4355,478.2179,404.089,457.169] checksum=61250000000000\nduration-override samples_ns=[2195.7658,2060.9497,2004.3268,2029.1176,2042.9371,2051.6647,1938.5278] checksum=61250000000000\nduration-json samples_ns=[2920.9498,2932.7575,2937.4189,3587.0759,3734.6523,3711.9731,3826.046] checksum=61250000000000\nduration-toml samples_ns=[2830.8715,2568.947,2999.5716,3139.3221,3188.4417,2864.7436,2780.0968] checksum=61250000000000\n",
+      "fixtures": {
+        "duration-get": {
+          "samples_ns": [
+            414.4202,
+            347.0768,
+            504.4093,
+            378.4355,
+            478.2179,
+            404.089,
+            457.169
+          ],
+          "median_ns": 414.4202,
+          "checksum": 61250000000000
+        },
+        "duration-override": {
+          "samples_ns": [
+            2195.7658,
+            2060.9497,
+            2004.3268,
+            2029.1176,
+            2042.9371,
+            2051.6647,
+            1938.5278
+          ],
+          "median_ns": 2042.9371,
+          "checksum": 61250000000000
+        },
+        "duration-json": {
+          "samples_ns": [
+            2920.9498,
+            2932.7575,
+            2937.4189,
+            3587.0759,
+            3734.6523,
+            3711.9731,
+            3826.046
+          ],
+          "median_ns": 3587.0759,
+          "checksum": 61250000000000
+        },
+        "duration-toml": {
+          "samples_ns": [
+            2830.8715,
+            2568.947,
+            2999.5716,
+            3139.3221,
+            3188.4417,
+            2864.7436,
+            2780.0968
+          ],
+          "median_ns": 2864.7436,
+          "checksum": 61250000000000
+        }
+      }
+    },
+    {
+      "round": 1,
+      "library": "viper",
+      "raw_stdout": "duration-get samples_ns=[225.5356,219.4429,209.654,240.6267,215.5188,202.8762,206.1586] checksum=61250000000000\nduration-override samples_ns=[329.8871,545.2122,327.722,311.0678,308.6025,307.5325,345.1684] checksum=61250000000000\nduration-json samples_ns=[2963.8957,2765.973,2522.7732,2629.8511,2598.7516,2216.4407,2723.604] checksum=61250000000000\nduration-toml samples_ns=[2668.359,2321.1577,2126.3256,2270.5709,2232.7624,1964.9491,1978.2237] checksum=61250000000000\n",
+      "fixtures": {
+        "duration-get": {
+          "samples_ns": [
+            225.5356,
+            219.4429,
+            209.654,
+            240.6267,
+            215.5188,
+            202.8762,
+            206.1586
+          ],
+          "median_ns": 215.5188,
+          "checksum": 61250000000000
+        },
+        "duration-override": {
+          "samples_ns": [
+            329.8871,
+            545.2122,
+            327.722,
+            311.0678,
+            308.6025,
+            307.5325,
+            345.1684
+          ],
+          "median_ns": 327.722,
+          "checksum": 61250000000000
+        },
+        "duration-json": {
+          "samples_ns": [
+            2963.8957,
+            2765.973,
+            2522.7732,
+            2629.8511,
+            2598.7516,
+            2216.4407,
+            2723.604
+          ],
+          "median_ns": 2629.8511,
+          "checksum": 61250000000000
+        },
+        "duration-toml": {
+          "samples_ns": [
+            2668.359,
+            2321.1577,
+            2126.3256,
+            2270.5709,
+            2232.7624,
+            1964.9491,
+            1978.2237
+          ],
+          "median_ns": 2232.7624,
+          "checksum": 61250000000000
+        }
+      }
+    },
+    {
+      "round": 2,
+      "library": "goose-config",
+      "raw_stdout": "duration-get samples_ns=[12.254, 26.7333, 12.2216, 12.2211, 12.966, 12.2207, 12.224] checksum=61250000000000\nduration-override samples_ns=[74.7033, 74.0022, 74.0519, 73.6726, 70.1013, 71.8663, 80.4477] checksum=61250000000000\nduration-json samples_ns=[313.081, 314.1826, 309.2735, 297.2792, 298.5224, 290.9797, 303.962] checksum=61250000000000\nduration-toml samples_ns=[216.947, 216.5687, 206.813, 209.416, 207.5784, 214.8605, 211.0458] checksum=61250000000000\n",
+      "fixtures": {
+        "duration-get": {
+          "samples_ns": [
+            12.254,
+            26.7333,
+            12.2216,
+            12.2211,
+            12.966,
+            12.2207,
+            12.224
+          ],
+          "median_ns": 12.224,
+          "checksum": 61250000000000
+        },
+        "duration-override": {
+          "samples_ns": [
+            74.7033,
+            74.0022,
+            74.0519,
+            73.6726,
+            70.1013,
+            71.8663,
+            80.4477
+          ],
+          "median_ns": 74.0022,
+          "checksum": 61250000000000
+        },
+        "duration-json": {
+          "samples_ns": [
+            313.081,
+            314.1826,
+            309.2735,
+            297.2792,
+            298.5224,
+            290.9797,
+            303.962
+          ],
+          "median_ns": 303.962,
+          "checksum": 61250000000000
+        },
+        "duration-toml": {
+          "samples_ns": [
+            216.947,
+            216.5687,
+            206.813,
+            209.416,
+            207.5784,
+            214.8605,
+            211.0458
+          ],
+          "median_ns": 211.0458,
+          "checksum": 61250000000000
+        }
+      }
+    },
+    {
+      "round": 2,
+      "library": "viper",
+      "raw_stdout": "duration-get samples_ns=[197.1106,207.5538,196.2445,226.0289,176.6483,190.1214,179.2031] checksum=61250000000000\nduration-override samples_ns=[299.0797,486.1547,287.951,308.0324,301.9723,293.0015,345.4584] checksum=61250000000000\nduration-json samples_ns=[2758.8683,2363.8898,2284.1379,2154.2883,2320.9655,2233.3123,2133.9101] checksum=61250000000000\nduration-toml samples_ns=[1654.5448,1886.8274,1718.0267,1592.2325,1695.3675,1654.0217,1641.3751] checksum=61250000000000\n",
+      "fixtures": {
+        "duration-get": {
+          "samples_ns": [
+            197.1106,
+            207.5538,
+            196.2445,
+            226.0289,
+            176.6483,
+            190.1214,
+            179.2031
+          ],
+          "median_ns": 196.2445,
+          "checksum": 61250000000000
+        },
+        "duration-override": {
+          "samples_ns": [
+            299.0797,
+            486.1547,
+            287.951,
+            308.0324,
+            301.9723,
+            293.0015,
+            345.4584
+          ],
+          "median_ns": 301.9723,
+          "checksum": 61250000000000
+        },
+        "duration-json": {
+          "samples_ns": [
+            2758.8683,
+            2363.8898,
+            2284.1379,
+            2154.2883,
+            2320.9655,
+            2233.3123,
+            2133.9101
+          ],
+          "median_ns": 2284.1379,
+          "checksum": 61250000000000
+        },
+        "duration-toml": {
+          "samples_ns": [
+            1654.5448,
+            1886.8274,
+            1718.0267,
+            1592.2325,
+            1695.3675,
+            1654.0217,
+            1641.3751
+          ],
+          "median_ns": 1654.5448,
+          "checksum": 61250000000000
+        }
+      }
+    },
+    {
+      "round": 2,
+      "library": "koanf",
+      "raw_stdout": "duration-get samples_ns=[395.1697,344.7257,501.3819,342.4933,448.3199,381.7281,407.8275] checksum=61250000000000\nduration-override samples_ns=[1988.3548,2061.1656,1953.1983,2171.4583,1997.7527,1917.3852,1892.8353] checksum=61250000000000\nduration-json samples_ns=[2654.7041,2642.736,2599.6271,2661.0594,2630.8304,2591.7527,2548.9999] checksum=61250000000000\nduration-toml samples_ns=[2077.495,2106.2586,2061.7432,1978.8375,2101.5221,2188.4203,2263.5642] checksum=61250000000000\n",
+      "fixtures": {
+        "duration-get": {
+          "samples_ns": [
+            395.1697,
+            344.7257,
+            501.3819,
+            342.4933,
+            448.3199,
+            381.7281,
+            407.8275
+          ],
+          "median_ns": 395.1697,
+          "checksum": 61250000000000
+        },
+        "duration-override": {
+          "samples_ns": [
+            1988.3548,
+            2061.1656,
+            1953.1983,
+            2171.4583,
+            1997.7527,
+            1917.3852,
+            1892.8353
+          ],
+          "median_ns": 1988.3548,
+          "checksum": 61250000000000
+        },
+        "duration-json": {
+          "samples_ns": [
+            2654.7041,
+            2642.736,
+            2599.6271,
+            2661.0594,
+            2630.8304,
+            2591.7527,
+            2548.9999
+          ],
+          "median_ns": 2630.8304,
+          "checksum": 61250000000000
+        },
+        "duration-toml": {
+          "samples_ns": [
+            2077.495,
+            2106.2586,
+            2061.7432,
+            1978.8375,
+            2101.5221,
+            2188.4203,
+            2263.5642
+          ],
+          "median_ns": 2101.5221,
+          "checksum": 61250000000000
+        }
+      }
+    },
+    {
+      "round": 3,
+      "library": "koanf",
+      "raw_stdout": "duration-get samples_ns=[400.1455,377.6714,462.0756,384.8016,517.346,454.8939,511.101] checksum=61250000000000\nduration-override samples_ns=[2599.0654,2536.2459,2628.9091,2376.0434,2277.9222,2194.8727,2133.7606] checksum=61250000000000\nduration-json samples_ns=[3194.3302,3248.5874,3182.8938,3079.2965,2909.1432,2905.1439,2870.7387] checksum=61250000000000\nduration-toml samples_ns=[2242.3802,2241.9584,2184.699,2206.8328,2249.3161,2344.0073,2673.9547] checksum=61250000000000\n",
+      "fixtures": {
+        "duration-get": {
+          "samples_ns": [
+            400.1455,
+            377.6714,
+            462.0756,
+            384.8016,
+            517.346,
+            454.8939,
+            511.101
+          ],
+          "median_ns": 454.8939,
+          "checksum": 61250000000000
+        },
+        "duration-override": {
+          "samples_ns": [
+            2599.0654,
+            2536.2459,
+            2628.9091,
+            2376.0434,
+            2277.9222,
+            2194.8727,
+            2133.7606
+          ],
+          "median_ns": 2376.0434,
+          "checksum": 61250000000000
+        },
+        "duration-json": {
+          "samples_ns": [
+            3194.3302,
+            3248.5874,
+            3182.8938,
+            3079.2965,
+            2909.1432,
+            2905.1439,
+            2870.7387
+          ],
+          "median_ns": 3079.2965,
+          "checksum": 61250000000000
+        },
+        "duration-toml": {
+          "samples_ns": [
+            2242.3802,
+            2241.9584,
+            2184.699,
+            2206.8328,
+            2249.3161,
+            2344.0073,
+            2673.9547
+          ],
+          "median_ns": 2242.3802,
+          "checksum": 61250000000000
+        }
+      }
+    },
+    {
+      "round": 3,
+      "library": "viper",
+      "raw_stdout": "duration-get samples_ns=[210.4361,175.6745,170.3111,164.0642,167.4546,176.1233,201.1424] checksum=61250000000000\nduration-override samples_ns=[254.8212,402.0304,264.8963,274.7473,257.996,252.1359,304.8933] checksum=61250000000000\nduration-json samples_ns=[2366.7725,2382.6643,2337.1342,2390.2881,2040.7869,2090.9096,2130.0948] checksum=61250000000000\nduration-toml samples_ns=[1552.1307,1510.8338,1498.156,1488.382,1446.2915,1543.5964,1447.6247] checksum=61250000000000\n",
+      "fixtures": {
+        "duration-get": {
+          "samples_ns": [
+            210.4361,
+            175.6745,
+            170.3111,
+            164.0642,
+            167.4546,
+            176.1233,
+            201.1424
+          ],
+          "median_ns": 175.6745,
+          "checksum": 61250000000000
+        },
+        "duration-override": {
+          "samples_ns": [
+            254.8212,
+            402.0304,
+            264.8963,
+            274.7473,
+            257.996,
+            252.1359,
+            304.8933
+          ],
+          "median_ns": 264.8963,
+          "checksum": 61250000000000
+        },
+        "duration-json": {
+          "samples_ns": [
+            2366.7725,
+            2382.6643,
+            2337.1342,
+            2390.2881,
+            2040.7869,
+            2090.9096,
+            2130.0948
+          ],
+          "median_ns": 2337.1342,
+          "checksum": 61250000000000
+        },
+        "duration-toml": {
+          "samples_ns": [
+            1552.1307,
+            1510.8338,
+            1498.156,
+            1488.382,
+            1446.2915,
+            1543.5964,
+            1447.6247
+          ],
+          "median_ns": 1498.156,
+          "checksum": 61250000000000
+        }
+      }
+    },
+    {
+      "round": 3,
+      "library": "goose-config",
+      "raw_stdout": "duration-get samples_ns=[10.2413, 10.1679, 10.1655, 24.2589, 11.1682, 10.5879, 10.5954] checksum=61250000000000\nduration-override samples_ns=[63.5652, 63.301, 67.2608, 63.4875, 63.4256, 63.2262, 63.4813] checksum=61250000000000\nduration-json samples_ns=[292.5512, 281.03, 265.6605, 266.2135, 270.7643, 273.8135, 265.4297] checksum=61250000000000\nduration-toml samples_ns=[193.1929, 189.8322, 188.792, 186.0282, 192.5445, 187.6104, 188.9494] checksum=61250000000000\n",
+      "fixtures": {
+        "duration-get": {
+          "samples_ns": [
+            10.2413,
+            10.1679,
+            10.1655,
+            24.2589,
+            11.1682,
+            10.5879,
+            10.5954
+          ],
+          "median_ns": 10.5879,
+          "checksum": 61250000000000
+        },
+        "duration-override": {
+          "samples_ns": [
+            63.5652,
+            63.301,
+            67.2608,
+            63.4875,
+            63.4256,
+            63.2262,
+            63.4813
+          ],
+          "median_ns": 63.4813,
+          "checksum": 61250000000000
+        },
+        "duration-json": {
+          "samples_ns": [
+            292.5512,
+            281.03,
+            265.6605,
+            266.2135,
+            270.7643,
+            273.8135,
+            265.4297
+          ],
+          "median_ns": 270.7643,
+          "checksum": 61250000000000
+        },
+        "duration-toml": {
+          "samples_ns": [
+            193.1929,
+            189.8322,
+            188.792,
+            186.0282,
+            192.5445,
+            187.6104,
+            188.9494
+          ],
+          "median_ns": 188.9494,
+          "checksum": 61250000000000
+        }
+      }
+    },
+    {
+      "round": 4,
+      "library": "goose-config",
+      "raw_stdout": "duration-get samples_ns=[10.2253, 10.1583, 10.1736, 10.499, 22.9337, 10.8984, 10.8998] checksum=61250000000000\nduration-override samples_ns=[65.2918, 64.7059, 65.3989, 65.1018, 65.035, 63.2057, 61.3245] checksum=61250000000000\nduration-json samples_ns=[276.704, 282.3499, 286.7802, 287.9091, 287.878, 291.3015, 289.1535] checksum=61250000000000\nduration-toml samples_ns=[196.8689, 195.0223, 191.8773, 193.2971, 192.9891, 191.1398, 189.6362] checksum=61250000000000\n",
+      "fixtures": {
+        "duration-get": {
+          "samples_ns": [
+            10.2253,
+            10.1583,
+            10.1736,
+            10.499,
+            22.9337,
+            10.8984,
+            10.8998
+          ],
+          "median_ns": 10.499,
+          "checksum": 61250000000000
+        },
+        "duration-override": {
+          "samples_ns": [
+            65.2918,
+            64.7059,
+            65.3989,
+            65.1018,
+            65.035,
+            63.2057,
+            61.3245
+          ],
+          "median_ns": 65.035,
+          "checksum": 61250000000000
+        },
+        "duration-json": {
+          "samples_ns": [
+            276.704,
+            282.3499,
+            286.7802,
+            287.9091,
+            287.878,
+            291.3015,
+            289.1535
+          ],
+          "median_ns": 287.878,
+          "checksum": 61250000000000
+        },
+        "duration-toml": {
+          "samples_ns": [
+            196.8689,
+            195.0223,
+            191.8773,
+            193.2971,
+            192.9891,
+            191.1398,
+            189.6362
+          ],
+          "median_ns": 192.9891,
+          "checksum": 61250000000000
+        }
+      }
+    },
+    {
+      "round": 4,
+      "library": "koanf",
+      "raw_stdout": "duration-get samples_ns=[355.8625,381.0755,424.8279,356.8974,469.1836,357.4524,396.0011] checksum=61250000000000\nduration-override samples_ns=[1917.7404,1942.0891,1963.7965,1909.4678,1852.4087,1860.497,1792.8296] checksum=61250000000000\nduration-json samples_ns=[2804.1678,3048.5078,2966.8503,2701.3875,2595.959,2545.8689,2710.4199] checksum=61250000000000\nduration-toml samples_ns=[2160.2025,2188.976,2047.8408,2357.7264,2405.4717,2244.1957,2209.0797] checksum=61250000000000\n",
+      "fixtures": {
+        "duration-get": {
+          "samples_ns": [
+            355.8625,
+            381.0755,
+            424.8279,
+            356.8974,
+            469.1836,
+            357.4524,
+            396.0011
+          ],
+          "median_ns": 381.0755,
+          "checksum": 61250000000000
+        },
+        "duration-override": {
+          "samples_ns": [
+            1917.7404,
+            1942.0891,
+            1963.7965,
+            1909.4678,
+            1852.4087,
+            1860.497,
+            1792.8296
+          ],
+          "median_ns": 1909.4678,
+          "checksum": 61250000000000
+        },
+        "duration-json": {
+          "samples_ns": [
+            2804.1678,
+            3048.5078,
+            2966.8503,
+            2701.3875,
+            2595.959,
+            2545.8689,
+            2710.4199
+          ],
+          "median_ns": 2710.4199,
+          "checksum": 61250000000000
+        },
+        "duration-toml": {
+          "samples_ns": [
+            2160.2025,
+            2188.976,
+            2047.8408,
+            2357.7264,
+            2405.4717,
+            2244.1957,
+            2209.0797
+          ],
+          "median_ns": 2209.0797,
+          "checksum": 61250000000000
+        }
+      }
+    },
+    {
+      "round": 4,
+      "library": "viper",
+      "raw_stdout": "duration-get samples_ns=[169.0441,180.5212,173.4801,164.4438,162.808,176.0186,166.7426] checksum=61250000000000\nduration-override samples_ns=[249.0666,372.3734,257.9608,257.0504,258.8622,242.5509,269.0642] checksum=61250000000000\nduration-json samples_ns=[2145.4483,2195.7512,2078.6785,2189.713,2282.0632,2298.4572,2280.7874] checksum=61250000000000\nduration-toml samples_ns=[1862.0462,2325.2192,2445.1074,2295.4016,2154.1551,1784.8649,1733.2979] checksum=61250000000000\n",
+      "fixtures": {
+        "duration-get": {
+          "samples_ns": [
+            169.0441,
+            180.5212,
+            173.4801,
+            164.4438,
+            162.808,
+            176.0186,
+            166.7426
+          ],
+          "median_ns": 169.0441,
+          "checksum": 61250000000000
+        },
+        "duration-override": {
+          "samples_ns": [
+            249.0666,
+            372.3734,
+            257.9608,
+            257.0504,
+            258.8622,
+            242.5509,
+            269.0642
+          ],
+          "median_ns": 257.9608,
+          "checksum": 61250000000000
+        },
+        "duration-json": {
+          "samples_ns": [
+            2145.4483,
+            2195.7512,
+            2078.6785,
+            2189.713,
+            2282.0632,
+            2298.4572,
+            2280.7874
+          ],
+          "median_ns": 2195.7512,
+          "checksum": 61250000000000
+        },
+        "duration-toml": {
+          "samples_ns": [
+            1862.0462,
+            2325.2192,
+            2445.1074,
+            2295.4016,
+            2154.1551,
+            1784.8649,
+            1733.2979
+          ],
+          "median_ns": 2154.1551,
+          "checksum": 61250000000000
+        }
+      }
+    },
+    {
+      "round": 5,
+      "library": "viper",
+      "raw_stdout": "duration-get samples_ns=[239.3534,186.9406,168.73,173.4602,159.5617,176.2732,209.9344] checksum=61250000000000\nduration-override samples_ns=[267.584,401.8747,266.6212,277.1235,271.6298,261.2933,297.5297] checksum=61250000000000\nduration-json samples_ns=[2181.549,2078.7538,2159.6379,2118.4988,2159.1834,2264.8514,2294.3663] checksum=61250000000000\nduration-toml samples_ns=[1683.533,1608.7099,1635.1184,1569.2444,1496.9621,1503.8916,1614.6806] checksum=61250000000000\n",
+      "fixtures": {
+        "duration-get": {
+          "samples_ns": [
+            239.3534,
+            186.9406,
+            168.73,
+            173.4602,
+            159.5617,
+            176.2732,
+            209.9344
+          ],
+          "median_ns": 176.2732,
+          "checksum": 61250000000000
+        },
+        "duration-override": {
+          "samples_ns": [
+            267.584,
+            401.8747,
+            266.6212,
+            277.1235,
+            271.6298,
+            261.2933,
+            297.5297
+          ],
+          "median_ns": 271.6298,
+          "checksum": 61250000000000
+        },
+        "duration-json": {
+          "samples_ns": [
+            2181.549,
+            2078.7538,
+            2159.6379,
+            2118.4988,
+            2159.1834,
+            2264.8514,
+            2294.3663
+          ],
+          "median_ns": 2159.6379,
+          "checksum": 61250000000000
+        },
+        "duration-toml": {
+          "samples_ns": [
+            1683.533,
+            1608.7099,
+            1635.1184,
+            1569.2444,
+            1496.9621,
+            1503.8916,
+            1614.6806
+          ],
+          "median_ns": 1608.7099,
+          "checksum": 61250000000000
+        }
+      }
+    },
+    {
+      "round": 5,
+      "library": "koanf",
+      "raw_stdout": "duration-get samples_ns=[358.3287,376.986,419.2631,336.2065,441.8249,368.5434,408.7449] checksum=61250000000000\nduration-override samples_ns=[1858.461,1938.6435,1912.9841,1819.7494,1852.425,1850.4288,1997.0916] checksum=61250000000000\nduration-json samples_ns=[2762.7499,2709.3293,2651.2281,3257.6592,2901.9711,2880.5924,2700.3266] checksum=61250000000000\nduration-toml samples_ns=[2323.2732,2360.7151,2469.8767,2380.9803,2345.4174,2316.0761,2302.3186] checksum=61250000000000\n",
+      "fixtures": {
+        "duration-get": {
+          "samples_ns": [
+            358.3287,
+            376.986,
+            419.2631,
+            336.2065,
+            441.8249,
+            368.5434,
+            408.7449
+          ],
+          "median_ns": 376.986,
+          "checksum": 61250000000000
+        },
+        "duration-override": {
+          "samples_ns": [
+            1858.461,
+            1938.6435,
+            1912.9841,
+            1819.7494,
+            1852.425,
+            1850.4288,
+            1997.0916
+          ],
+          "median_ns": 1858.461,
+          "checksum": 61250000000000
+        },
+        "duration-json": {
+          "samples_ns": [
+            2762.7499,
+            2709.3293,
+            2651.2281,
+            3257.6592,
+            2901.9711,
+            2880.5924,
+            2700.3266
+          ],
+          "median_ns": 2762.7499,
+          "checksum": 61250000000000
+        },
+        "duration-toml": {
+          "samples_ns": [
+            2323.2732,
+            2360.7151,
+            2469.8767,
+            2380.9803,
+            2345.4174,
+            2316.0761,
+            2302.3186
+          ],
+          "median_ns": 2345.4174,
+          "checksum": 61250000000000
+        }
+      }
+    },
+    {
+      "round": 5,
+      "library": "goose-config",
+      "raw_stdout": "duration-get samples_ns=[11.1929, 24.3659, 11.1742, 11.1696, 11.1582, 12.3201, 11.1686] checksum=61250000000000\nduration-override samples_ns=[67.1897, 70.8536, 67.844, 67.157, 67.2695, 67.2823, 66.4409] checksum=61250000000000\nduration-json samples_ns=[298.2112, 288.908, 287.2029, 284.5658, 286.1142, 290.23, 287.1419] checksum=61250000000000\nduration-toml samples_ns=[201.3967, 199.0737, 199.1515, 200.3137, 196.7086, 197.0251, 192.3818] checksum=61250000000000\n",
+      "fixtures": {
+        "duration-get": {
+          "samples_ns": [
+            11.1929,
+            24.3659,
+            11.1742,
+            11.1696,
+            11.1582,
+            12.3201,
+            11.1686
+          ],
+          "median_ns": 11.1742,
+          "checksum": 61250000000000
+        },
+        "duration-override": {
+          "samples_ns": [
+            67.1897,
+            70.8536,
+            67.844,
+            67.157,
+            67.2695,
+            67.2823,
+            66.4409
+          ],
+          "median_ns": 67.2695,
+          "checksum": 61250000000000
+        },
+        "duration-json": {
+          "samples_ns": [
+            298.2112,
+            288.908,
+            287.2029,
+            284.5658,
+            286.1142,
+            290.23,
+            287.1419
+          ],
+          "median_ns": 287.2029,
+          "checksum": 61250000000000
+        },
+        "duration-toml": {
+          "samples_ns": [
+            201.3967,
+            199.0737,
+            199.1515,
+            200.3137,
+            196.7086,
+            197.0251,
+            192.3818
+          ],
+          "median_ns": 199.0737,
+          "checksum": 61250000000000
+        }
+      }
+    },
+    {
+      "round": 6,
+      "library": "goose-config",
+      "raw_stdout": "duration-get samples_ns=[11.1399, 11.0831, 12.1731, 11.0559, 11.0578, 11.0826, 11.0531] checksum=61250000000000\nduration-override samples_ns=[68.0642, 68.0462, 70.2743, 70.9682, 71.3577, 69.6335, 71.2834] checksum=61250000000000\nduration-json samples_ns=[312.6011, 301.7489, 301.1284, 289.0237, 292.0826, 287.3449, 285.1647] checksum=61250000000000\nduration-toml samples_ns=[206.148, 201.2864, 202.4509, 205.1586, 208.6642, 205.8781, 208.8879] checksum=61250000000000\n",
+      "fixtures": {
+        "duration-get": {
+          "samples_ns": [
+            11.1399,
+            11.0831,
+            12.1731,
+            11.0559,
+            11.0578,
+            11.0826,
+            11.0531
+          ],
+          "median_ns": 11.0826,
+          "checksum": 61250000000000
+        },
+        "duration-override": {
+          "samples_ns": [
+            68.0642,
+            68.0462,
+            70.2743,
+            70.9682,
+            71.3577,
+            69.6335,
+            71.2834
+          ],
+          "median_ns": 70.2743,
+          "checksum": 61250000000000
+        },
+        "duration-json": {
+          "samples_ns": [
+            312.6011,
+            301.7489,
+            301.1284,
+            289.0237,
+            292.0826,
+            287.3449,
+            285.1647
+          ],
+          "median_ns": 292.0826,
+          "checksum": 61250000000000
+        },
+        "duration-toml": {
+          "samples_ns": [
+            206.148,
+            201.2864,
+            202.4509,
+            205.1586,
+            208.6642,
+            205.8781,
+            208.8879
+          ],
+          "median_ns": 205.8781,
+          "checksum": 61250000000000
+        }
+      }
+    },
+    {
+      "round": 6,
+      "library": "viper",
+      "raw_stdout": "duration-get samples_ns=[201.1133,207.4319,196.7411,229.4906,187.6901,177.7643,173.0047] checksum=61250000000000\nduration-override samples_ns=[283.3641,466.5827,276.9606,282.5203,268.8301,264.555,305.7614] checksum=61250000000000\nduration-json samples_ns=[2280.0971,2247.8777,2200.156,2065.2323,2115.9735,2075.6678,1899.3912] checksum=61250000000000\nduration-toml samples_ns=[1420.2831,1423.5415,1394.8803,1455.7757,1461.7149,1579.3452,1664.7725] checksum=61250000000000\n",
+      "fixtures": {
+        "duration-get": {
+          "samples_ns": [
+            201.1133,
+            207.4319,
+            196.7411,
+            229.4906,
+            187.6901,
+            177.7643,
+            173.0047
+          ],
+          "median_ns": 196.7411,
+          "checksum": 61250000000000
+        },
+        "duration-override": {
+          "samples_ns": [
+            283.3641,
+            466.5827,
+            276.9606,
+            282.5203,
+            268.8301,
+            264.555,
+            305.7614
+          ],
+          "median_ns": 282.5203,
+          "checksum": 61250000000000
+        },
+        "duration-json": {
+          "samples_ns": [
+            2280.0971,
+            2247.8777,
+            2200.156,
+            2065.2323,
+            2115.9735,
+            2075.6678,
+            1899.3912
+          ],
+          "median_ns": 2115.9735,
+          "checksum": 61250000000000
+        },
+        "duration-toml": {
+          "samples_ns": [
+            1420.2831,
+            1423.5415,
+            1394.8803,
+            1455.7757,
+            1461.7149,
+            1579.3452,
+            1664.7725
+          ],
+          "median_ns": 1455.7757,
+          "checksum": 61250000000000
+        }
+      }
+    },
+    {
+      "round": 6,
+      "library": "koanf",
+      "raw_stdout": "duration-get samples_ns=[419.5866,416.2899,482.9167,383.3486,437.2908,390.3249,406.6075] checksum=61250000000000\nduration-override samples_ns=[2208.3448,2181.3641,2024.6966,1913.9406,1918.4167,1893.1482,1916.7948] checksum=61250000000000\nduration-json samples_ns=[2744.8565,2660.1062,2613.288,2760.3114,3829.3699,4246.6266,3298.2491] checksum=61250000000000\nduration-toml samples_ns=[2475.2259,2557.1155,2548.4132,2227.6631,2166.4516,2100.0209,2144.1234] checksum=61250000000000\n",
+      "fixtures": {
+        "duration-get": {
+          "samples_ns": [
+            419.5866,
+            416.2899,
+            482.9167,
+            383.3486,
+            437.2908,
+            390.3249,
+            406.6075
+          ],
+          "median_ns": 416.2899,
+          "checksum": 61250000000000
+        },
+        "duration-override": {
+          "samples_ns": [
+            2208.3448,
+            2181.3641,
+            2024.6966,
+            1913.9406,
+            1918.4167,
+            1893.1482,
+            1916.7948
+          ],
+          "median_ns": 1918.4167,
+          "checksum": 61250000000000
+        },
+        "duration-json": {
+          "samples_ns": [
+            2744.8565,
+            2660.1062,
+            2613.288,
+            2760.3114,
+            3829.3699,
+            4246.6266,
+            3298.2491
+          ],
+          "median_ns": 2760.3114,
+          "checksum": 61250000000000
+        },
+        "duration-toml": {
+          "samples_ns": [
+            2475.2259,
+            2557.1155,
+            2548.4132,
+            2227.6631,
+            2166.4516,
+            2100.0209,
+            2144.1234
+          ],
+          "median_ns": 2227.6631,
+          "checksum": 61250000000000
+        }
+      }
+    },
+    {
+      "round": 7,
+      "library": "koanf",
+      "raw_stdout": "duration-get samples_ns=[373.2576,389.0733,453.726,361.9033,489.499,395.2394,461.1146] checksum=61250000000000\nduration-override samples_ns=[2371.6705,2497.9273,2493.2041,2577.4068,2692.801,2557.1563,2648.754] checksum=61250000000000\nduration-json samples_ns=[4122.5613,3605.2583,3253.8361,3084.4125,3428.5091,3270.5363,3778.5923] checksum=61250000000000\nduration-toml samples_ns=[3067.2155,3270.3442,2991.7845,3070.6528,2811.9752,2452.9273,2651.8633] checksum=61250000000000\n",
+      "fixtures": {
+        "duration-get": {
+          "samples_ns": [
+            373.2576,
+            389.0733,
+            453.726,
+            361.9033,
+            489.499,
+            395.2394,
+            461.1146
+          ],
+          "median_ns": 395.2394,
+          "checksum": 61250000000000
+        },
+        "duration-override": {
+          "samples_ns": [
+            2371.6705,
+            2497.9273,
+            2493.2041,
+            2577.4068,
+            2692.801,
+            2557.1563,
+            2648.754
+          ],
+          "median_ns": 2557.1563,
+          "checksum": 61250000000000
+        },
+        "duration-json": {
+          "samples_ns": [
+            4122.5613,
+            3605.2583,
+            3253.8361,
+            3084.4125,
+            3428.5091,
+            3270.5363,
+            3778.5923
+          ],
+          "median_ns": 3428.5091,
+          "checksum": 61250000000000
+        },
+        "duration-toml": {
+          "samples_ns": [
+            3067.2155,
+            3270.3442,
+            2991.7845,
+            3070.6528,
+            2811.9752,
+            2452.9273,
+            2651.8633
+          ],
+          "median_ns": 2991.7845,
+          "checksum": 61250000000000
+        }
+      }
+    },
+    {
+      "round": 7,
+      "library": "viper",
+      "raw_stdout": "duration-get samples_ns=[210.0965,195.6002,189.1573,221.1393,183.9339,170.338,168.9184] checksum=61250000000000\nduration-override samples_ns=[266.058,442.9668,269.6131,274.2538,257.3479,257.2953,316.6235] checksum=61250000000000\nduration-json samples_ns=[2430.5384,2269.8736,2179.6148,2163.3934,2223.6361,2358.8326,2222.5889] checksum=61250000000000\nduration-toml samples_ns=[1726.6515,2097.4655,2318.4827,2183.6976,2333.0851,2301.78,2287.4126] checksum=61250000000000\n",
+      "fixtures": {
+        "duration-get": {
+          "samples_ns": [
+            210.0965,
+            195.6002,
+            189.1573,
+            221.1393,
+            183.9339,
+            170.338,
+            168.9184
+          ],
+          "median_ns": 189.1573,
+          "checksum": 61250000000000
+        },
+        "duration-override": {
+          "samples_ns": [
+            266.058,
+            442.9668,
+            269.6131,
+            274.2538,
+            257.3479,
+            257.2953,
+            316.6235
+          ],
+          "median_ns": 269.6131,
+          "checksum": 61250000000000
+        },
+        "duration-json": {
+          "samples_ns": [
+            2430.5384,
+            2269.8736,
+            2179.6148,
+            2163.3934,
+            2223.6361,
+            2358.8326,
+            2222.5889
+          ],
+          "median_ns": 2223.6361,
+          "checksum": 61250000000000
+        },
+        "duration-toml": {
+          "samples_ns": [
+            1726.6515,
+            2097.4655,
+            2318.4827,
+            2183.6976,
+            2333.0851,
+            2301.78,
+            2287.4126
+          ],
+          "median_ns": 2287.4126,
+          "checksum": 61250000000000
+        }
+      }
+    },
+    {
+      "round": 7,
+      "library": "goose-config",
+      "raw_stdout": "duration-get samples_ns=[14.4552, 14.4167, 14.373, 14.3479, 15.4052, 15.3064, 14.3655] checksum=61250000000000\nduration-override samples_ns=[88.3673, 87.2251, 87.7862, 85.9104, 83.2586, 83.0918, 82.6067] checksum=61250000000000\nduration-json samples_ns=[387.4275, 371.769, 355.9164, 348.8776, 338.5273, 332.4514, 320.0469] checksum=61250000000000\nduration-toml samples_ns=[216.7009, 212.2314, 211.9101, 202.516, 202.6361, 208.1357, 203.1479] checksum=61250000000000\n",
+      "fixtures": {
+        "duration-get": {
+          "samples_ns": [
+            14.4552,
+            14.4167,
+            14.373,
+            14.3479,
+            15.4052,
+            15.3064,
+            14.3655
+          ],
+          "median_ns": 14.4167,
+          "checksum": 61250000000000
+        },
+        "duration-override": {
+          "samples_ns": [
+            88.3673,
+            87.2251,
+            87.7862,
+            85.9104,
+            83.2586,
+            83.0918,
+            82.6067
+          ],
+          "median_ns": 85.9104,
+          "checksum": 61250000000000
+        },
+        "duration-json": {
+          "samples_ns": [
+            387.4275,
+            371.769,
+            355.9164,
+            348.8776,
+            338.5273,
+            332.4514,
+            320.0469
+          ],
+          "median_ns": 348.8776,
+          "checksum": 61250000000000
+        },
+        "duration-toml": {
+          "samples_ns": [
+            216.7009,
+            212.2314,
+            211.9101,
+            202.516,
+            202.6361,
+            208.1357,
+            203.1479
+          ],
+          "median_ns": 208.1357,
+          "checksum": 61250000000000
+        }
+      }
+    },
+    {
+      "round": 8,
+      "library": "goose-config",
+      "raw_stdout": "duration-get samples_ns=[30.9533, 11.9428, 11.9637, 11.9407, 14.546, 11.9397, 11.9374] checksum=61250000000000\nduration-override samples_ns=[73.6784, 74.4367, 75.6797, 75.8087, 76.2364, 72.6041, 76.8609] checksum=61250000000000\nduration-json samples_ns=[336.989, 343.9354, 348.6944, 362.1169, 359.937, 368.565, 383.9278] checksum=61250000000000\nduration-toml samples_ns=[260.2891, 255.8564, 256.7486, 261.1673, 267.8424, 284.6857, 262.1142] checksum=61250000000000\n",
+      "fixtures": {
+        "duration-get": {
+          "samples_ns": [
+            30.9533,
+            11.9428,
+            11.9637,
+            11.9407,
+            14.546,
+            11.9397,
+            11.9374
+          ],
+          "median_ns": 11.9428,
+          "checksum": 61250000000000
+        },
+        "duration-override": {
+          "samples_ns": [
+            73.6784,
+            74.4367,
+            75.6797,
+            75.8087,
+            76.2364,
+            72.6041,
+            76.8609
+          ],
+          "median_ns": 75.6797,
+          "checksum": 61250000000000
+        },
+        "duration-json": {
+          "samples_ns": [
+            336.989,
+            343.9354,
+            348.6944,
+            362.1169,
+            359.937,
+            368.565,
+            383.9278
+          ],
+          "median_ns": 359.937,
+          "checksum": 61250000000000
+        },
+        "duration-toml": {
+          "samples_ns": [
+            260.2891,
+            255.8564,
+            256.7486,
+            261.1673,
+            267.8424,
+            284.6857,
+            262.1142
+          ],
+          "median_ns": 261.1673,
+          "checksum": 61250000000000
+        }
+      }
+    },
+    {
+      "round": 8,
+      "library": "koanf",
+      "raw_stdout": "duration-get samples_ns=[504.2566,508.0536,603.8728,483.9254,573.058,475.5212,603.7413] checksum=61250000000000\nduration-override samples_ns=[2751.0688,2722.8306,2682.8126,2716.8714,3084.3041,3231.4595,3253.9765] checksum=61250000000000\nduration-json samples_ns=[5536.0377,4476.765,3821.0406,3673.0141,3889.3793,3952.8916,3753.8863] checksum=61250000000000\nduration-toml samples_ns=[3273.3305,3178.2325,3260.9539,3603.3295,3154.9336,2708.8617,3026.6244] checksum=61250000000000\n",
+      "fixtures": {
+        "duration-get": {
+          "samples_ns": [
+            504.2566,
+            508.0536,
+            603.8728,
+            483.9254,
+            573.058,
+            475.5212,
+            603.7413
+          ],
+          "median_ns": 508.0536,
+          "checksum": 61250000000000
+        },
+        "duration-override": {
+          "samples_ns": [
+            2751.0688,
+            2722.8306,
+            2682.8126,
+            2716.8714,
+            3084.3041,
+            3231.4595,
+            3253.9765
+          ],
+          "median_ns": 2751.0688,
+          "checksum": 61250000000000
+        },
+        "duration-json": {
+          "samples_ns": [
+            5536.0377,
+            4476.765,
+            3821.0406,
+            3673.0141,
+            3889.3793,
+            3952.8916,
+            3753.8863
+          ],
+          "median_ns": 3889.3793,
+          "checksum": 61250000000000
+        },
+        "duration-toml": {
+          "samples_ns": [
+            3273.3305,
+            3178.2325,
+            3260.9539,
+            3603.3295,
+            3154.9336,
+            2708.8617,
+            3026.6244
+          ],
+          "median_ns": 3178.2325,
+          "checksum": 61250000000000
+        }
+      }
+    },
+    {
+      "round": 8,
+      "library": "viper",
+      "raw_stdout": "duration-get samples_ns=[208.4869,216.2817,229.5755,209.2897,253.4306,192.996,187.3054] checksum=61250000000000\nduration-override samples_ns=[304.1584,490.628,297.7936,323.4388,312.5025,317.9165,368.3667] checksum=61250000000000\nduration-json samples_ns=[2762.8377,2695.3127,2295.6035,2201.3303,2211.2544,2109.5357,2135.5289] checksum=61250000000000\nduration-toml samples_ns=[1845.6978,1622.2336,1632.9686,1450.9762,1587.2932,1493.9006,1419.536] checksum=61250000000000\n",
+      "fixtures": {
+        "duration-get": {
+          "samples_ns": [
+            208.4869,
+            216.2817,
+            229.5755,
+            209.2897,
+            253.4306,
+            192.996,
+            187.3054
+          ],
+          "median_ns": 209.2897,
+          "checksum": 61250000000000
+        },
+        "duration-override": {
+          "samples_ns": [
+            304.1584,
+            490.628,
+            297.7936,
+            323.4388,
+            312.5025,
+            317.9165,
+            368.3667
+          ],
+          "median_ns": 317.9165,
+          "checksum": 61250000000000
+        },
+        "duration-json": {
+          "samples_ns": [
+            2762.8377,
+            2695.3127,
+            2295.6035,
+            2201.3303,
+            2211.2544,
+            2109.5357,
+            2135.5289
+          ],
+          "median_ns": 2211.2544,
+          "checksum": 61250000000000
+        },
+        "duration-toml": {
+          "samples_ns": [
+            1845.6978,
+            1622.2336,
+            1632.9686,
+            1450.9762,
+            1587.2932,
+            1493.9006,
+            1419.536
+          ],
+          "median_ns": 1587.2932,
+          "checksum": 61250000000000
+        }
+      }
+    }
+  ],
+  "median_of_run_medians_ns": {
+    "goose-config": {
+      "duration-get": 11.3949,
+      "duration-override": 70.2743,
+      "duration-json": 292.0826,
+      "duration-toml": 205.8781
+    },
+    "viper": {
+      "duration-get": 196.2445,
+      "duration-override": 282.5203,
+      "duration-json": 2223.6361,
+      "duration-toml": 1654.5448
+    },
+    "koanf": {
+      "duration-get": 414.4202,
+      "duration-override": 2042.9371,
+      "duration-json": 3079.2965,
+      "duration-toml": 2291.2377
+    }
+  }
+}
