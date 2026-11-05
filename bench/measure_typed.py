@@ -24,17 +24,28 @@ SOURCES = ('config.goose','toml.goose','vendor.goose','json_layer.goose','bindin
 
 def sha(data): return hashlib.sha256(data).hexdigest()
 
+class RunFailure(RuntimeError):
+    def __init__(self, command, out, err, returncode, timed_out=False):
+        super().__init__('process timed out' if timed_out else 'process failed')
+        self.command=list(map(str,command)); self.stdout=out; self.stderr=err
+        self.returncode=returncode; self.timed_out=timed_out
+
 def run(command, *, env=None, cwd=None, timeout=120):
     process = subprocess.Popen(list(map(str,command)), env=env, cwd=cwd, stdout=subprocess.PIPE,
                                stderr=subprocess.PIPE, text=True, start_new_session=True)
     try:
         out, err = process.communicate(timeout=timeout)
+    except subprocess.TimeoutExpired:
+        try: os.killpg(process.pid, signal.SIGKILL)
+        except ProcessLookupError: pass
+        out,err=process.communicate()
+        raise RunFailure(command,out,err,process.returncode,True) from None
     except BaseException:
         try: os.killpg(process.pid, signal.SIGKILL)
         except ProcessLookupError: pass
         process.communicate()
         raise
-    if process.returncode: raise subprocess.CalledProcessError(process.returncode,command,out,err)
+    if process.returncode: raise RunFailure(command,out,err,process.returncode)
     return out, err
 
 def digest(first, large=False, optional=False):
@@ -59,6 +70,21 @@ def parse(output, count):
         if row['checksum']!=expected: raise ValueError('incorrect fixture checksum: '+name)
     return rows
 
+def failure_record(context, error, redactions):
+    result=dict(context or {})
+    result.update(exception_type=type(error).__name__,exception_message=str(error))
+    if isinstance(error,RunFailure):
+        result.update(argv=error.command,raw_stdout=error.stdout,raw_stderr=error.stderr,
+                      returncode=error.returncode,timed_out=error.timed_out)
+    def clean(value):
+        if isinstance(value,str):
+            for source,replacement in sorted(redactions,key=lambda pair:len(pair[0]),reverse=True):
+                value=value.replace(source,replacement)
+        elif isinstance(value,list):return [clean(item) for item in value]
+        elif isinstance(value,dict):return {key:clean(item) for key,item in value.items()}
+        return value
+    return clean(result)
+
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--goose',type=Path,required=True);p.add_argument('--revision',default='HEAD')
@@ -68,7 +94,10 @@ def main():
     a=p.parse_args()
     if not 1<=a.iterations<=100000 or not 1<=a.rounds<=20:p.error('iterations1..100000; rounds1..20')
     if a.cpu not in os.sched_getaffinity(0):p.error('CPU outside affinity')
-    if a.output.exists():p.error('choose a fresh output path; preserve previous records')
+    if a.output.exists() or a.output.is_symlink():p.error('choose a fresh output path; preserve previous records')
+    if a.disassembly_output:
+        if a.disassembly_output.exists() or a.disassembly_output.is_symlink():p.error('choose a fresh disassembly path')
+        if a.disassembly_output.resolve()==a.output.resolve():p.error('JSON and disassembly paths must differ')
     os.sched_setaffinity(0,{a.cpu}); compiler=a.goose.resolve(strict=True)
     revision=run(['git','rev-parse','--verify','--end-of-options',f'{a.revision}^{{commit}}'],cwd=ROOT)[0].strip()
     data={name:subprocess.check_output(['git','show',f'{revision}:{name}'],cwd=ROOT,timeout=30) for name in SOURCES}
@@ -96,6 +125,7 @@ def main():
                            'Reads measure optimized workload throughput, not nominal per-read latency.',
                            'Ten-kind fixtures only, not wide-schema or compile-time performance; no RSS/allocation claim.'],
             'warmup':'Counts1/2/3 per caller preflighted; first timed batch retained.','preflights':[],'measurements':[]}
+    pending=None; work=None
     try:
         with tempfile.TemporaryDirectory(prefix='run-',dir=parent) as tmp:
             work=Path(tmp)
@@ -104,28 +134,40 @@ def main():
             env={key:os.environ[key] for key in ('PATH','HOME') if key in os.environ}
             env.update(GOOSE_HOME=str(work/'goose-home'),LANG='C',TZ='UTC')
             binary=work/'typed-benchmark'
-            run([compiler,'build',work/'bench/typed_settings.goose','--cc','gcc','-O2','-o',binary],env=env,timeout=300)
+            command=[compiler,'build',work/'bench/typed_settings.goose','--cc','gcc','-O2','-o',binary]
+            pending={'phase':'build','argv':list(map(str,command))}
+            run(command,env=env,timeout=300);pending=None
             record['binary_sha256']=sha(binary.read_bytes())
             if a.disassembly_output:
                 assembly=run(['objdump','-d',binary])[0];a.disassembly_output.parent.mkdir(parents=True,exist_ok=True);a.disassembly_output.write_text(assembly)
                 record['native_disassembly_sha256']=sha(assembly.encode())
             for count in (1,2,3):
                 for caller in ('generated','reference'):
-                    out,err=run([binary,count,caller],env=env)
+                    command=[binary,count,caller];pending={'phase':'preflight','count':count,'caller':caller,'argv':list(map(str,command))}
+                    out,err=run(command,env=env);pending.update(raw_stdout=out,raw_stderr=err)
                     if err:raise ValueError('preflight wrote stderr')
                     record['preflights'].append({'count':count,'caller':caller,'raw_stdout':out,'fixtures':parse(out,count)})
+                    pending=None
             rng=random.Random(a.seed);record['utc_start']=datetime.now(timezone.utc).isoformat()
             for round_id in range(a.rounds):
                 order=['generated','reference-A','reference-B'];rng.shuffle(order)
                 for label in order:
-                    out,err=run([binary,a.iterations,'generated' if label=='generated' else 'reference'],env=env)
+                    command=[binary,a.iterations,'generated' if label=='generated' else 'reference']
+                    pending={'phase':'measurement','round':round_id,'caller':label,'argv':list(map(str,command))}
+                    out,err=run(command,env=env);pending.update(raw_stdout=out,raw_stderr=err)
                     if err:raise ValueError('measured process wrote stderr')
                     record['measurements'].append({'round':round_id,'caller':label,'raw_stdout':out,'fixtures':parse(out,a.iterations)})
+                    pending=None
                     write_record(a.output,record)
             if record['binary_sha256']!=sha(binary.read_bytes()):raise ValueError('binary changed')
         if compiler_hash!=sha(compiler.read_bytes()) or hashes!={name:sha(path.read_bytes()) for name,path in inputs.items()}:raise ValueError('toolchain changed')
         record['median_of_run_medians_ns']={caller:{name:statistics.median(row['fixtures'][name]['median_ns'] for row in record['measurements'] if row['caller']==caller) for name in NAMES} for caller in ('generated','reference-A','reference-B')}
         record['completed']=True
+    except BaseException as error:
+        paths=[(str(compiler),'<goose>'),(str(ROOT),'<repository>')]
+        if work is not None:paths.append((str(work),'<snapshot>'))
+        record['failure']=failure_record(pending,error,paths)
+        raise
     finally:
         record['recorded_utc']=datetime.now(timezone.utc).isoformat();write_record(a.output,record)
     print(json.dumps(record['median_of_run_medians_ns'],indent=2))

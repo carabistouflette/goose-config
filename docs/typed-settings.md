@@ -5,6 +5,9 @@ module. Applications get an owned `Settings` struct, `schema()`, `aliases()` and
 checked `load` overloads. Generated modules import `config.typed`; applications
 that use only the original Store/getter interface do not need this adapter.
 The original six runtime modules, Store layout and compiler pin are unchanged.
+Generated `stage`, `accept` and `own_text` functions are unsupported internal
+helpers. `stage` requires fresh private staging and does not provide the public
+loader's atomic-publication contract by itself.
 
 The generator needs Python 3.11+ and the pinned Goose compiler for formatting.
 Generation does not evaluate schema expressions or fetch imports. Commit the
