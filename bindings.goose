@@ -25,14 +25,15 @@ fn binding_error(store: Store&, bindings: Binding[:], cli: bool) -> u8[>..] {
         let binding = bindings[i];
         if !binding_name(binding.name, cli) { return problem("invalid binding name", binding.key, binding.name); }
         if !valid_key(binding.key) { return problem("invalid binding key", binding.key, binding.name); }
-        if locate(store, binding.key) < 0 { return problem("unknown binding key", binding.key, binding.name); }
-        if !cli && list_kind(store.fields[locate(store, binding.key)].kind) &&
+        let target = locate(store, binding.key);
+        if target < 0 { return problem("unknown binding key", binding.key, binding.name); }
+        if !cli && list_kind(store.fields[target].kind) &&
            (binding.separator.len == 0 || binding.separator.len > MAX_KEY_BYTES) {
             return problem("invalid list separator", binding.key, binding.name);
         }
         for j in i {
             if bindings[j].name == binding.name { return problem("duplicate binding name", binding.key, binding.name); }
-            if bindings[j].key == binding.key { return problem("duplicate binding target", binding.key, binding.name); }
+            if bindings[j].key == binding.key || (store.aliases.len > 0 && locate(store, bindings[j].key) == target) { return problem("duplicate binding target", binding.key, binding.name); }
         }
     }
     []

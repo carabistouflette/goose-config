@@ -3,6 +3,7 @@ import std;
 namespace config;
 
 const MAX_FIELDS = 256;
+const MAX_ALIASES = 256;
 const MAX_KEY_BYTES = 256;
 const MAX_VALUE_BYTES = 4096;
 const MAX_SOURCE_BYTES = 256;
@@ -33,6 +34,8 @@ struct Field {
     int_min:   i64                                     = -9223372036854775808, int_max: i64 = 9223372036854775807,
     float_min: f64                                     = -1.7976931348623157e308, float_max: f64 = 1.7976931348623157e308,
 }
+struct Alias { key: const u8[:], target: const u8[:] }
+struct OwnedAlias { key: Span, target: i64 }
 struct Override { key: const u8[:], value: const u8[:], source: const u8[:] }
 struct ListOverride { key: const u8[:], values: const (const u8[:])[:], source: const u8[:] }
 // Internal storage. Mutating these fields directly is outside the API contract.
@@ -53,6 +56,7 @@ struct Candidate {
     source:  const u8[:], text: const u8[:], list: Span,
 }
 root struct Store {
+    aliases:     OwnedAlias[>..], alias_keys: u8[>..],
     initialized: bool = false, fields: OwnedField[>..], values: Value[>..],
     ordered:     i64[>..], hash_ids: i64[>..], keys: u8[>..], bytes: u8[>..], items: Item[>..],
 }
@@ -130,7 +134,7 @@ fn lookup_hash(key: const u8[:]) -> u64 {
     for byte in key[start..] { result = (result ^ byte) * 1099511628211; }
     result
 }
-fn locate(store: Store&, key: const u8[:]) -> i64 {
+fn locate_canonical(store: Store&, key: const u8[:]) -> i64 {
     if key.len > MAX_KEY_BYTES { return -1; }
     // Keep tiny schemas and the first declared key cheap.
     if store.fields.len <= 8 {
@@ -156,6 +160,21 @@ fn locate(store: Store&, key: const u8[:]) -> i64 {
         if order == 0 { return id; }
         if order < 0 { low = middle + 1; }
         else { high = middle; }
+    }
+    -1
+}
+
+// Canonical reads retain their original path. Aliases are searched only on a
+// miss, by bounded binary search over owned keys and direct canonical IDs.
+fn locate(store: Store&, key: const u8[:]) -> i64 {
+    let id = locate_canonical(store, key);
+    if id >= 0 || key.len > MAX_KEY_BYTES { return id; }
+    var low = 0; var high = store.aliases.len;
+    while low < high {
+        let middle = low + (high - low) / 2;
+        let order = compare_key(view(store.alias_keys, store.aliases[middle].key), key);
+        if order == 0 { return store.aliases[middle].target; }
+        if order < 0 { low = middle + 1; } else { high = middle; }
     }
     -1
 }
@@ -247,8 +266,9 @@ fn conflicting(fields: OwnedField[:], keys: const u8[:], ordered: i64[:]) -> boo
 }
 
 // Atomic initialization: failure preserves the previous store.
-fn init(schema: Field[:], store: Store&) -> u8[>..] {
+fn init(schema: Field[:], store: Store&, aliases: const Alias[:] = []) -> u8[>..] {
     if schema.len > MAX_FIELDS { return problem("too many schema fields"); }
+    if aliases.len > MAX_ALIASES { return problem("too many aliases"); }
     if schema.len <= 8 {
         let error = schema_error(schema);
         if error.len > 0 { return error; }
@@ -276,6 +296,36 @@ fn init(schema: Field[:], store: Store&) -> u8[>..] {
         }
         index_fields(fields, keys, hash_ids);
     }
+    var owned_aliases: OwnedAlias[>..] = [];
+    var alias_keys:    u8[>..]         = [];
+    for alias, i in aliases {
+        if !valid_key(alias.key) || !valid_key(alias.target) { return problem("invalid alias key or target", alias.key); }
+        var target = -1;
+        for field, id in fields {
+            let key = view(keys, field.key);
+            if key == alias.target { target = id; }
+            if key == alias.key || prefix(key, alias.key) || prefix(alias.key, key) {
+                return problem("alias conflicts with schema key", alias.key);
+            }
+        }
+        if target < 0 { return problem("alias target is not a canonical field", alias.key); }
+        for j in i {
+            let key = aliases[j].key;
+            if key == alias.key || prefix(key, alias.key) || prefix(alias.key, key) {
+                return problem("duplicate or conflicting alias key", alias.key);
+            }
+        }
+        // Insertion sort is bounded by256 entries and retains direct target IDs.
+        let entry = OwnedAlias { save(alias_keys, alias.key), target };
+        var at = owned_aliases.len;
+        owned_aliases.push(entry);
+        while at > 0 && compare_key(view(alias_keys, owned_aliases[at - 1].key), alias.key) > 0 {
+            owned_aliases[at] = owned_aliases[at - 1]; at--;
+        }
+        owned_aliases[at] = entry;
+    }
+    store.aliases.clear(); store.aliases.append(owned_aliases);
+    store.alias_keys.clear(); store.alias_keys.append(alias_keys);
     store.values.clear(); store.fields.clear(); store.keys.clear(); store.bytes.clear(); store.items.clear(); store.ordered.clear(); store.hash_ids.clear();
     store.fields.append(fields); store.keys.append(keys); store.ordered.append(ordered); store.hash_ids.append(hash_ids);
     for i in count { store.values.push(Value { .. }); }
@@ -287,6 +337,8 @@ fn init(schema: Field[:], store: Store&) -> u8[>..] {
 // must be distinct stores. Arena offsets remain valid because all arenas and
 // their metadata are copied together, without sharing their owned storage.
 fn publish_store(destination: Store&, source: Store&) {
+    destination.aliases.clear(); destination.aliases.append(source.aliases);
+    destination.alias_keys.clear(); destination.alias_keys.append(source.alias_keys);
     destination.fields.clear(); destination.fields.append(source.fields);
     destination.values.clear(); destination.values.append(source.values);
     destination.keys.clear(); destination.keys.append(source.keys);

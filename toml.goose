@@ -7,6 +7,7 @@ namespace config;
 fn table_known(store: Store&, path: const u8[:]) -> bool {
     if path.len == 0 { return true; }
     for field in store.fields { if prefix(path, view(store.keys, field.key)) { return true; } }
+    for alias in store.aliases { if prefix(path, view(store.alias_keys, alias.key)) { return true; } }
     false
 }
 fn toml_value(field: OwnedField&, doc: config_toml::Document&, id: i64,
@@ -48,6 +49,9 @@ recursive fn gather_toml(store: Store&, doc: config_toml::Document&, parent: i64
             if ids.len >= MAX_FIELDS { error = problem("too many TOML values", full, origin); return; }
             let id = locate(store, full);
             if id < 0 { error = problem("unknown key", full, origin); return; }
+            if store.aliases.len > 0 {
+                for previous in ids { if previous == id { error = problem("duplicate canonical key in layer", full, origin); return; } }
+            }
             let field = store.fields[id];
             var value = Candidate { source: origin, text: "", .. };
             if list_kind(field.kind) && node.kind == config_toml::Kind.Array {

@@ -140,6 +140,7 @@ fn json_scalar(r: JsonReader&, kind: Kind, out: Item&, depth: i64) {
 }
 fn json_known_table(store: Store&, path: const u8[:]) -> bool {
     for field in store.fields { if prefix(path, view(store.keys, field.key)) { return true; } }
+    for alias in store.aliases { if prefix(path, view(store.alias_keys, alias.key)) { return true; } }
     false
 }
 fn json_equal(r: JsonReader&, a: const u8[:], b: const u8[:]) -> bool {
@@ -155,6 +156,9 @@ fn json_equal(r: JsonReader&, a: const u8[:], b: const u8[:]) -> bool {
 fn json_leaf(r: JsonReader&, store: Store&, path: const u8[:], origin: const u8[:], depth: i64) {
     let id = locate(store, path);
     if id < 0 || r.ids.len >= MAX_FIELDS { r.bad = true; return; }
+    if store.aliases.len > 0 {
+        for previous in r.ids { if previous == id { r.bad = true; return; } }
+    }
     let field = store.fields[id];
     var candidate = Candidate { source: origin, text: "", .. };
     var scalar = Item { .. };

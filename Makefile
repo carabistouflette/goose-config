@@ -3,7 +3,7 @@ BENCH_ITERATIONS ?= 1000
 RELEASE_CC ?= gcc
 SANITIZER_OPT ?= -O2
 export SANITIZER_OPT
-TESTS = config behavior toml overloads index ownership schema lists toml-lists json-layer bindings reload durations
+TESTS = config behavior toml overloads index ownership schema lists toml-lists json-layer bindings reload durations aliases
 SOURCES = config.goose toml.goose vendor.goose json_layer.goose bindings.goose reload.goose
 
 .PHONY: setup format check test integration property security sanitize sanitizer-config release conformance bench worker
