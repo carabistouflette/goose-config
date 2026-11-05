@@ -1,5 +1,12 @@
 # Alias workload measurements
 
+The final alias measurements match runtime modules in published main commit
+`4f977c0b1e4f06832b776c847d53897215c5a0bc`. The raw lookup and binding records
+hash those modules and their harnesses. The paired core/update records use
+`d654a6e`; a file-by-file comparison confirms that the measured runtime and
+harness files are unchanged through `4f977c0`. Earlier results on this page are
+kept as historical observations.
+
 Direct aliases are an additive, bounded configuration feature, not full Viper or
 Koanf feature parity. Canonical lookup runs first; only a miss searches the sorted
 owned alias keys. Additional metadata and validation still have costs even when
@@ -17,9 +24,9 @@ they do not change these runtime files. The pinned compiler remains
 Local measurements used Linux x86-64, Intel Core Ultra 7 258V, affinity CPU 6,
 GCC 16.2.1, `-O2`, and the compiler/runtime identities in each record. Bindings
 adapters use Go 1.27.3-X:nodwarf5, Viper 1.21.0 and Koanf 2.4.1. This was a shared
-host without exclusive isolation. All owned heavy validation finished before
-these timing series. No sample was removed, normalized or corrected with a
-control. Separate series and executable build paths are not interchangeable.
+host without exclusive isolation; unrelated activity was not controlled. No
+sample was removed, normalized or corrected with a control. Separate series and
+executable build paths are not interchangeable.
 
 Alias lookups use 9 processes, 10,000 operations per batch, seven batches per case.
 Schema/store initialization is outside the timer. Each of 12 cases selects mixed
@@ -35,23 +42,24 @@ allocation/RSS, binding-descriptor or alias-heavy update timings.
 
 ## Alias-enabled lookups
 
-Values are medians of process medians, nanoseconds per operation. Initial and
-final columns are separate observations, not a causal optimization percentage.
+Values are medians of process medians, nanoseconds per operation. The range is
+the minimum-to-maximum of the nine final process medians. Initial and final
+columns are separate observations, not a causal optimization percentage.
 
-| Case | Initial alias runtime | Final runtime |
+| Case | Initial alias runtime (historical) | Final median [range] |
 |---|---:|---:|
-| canonical-8 | 20.32 | 22.10 |
-| alias-8 | 51.90 | 52.09 |
-| missing-8 | 49.41 | 44.59 |
-| canonical-8-long | 76.32 | 73.71 |
-| alias-8-long | 196.41 | 183.44 |
-| missing-8-long | 362.48 | 329.98 |
-| canonical-256 | 25.31 | 25.96 |
-| alias-256 | 98.80 | 88.92 |
-| missing-256 | 85.53 | 79.93 |
-| canonical-256-long | 94.02 | 90.32 |
-| alias-256-long | 301.57 | 273.98 |
-| missing-256-long | 512.06 | 458.01 |
+| canonical-8 | 20.32 | 22.10 [21.21–25.22] |
+| alias-8 | 51.90 | 52.09 [50.04–59.75] |
+| missing-8 | 49.41 | 44.59 [42.55–48.42] |
+| canonical-8-long | 76.32 | 73.71 [70.66–84.04] |
+| alias-8-long | 196.41 | 183.44 [167.02–207.69] |
+| missing-8-long | 362.48 | 329.98 [315.97–374.25] |
+| canonical-256 | 25.31 | 25.96 [24.89–30.00] |
+| alias-256 | 98.80 | 88.92 [85.85–99.93] |
+| missing-256 | 85.53 | 79.93 [74.83–88.29] |
+| canonical-256-long | 94.02 | 90.32 [86.64–102.46] |
+| alias-256-long | 301.57 | 273.98 [263.87–326.56] |
+| missing-256-long | 512.06 | 458.01 [451.14–494.95] |
 
 ## Existing canonical-only workloads
 
@@ -63,33 +71,37 @@ case. The core control compiles the same old source twice at different paths;
 it is a **same-source** control, not an identical-executable control. Its variation
 cannot be subtracted from other results or establish a cause.
 
-| Core case | Initial new/old | Same-source control | Final new/old |
-|---|---:|---:|---:|
-| lookup-small | 1.141 | 0.925 | 1.064 |
-| lookup-first-wide | 1.251 | 0.903 | 1.073 |
-| lookup-mixed-wide | 1.197 | 0.915 | 1.030 |
-| lookup-missing-wide | 1.062 | 0.901 | 0.953 |
-| lookup-last-wide | 1.109 | 0.905 | 0.932 |
-| reject-layer-wide | 1.119 | 0.916 | 0.929 |
-| apply-small | 1.023 | 0.906 | 0.875 |
-| apply-wide | 1.048 | 0.912 | 1.010 |
-| update-one-large | 1.085 | 1.167 | 1.220 |
-| lookup-last-long-prefix | 1.015 | 1.000 | 1.018 |
-| lookup-mixed-long-prefix | 1.087 | 0.980 | 1.048 |
-| apply-wide-long-prefix | 1.148 | 1.114 | 0.982 |
-| init-small | 1.068 | 1.144 | 1.066 |
-| init-wide | 1.156 | 1.170 | 0.998 |
-| init-wide-long-prefix | 0.941 | 1.188 | 1.024 |
-| toml-small | 0.997 | 1.108 | 1.135 |
+| Core case | Initial new/old | Same-source control | Final new/old | Final paired-ratio range |
+|---|---:|---:|---:|---:|
+| lookup-small | 1.141 | 0.925 | 1.064 | 0.844–1.191 |
+| lookup-first-wide | 1.251 | 0.903 | 1.073 | 0.870–1.180 |
+| lookup-mixed-wide | 1.197 | 0.915 | 1.030 | 0.806–1.177 |
+| lookup-missing-wide | 1.062 | 0.901 | 0.953 | 0.763–1.039 |
+| lookup-last-wide | 1.109 | 0.905 | 0.932 | 0.783–1.053 |
+| reject-layer-wide | 1.119 | 0.916 | 0.929 | 0.793–1.073 |
+| apply-small | 1.023 | 0.906 | 0.875 | 0.772–1.021 |
+| apply-wide | 1.048 | 0.912 | 1.010 | 0.753–1.060 |
+| update-one-large | 1.085 | 1.167 | 1.220 | 1.170–1.377 |
+| lookup-last-long-prefix | 1.015 | 1.000 | 1.018 | 0.827–1.059 |
+| lookup-mixed-long-prefix | 1.087 | 0.980 | 1.048 | 0.857–1.095 |
+| apply-wide-long-prefix | 1.148 | 1.114 | 0.982 | 0.926–1.005 |
+| init-small | 1.068 | 1.144 | 1.066 | 1.025–1.243 |
+| init-wide | 1.156 | 1.170 | 0.998 | 0.855–1.065 |
+| init-wide-long-prefix | 0.941 | 1.188 | 1.024 | 0.983–1.299 |
+| toml-small | 0.997 | 1.108 | 1.135 | 1.030–1.574 |
 
-| Update case | Initial new/old | Final new/old |
-|---|---:|---:|
-| update-text-boundary-large | 1.093 | 1.041 |
-| update-text-resize-large | 1.544 | 0.974 |
-| update-integer-large | 1.382 | 1.211 |
-| update-text-list-large | 1.202 | 1.073 |
-| update-two-text-large | 1.343 | 0.998 |
-| update-text-full-large | 1.069 | 1.003 |
+The final ratio range shows the minimum and maximum of six matched-pair ratios,
+calculated from each process's fixture median. `Final new/old` remains the ratio
+of the two group medians. The raw record contains all seven batch samples.
+
+| Update case | Initial new/old | Final new/old | Final paired-ratio range |
+|---|---:|---:|---:|
+| update-text-boundary-large | 1.093 | 1.041 | 0.722–1.149 |
+| update-text-resize-large | 1.544 | 0.974 | 0.966–1.168 |
+| update-integer-large | 1.382 | 1.211 | 1.093–1.422 |
+| update-text-list-large | 1.202 | 1.073 | 0.906–1.856 |
+| update-two-text-large | 1.343 | 0.998 | 0.901–1.249 |
+| update-text-full-large | 1.069 | 1.003 | 0.964–1.579 |
 
 The final series retains material slower observations: `update-one-large` 1.220,
 `update-integer-large` 1.211, and `toml-small` 1.135. A separate bounded targeted
@@ -142,17 +154,17 @@ Each series has three deterministically rotating rounds × three callers × thre
 = 189 timings, 1,000 operations per batch. Times are nanoseconds per operation.
 All three observations are retained; alternatives also shifted between series.
 
-| Caller / case | Prior snapshot | Initial aliases | Final aliases |
+| Caller / case | Prior snapshot | Initial aliases | Final aliases: median [range] |
 |---|---:|---:|---:|
-| goose-config / env-bindings | 1378.55 | 1595.42 | 1184.60 |
-| goose-config / cli-lists | 1257.34 | 1489.30 | 1102.42 |
-| goose-config / reload-layers | 21361.58 | 26733.80 | 18452.86 |
-| viper / env-bindings | 2087.46 | 2317.29 | 1961.78 |
-| viper / cli-lists | 12692.27 | 13695.94 | 8898.59 |
-| viper / reload-layers | 151708.09 | 182136.30 | 141879.84 |
-| koanf / env-bindings | 8191.70 | 10470.08 | 8194.58 |
-| koanf / cli-lists | 18745.65 | 21936.06 | 15124.49 |
-| koanf / reload-layers | 319147.28 | 404983.53 | 308670.03 |
+| goose-config / env-bindings | 1378.55 | 1595.42 | 1184.60 [1171.99–1597.15] |
+| goose-config / cli-lists | 1257.34 | 1489.30 | 1102.42 [1064.79–1461.08] |
+| goose-config / reload-layers | 21361.58 | 26733.80 | 18452.86 [18356.40–19536.99] |
+| viper / env-bindings | 2087.46 | 2317.29 | 1961.78 [1704.50–2106.05] |
+| viper / cli-lists | 12692.27 | 13695.94 | 8898.59 [8860.51–9063.21] |
+| viper / reload-layers | 151708.09 | 182136.30 | 141879.84 [141876.49–150303.15] |
+| koanf / env-bindings | 8191.70 | 10470.08 | 8194.58 [7897.86–8594.67] |
+| koanf / cli-lists | 18745.65 | 21936.06 | 15124.49 [14493.28–15199.68] |
+| koanf / reload-layers | 319147.28 | 404983.53 | 308670.03 [305717.61–313777.44] |
 
 The final CONFIG medians are smaller for these subsets. The adapter contracts
 differ: CONFIG validates strict schemas/ranges, retains source labels and atomic
@@ -161,6 +173,9 @@ matching strict failure semantics. Environment reads/provider maps and pflag
 setup also differ. See [feature comparison](comparison.md) and each record's
 semantic limitations. Separate snapshot differences are not attributable solely
 to the inline change, and this is not a full-feature or universal ranking.
+The ranges in the final column are the minimum and maximum of three process
+medians for that library. The earlier snapshot values are historical; all raw
+seven-batch samples are linked below.
 
 ## Reproduction and raw records
 

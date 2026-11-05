@@ -164,7 +164,7 @@ symlinks are rejected.
 The [worker](worker.md) demonstrates actual files, native environment and CLI
 settings followed by validated typed publication. Its existing filesystem,
 process, signal and trusted-input limits remain in effect. This feature does
-not complete the sustained-fuzz release gate or imply a release tag.
+not complete the required sustained fuzzing or imply a release tag.
 
 See [validation and maximum native qualification](typed-validation.md) and
 [measured workload costs and controls](typed-performance.md).

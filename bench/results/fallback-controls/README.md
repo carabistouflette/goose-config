@@ -1,7 +1,11 @@
 # Scalar fallback performance controls
 
-No fallback runtime fix is supported by these measurements. In a coordinated
-window, an identical binary shows a +32.1% resize ratio, while before/current
+**Historical:** these runs compare revisions `53a6832` and `3ba1ecf`. Current
+core modules have changed since; see the
+[performance status](../../../docs/performance-status.md).
+
+No fallback runtime fix is supported by these measurements. An identical
+binary shows a +32.1% resize ratio, while before/current
 resize ratios change from +5.7% to -0.1% between actual execution-order controls.
 Diagnostic copies show identical requested copy bytes/calls. A refreshed,
 coverage-checked PMU run also observes small instruction differences. Large latency differences remain confounded
@@ -40,14 +44,14 @@ but identical-binary A/A resize would also go red by a substantially larger
 amount. That alarm is red-capable but cannot be used as a deterministic causal
 regression test on this host.
 
-The CPU7 window ran on 2026-11-04, with known local heavy work held:
+The CPU7 runs were recorded on 2026-11-04:
 
 - A/A: 19:38:33.276Z–19:39:34.575Z.
 - A/B: 19:39:50.433Z–19:41:57.423Z.
 - Opposite actual revision order: 19:42:08.311Z–19:44:03.075Z.
 
-CPU7 was released at 19:44:07Z. The machine was not exclusively isolated.
-Other processes, kernel activity, frequency, thermals and memory bandwidth were
+The machine was not exclusively isolated. Other processes, kernel activity,
+frequency, thermals and memory bandwidth were
 uncontrolled; the observed governor was `powersave`, unchanged. There was
 fixture setup but no dedicated warmup. These controls establish that a large
 apparent slowdown can occur without changing code; they do not apportion the

@@ -123,5 +123,5 @@ work, strict schemas, application-rule rejection, read failures and source/key
 removal. Rejected reloads preserve job behavior and generation. Separate harness
 regressions verify partial stdin writes and deadline/child cleanup without
 fetching optional dependencies. Sanitizers retain the Goose runtime limitations
-documented in [SECURITY.md](../SECURITY.md). These checks do not complete the
-coverage-guided campaign required by the [release gate](release.md).
+documented in [SECURITY.md](../SECURITY.md). Sustained coverage-guided testing
+remains incomplete; see the [release status](release.md).

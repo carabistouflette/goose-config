@@ -1,5 +1,9 @@
 # Equal-size scalar update measurements
 
+**Historical:** the comparison ends at runtime revision `7f72dc3`; later changes
+modified runtime modules. These results do not measure current main. See the
+[performance status](performance-status.md).
+
 This change targets one present scalar replacement whose combined source/text
 byte length is unchanged. It does not claim a general reload or loading speedup.
 
@@ -57,10 +61,9 @@ Final untimed checks inspect every full value and source, including list items.
 Before: `53a68329332d20f61f5f4e9accedd651de8094f5`. After runtime: `7f72dc34d7c154014ca2dc4a0c087dfac0097331`.
 Compiler: `eadca409f68210893f366e60d0c2f0dc29a339be`; `gcc (GCC) 16.2.1 20260810`; GCC `-O2`.
 Host: Intel(R) Core(TM) Ultra 7 258V; `Linux-7.2.11-arch1-1-x86_64-with-glibc2.44`; CPU affinity 7.
-Acceptance measurements ran on 2026-11-04 from 18:43:40Z to 18:46:17Z after
-local heavy validation finished and the preceding SQLite CPU7 series released.
-A timing courtesy was announced; other host activity, frequency and thermals
-remained uncontrolled. There is no exclusive-isolation or latency guarantee.
+Measurements ran on 2026-11-04 from 18:43:40Z to 18:46:17Z. Other host activity,
+frequency and thermals were uncontrolled; there is no exclusive-isolation or
+latency guarantee.
 
 Each suite has four alternating before/after pairs and an independent second
 invocation. Each process takes seven batches of 1,000 operations per fixture,
@@ -144,8 +147,8 @@ CI smoke-runs the update suite without performance thresholds.
 
 ## Verification
 
-Independent ownership and security reviews checked the actual indexed-write
-patch and generated C, including aliasing, byte boundaries, zero-length spans,
+The indexed-write patch and generated C were checked for aliasing, byte
+boundaries, zero-length spans,
 numeric metadata, list exclusion, compact storage, checked bounds, consumer
 overloads and independent publication. No concrete runtime finding remained.
 Regression guards cover old key/source/text overlap, source/text boundary shifts,
@@ -162,5 +165,5 @@ optimized compilers and both sanitizer compilers. Seventeen Python record tests
 and five provenance tests pass; six-workload native smoke counts 1, 2 and 3
 check odd/even parity and full final state. No new runtime dependency is added.
 
-The sustained coverage-guided campaign remains incomplete. This performance
-change does not close that [release gate](release.md); v0.1.0 remains untagged.
+Sustained coverage-guided fuzzing remains incomplete. These performance checks
+do not replace it; no v0.1.0 tag is available. See [release status](release.md).

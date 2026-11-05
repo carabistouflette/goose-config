@@ -63,6 +63,7 @@ source ordering and business rules are unchanged. Generated modules now require
 
 Use `make generated` and `make generated-check` with the pinned compiler. See
 [typed settings](typed-settings.md) for tool invocation and root dependency rules.
-This milestone does not close the sustained-fuzz release gate or create a tag.
+This feature does not complete the required sustained fuzzing or imply a
+release tag.
 
 See [qualification and retained adoption-cost measurements](generated-bindings-validation.md).

@@ -1,9 +1,10 @@
-# v0.1 API contract
+# API reference
 
-This contract is being prepared for v0.1.0; it does not mean the tag exists.
-See [release preparation](release.md). All names use namespace `config`.
-Optional imports: `config.toml`, `config.json_layer`, `config.bindings`,
-`config.reload`, `config.typed`. Use the compiler pinned by `GOOSE_REVISION`.
+This page describes the public source API. There is no `v0.1.0` tag or stable
+release; the default branch may change. The runtime modules match source commit
+`4f977c0b1e4f06832b776c847d53897215c5a0bc`. All names use namespace `config`.
+Optional imports are `config.toml`, `config.json_layer`, `config.bindings`,
+`config.reload`, and `config.typed`. Use the compiler pinned by `GOOSE_REVISION`.
 
 ## Supported types
 
@@ -94,11 +95,9 @@ is allowed. [Complete type/source/validation rules](common-features.md).
 
 ## Compatibility boundary
 
-Tagged 0.1.x patches preserve supported names/signatures, public struct field
-order/defaults, enum variants, strict interpretation, ownership and transaction
-semantics. Security-driven limit tightening requires explicit release notes.
-Breaking changes require a new minor version before 1.0. Until v0.1.0 is tagged,
-this remains a release-candidate contract. No binary ABI is promised.
+Because no release tag exists, this is a source API description rather than a
+compatibility promise. If the project publishes `0.1.x` tags, this supported
+surface will define what those patches preserve. No binary ABI is promised.
 
 All other visible symbols are internal: Store fields, Span/Item/Value/Candidate/
 OwnedField/OwnedAlias/BoundSpan/JsonReader, lookup constants, helpers, `config_toml`, and

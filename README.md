@@ -1,342 +1,120 @@
 # goose-config
 
-Pure, schema-driven configuration for the [Goose language](https://github.com/aardappel/goose).
-Apache-2.0. Experimental API; no tagged release yet.
+goose-config is a configuration library for [Goose](https://github.com/aardappel/goose).
+It provides typed settings, strict JSON and TOML layers, environment and CLI
+bindings, validation, direct key aliases, and explicit reload.
 
-[v0.1 API candidate](docs/api.md) · [remaining release gates](docs/release.md).
-
-Strict scalar and homogeneous-list schemas, JSON/TOML layers, environment/CLI
-bindings, numeric ranges, required settings, owned values and source labels.
-Explicit reload rebuilds and validates current layers before publication.
-No core runtime dependencies beyond Goose's standard library. Applications choose
-layer order and own file I/O, reload triggers and synchronization.
+**Status:** experimental; no release tag has been published. Pin a full commit
+in application imports. The API may change before the first release.
 
 ## Quick start
 
 ```sh
 git clone https://github.com/carabistouflette/goose-config.git
 cd goose-config
-make setup check test
+make setup
 .toolchain/goose/build/goose run examples/settings.goose
 ```
 
-The example prints `port=9000 (from APP_PORT)`. `make setup` builds the pinned
-compiler locally; see the development requirements below.
+The example prints `port=9000 (from APP_PORT)`. It applies sample values with
+explicit source labels; it does not read the process environment. For actual
+environment and CLI bindings, run `examples/layered.goose` as described in
+[Common application setup](docs/common-features.md).
 
-For another project, declare a full-commit dependency in its root Goose file:
+To use the library in another project, import a full commit. This example pins
+the published implementation at `4f977c0b1e4f06832b776c847d53897215c5a0bc`;
+this documentation update does not change its runtime modules:
 
 ```goose
-import config from "carabistouflette/goose-config@d8b4ddabf3ac694f56f850f655f0869ebde6558e";
-import config.toml; // optional; omit for key/value-only applications
-import std;
-
-fn main() {
-    let schema = [config::Field {
-        key: "server.port", kind: config::Kind.Integer,
-        required: true, int_min: 1, int_max: 65535
-    }];
-    var settings = config::Store { .. };
-    assert(config::init(schema, settings).len == 0);
-    assert(config::apply_toml(settings, "[server]\nport = 8080", "app.toml").len == 0);
-    let overrides = [config::Override { "server.port", "9000", "APP_PORT" }];
-    let error = config::apply(settings, overrides);
-    if error.len > 0 { print(error); return; }
-    let missing = config::validate(settings);
-    if missing.len > 0 { print(missing); return; }
-    let port, read_error = config::get_integer(settings, "server.port");
-    if read_error.len > 0 { print(read_error); return; }
-    print(port);
-}
+import config from "carabistouflette/goose-config@4f977c0b1e4f06832b776c847d53897215c5a0bc";
+import config.toml; // optional
 ```
 
-`assert` keeps this example short; applications should handle all returned errors.
-See [the layered example](examples/settings.goose). The full commit above pins
-the reviewed implementation; select a newer full commit when updating.
-For a neighboring checkout, use `import config from "../goose-config";` instead.
-Examples inside this repository use `import config from "..";`.
+There is no tagged `v0.1.0` release. Applications should review and pin the
+exact commit they use.
 
-For a running application, see the [live-reloading job worker](docs/worker.md).
-It processes jobs using validated configuration from actual JSON/TOML files,
-environment and CLI settings, and keeps its previous policy after a rejected
-reload. Its bounded file reads use an optional pinned goose-fs dependency.
+## What it supports
 
-An existing application, [goose-check](docs/consumer-integration.md), uses
-goose-config for explicit JSON/TOML defaults while retaining its numeric CLI,
-bounded fixtures, process deadlines and child ownership contracts.
+- `Text`, `Integer`, `Float`, `Boolean`, and `Duration` values, plus homogeneous
+  lists of those types.
+- JSON and TOML objects with declared dotted keys and strict value types.
+- Explicit environment and command-line mappings. Applications choose their
+  layer order; the library does not infer names or precedence.
+- Required fields, inclusive numeric ranges, owned list results, and source
+  labels for values supplied by each layer.
+- Direct key aliases and replacement reload from the layers supplied by the
+  application.
+- An optional schema generator for owned typed settings and env/CLI mappings.
 
-## Platforms
+The library does not discover or read configuration files, watch them, load
+remote providers, reflect arbitrary application structs, or synchronize access
+between threads. Applications own file I/O, reload triggers, business rules,
+and concurrency control. See the [API contract](docs/api.md) and
+[feature comparison](docs/comparison.md).
 
-Validated on Linux x86_64 with the pinned Goose compiler, GCC 16.2.1 and
-Clang 23.1.4. CI targets Ubuntu 24.04 x86_64 with its installed GCC and Clang.
-Other platforms and compiler revisions have not been validated by this project.
-The core and TOML modules perform no OS I/O; setup, test and benchmark scripts
-currently target a Linux development environment.
+## Limits and behavior
 
-## API
+Inputs have fixed limits: 256 fields and aliases, 256-byte keys and source
+labels, 256 items per list, 4096 bytes of retained text per value, 32 reload
+layers, and 512 CLI argument tokens. JSON and TOML documents are limited to
+1 MiB; each format has additional parser limits. See the full
+[API limits](docs/api.md#limits-and-source-rules).
 
-[Generated typed settings](docs/typed-settings.md) turn a declarative schema into
-an owned Settings struct and a checked loader, with optional presence flags and
-application validation before publication. The worker uses this optional adapter.
-[Generated env/CLI bindings](docs/generated-bindings.md) also keep explicit mappings in the schema.
-See [validation](docs/typed-validation.md) and [measured costs and controls](docs/typed-performance.md).
+Values must match their declared type. Lists replace whole lists. A reported
+validation or parse error leaves the previous store unchanged. Reload starts
+from the layers supplied for that reload, so removed values do not persist from
+an earlier snapshot. Scalar text and source-label getters borrow the store;
+list getters return owned arrays. Keep the store alive while using borrowed
+views, and do not use a store concurrently without application synchronization.
 
-[Key aliases](docs/aliases.md) support declared setting renames across every
-input layer and getter, with canonical duplicate detection and atomic failures.
-See [validation](docs/alias-validation.md) and [measured costs and controls](docs/alias-performance.md).
+## Examples and guides
 
-[Duration settings](docs/durations.md) add typed nanoseconds and lists, checked
-compound-unit parsing, and consistent JSON/TOML/env/CLI/reload validation.
-See the [runnable example](examples/durations.goose).
+- [Basic settings](examples/settings.goose)
+- [Layering with process environment and CLI arguments](examples/layered.goose)
+- [Duration values](examples/durations.goose) and [duration rules](docs/durations.md)
+- [Direct aliases](docs/aliases.md)
+- [Generated typed settings](docs/typed-settings.md) and [generated bindings](docs/generated-bindings.md)
+- [Live-reloading worker](docs/worker.md), an optional Linux example with a
+  separate pinned file-reading dependency
+- [Security policy](SECURITY.md) and [release status](docs/release.md)
 
-| API | Contract |
-| --- | --- |
-| `Field { key, kind, required = false, ... }` | Declare one setting and optional inclusive bounds |
-| `Override { key, value, source }` | One textual override with an explicit source label |
-| `init(schema, store)` | Validate and copy a schema; success clears old settings; failure preserves the old store |
-| `apply(store, overrides)` | Atomically apply one textual layer; last successful layer wins |
-| `apply_lists(store, overrides)` | Atomically apply homogeneous lists using scalar element grammars |
-| `apply_json(store, text, source)` | Strict JSON layer; import `config.json_layer` |
-| `apply_env`, `apply_env_values`, `apply_cli` | Explicit bindings, including lists; import `config.bindings` |
-| `reload(schema, layers, store)` | Rebuild, validate required fields and atomically replace current sources; import `config.reload` |
-| `get_text_list`, `get_integer_list`, `get_float_list`, `get_boolean_list` | Return an owned array and error; list replacement is whole-value |
-| `apply_toml(store, text, source)` | Atomically apply a TOML document; requires `import config.toml` |
-| `validate(store)` | Check required settings after layering |
-| `parse_duration`, `get_duration`, `get_duration_list` | Checked compound-unit parsing and typed nanoseconds; [contracts](docs/durations.md) |
-| `get_integer`, `get_float`, `get_boolean`, `get_text` | Return `(value, error)`; no implicit fallback or coercion |
-| `source(store, key)` | Return `(borrowed source label, error)` for a present setting |
+## Platform support
 
-Every error is an owned byte builder: empty means success. Getter values on
-failure must be discarded. Unknown keys, absent values, wrong getters, and
-uninitialized stores return errors. Empty text, zero, and false are present
-values. Optional settings may remain absent; every field is optional unless
-`required: true`. An empty schema is valid. `validate` does not freeze a store:
-further explicit layers are allowed. Successful initialization resets all values.
+The Goose compiler revision is pinned in [`GOOSE_REVISION`](GOOSE_REVISION).
+The recorded local qualification used GCC 16.2.1 and Clang 23.1.4. Hosted CI
+runs on Ubuntu 24.04 x86-64 and uses the system GCC and Clang; their exact
+versions are not pinned by the workflow. No other operating system has been
+validated. The library itself has no file-reading API; the optional worker
+example is Linux-specific.
 
-`Field` has `int_min`/`int_max` (`i64`) and `float_min`/`float_max` (`f64`), defaulting
-to the full finite range. Bounds are inclusive, must be ordered, and float bounds
-must be finite. Both pairs are validated for every field; only its matching kind
-uses them, including each element of its matching list kind. Integer and Duration bounds
-remain integers, including above 2^53. Types and ranges
-are checked on every apply; required presence is checked only by `validate`.
-Application-specific rules, including allowed text choices, remain application
-validation.
+## Performance evidence
 
-## Layers and spelling
-
-There are no implicit sources or fixed source priorities. Apply defaults, file
-contents, supplied environment values and CLI overrides in that order if that
-is the desired precedence. Source labels are caller-provided metadata, not
-verified identities. Explicitly map names such as `APP_PORT` or `--port` to
-`server.port`; absent environment variables/options should produce no override.
-There is no case folding or underscore/dot normalization.
-
-Keys are case-sensitive ASCII components of letters, digits, `_`, or `-`, joined
-by dots. Components cannot be empty. Duplicate schema keys and prefix conflicts
-(`server` and `server.port`) are rejected. Duplicate keys within a textual batch
-are rejected, even with identical values. Unknown settings always fail. Empty
-batches leave the store unchanged. A rejected override is an error even when a
-later layer could replace it. Applications should stop and handle that error;
-there is no automatic fallback to old values.
-
-Textual overrides accept:
-
-- Text: arbitrary bytes, including empty strings, NUL and invalid UTF-8. No trimming.
-- Duration: checked compound units such as `250ms` and `1m30s`; see the
-  [exact duration grammar](docs/durations.md).
-- Integer: optional `+`/`-` and one or more decimal digits within `i64`.
-- Float: optional sign, decimal digits, optional fraction with digits on both sides
-  of `.`, and optional `e`/`E` exponent with optional sign and required digits.
-  Integer-looking tokens and leading zeroes are accepted. Only finite `f64`
-  results are accepted; correctly rounded underflow to signed zero is allowed.
-- Boolean: exactly `true` or `false`.
-
-For Integer/Float, whitespace, hexadecimal, separators, suffixes, `.5`, `1.`, NaN and infinity are
-not accepted as textual numbers. Numeric tokens are bounded before conversion.
-
-## TOML
-
-The optional adapter imports its private parser with an explicit relative
-module path, so unrelated application packages named `vendor` can coexist.
-It vendors a fixed Apache-2.0 TOML parser; see
-[vendor provenance and local hardening](vendor/README.md). It targets TOML 1.0
-within the parser limits. Dotted keys, tables and inline tables become dotted
-schema paths. Decoded key components must follow the same ASCII grammar:
-`"server.port"` is rejected as an ambiguous single component, while
-`server.port` is valid. Every table must prefix a declared field; unknown empty
-tables are errors. Empty known tables and empty documents apply no values.
-
-Scalar types must match exactly: `port = "42"` cannot satisfy Integer, `ratio = 1`
-cannot satisfy Float, and `name = 42` cannot satisfy Text. Numeric TOML values are
-transferred directly, without a text formatting round trip. TOML integer bases
-and float syntax follow TOML 1.0. Strings are decoded UTF-8. Homogeneous
-primitive arrays match declared list kinds. Nested arrays, arrays of tables,
-date/time values and nonfinite numbers are rejected. No parser partial
-result reaches the store. Parse errors return a generic source-aware error;
-line/column details are deliberately not exposed in this version.
-
-## Ownership, atomicity and diagnostics
-
-The store copies schema keys, values and source labels; inputs can be changed or
-destroyed after the call. Scalar getters return independent values. `get_text`
-and `source` return read-only borrowed views: keep the store alive and do not
-mutate it while using them. Goose checks these lifetimes. Borrowed views can be
-used solely as the next override's inputs: the transaction stages all data
-before mutating the previous values. Schema keys, TOML text, and TOML source
-labels may likewise borrow old store storage solely as inputs to their next
-initialization/update: they are staged before replacement. Reinitialization invalidates old views.
-
-List getters return owned arrays that survive updates and store destruction.
-Text elements are independent owners and must be iterated in Goose.
-
-Failed initialization, scalar/list/document/binding updates and reload preserve
-all values and source labels.
-Successful apply calls replace only mentioned settings and retain no history.
-Reload instead replays current layers into a fresh store: removed keys expose
-only current lower layers or become absent. Missing required fields reject
-the reload, preserving the old snapshot.
-This guarantee covers reported validation/parse failures; allocator failure
-follows Goose's runtime behavior, with no recovery promise. Store fields and
-helper functions are implementation details; direct mutation is unsupported.
-Applications coordinate any concurrent use.
-
-Errors escape non-ASCII, control, quote and backslash bytes in key/source labels,
-truncate long labels, and never include raw values or JSON/TOML documents. Diagnostics
-contain printable ASCII and no newline. This is not general secret redaction:
-keys and source labels should not themselves contain secrets. Consumer overload
-regressions protect error construction and numeric validation from application
-formatting, copy, sizing and growable-buffer parser overloads.
-
-## Costs and limits
-
-- Schema and one override batch: at most **256** settings.
-- Aliases: at most **256**, each naming one canonical field.
-- Key and source label: at most **256 bytes** each.
-- Scalar Text or combined Text-list payload: at most **4096 bytes per value**.
-- Homogeneous lists: at most **256 elements per list**.
-- Reload: at most **32 layers**. CLI: at most **512 argument tokens**.
-- JSON: **1 MiB** input, depth **64 including root**, **65,536 nodes**,
-  **256 siblings per object**, and **16,777,216 compared-key bytes**.
-- Textual numeric token: at most **128 bytes** before conversion.
-- TOML parser: **1 MiB** input, **65,536 nodes**, logical depth **64**, bare scalar
-  token **128 bytes**, cumulative index work **16,777,216 units**.
-
-These deliberately reject some otherwise valid inputs. Limits are immutable
-constants; modifying internal data or the vendored parser is outside the API.
-
-For valid schemas wider than eight fields, initialization checks field rules,
-builds the index with bounded merge sort in O(fields × log(fields)) key
-comparisons, then detects duplicate and dotted-prefix conflicts using an
-ancestor stack with O(fields) bounded comparisons. Raw-prefix ancestors are
-retained across lexical neighbors such as `a-` between `a` and `a.b`. Small or
-rejected schemas use the original quadratic validator, preserving exact
-first-error precedence and failed-initialization atomicity. Up to eight fields
-use linear lookup. Wider schemas keep a sorted array of field IDs and a
-512-slot accelerator indexed by a private, noncryptographic FNV-1a hash of
-the key length and at most its trailing 32 bytes.
-Insertion and lookup perform at most eight probes, then lookup falls back to
-deterministic binary search. A key that cannot fit within eight probes remains
-accessible through that fallback. Empty-slot misses are safe because slots
-are never deleted between schema initializations. A fast path handles the
-first declared field. Metadata and validation errors
-retain declaration order. Comparisons skip equal 16-byte blocks, then eight-byte blocks, using
-bounds-checked slices; no unaligned casts are involved. Full equality establishes
-key identity, and adversarial collisions retain a fixed probe bound plus the
-sorted fallback. Aliases add a bounded binary search on canonical misses;
-registration checks field/name conflicts and sorts at most 256 owned entries.
-Alias-aware layers also check duplicate resolved targets. TOML table-prefix
-validation remains linear in schema plus alias count. Commit uses a fixed
-field-indexed replacement map and a staged live arena for the general case.
-A single present scalar with unchanged combined source/text byte length instead
-stages its replacement bytes and overwrites exactly its existing block, preserving
-all unrelated spans. It uses checked indexed writes, independent of consumer copy
-overloads. Length changes, missing values, lists and multi-key layers still use
-the general rebuild, copying all current text and source bytes.
-Persistent logical payload is bounded by
-256 × (4096 + 256) bytes plus at most 256 × 256 key bytes and fixed-size metadata.
-Aliases add at most 256 × 256 owned key bytes and 256 key-span/target records;
-initialization stages this metadata before replacing it.
-The wide-schema accelerator adds 512 machine integers (4 KiB logical payload);
-initialization stages another such index before replacing the current one.
-Lists add at most 65,536 fixed-size item records across the store.
-General transaction staging adds another live payload; the scalar fast path
-stages at most 4,352 replacement bytes. Parsing TOML adds its own
-bounded arenas. These are logical size bounds, not exact allocator budgets.
-Repeated layers retain no history and have no total layer-count limit. Runtime
-storage can retain high-water capacity. See the [measured memory and fallback
-audit](docs/memory-and-fallback-audit.md) and [benchmarks](bench/README.md).
+There is no general speed claim. The checked measurements for aliases and
+generated env/CLI bindings use source inputs that match the published runtime
+modules. Other reports are historical snapshots, not measurements of current
+main. See the [performance status and source map](docs/performance-status.md)
+and the [raw benchmark records](bench/README.md). The results include slower
+cases and shared-host limitations.
 
 ## Development
 
+The quick start needs Git, CMake, a C++20 compiler, Make, and a C compiler for
+native examples. Python 3.11+ is required for the test tools. Run the standard
+checks with the pinned compiler:
+
 ```sh
 make setup
-make format check test property security sanitize
+make check test property security sanitize
 SANITIZER_CC=clang make sanitize
 make release RELEASE_CC=gcc
 make release RELEASE_CC=clang
 make conformance
-make bench BENCH_ITERATIONS=1000
-# Optional Linux application and its four compiler/sanitizer variants:
-make worker
 ```
 
-Setup needs Git, CMake 3.27+, C/C++20 compilers, and Make; Linux's in-process
-runner needs libc development headers. Tests need Python 3.11+. Sanitizers and
-benchmarks target Linux with GCC; `SANITIZER_CC=clang` can select Clang's compatible
-sanitizer flags. Sanitizers use C `-O2` with `--debug --no-bce`. Goose's debug
-mode emits `-O0`; the wrapper appends `SANITIZER_OPT` last so its setting wins.
-A compiler-state prerequisite checks actual ASan/optimization markers and
-requires a UBSan runtime overflow diagnostic before running the suite.
-`SANITIZER_OPT=-O0` selects unoptimized debugging. Use
-`make GOOSE=/absolute/path/to/goose ...` with an existing compiler. Optimized
-release checks require the selected GCC or Clang compiler.
-`GOOSE_REVISION` pins the same compiler as goose-json; compatibility
-with other revisions is not guaranteed. The optional `conformance` target needs
-Go 1.27+ (or automatic Go toolchain downloads); it builds the official runner
-at `TOML_TEST_REVISION` from a private immutable Git export with read-only
-module dependencies and ambient Go workspaces disabled. Dirty cache files and
-HEAD are preserved. Conformance executes the private binary, so concurrent
-setup cannot replace the runner mid-check.
+Use `make GOOSE=/absolute/path/to/goose ...` to select an existing compiler.
+`make conformance` also needs Go and downloads the pinned TOML test runner.
+See [contribution instructions](CONTRIBUTING.md) for the full test matrix.
 
-Tests exercise in-process, native, native debug, and optimized GCC/Clang
-execution, plus compile-time ownership and consumer-overload checks. Eleven
-isolated consumer cases exercise import ordering, module-name collisions,
-transitive imports, paths containing spaces, and a core-only package without
-the TOML files; each runs in-process and as a GCC `-O2` executable. Two
-independent models check 2,206 flat-schema transactions and 2,109 nested
-transactions with 100,577 responses across 45 reinitialization cycles. A third
-independent JSON/TOML/list/reload model checks 1,702 persistent transactions,
-including removals, provenance, required fields and rollback. Native environment
-fixtures cover missing, empty, invalid and oversized values under both adapters.
-
-The hostile-input suite checks 331 resource/malformed cases per build,
-including genuine bucket and full-hash collision budget rejection with a
-five-second per-case timeout. A fixed-length control verifies all 500
-long-key hashes against the pinned Goose implementation. Accepted small and
-near-limit controls guard against blanket rejection; larger clusters must
-report the parser's work limit. Rejected layers are checked for preservation of
-every seeded value and source. AddressSanitizer/UndefinedBehaviorSanitizer cover
-behavior, ownership, independent-model and hostile-input suites. CI runs both
-optimized compilers and optimized GCC/Clang sanitizer builds, and smoke-runs
-benchmarks without timing thresholds, including a native memory-protocol smoke.
-Python regressions cover corrupt benchmark records, immutable source
-provenance, memory checkpoint/reaping/timeout handling, and diagnostic counter
-coverage, artifact validation, atomic output failures and worker-harness
-partial-write/deadline handling, plus consumer-startup provenance and process
-cleanup. The optional worker acceptance suite also runs
-in CI; see its [application and I/O contracts](docs/worker.md).
-
-`make conformance` checks the vendored parser against all 208 valid and 509
-invalid TOML 1.0 cases at the pinned official `toml-test` revision. It compares
-decoded values and types, not only acceptance. This tests the full private
-parser; the public config adapter deliberately supports only its documented
-scalar and homogeneous primitive-list subset. No encoder is provided or tested. The suite is not exhaustive.
-See [CONTRIBUTING.md](CONTRIBUTING.md).
-
-See [the feature-gap matrix and reproducible cross-library comparison](docs/comparison.md)
-for Viper/Koanf coverage and measurement limits. The selected common-application
-scope is implemented; the full provider ecosystems are not. See the detailed
-[common-feature contracts and layered example](docs/common-features.md).
-
-[Apache-2.0](LICENSE). Copyright 2026 goose-config contributors.
-See [third-party notices](THIRD_PARTY_NOTICES.md), [security reporting](SECURITY.md),
-and [contribution standards](CONTRIBUTING.md).
+Coverage-guided testing across JSON, TOML, lists, and reload is not complete.
+This is not a tagged release; completed unit, model, malformed-input, and
+sanitizer checks do not replace that remaining testing.

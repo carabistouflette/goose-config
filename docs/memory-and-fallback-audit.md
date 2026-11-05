@@ -1,5 +1,9 @@
 # Memory retention and fallback-cost audit
 
+**Historical:** this audit uses runtime revision `3ba1ecf`; current core modules
+have changed since. Its memory and timing observations apply only to that
+snapshot. See the [performance status](performance-status.md).
+
 The tested processes plateau after their first growth, including after shrinking,
 rejected reloads and Store teardown. Their resident pages remain retained.
 Untouched-binary timing controls do not support a fallback runtime fix: the same
@@ -140,13 +144,12 @@ used as acceptance timing.
 
 ## Validation and release boundary
 
-Independent reviews covered runtime/memory methodology, measurement tool failure
-handling and the corrected PMU coverage/provenance checks. Forty-four Python
-regressions exercise measurement parsing/provenance and these tools, including
+Forty-four Python regressions exercise measurement parsing/provenance and the
+tools, including
 timeouts, direct-child sampling/reaping, stale artifacts, rejected multiplexing,
 output limits and atomic publication. CI adds a one-cycle native memory smoke
 without timing or RSS thresholds; it does not require PMU access.
 
-The runtime is retained unchanged. This deterministic audit does not complete
-the sustained coverage-guided campaign required by the [v0.1.0 release gate](release.md).
-That gate remains open; no v0.1.0 tag is created.
+The runtime is unchanged. This audit does not replace the required sustained
+coverage-guided fuzzing, which remains incomplete. No v0.1.0 release tag is
+available; see [release status](release.md).

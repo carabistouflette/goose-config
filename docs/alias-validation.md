@@ -1,6 +1,8 @@
 # Alias validation and limits
 
-The final runtime is `d654a6eb6138e676dfb6e49037c707cbf954a41d`.
+The alias runtime tested here is `d654a6eb6138e676dfb6e49037c707cbf954a41d`.
+Its measured runtime and harness files are unchanged through the audited public main
+`4f977c0b1e4f06832b776c847d53897215c5a0bc`.
 Five runtime files add aliases; `vendor.goose`, the vendored parser, compiler pin,
 native caller/process/filesystem wrappers and dependencies remain unchanged.
 The original `init` and `reload` signatures remain available as overloads.
@@ -37,13 +39,10 @@ Validated locally on Linux x86-64 with pinned Goose, GCC 16.2.1 and Clang 23.1.4
   checksums and odd/even counts, wrong mapping, incomplete/duplicate/nonfinite
   samples, cached binary inventory/tampering and zero/unstable timing controls.
 
-Independent design, implementation/security and performance/evidence reviewers
-checked the feature and subsequent changes. Their findings strengthened staged
-schema identity, ownership/rollback tests, binding lookup reuse, target-distinct
-benchmark values, native calling-convention diagnosis, toolchain hashes and the
-cached diagnostic protocol. All three final reviewers found no remaining
-blocker after these fixes; performance costs remain visible in the
-[complete measurement report](alias-performance.md).
+Validation covered staged schema identity, ownership and rollback, binding
+lookup reuse, target-distinct benchmark values, native calling-convention
+behavior, toolchain hashes and the cached diagnostic protocol. Performance costs
+remain visible in the [complete measurement report](alias-performance.md).
 
 Reproduce with `make check test property security`, `SANITIZER_CC=gcc make sanitize`,
 `SANITIZER_CC=clang make sanitize`, and `make release RELEASE_CC=gcc` / `clang`.
@@ -53,6 +52,6 @@ caches; sanitizer and release targets intentionally reuse output names.
 
 These checks do not establish macOS/Windows support, thread safety, allocation
 recovery, full provider-ecosystem parity or zero cost when aliases are unused.
-The sustained coverage-guided JSON/TOML/list/reload fuzz gate remains incomplete.
-Bounded models and sanitizer runs do not replace it; no retry or release tag is
-claimed. See [release preparation](release.md) and [alias contracts](aliases.md).
+Sustained coverage-guided JSON/TOML/list/reload fuzzing remains incomplete.
+Bounded models and sanitizers do not replace it; no release tag is available.
+See [release status](release.md) and [alias contracts](aliases.md).

@@ -8,8 +8,10 @@ and TOML list replacement plus fresh current-source replay after removing a key.
 The separate `bindings` mode covers native environment binding, repeated CLI
 list flags, and replay of four layers with a 256-item integer list.
 
-Library/provider versions selected with `go list -m -json MODULE@latest` on
-2026-11-04; pflag retains the existing v1.0.10 pin:
+Library/provider versions were selected with `go list -m -json MODULE@latest`
+on 2026-11-04, then pinned in this module. They describe that dated comparison,
+not necessarily the latest releases today. pflag retains the existing v1.0.10
+pin:
 
 | Module | Explicit version |
 | --- | --- |

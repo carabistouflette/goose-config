@@ -1,5 +1,8 @@
 # Consumer startup cost audit
 
+**Historical:** this uses a frozen goose-check executable with goose-config
+`f7bef7d`, not current main. See the [performance status](performance-status.md).
+
 Linking the config adapters changes the existing goose-check executable even
 when no file is selected. The pinned generated program initializes more data
 stack regions before entering its main function. Two retained whole-invocation
@@ -14,6 +17,7 @@ After: `32de6c4783bf8d3242e042993dadd160a98b2945`, containing the
 [explicit configuration integration](consumer-integration.md).
 The after snapshot bundles goose-config
 `f7bef7dcfeab2ca95c94d92d0fbb2320ab3dcb05`; its six runtime files are unchanged.
+“After” below means this frozen consumer/configuration pair, not current main.
 Goose pin: `eadca409f68210893f366e60d0c2f0dc29a339be`.
 The runner and its provenance corrections are committed at
 `3d8836d49393c03b01b2544da2a93079d6ba55d1` and
@@ -60,7 +64,7 @@ All complete command cases use the same effective settings:
 Small JSON/TOML files contain those three integers. The 64 KiB cases pad the same
 three-field documents with whitespace: they measure boundary-sized input scans,
 not large configuration models. The CLI case repeats the same values as flags.
-Current A/B are two labels for the exact same executable and argument vector.
+After A/B are two labels for the exact same executable and argument vector.
 
 The parent monotonic timer includes Python process creation, pipe collection,
 checker execution, its child supervision and reaping. It excludes compilation
@@ -75,9 +79,9 @@ The runs used CPU6 on an Intel Core Ultra 7 258V shared host:
 - First: 2026-11-05 00:05:38.259721–00:05:56.115937 UTC.
 - Repeat: 2026-11-05 00:07:41.040565–00:07:58.657113 UTC.
 
-No exclusive isolation, frequency, thermal or ASLR control is claimed. CPU4
-timing courtesy was observed. The records capture the exact observed software
-versions; those local values do not describe every CI or consumer platform.
+No exclusive isolation, frequency, thermal or ASLR control is claimed. The
+records capture the exact observed software versions; these local values do not
+describe every CI or consumer platform.
 
 ## Observations
 
@@ -88,16 +92,16 @@ All cases and both runs remain in the report.
 | Invocation | First, ms | Repeat, ms |
 | --- | ---: | ---: |
 | Before, no file | 4.682 | 4.880 |
-| Current A, no file | 4.996 | 4.948 |
-| Current B, no file | 4.834 | 4.976 |
-| Current, small JSON | 5.468 | 5.413 |
-| Current, 64 KiB JSON | 5.782 | 5.636 |
-| Current, small TOML | 5.492 | 5.410 |
-| Current, 64 KiB TOML | 5.610 | 5.528 |
-| Current, small JSON + CLI | 5.469 | 5.492 |
+| After A, no file | 4.996 | 4.948 |
+| After B, no file | 4.834 | 4.976 |
+| After, small JSON | 5.468 | 5.413 |
+| After, 64 KiB JSON | 5.782 | 5.636 |
+| After, small TOML | 5.492 | 5.410 |
+| After, 64 KiB TOML | 5.610 | 5.528 |
+| After, small JSON + CLI | 5.469 | 5.492 |
 | Before, help | 3.799 | 3.764 |
-| Current A, help | 3.873 | 3.886 |
-| Current B, help | 3.892 | 3.876 |
+| After A, help | 3.873 | 3.886 |
+| After B, help | 3.892 | 3.876 |
 
 The aggregate ratio divides those case medians. The paired ratio instead divides
 same-round block medians, then takes their median. Ranges below are the complete
@@ -105,8 +109,8 @@ observed paired round ranges, not statistical intervals.
 
 | No-file control | First aggregate | First paired median [range] | Repeat aggregate | Repeat paired median [range] |
 | --- | ---: | ---: | ---: | ---: |
-| Current A / before | 1.06703 | 1.05937 [0.92533–2.33513] | 1.01396 | 1.01757 [0.92759–1.23102] |
-| Current B / current A, identical binary | 0.96764 | 0.98126 [0.47836–1.09190] | 1.00578 | 1.00524 [0.94278–1.24806] |
+| After A / before | 1.06703 | 1.05937 [0.92533–2.33513] | 1.01396 | 1.01757 [0.92759–1.23102] |
+| After B / after A, identical binary | 0.96764 | 0.98126 [0.47836–1.09190] | 1.00578 | 1.00524 [0.94278–1.24806] |
 
 Both no-file aggregate medians increased after integration, but their changes
 differ between runs and identical-binary labels also vary. These controls do not
@@ -118,7 +122,7 @@ parser-only, cross-library ranking or general regression magnitude is inferred.
 
 Both builds produce these generated-C entry arguments and executable sizes:
 
-| Generated program property | Before | Current |
+| Generated program property | Before | After |
 | --- | ---: | ---: |
 | Main data-stack count | 12 | 26 |
 | Total main-region bound, including dedicated globals | 13 | 27 |
@@ -141,10 +145,9 @@ buffer, even for small documents, while the three-field schema already skips
 larger sorting/hash-index setup. The measurements do not isolate that buffer's
 cost or justify replacing the bounded reader or validation contracts.
 
-## Review and scope
+## Scope and validation
 
-Independent code and measurement-method reviews checked the runner, provenance,
-matched settings and limitations. Ten regressions cover bounded output,
+Ten regressions cover bounded output,
 timeout/child reaping, frozen exports, Git replacement suppression, vendor
 integrity, export caps, matching fixtures and path normalization. Successful cases
 rely on the pinned program's direct-child cleanup; failed runner subprocesses
@@ -153,6 +156,6 @@ sources are supported. Git exports cap at 256 files, 2 MiB per blob and 16 MiB
 total, with bounded command output and deadlines. Accepted output is atomic.
 
 No boundary defect or supported runtime optimization emerged from this pass.
-Goose-config and goose-check implementation bytes remain unchanged. The existing
-[sustained-fuzz release gate](release.md) remains incomplete; these performance
-and tool-protocol checks do not complete it.
+Goose-config and goose-check implementation bytes remain unchanged. Sustained
+coverage-guided fuzzing remains incomplete. These performance and tool-protocol
+checks do not replace it; see [release status](release.md).

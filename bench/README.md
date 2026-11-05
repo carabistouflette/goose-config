@@ -1,5 +1,9 @@
 # Configuration benchmarks
 
+The [performance status](../docs/performance-status.md) identifies which saved
+results match current source. Older result pages and raw files remain unchanged
+as records of their original revisions.
+
 The [consumer startup audit](../docs/consumer-startup.md) measures frozen
 goose-check before/after invocations with matching effective settings, help
 controls and identical-binary A/A labels. It retains all 7,040 samples across
@@ -11,23 +15,25 @@ The [memory and fallback audit](../docs/memory-and-fallback-audit.md) records
 coverage-checked copy/PMU diagnostics. It supports retaining the current runtime;
 process memory and shared-host timings have explicit limits.
 
-The latest [scalar update audit](../docs/scalar-update-performance.md) retains
+The [scalar update audit](../docs/scalar-update-performance.md) retains
 all original fixtures, six update/control workloads, raw paired/repeat samples
 and regressions for the exact-size scalar fast path.
 
 The [initialization follow-up](../docs/initialization-performance.md) measures
 the validator/comparator change, including all sixteen fixtures and regressions.
 The earlier [storage and native-binding audit](../docs/v010-results.md) retains
-all loading fixtures, mixed results, the observed CPU7 overlap and a separate
-handoff repeat. Earlier records below remain historical measurements.
+all loading fixtures, mixed results, an observed overlap, and a separate repeat.
+The measurements below are historical snapshots.
 
-Run `make bench BENCH_ITERATIONS=1000` from the library root. The harness builds
-one native GCC `-O2` executable and takes seven timed batches per fixture,
-printing each raw sample in ns/operation plus median, min, max and checksum.
+Run `make bench BENCH_ITERATIONS=1000` from the library root to exercise the
+current basic harness. It builds one native GCC `-O2` executable and takes seven
+timed batches per fixture, printing each raw sample in ns/operation plus median,
+minimum, maximum and checksum.
 A second independent invocation checks repeatability. The paired-revision
 workflow below provides stronger before/after control for optimization work.
-Fixture/schema setup is outside the timer; validation, output checking, checksum consumption, loop
-work, getters used to verify results, and error creation are inside it.
+Fixture and schema setup are outside the timer; validation, output checking,
+checksum consumption, loop work, getters used to verify results and error
+creation are inside it.
 Successful layers reuse a Store without retaining history. General transactions
 rebuild the arena; one present scalar with an equal combined source/text length
 can overwrite its existing span after staging. There is no external I/O in the timed loop.
@@ -65,13 +71,14 @@ All fixtures assert acceptance/rejection and consume results. Untimed final
 checks verify every setting and source after each fixture. These are local
 microbenchmarks, not production throughput, an allocation benchmark, a general
 ranking, or a claim about other configuration libraries. In the original
-measurement, no CPU affinity or frequency governor was controlled; other processes and CPU frequency scaling
-can affect results. There is no separate warmup pass; the store is initialized
-before timing, and the first batch can include cold effects. Report all raw
+measurement, no CPU affinity or frequency governor was controlled; other
+processes and CPU frequency scaling could affect results. There is no separate
+warmup pass; the store is initialized before timing, and the first batch can
+include cold effects. Report all raw
 samples rather than selecting the fastest batch. CI runs small smoke workloads
 without timing thresholds.
 
-## Original measurement
+## Archived original measurement
 
 Raw samples: [current run](results/current.txt), [independent repeat](results/repeat.txt).
 Environment and exact source/toolchain revisions: [metadata](results/environment.txt).
@@ -80,10 +87,10 @@ GCC 16.2.1. The compiler and vendored parser are pinned. The native compiler
 commands are `gcc -O2 -c <runtime.c> -o <runtime.o>` and
 `gcc -O2 <program.c> <runtime.o> -o <binary> -lm -pthread -ldl`.
 
-## Paired audit measurement
+## Archived paired audit measurement
 
-The reproducible audit uses the same current 16-fixture harness for both exact
-source revisions and checks equal checksums for every run. To reproduce:
+The paired audit uses the same 16-fixture harness for both exact source
+revisions and checks equal checksums for every run. To reproduce:
 
 ```sh
 python3 bench/measure.py --goose /absolute/path/to/goose \
@@ -118,10 +125,10 @@ When changing the implementation, preserve the contract tests, keep all
 fixtures, record the source SHA, compiler, flags and hardware, and retain all
 raw runs. Profile before changing lookup or trading atomicity for less copying.
 
-## Schema-validation follow-up
+## Archived schema-validation follow-up
 
-The next paired run compares the preceding reviewed implementation with the
-sorted-ancestor schema validator, using the same 16-fixture harness:
+This archived paired run compared the sorted-ancestor schema validator with its
+preceding implementation, using the same 16-fixture harness:
 
 ```sh
 python3 bench/measure.py --goose /absolute/path/to/goose \
@@ -153,8 +160,8 @@ sixteen for `core`, six for `updates`; `core` remains the default.
 It preserves valid raw numbers, calculates medians only after validation, and
 serializes strict JSON with nonfinite values disabled. Seventeen stdlib Python
 regressions run under `make test`; `python3 tests/benchmark_measure.py` runs them
-alone without building a Goose program. Existing committed raw records were
-checked during review and contain valid finite samples.
+alone without building a Goose program. All committed raw records contain valid
+finite timing samples.
 
 The final TOML value/source checks were added after the archived measurements.
 They run outside the timer. Archived records retain their original harness hash;

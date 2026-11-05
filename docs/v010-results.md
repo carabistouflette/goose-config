@@ -1,7 +1,12 @@
 # v0.1 preparation: storage and binding measurements
 
+**Historical:** these measurements end at `f619f2d`; later runtime modules and
+adapters changed. They do not measure current main. See the
+[performance status](performance-status.md).
+
 This is an audit of an experimental commit, not a tagged release or a general
-performance ranking. [API candidate](api.md), [remaining release gate](release.md).
+performance ranking. See the [API reference](api.md) and
+[release status](release.md).
 
 ## Sources and method
 
@@ -17,7 +22,7 @@ Frequency, thermals and unrelated system activity were uncontrolled. There was
 no dedicated warmup beyond fixture setup. No allocation count or latency bound
 is inferred. Raw samples, exact source/tool versions and hashes are retained.
 
-## Timing overlap and handoff
+## Shared-host runs
 
 The original series started at **2026-11-04T13:39:27Z**. An independent SQLite
 storage series started at **13:39:34Z**, also on CPU7. Both continued normally.
@@ -25,11 +30,10 @@ The original loading pair, its independent repeat and original binding result
 are retained below with this overlap disclosure. They must not be presented as
 uncontended measurements.
 
-After explicit completion of the SQLite series, a separate loading/binding
-repeat ran from **13:42:57Z to 13:43:58Z** on the same CPU. The SQLite owner
-deferred further CPU7 measurements until completion. This courtesy does not
-establish exclusive isolation: background processes and other cores remained
-active. The handoff results supplement the originals; they do not replace them.
+After the concurrent SQLite series ended, a separate loading/binding repeat ran
+from **13:42:57Z to 13:43:58Z** on the same CPU. Background processes and other
+cores remained active, so this does not establish exclusive isolation. The
+second run supplements the originals; it does not replace them.
 
 ## Loading and metadata
 
@@ -43,14 +47,14 @@ Retained scalar source/text spans are copied together; list item/source spans
 are independently rebased. Key grammar validation uses one bounded pass. The
 supported API, strict validation, ownership and failure atomicity are preserved.
 
-All sixteen fixtures remain visible. The handoff aggregate shows smaller
+All sixteen fixtures remain visible. The second-run aggregate shows smaller
 large-text single-key update and small-init medians, but slower wide apply and
 wide/long-prefix initialization. The two original invocations differ markedly,
 and even unchanged getter paths vary across pairs. These data do **not** establish
 a consistent general loading speedup. Long-prefix apply/initialization costs
 remain a profiling target; the change does not remove the full-arena copy.
 
-| Fixture | Handoff before ns/op | Handoff after ns/op | Original ratio | Original repeat ratio | Handoff ratio |
+| Fixture | Second run before ns/op | Second run after ns/op | Original ratio | Original repeat ratio | Second-run ratio |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | `lookup-small` | 14.9 | 14.7 | 1.00 | 0.93 | 0.98 |
 | `lookup-first-wide` | 14.5 | 14.3 | 1.00 | 0.96 | 0.99 |
@@ -71,7 +75,7 @@ remain a profiling target; the change does not remove the full-arena copy.
 
 Raw loading records: [original](../bench/results/v010-loading-paired.json),
 [original independent repeat](../bench/results/v010-loading-repeat.json),
-[handoff repeat](../bench/results/v010-loading-handoff.json).
+[second run](../bench/results/v010-loading-handoff.json).
 
 ## Native bindings and layered reload
 
@@ -106,7 +110,7 @@ See [adapter contracts](../bench/competitors/README.md).
 | `cli-lists` | 2,435.4 | 18,654.4 | 31,418.6 |
 | `reload-layers` | 39,439.7 | 309,747.5 | 626,036.7 |
 
-### Separate handoff repeat
+### Separate repeat
 
 | Fixture | goose-config ns/op | Viper ns/op | Koanf ns/op |
 | --- | ---: | ---: | ---: |
@@ -119,7 +123,7 @@ both invocations. This establishes neither complete feature parity nor
 performance superiority on different workloads, hardware or failure paths.
 
 Raw binding records: [original](../bench/results/v010-bindings-comparison.json),
-[handoff repeat](../bench/results/v010-bindings-handoff.json).
+[second run](../bench/results/v010-bindings-handoff.json).
 
 ## Reproduce
 
@@ -137,18 +141,18 @@ export immutable runtime revisions and isolate their snapshots/binaries. A
 result records the harness/adapters actually used; do not relabel an old result
 with a later harness or interpret smoke workloads as performance measurements.
 
-## Validation and review
+## Validation
 
 The measured runtime passed normal/debug execution, GCC and Clang `-O2`, and
 GCC/Clang ASan/UBSan. Independent models covered 2,206 flat and 2,109 nested
 transactions (100,577 responses), plus 1,702 common-feature transactions.
 The hostile-input suite passed 331 cases per tested build. Official TOML 1.0
 conformance passed 208 valid and 509 invalid cases. Import/ownership/consumer
-overload regressions and benchmark record/provenance checks passed. Independent
-reviews checked payload-span invariants, supported API preservation, benchmark
-fairness and publication documentation; the checksum portability and import
-provenance findings were corrected.
+overload regressions and benchmark record/provenance checks passed. Checks
+covered payload-span invariants, API compatibility, benchmark fairness and
+record provenance. Checksum portability and import provenance issues found in
+validation were corrected.
 
 The standalone clone example printed `port=9000 (from APP_PORT)`. These checks
-are not exhaustive and do not establish absence of vulnerabilities. The sustained
-coverage-guided campaign remains incomplete; **v0.1.0 is not tagged**.
+are not exhaustive and do not establish absence of vulnerabilities. Sustained
+coverage-guided fuzzing remains incomplete; **v0.1.0 has no release tag**.

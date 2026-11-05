@@ -83,13 +83,12 @@ The records retain generated/harness/compiler/binary hashes and successful nativ
 output. Reproduce with `make typed-limit GOOSE=/absolute/path/to/pinned/goose`.
 No smaller public generated-field cap was adopted.
 
-## Review and remaining scope
+## Remaining scope
 
-Independent design, implementation/security and performance/evidence reviewers
-found no remaining blocker after fixes. Review strengthened actual const
-reference enforcement (a static function bound alone was insufficient), output
-permissions, token conversion bounds, temporary-owner lifetimes, maximum native
-qualification, import rules, benchmark controls and failed-output retention.
+Validation strengthened actual const-reference enforcement (a static function
+bound alone was insufficient), output permissions, token conversion bounds,
+temporary-owner lifetimes, maximum native qualification, import rules, benchmark
+controls and failed-output retention.
 The [complete measurements](typed-performance.md) retain slower schema rejection,
 material identical-reference variation and optimized-read interpretation.
 
@@ -99,6 +98,6 @@ recovery, memory/RSS, maximum-payload performance or additional-platform support
 is established. Validators retain the documented purity/reentrancy requirement;
 caller-authored errors are not automatically value-free diagnostics.
 
-The sustained coverage-guided JSON/TOML/list/reload fuzz gate remains incomplete.
-No retry/alternative campaign or release tag is claimed. Bounded tests/models and
-sanitizers are not its substitute. See [release preparation](release.md).
+The sustained coverage-guided JSON/TOML/list/reload testing remains incomplete.
+Bounded tests/models and sanitizers do not replace it. No release tag is
+available; see [release status](release.md).
