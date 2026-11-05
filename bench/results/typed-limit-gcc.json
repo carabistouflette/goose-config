@@ -1,0 +1,17 @@
+{
+  "completed": true,
+  "fields": 256,
+  "aliases": 256,
+  "kinds": 10,
+  "max_key_bytes": 256,
+  "flags": "-O2",
+  "cc": "gcc",
+  "native_deadline_seconds": 300,
+  "compiler_version": "goose eadca40 (runtime 3025e5810379)",
+  "compiler_sha256": "3f7a34dda0d8fd3e7df27e7ccce09c0844eabc041fc8caa37a362e0ed68b2f07",
+  "generated_sha256": "80ebe74aa9b3885eeb75d0186b0721e47e0e1713799517f4be370a5753e1b724",
+  "harness_sha256": "8f0575ca5ede6bac59210614805ce2343e3b2e967fa513432f707449d85ebc73",
+  "jit_stdout": "256fields/256aliases/all kinds/256byte key passed\n",
+  "native_stdout": "256fields/256aliases/all kinds/256byte key passed\n",
+  "binary_sha256": "94920c4eb80ae466d9887431d2edde1b85f25fd4d4ec0a008c67aa190d8fd9a4"
+}

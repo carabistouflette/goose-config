@@ -89,8 +89,10 @@ class SchemaTests(unittest.TestCase):
         parsed = gen.parse_schema(encoded(schema()))
         for name in ('"; exit(0); //', 'x\nimport os;', '/absolute', 'https://example.com', 'owner/repo@main', '../a b', ''):
             with self.assertRaises(gen.SchemaError): gen.render(parsed, name)
+        reordered = {key: parsed[key] for key in reversed(parsed)}
+        reordered['fields'] = [dict(reversed(list(field.items()))) for field in parsed['fields']]
         for name in ('..', '../../goose-config', 'owner/repo@'+'a'*40):
-            self.assertEqual(gen.render(parsed, name), gen.render(parsed, name))
+            self.assertEqual(gen.render(parsed, name), gen.render(reordered, name))
 
 class OutputTests(unittest.TestCase):
     def setUp(self):
