@@ -2,16 +2,12 @@
 // Optional Linux application: trusted operator stdin, bounded regular files.
 import config from "..";
 import config.reload;
+import worker_settings;
 import fs from "carabistouflette/goose-fs@1c0deb1779181ecb5ef3b5af1de78f93b65e086b";
 import std;
 import os;
 
 const FILE_BYTES = 65536;
-root struct Policy {
-    enabled:       bool = false, minimum: i64 = 1, maximum: i64 = 256,
-    name:          u8[>..], prefix: u8[>..], queues: u8[][>..],
-    prefix_source: u8[>..], maximum_source: u8[>..],
-}
 fn identifier(text: const u8[:]) -> bool {
     if text.len == 0 || text.len > 32 { return false; }
     for c in text {
@@ -29,16 +25,11 @@ fn snapshot(path: const u8[:], bytes: u8[>..]&) -> bool {
     if path == "-" { return true; }
     fs::read(path, FILE_BYTES, bytes).error == fs::Error.None
 }
-fn refresh(toml_path: const u8[:], json_path: const u8[:], arguments: const (const u8[:])[:], active: Policy&) -> bool {
+fn refresh(toml_path: const u8[:], json_path: const u8[:], arguments: const (const u8[:])[:], active: worker_settings::Settings&) -> bool {
     var toml: u8[>..] = []; var json: u8[>..] = [];
     // Each read is bounded. The two files are not captured as one snapshot.
     if !snapshot(toml_path, toml) || !snapshot(json_path, json) { return false; }
-    let schema = [config::Field { key: "worker.name", kind: config::Kind.Text, required: true },
-                  config::Field { key: "worker.prefix", kind: config::Kind.Text, required: true },
-                  config::Field { key: "worker.queues", kind: config::Kind.TextList, required: true },
-                  config::Field { key: "worker.min_bytes", kind: config::Kind.Integer, required: true, int_min: 1, int_max: 4096 },
-                  config::Field { key: "worker.max_bytes", kind: config::Kind.Integer, required: true, int_min: 1, int_max: 4096 },
-                  config::Field { key: "worker.enabled", kind: config::Kind.Boolean, required: true }];
+    let schema = worker_settings::schema();
     let defaults = [config::Override { "worker.prefix", "done:", "defaults" },
                     config::Override { "worker.min_bytes", "1", "defaults" },
                     config::Override { "worker.max_bytes", "256", "defaults" },
@@ -67,35 +58,25 @@ fn refresh(toml_path: const u8[:], json_path: const u8[:], arguments: const (con
     // Candidate Store is private to this attempt. Application rules run before
     // changing the active policy, even when schema validation succeeds.
     var candidate = config::Store { .. };
-    if config::reload(schema, layers, candidate).len > 0 { return false; }
-    let name, ne = config::get_text(candidate, "worker.name");
-    let prefix, pe = config::get_text(candidate, "worker.prefix");
-    let allowed, ae = config::get_text_list(candidate, "worker.queues");
-    let minimum, mie = config::get_integer(candidate, "worker.min_bytes");
-    let maximum, mae = config::get_integer(candidate, "worker.max_bytes");
-    let enabled, ee = config::get_boolean(candidate, "worker.enabled");
-    let prefix_source, pse = config::source(candidate, "worker.prefix");
-    let maximum_source, mse = config::source(candidate, "worker.max_bytes");
-    if ne.len > 0 || pe.len > 0 || ae.len > 0 || mie.len > 0 || mae.len > 0 ||
-       ee.len > 0 || pse.len > 0 || mse.len > 0 { return false; }
-    if !identifier(name) || prefix.len > 64 || !printable(prefix) ||
-       minimum > maximum || allowed.len == 0 || allowed.len > 16 { return false; }
-    for queue, i in allowed {
-        if !identifier(queue) { return false; }
-        for other, j in allowed { if j < i && queue == other { return false; } }
-    }
-    // Copy every borrowed byte view before the candidate leaves scope. Only
-    // owned application values escape; no config internals are accessed.
-    active.name.clear(); active.name.append(name);
-    active.prefix.clear(); active.prefix.append(prefix);
-    active.queues.clear();
-    for queue in allowed { active.queues.push(str(queue)); }
-    active.prefix_source.clear(); active.prefix_source.append(prefix_source);
-    active.maximum_source.clear(); active.maximum_source.append(maximum_source);
-    active.minimum = minimum; active.maximum = maximum; active.enabled = enabled;
-    true
+    if config::reload(schema, layers, candidate, worker_settings::aliases()).len > 0 { return false; }
+    worker_settings::load(candidate, active, validate_policy).len == 0
 }
-fn job(line: const u8[:], policy: Policy&, generation: i64) {
+fn validate_policy(candidate: const worker_settings::Settings&) -> u8[>..] {
+    var error: u8[>..] = [];
+    if !identifier(candidate.name) || candidate.prefix.len > 64 || !printable(candidate.prefix) ||
+       candidate.minimum > candidate.maximum || candidate.queues.len == 0 || candidate.queues.len > 16 {
+        error.append("worker policy rejected"); return error;
+    }
+    for queue, i in candidate.queues {
+        if !identifier(queue) { error.append("worker policy rejected"); return error; }
+        for other, j in candidate.queues {
+            if j < i && queue == other { error.append("worker policy rejected"); return error; }
+        }
+    }
+    []
+}
+
+fn job(line: const u8[:], policy: worker_settings::Settings&, generation: i64) {
     var separator = 4;
     while separator < line.len && line[separator] != ' ' { separator++; }
     if separator == line.len { print("job rejected syntax"); return; }
@@ -115,7 +96,7 @@ fn main() {
     }
     var arguments: const u8[:][>..] = [];
     for i in 3..argv.len { arguments.push(argv[i]); }
-    var policy = Policy { .. };
+    var policy = worker_settings::Settings { .. };
     if !refresh(argv[1], argv[2], arguments, policy) {
         write_stderr("worker: startup configuration rejected\n"); exit(1);
     }

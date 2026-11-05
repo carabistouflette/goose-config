@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "namespace": "worker_settings",
+  "fields": [
+    {"member": "name", "key": "worker.name", "kind": "Text", "required": true},
+    {"member": "prefix", "key": "worker.prefix", "kind": "Text", "required": true, "source": true},
+    {"member": "queues", "key": "worker.queues", "kind": "TextList", "required": true},
+    {"member": "minimum", "key": "worker.min_bytes", "kind": "Integer", "required": true, "int_min": 1, "int_max": 4096},
+    {"member": "maximum", "key": "worker.max_bytes", "kind": "Integer", "required": true, "int_min": 1, "int_max": 4096, "source": true},
+    {"member": "enabled", "key": "worker.enabled", "kind": "Boolean", "required": true}
+  ]
+}

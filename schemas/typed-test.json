@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "namespace": "typed_fixture",
+  "fields": [
+    {"member": "label", "key": "label", "kind": "Text", "required": true, "source": true},
+    {"member": "count", "key": "count", "kind": "Integer", "int_min": -2, "int_max": 4},
+    {"member": "ratio", "key": "ratio", "kind": "Float", "float_min": -0.0, "float_max": 2.5},
+    {"member": "enabled", "key": "enabled", "kind": "Boolean"},
+    {"member": "timeout", "key": "timeout", "kind": "Duration", "int_min": 1, "int_max": 1000000000},
+    {"member": "tags", "key": "tags", "kind": "TextList", "source": true},
+    {"member": "counts", "key": "counts", "kind": "IntegerList", "int_min": -2, "int_max": 4},
+    {"member": "ratios", "key": "ratios", "kind": "FloatList", "float_min": -0.0, "float_max": 2.5},
+    {"member": "switches", "key": "switches", "kind": "BooleanList"},
+    {"member": "delays", "key": "delays", "kind": "DurationList", "int_min": 0, "int_max": 1000000000}
+  ],
+  "aliases": [{"key": "old.label", "target": "label"}, {"key": "old.count", "target": "count"}]
+}
