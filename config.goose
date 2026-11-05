@@ -266,7 +266,8 @@ fn conflicting(fields: OwnedField[:], keys: const u8[:], ordered: i64[:]) -> boo
 }
 
 // Atomic initialization: failure preserves the previous store.
-fn init(schema: Field[:], store: Store&, aliases: const Alias[:] = []) -> u8[>..] {
+fn init(schema: Field[:], store: Store&) -> u8[>..] { init(schema, store, []) }
+fn init(schema: Field[:], store: Store&, aliases: const Alias[:]) -> u8[>..] {
     if schema.len > MAX_FIELDS { return problem("too many schema fields"); }
     if aliases.len > MAX_ALIASES { return problem("too many aliases"); }
     if schema.len <= 8 {

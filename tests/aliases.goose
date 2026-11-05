@@ -2,6 +2,7 @@
 import config from "..";
 import config.reload;
 import std;
+import os;
 fn snapshot(store: config::Store&, expected: i64, origin: const u8[:]) {
     for key in ["server.timeout", "old.timeout", "older.timeout"] {
         let value, error = config::get_duration(store, key);
@@ -16,6 +17,7 @@ fn rejected_schema(store: config::Store&, schema: config::Field[:], aliases: con
     assert(config::init(schema, store, aliases).len > 0); snapshot(store, 1000000000, "seed");
 }
 fn main() {
+    if arg_count() > 1 { native_alias(); return; }
     let schema = [config::Field { key: "server.timeout", kind: config::Kind.Duration, required: true, int_min: 0, int_max: 2000000000 },
                   config::Field { "server.tags", config::Kind.TextList }, config::Field { "name", config::Kind.Text }];
     let aliases = [config::Alias { "old.timeout", "server.timeout" }, config::Alias { "older.timeout", "server.timeout" },
@@ -50,6 +52,7 @@ fn main() {
     assert(config::apply_json(store, "{\"old\":{\"timeout\":\"250ms\",\"tags\":[\"one\",\"two\"]}}", "ok.json").len == 0); snapshot(store, 250000000, "ok.json");
     let owned, oe = config::get_text_list(store, "old.tags"); assert(oe.len == 0 && owned.len == 2);
     assert(config::apply_lists(store, [config::ListOverride { "old.tags", ["a"], "bad" }, config::ListOverride { "server.tags", ["b"], "bad" }]).len > 0);
+    let tag_source, tse = config::source(store, "old.tags"); assert(tse.len == 0 && tag_source == "ok.json");
     let kept, ke = config::get_text_list(store, "server.tags"); assert(ke.len == 0 && kept.len == 2);
     for value, i in kept { assert(value == (if i == 0 { "one" } else { "two" })); }
     assert(config::apply_toml(store, "old.timeout='750ms'\nold.tags=['new']", "ok.toml").len == 0); snapshot(store, 750000000, "ok.toml");
@@ -62,7 +65,7 @@ fn main() {
     assert(config::reload(schema, canonical, store).len == 0);
     let missing, me = config::get_duration(store, "old.timeout"); assert(me.len > 0);
     for value, i in owned { assert(value == (if i == 0 { "one" } else { "two" })); }
-    limits_and_ownership(); print("alias tests passed");
+    limits_and_ownership(); reinitialize_targets(); metadata_boundaries(); print("alias tests passed");
 }
 fn limits_and_ownership() {
     let schema = [config::Field { "value", config::Kind.Integer }];
@@ -84,4 +87,46 @@ fn limits_and_ownership() {
     let preserved, pe = config::get_integer(store, "alias0"); assert(pe.len == 0 && preserved == 42);
     assert(config::init(schema, store).len == 0);
     let gone, ge = config::get_integer(store, "alias0"); assert(ge.len > 0);
+}
+
+fn reinitialize_targets() {
+    var store = config::Store { .. };
+    let aliases = [config::Alias { "old", "value" }];
+    let first = [config::Field { "value", config::Kind.Integer }];
+    assert(config::init(first, store, aliases).len == 0);
+    assert(config::apply(store, [config::Override { "old", "42", "first" }]).len == 0);
+    let second = [config::Field { "other", config::Kind.Text }, config::Field { "value", config::Kind.Duration }];
+    assert(config::init(second, store, aliases).len == 0);
+    assert(config::apply(store, [config::Override { "old", "2s", "second" }]).len == 0);
+    let value, error = config::get_duration(store, "value"); assert(error.len == 0 && value.nanoseconds == 2000000000);
+    let wrong, issue = config::get_integer(store, "old"); assert(issue.len > 0);
+}
+
+fn metadata_boundaries() {
+    var store = config::Store { .. };
+    let schema = [config::Field { "value", config::Kind.Integer }];
+    var key: u8[>..] = []; for i in config::MAX_KEY_BYTES { key.push('a'); }
+    assert(config::init(schema, store, [config::Alias { key, "value" }]).len == 0);
+    assert(config::apply(store, [config::Override { key, "42", "seed" }]).len == 0);
+    key.push('a');
+    assert(config::init(schema, store, [config::Alias { key, "value" }]).len > 0);
+    assert(config::init(schema, store, [config::Alias { "old", key }]).len > 0);
+    assert(config::init(schema, store, [config::Alias { "", "value" }]).len > 0);
+    assert(config::init(schema, store, [config::Alias { "old", "" }]).len > 0);
+    assert(config::init(schema, store, [config::Alias { "bad..key", "value" }]).len > 0);
+    assert(config::init(schema, store, [config::Alias { "old", "bad..key" }]).len > 0);
+    assert(config::init(schema, store, [config::Alias { "a\0b", "value" }]).len > 0);
+    assert(config::init(schema, store, [config::Alias { "old", "a\0b" }]).len > 0);
+    var bad: u8[>..] = []; bad.push(0xff);
+    assert(config::init(schema, store, [config::Alias { bad, "value" }]).len > 0);
+    let value, error = config::get_integer(store, key[..config::MAX_KEY_BYTES]); assert(error.len == 0 && value == 42);
+}
+fn native_alias() {
+    var store = config::Store { .. };
+    let schema = [config::Field { "value", config::Kind.Integer }];
+    assert(config::init(schema, store, [config::Alias { "legacy", "value" }]).len == 0);
+    assert(config::apply_env(store, [config::Binding { "legacy", "GOOSE_CONFIG_TEST_NUMBER" }]).len == 0);
+    let value, error = config::get_integer(store, "legacy"); assert(error.len == 0 && value == -9);
+    let source, issue = config::source(store, "value"); assert(issue.len == 0 && source == "GOOSE_CONFIG_TEST_NUMBER");
+    print("native alias environment test passed");
 }

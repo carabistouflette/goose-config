@@ -34,7 +34,8 @@ fn layer_problem(layer: Layer&) -> u8[>..] {
 // Fresh schema and source snapshots are replayed in caller order. Validation
 // precedes publication; removal of a source/key exposes only lower layers.
 // Nothing in Layer is retained. Input slices may borrow the old store.
-fn reload(schema: Field[:], layers: Layer[:], store: Store&, aliases: const Alias[:] = []) -> u8[>..] {
+fn reload(schema: Field[:], layers: Layer[:], store: Store&) -> u8[>..] { reload(schema, layers, store, []) }
+fn reload(schema: Field[:], layers: Layer[:], store: Store&, aliases: const Alias[:]) -> u8[>..] {
     if layers.len > MAX_LAYERS { return problem("too many configuration layers"); }
     var next = Store { .. };
     var error = init(schema, next, aliases);

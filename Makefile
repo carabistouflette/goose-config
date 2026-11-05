@@ -23,6 +23,7 @@ check:
 	$(GOOSE) check bench/updates.goose
 	$(GOOSE) check bench/memory.goose
 	$(GOOSE) check bench/durations.goose
+	$(GOOSE) check bench/aliases.goose
 test: integration
 	python3 tests/benchmark_duration.py
 	python3 tests/benchmark_measure.py
@@ -37,7 +38,7 @@ test: integration
 		$(GOOSE) build tests/$$name.goose -o .build/$$name; ./.build/$$name; \
 		$(GOOSE) build tests/$$name.goose --debug --no-bce -o .build/$$name-debug; ./.build/$$name-debug; \
 	done
-	python3 tests/bindings.py .build/bindings .build/bindings-debug .build/reload .build/reload-debug .build/durations .build/durations-debug
+	python3 tests/bindings.py .build/bindings .build/bindings-debug .build/reload .build/reload-debug .build/durations .build/durations-debug .build/aliases .build/aliases-debug
 	$(GOOSE) run examples/durations.goose
 	$(GOOSE) run examples/settings.goose
 	python3 tests/examples.py $(GOOSE)
@@ -73,7 +74,7 @@ sanitize: sanitizer-config
 		$(GOOSE) build tests/$$name.goose --standalone --debug --no-bce --cc ./scripts/sanitizer-cc.sh -o .build/$$name-sanitized; \
 		./.build/$$name-sanitized; \
 	done
-	python3 tests/bindings.py .build/bindings-sanitized .build/reload-sanitized .build/durations-sanitized
+	python3 tests/bindings.py .build/bindings-sanitized .build/reload-sanitized .build/durations-sanitized .build/aliases-sanitized
 	$(GOOSE) build tests/property.goose --standalone --debug --no-bce --cc ./scripts/sanitizer-cc.sh -o .build/property-sanitized
 	python3 tests/property.py .build/property-sanitized
 	$(GOOSE) build tests/security.goose --standalone --debug --no-bce --cc ./scripts/sanitizer-cc.sh -o .build/security-sanitized
@@ -90,7 +91,7 @@ release:
 		$(GOOSE) build tests/$$name.goose --cc $(RELEASE_CC) -O2 -o .build/release/$$name; \
 		./.build/release/$$name; \
 	done
-	python3 tests/bindings.py .build/release/bindings .build/release/reload .build/release/durations
+	python3 tests/bindings.py .build/release/bindings .build/release/reload .build/release/durations .build/release/aliases
 	$(GOOSE) build tests/property.goose --cc $(RELEASE_CC) -O2 -o .build/release/property
 	python3 tests/property.py .build/release/property
 	$(GOOSE) build tests/security.goose --cc $(RELEASE_CC) -O2 -o .build/release/security

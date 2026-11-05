@@ -15,6 +15,7 @@ Optional imports: `config.toml`, `config.json_layer`, `config.bindings`,
 - `Override { key, value, source }`: each field is `const u8[:]`.
 - `ListOverride { key, values, source }`: key/source are `const u8[:]`;
   values is `const (const u8[:])[:]`.
+- `Alias { key, target }`: bounded direct mapping to a canonical schema field.
 - `Store`: construct as `Store { .. }`; all fields/layout are internal.
 - `Binding { key, name, separator="," }`: fields are `const u8[:]`.
 - `EnvValue { name, value }`: fields are `const u8[:]`.
@@ -31,6 +32,7 @@ including slice qualifiers and argument order, define the supported surface.
 
 ```text
 init(schema: Field[:], store: Store&) -> error
+init(schema: Field[:], store: Store&, aliases: const Alias[:]) -> error
 apply(store: Store&, inputs: Override[:]) -> error
 apply_lists(store: Store&, inputs: ListOverride[:]) -> error
 validate(store: Store&) -> error
@@ -52,6 +54,7 @@ apply_env(store: Store&, bindings: Binding[:]) -> error
 apply_env_values(store: Store&, bindings: Binding[:], values: EnvValue[:]) -> error
 apply_cli(store: Store&, bindings: Binding[:], args: const u8[:][:]) -> error
 reload(schema: Field[:], layers: Layer[:], store: Store&) -> error
+reload(schema: Field[:], layers: Layer[:], store: Store&, aliases: const Alias[:]) -> error
 ```
 
 Discard getter values on error. Scalar Text/source borrow the store; lists are
@@ -70,7 +73,7 @@ wording, ordering and positions are not stable APIs.
 
 ## Limits and source rules
 
-Supported constants: MAX_FIELDS=256, MAX_KEY_BYTES=256, MAX_VALUE_BYTES=4096,
+Supported constants: MAX_ALIASES=256, MAX_FIELDS=256, MAX_KEY_BYTES=256, MAX_VALUE_BYTES=4096,
 MAX_SOURCE_BYTES=256, MAX_NUMBER_BYTES=128, MAX_LIST_ITEMS=256,
 MAX_DURATION_BYTES=128, MAX_CLI_ARGUMENTS=512, MAX_LAYERS=32, JSON_MAX_INPUT_BYTES=1048576,
 JSON_MAX_DEPTH=64 (including root), JSON_MAX_NODES=65536, JSON_MAX_WORK=16777216.
@@ -102,3 +105,5 @@ storage/layout/algorithm/timing behavior. `publish_store` requires distinct
 stores and is not a public clone API.
 
 Duration grammar, exact fractional truncation and layer rules: [duration settings](durations.md).
+
+[Alias identity and reload contracts](aliases.md) apply to every input layer and getter.

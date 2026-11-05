@@ -74,6 +74,9 @@ currently target a Linux development environment.
 
 ## API
 
+[Key aliases](docs/aliases.md) support declared setting renames across every
+input layer and getter, with canonical duplicate detection and atomic failures.
+
 [Duration settings](docs/durations.md) add typed nanoseconds and lists, checked
 compound-unit parsing, and consistent JSON/TOML/env/CLI/reload validation.
 See the [runnable example](examples/durations.goose).
