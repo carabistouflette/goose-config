@@ -4,6 +4,7 @@ RELEASE_CC ?= gcc
 SANITIZER_OPT ?= -O2
 export SANITIZER_OPT
 TESTS = config behavior toml overloads index ownership schema lists toml-lists json-layer bindings reload durations aliases typed-settings generated-bindings
+TEST_BIN_DIR = .build/test-bin
 SOURCES = config.goose toml.goose vendor.goose json_layer.goose bindings.goose reload.goose typed.goose
 
 .PHONY: setup format check test integration property security sanitize sanitizer-config release conformance bench worker generated generated-check typed-limit
@@ -56,13 +57,13 @@ test: integration
 	python3 tests/benchmark_startup.py
 	python3 tests/provenance.py
 	python3 tests/worker_harness.py
-	mkdir -p .build
+	mkdir -p $(TEST_BIN_DIR)
 	@set -e; for name in $(TESTS); do \
 		$(GOOSE) run tests/$$name.goose; \
-		$(GOOSE) build tests/$$name.goose -o .build/$$name; ./.build/$$name; \
-		$(GOOSE) build tests/$$name.goose --debug --no-bce -o .build/$$name-debug; ./.build/$$name-debug; \
+		$(GOOSE) build tests/$$name.goose -o $(TEST_BIN_DIR)/$$name; ./$(TEST_BIN_DIR)/$$name; \
+		$(GOOSE) build tests/$$name.goose --debug --no-bce -o $(TEST_BIN_DIR)/$$name-debug; ./$(TEST_BIN_DIR)/$$name-debug; \
 	done
-	python3 tests/bindings.py .build/bindings .build/bindings-debug .build/reload .build/reload-debug .build/durations .build/durations-debug .build/aliases .build/aliases-debug
+	python3 tests/bindings.py $(TEST_BIN_DIR)/bindings $(TEST_BIN_DIR)/bindings-debug $(TEST_BIN_DIR)/reload $(TEST_BIN_DIR)/reload-debug $(TEST_BIN_DIR)/durations $(TEST_BIN_DIR)/durations-debug $(TEST_BIN_DIR)/aliases $(TEST_BIN_DIR)/aliases-debug
 	$(GOOSE) run examples/durations.goose
 	$(GOOSE) run examples/settings.goose
 	python3 tests/examples.py $(GOOSE)
